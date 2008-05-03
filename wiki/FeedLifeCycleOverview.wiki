@@ -1,4 +1,4 @@
-#summary Brief overview of the feed file life cycle
+#summary Overview of the feed file life cycle
 
 = Feed File Life Cycle =
 
