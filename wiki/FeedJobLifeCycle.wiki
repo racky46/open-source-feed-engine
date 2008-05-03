@@ -1,6 +1,7 @@
 #summary Overview of feed job life cycle
 
 = Feed Job Life Cycle = 
+
 The processing of a feed file within the feed file life cycle is defined as a feed job.  The processing of a feed file must take place within a feed job.  It is possible that a feed file may not be successfully completed during the processing of a given feed job.  Thus, a given feed file may be associated to more than one feed job during a given feed file life cycle.
 
 = Feed Job Life Cycle State Diagram =
