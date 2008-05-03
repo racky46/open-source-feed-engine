@@ -5,3 +5,5 @@
 The feed engine defines a complete life cycle for processing a feed file from its' beginning to either its' successful completion, failure or rejection from the feed process.
 
 = Feed File Life Cycle State Diagram =
+
+http://www.com.qagen/images/feedFileLifeCycle.jpg
