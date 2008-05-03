@@ -6,4 +6,4 @@ The feed engine defines a complete life cycle for processing a feed file from it
 
 = Feed File Life Cycle State Diagram =
 
- http://www.com.qagen/images/feedFileLifeCycle.jpg
+ http://www.qagen.com/images/feedFileLifeCycle.jpg
