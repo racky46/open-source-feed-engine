@@ -1,0 +1,9 @@
+#summary Overview of feed processing life cycle
+
+= Feed Processing Life Cycle =
+
+The feed processing life cycle is the defined as the feed job or feed jobs included within a completed feed life cycle that either processes the given feed file to successful completion or permanently rejects the feed file as a feed that cannot not be successfully completed.
+
+= Feed Processing Life Cycle State Diagram =
+
+The diagram defines the combined states of the feed file and feed a given feed job during the feed file life cycle.
