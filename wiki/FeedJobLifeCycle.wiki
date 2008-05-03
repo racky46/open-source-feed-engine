@@ -6,7 +6,7 @@ The processing of a feed file within the feed file life cycle is defined as a fe
 
 = Feed Job Life Cycle State Diagram =
 
- http://www.qagen.com/images/feedProcessingLifeCycle.jpg
+ http://www.qagen.com/images/feedJobLifeCycle.jpg.jpg
 
 = Feed Job Life Cycle States =
 
