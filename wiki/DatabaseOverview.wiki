@@ -1,4 +1,4 @@
-#summary Feed Engine Database Overview
+#summary Overview of feed engine database
 
 = Feed Engine Database = 
 
