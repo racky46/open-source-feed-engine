@@ -1,6 +1,5 @@
-#summary One-sentence summary of this page.
+#summary Feed engine life cycle example scenario I
 
-Feed Engine Life Cycle Scenario Examples
 = Scenario 1 =
  # OSFE starts processing the feed file.
  # OSFE fails the feed file.
@@ -9,29 +8,9 @@ Feed Engine Life Cycle Scenario Examples
  # OSFE fails the feed file.
  # Feed is moved to a rejected state.
 
-Sequence
-Feed File Id
-Feed Job Id
-Feed File State
-Feed Job State
-Feed File Directory
-
-
-
-
-
-/incoming
-1
-10001
-20001
-processing
-active
-/workarea
-2
-10001
-20001
-failed
-failed
+|| *Sequence* || *Feed File Id* || *Feed Job Id* || *Feed File State* || *Feed Job State* || *Feed File Directory* ||
+|| incoming || 1 || 10001 || 20001 || processing || active || 
+|| workarea || 2 || 10001 || 20001 || failed || failed || 
 /failed
 3
 10001
