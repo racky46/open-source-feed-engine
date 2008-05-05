@@ -13,4 +13,4 @@ The diagram defines the combined states of the feed file and feed a given feed j
 = Example Processing Life Cycle Scenarios = 
 
  # [http://code.google.com/p/open-source-feed-engine/wiki/FeedEngineLifeCycleExampleI Scenario I]  - a feed file is failed twice and then rejected.
- # Scenario II - a feed file is successfully completed. 
+ # [http://code.google.com/p/open-source-feed-engine/wiki/FeedEngineLifeCycleExampleII Scenario II] - a feed file is successfully completed. 
