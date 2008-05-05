@@ -4,7 +4,7 @@
 
 The sections defines each database table in detail.
 
- * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedType t_feed_type]
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedType t_feed_type] - defines unique feed types.
  * t_data_source
  * t_feed_direction
  * t_feed_protocol
