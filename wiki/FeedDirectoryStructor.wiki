@@ -17,3 +17,16 @@ The following table describes the OSFE inbound directory structure.
 || rejected || Where feeds are moved to when they fail and are rejected. ||
 || temp || Where temporary files are built and destroyed during feed processing. ||
 || workarea || Where the feed files are moved when they are being processed. ||
+
+= Outbound Feed Directory Structure =
+
+The following table describes the OSFE outbound directory structure.
+
+|| *Name* || *Description* || 
+|| archive || Where feeds may be moved once removed from outgoing. ||
+|| failed || Where feeds are moved to when a feed fails to be created successfully. || 
+|| outgoing || Where outbound feeds should be moved to once ready for processing. ||
+|| postprocess || Where feeds are prepared for outgoing (i.e. zipping a feed file). ||
+|| rejected || Where feeds are moved to when they fail and are rejected. ||
+|| temp || Where temporary files are built and destroyed during feed creation. ||
+|| workarea || Where the feed files are moved when they are being created. ||
