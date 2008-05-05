@@ -1,6 +1,6 @@
 #summary Feed engine life cycle example scenario I
 
-= Scenario 1 =
+= Scenario I =
  # OSFE starts processing the feed file.
  # OSFE fails the feed file.
  # Feed is moved to a retry state.
