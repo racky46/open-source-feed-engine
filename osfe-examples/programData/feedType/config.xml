@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+  <table name="t_feed_type">
+    <columns>
+      <column name="feed_type_id" isString="true"/>
+      <column name="description" isString="true"/>
+    </columns>
+    <rows>
+      <row>
+        <feed_type_id>test</feed_type_id>
+        <description>Feeds that contain course information</description>
+      </row>
+      <row>
+        <feed_type_id>student</feed_type_id>
+        <description>Feeds that contain student demographic information</description>
+      </row>
+      <row>
+        <feed_type_id>product</feed_type_id>
+        <description>Merchant specific product feeds</description>
+      </row>
+    </rows>
+  </table>
+</dataset>

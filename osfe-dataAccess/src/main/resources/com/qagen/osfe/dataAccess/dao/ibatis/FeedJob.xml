@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedJob">
+
+  <typeAlias alias="FeedJob" type="com.qagen.osfe.dataAccess.vo.FeedJob"/>
+
+  <resultMap id="resultMap" class="FeedJob">
+    <result property="feedJobId" column="feed_job_id"/>
+    <result property="processingStart" column="processing_start"/>
+    <result property="processingEnd" column="processing_end"/>
+    <result property="failedRowNumber" column="failed_row_number"/>
+    <result property="failureCode" column="failure_code"/>
+    <result property="failureMessage" column="failure_message"/>
+    <result property="feedJobState" column="feed_job_state_id" select="FeedJobState.findByPrimaryId"/>
+    <result property="feedFile" column="feed_file_id" select="FeedFile.findByPrimaryId"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedJob">
+    insert into t_feed_job (
+      processing_start,
+      processing_end,
+      failed_row_number,
+      failure_code,
+      failure_message,
+      feed_job_state_id,
+      feed_file_id
+    ) values (
+      #processingStart#,
+      #processingEnd#,
+      #failedRowNumber#,
+      #failureCode#,
+      #failureMessage#,
+      #feedJobState.feedJobStateId#,
+      #feedFile.feedFileId#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedJobId">
+      select @@identity as feed_job_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedJob">
+    update t_feed_job set
+      processing_start = #processingStart#,
+      processing_end = #processingEnd#,
+      failed_row_number = #failedRowNumber#,
+      failure_code = #failureCode#,
+      failure_message = #failureMessage#,
+      feed_job_state_id = #feedJobState.feedJobStateId#,
+      feed_file_id = #feedFile.feedFileId#
+    where feed_job_id = #feedJobId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedJob">
+    delete from  t_feed_job where feed_job_id = #feedJobId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="int" resultMap="FeedJob.resultMap">
+    select * from t_feed_job where feed_job_id = #value#
+  </select>
+
+  <select id="findByFeedJobStateId" parameterClass="string" resultMap="FeedJob.resultMap">
+    select * from t_feed_job where feed_job_state_id = #value#
+  </select>
+
+  <select id="findByFeedFileId" parameterClass="int" resultMap="FeedJob.resultMap">
+    select * from t_feed_job where feed_file_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedJob.resultMap">
+    select * from t_feed_job
+  </select>
+
+</sqlMap>

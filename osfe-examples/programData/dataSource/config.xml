@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+  <table name="t_data_source">
+    <columns>
+      <column name="data_source_id" isString="true"/>
+      <column name="description" isString="true"/>
+    </columns>
+    <rows>
+      <row>
+        <data_source_id>acme</data_source_id>
+        <description>Acme is a test data source</description>
+      </row>
+      <row>
+        <data_source_id>qagen</data_source_id>
+        <description>QAGen Testing Organization</description>
+      </row>
+    </rows>
+  </table>
+</dataset>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedQueue">
+
+  <typeAlias alias="MonitorQueue" type="com.qagen.osfe.dataAccess.param.MonitorQueueParam"/>
+  <typeAlias alias="FeedQueue" type="com.qagen.osfe.dataAccess.vo.FeedQueue"/>
+
+  <resultMap id="resultMap" class="FeedQueue">
+    <result property="feedQueueId" column="feed_queue_id"/>
+    <result property="queueId" column="queue_id"/>
+    <result property="monitorId" column="monitor_id"/>
+    <result property="entryTime" column="entry_time"/>
+    <result property="feedFileName" column="feed_file_name"/>
+    <result property="feed" column="feed_id"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedQueue">
+    insert into t_feed_queue (
+      queue_id,
+      monitor_id,
+      entry_time,
+      feed_file_name,
+      feed_id
+    ) values (
+      #queueId#,
+      #monitorId#,
+      #entryTime#,
+      #feedFileName#,
+      #feed.feedId#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedQueueId">
+      select @@identity as feed_queue_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedQueue">
+    update t_feed_queue set
+      queue_id = #queueId#,
+      monitor_id = #monitorId#,
+      feed_queue_id = #feedQueueId#,
+      entry_time = #entryTime#,
+      feed_file_name = #feedFileName#,
+      feed_id = #feed.feedId#
+    where feed_queue_id = #feedQueueId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedQueue">
+    delete from t_feed_queue where feed_queue_id = #feedQueueId#
+  </delete>
+
+  <delete id="deleteAll" parameterClass="int">
+    delete from t_feed_queue where monitor_id = #value#
+  </delete>
+
+  <delete id="deleteByMonitorIdQueueId" parameterClass="MonitorQueue">
+    delete from t_feed_queue
+    where monitor_id = #monitorId#
+    and queue_id = #queueId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="int" resultMap="FeedQueue.resultMap">
+    select * from t_feed_queue where feed_queue_id = #value#
+  </select>
+
+  <select id="findByMonitorIdQueueId" parameterClass="MonitorQueue" resultMap="FeedQueue.resultMap">
+    select * from t_feed_queue
+    where monitorId = #monitorId#
+    and queue_id = #queueId#
+  </select>
+
+  <select id="findAll" parameterClass="int" resultMap="FeedQueue.resultMap">
+    select * from t_feed_queue where monitor_id = #value#
+  </select>
+
+</sqlMap>

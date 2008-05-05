@@ -1,0 +1,128 @@
+<?xml version="1.0" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/feeddb"/>
+    <property name="username" value="root"/>
+    <property name="password" value="admin"/>
+    <property name="testOnBorrow" value="true"/>
+    <property name="initialSize" value="10"/>
+    <property name="maxActive" value="100"/>
+    <property name="minIdle" value="10"/>
+    <property name="maxIdle" value="10"/>
+  </bean>
+
+  <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+    <property name="configLocation">
+      <value>classpath:SqlMapConfig.xml</value>
+    </property>
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+  </bean>
+
+  <!-- DAO Section -->
+
+  <bean id="checkPointDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapCheckPointDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="dataSourceDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapDataSourceDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedFileDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedFileDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedGroupDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedGroupDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedJobDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedJobDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedJobStateDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedJobStateDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedMappedQueueDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedQueueDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedProtocolDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedProtocolDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedTypeDAO" class="com.qagen.feedEngine.dataAccess.dao.ibatis.SqlMapFeedTypeDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <!-- Services -->
+
+  <bean id="checkpointService" class="com.qagen.feedEngine.dataAccess.service.impl.CheckpointServiceImpl">
+    <property name="checkPointDAO" ref="checkPointDAO"/>
+  </bean>
+
+  <bean id="dataSourceService" class="com.qagen.feedEngine.dataAccess.service.impl.DataSourceServiceImpl">
+    <property name="dataSourceDAO" ref="dataSourceDAO"/>
+  </bean>
+
+  <bean id="feedService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedServiceImpl">
+    <property name="feedDAO" ref="feedDAO"/>
+  </bean>
+
+  <bean id="feedFileService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedFileServiceImpl">
+    <property name="feedFileDAO" ref="feedFileDAO"/>
+  </bean>
+
+  <bean id="feedGroupService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedGroupServiceImpl">
+    <property name="feedGroupDAO" ref="feedGroupDAO"/>
+  </bean>
+
+  <bean id="feedJobManagerService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedJobManangerServiceImpl">
+    <property name="feedJobDAO" ref="feedJobDAO"/>
+    <property name="feedFileDAO" ref="feedFileDAO"/>
+  </bean>
+
+  <bean id="feedJobService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedJobServiceImpl">
+    <property name="feedJobDAO" ref="feedJobDAO"/>
+  </bean>
+
+  <bean id="feedJobStateService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedJobStateServiceImpl">
+    <property name="feedJobStateDAO" ref="feedJobStateDAO"/>
+  </bean>
+
+  <bean id="feedMappedQueueService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedQueueServiceImpl">
+    <property name="feedMappedQueueDAO" ref="feedMappedQueueDAO"/>
+  </bean>
+
+  <bean id="feedProtocolService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedProtocolServiceImpl">
+    <property name="feedProtocolDAO" ref="feedProtocolDAO"/>
+  </bean>
+
+  <bean id="feedTypeService" class="com.qagen.feedEngine.dataAccess.service.impl.FeedTypeServiceImpl">
+    <property name="feedTypeDAO" ref="feedTypeDAO"/>
+  </bean>
+
+</beans>

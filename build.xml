@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<project name="osfe-package" basedir="." default="package.src">
+
+  <target name="init">
+    <mkdir dir="target" />
+  </target>
+
+  <target name="package.src" depends="init">
+    <tar destfile="target/osfe-src.tar">
+      <tarfileset dir="osfe-common/src">
+        <include name="**/*" />
+      </tarfileset>
+      <tarfileset dir="osfe-core/src">
+        <include name="**/*" />
+      </tarfileset>
+      <tarfileset dir="osfe-dataAccess/src">
+        <include name="**/*" />
+      </tarfileset>
+      <tarfileset dir="osfe-engine/src">
+        <include name="**/*" />
+      </tarfileset>
+      <tarfileset dir="osfe-examples/src">
+        <include name="**/*" />
+      </tarfileset>
+    </tar>
+    <gzip src="target/osfe-src.tar" destfile="target/osfe-src.tar.gz" />
+    <delete file="target/osfe-src.tar"/>    
+  </target>
+
+</project>

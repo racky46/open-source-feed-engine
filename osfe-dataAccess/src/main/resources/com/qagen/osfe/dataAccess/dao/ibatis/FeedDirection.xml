@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedDirection">
+
+  <typeAlias alias="FeedDirection" type="com.qagen.osfe.dataAccess.vo.FeedDirection"/>
+
+  <resultMap id="resultMap" class="FeedDirection">
+    <result property="feedDirectionId" column="feed_direction_id"/>
+    <result property="description" column="description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedDirection">
+    insert into t_feed_direction (
+      feed_direction_id,
+      description
+    ) values (
+      #feedDirectionId#,
+      #description#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedDirection">
+    update t_feed_direction set
+      description = #description#
+    where feed_direction_id = #feedDirectionId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedDirection">
+    delete from t_feed_direction where feed_direction_id = #feedDirectionId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedDirection.resultMap">
+    select * from t_feed_direction where feed_direction_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedDirection.resultMap">
+    select * from t_feed_direction
+  </select>
+
+</sqlMap>

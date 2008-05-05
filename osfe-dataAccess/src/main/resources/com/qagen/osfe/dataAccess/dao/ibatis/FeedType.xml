@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedType">
+
+  <typeAlias alias="FeedType" type="com.qagen.osfe.dataAccess.vo.FeedType"/>
+
+  <resultMap id="resultMap" class="FeedType">
+    <result property="feedTypeId" column="feed_type_id"/>
+    <result property="description" column="description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedType">
+    insert into t_feed_type (
+      feed_type_id,
+      description
+    ) values (
+      #feedTypeId#,
+      #description#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedType">
+    update t_feed_type set
+      feed_type_id = #feedTypeId#,
+      description = #description#
+    where feed_type_id = #feedTypeId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedType">
+    delete from t_feed_type where feed_type_id = #feedTypeId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedType.resultMap">
+    select * from t_feed_type where feed_type_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedType.resultMap">
+    select * from t_feed_type
+  </select>
+
+</sqlMap>

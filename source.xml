@@ -1,0 +1,21 @@
+<assembly>
+  <id>src</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>com.qagen.osfe:osfe-common</include>
+        <include>com.qagen.osfe:osfe-core</include>
+        <include>com.qagen.osfe:osfe-dataAccess</include>
+        <include>com.qagen.osfe:osfe-engine</include>
+        <include>com.qagen.osfe:osfe-examples</include>
+      </includes>
+      <sources>
+        <outputDirectory>src</outputDirectory>
+      </sources>
+    </moduleSet>
+  </moduleSets>
+</assembly>

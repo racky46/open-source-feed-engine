@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project>
+  <parent>
+    <artifactId>osfe</artifactId>
+    <groupId>com.qagen.osfe</groupId>
+    <version>1.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.qagen.osfe</groupId>
+  <artifactId>osfe-core</artifactId>
+  <name>osfe-core</name>
+  <version>1.0</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.qagen.osfe</groupId>
+      <artifactId>osfe-dataAccess</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</project>
