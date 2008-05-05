@@ -18,6 +18,7 @@ The following table describes the OSFE inbound directory structure.
 || temp || Where temporary files are built and destroyed during feed processing. ||
 || workarea || Where the feed files are moved when they are being processed. ||
 
+
 = Outbound Feed Directory Structure =
 
 The following table describes the OSFE outbound directory structure.
