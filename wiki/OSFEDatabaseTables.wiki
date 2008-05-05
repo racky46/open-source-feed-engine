@@ -1,7 +1,19 @@
 #summary Overview of OFSE database tables
 
-= OSFE Database Table Definitions =
+= Feed Engine Database Table Definitions =
 
 The sections defines each database table in detail.
 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedType t_feed_type]
+ * t_data_source
+ * t_feed_direction
+ * t_feed_protocol
+ * t_feed
+ * t_feed_group
+ * t_feed_file_state
+ * t_feed_file
+ * t_feed_job_state
+ * t_feed_job
+ * t_check_point
+ * t_feed_queue
+ * t_error_log
