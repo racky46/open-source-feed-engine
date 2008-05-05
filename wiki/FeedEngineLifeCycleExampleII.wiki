@@ -1,6 +1,6 @@
 #summary Feed engine life cycle example scenario II
 
-= Scenario 1 =
+= Scenario II =
  # OSFE starts processing the feed file.
  # OSFE successfully completes processing the feed. 
 
