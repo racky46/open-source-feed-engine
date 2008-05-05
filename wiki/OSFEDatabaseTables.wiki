@@ -4,4 +4,4 @@
 
 The sections defines each database table in detail.
 
- * t_feed_type
+ * [ t_feed_type]
