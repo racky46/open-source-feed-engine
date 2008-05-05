@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedFileState">
+
+  <typeAlias alias="FeedFileState" type="com.qagen.osfe.dataAccess.vo.FeedFileState"/>
+
+  <resultMap id="resultMap" class="FeedFileState">
+    <result property="feedFileStateId" column="feed_file_state_id"/>
+    <result property="description" column="description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedFileState">
+    insert into t_feed_file_state (
+      feed_file_state_id,
+      description
+    ) values (
+      #feedFileStateId#,
+      #description#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedFileState">
+    update t_feed_file_state set
+      description = #description#
+    where feed_file_state_id = #feedFileStateId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedFileState">
+    delete from t_feed_file_state where feed_file_state_id = #feedFileStateId#
+  </delete>
+
+  <select id="findByPrimaryId" resultClass="string" resultMap="FeedFileState.resultMap">
+    select * from t_feed_file_state where feed_file_state_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedFileState.resultMap">
+    select * from t_feed_file_state
+  </select>
+
+</sqlMap>

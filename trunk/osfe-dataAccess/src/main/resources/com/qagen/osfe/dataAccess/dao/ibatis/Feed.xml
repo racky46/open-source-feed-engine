@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Feed">
+
+  <typeAlias alias="Feed" type="com.qagen.osfe.dataAccess.vo.Feed"/>
+
+  <resultMap id="resultMap" class="Feed">
+    <result property="feedId" column="feed_id"/>
+    <result property="activationDate" column="activation_date"/>
+    <result property="terminationDate" column="termination_date"/>
+    <result property="allowConcurrentRuns" column="allow_concurrent_runs"/>
+    <result property="allowFailedStateRuns" column="allow_failed_state_runs"/>
+    <result property="restartAtCheckpoint" column="restart_at_checkpoint"/>
+    <result property="lastSequenceNumber" column="last_sequence_number"/>
+    <result property="maxConcurrentRuns" column="max_concurrent_runs"/>
+    <result property="queueId" column="queue_id"/>
+    <result property="feedDirectory" column="feed_directory"/>
+    <result property="feedDocument" column="feed_document"/>
+    <result property="fromDataSource" column="from_data_source_id" select="DataSource.findByPrimaryId"/>
+    <result property="toDataSource" column="to_data_source_id" select="DataSource.findByPrimaryId"/>
+    <result property="feedType" column="feed_type_id" select="FeedType.findByPrimaryId"/>
+    <result property="feedProtocol" column="feed_protocol_id" select="FeedProtocol.findByPrimaryId"/>
+    <result property="feedDirection" column="feed_direction_id" select="FeedDirection.findByPrimaryId"/>
+    <result property="feedGroup" column="feed_group_id" select="FeedGroup.findByPrimaryId"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="Feed">
+    insert into t_feed (
+      feed_id,
+      activation_date,
+      termination_date,
+      allow_concurrent_runs,
+      allow_failed_state_runs,
+      restart_at_checkpoint,
+      last_sequence_number,
+      max_concurrent_runs,
+      queue_id,
+      feed_directory,
+      feed_document,
+      from_data_source_id,
+      to_data_source_id,
+      feed_type_id,
+      feed_protocol_id,
+      feed_sequence_type_id,
+      feed_direction_id,
+      feed_group_id
+    ) values (
+      #feedId#,
+      #activationDate#,
+      #terminationDate#,
+      #allowConcurrentRuns#,
+      #allowFailedStateRuns#,
+      #restartAtCheckpoint#,
+      #lastSequenceNumber#,
+      #maxConcurrentRuns#,
+      #queueId#,
+      #feedDirectory#,
+      #feedDocument#,
+      #fromDataSource.dataSourceId#,
+      #toDataSource.dataSourceId#,
+      #feedType.feedTypeId#,
+      #feedProtocol.feedProtocolId#,
+      #feedDirection.feedDirectionId#,
+      #feedGroup.feedGroupId#
+    )
+  </insert>
+
+  <update id="update" parameterClass="Feed">
+    update t_feed set
+      feed_id = #feedId#,
+      activation_date = #activationDate#,
+      termination_date = #terminationDate#,
+      allow_concurrent_runs = #allowConcurrentRuns#,
+      allow_failed_state_runs = #allowFailedStateRuns#,
+      restart_at_checkpoint = #restartAtCheckpoint#,
+      last_sequence_number = #lastSequenceNumber#,
+      max_concurrent_runs = #maxConcurrentRuns#,
+      queue_id = #queueId#,
+      feed_directory = #feedDirectory#,
+      feed_document = #feedDocument#,
+      from_data_source_id = #fromDataSource.dataSourceId#,
+      to_data_source_id = #toDataSource.dataSourceId#,
+      feed_type_id = #feedType.feedTypeId#,
+      feed_protocol_id = #feedProtocol.feedProtocolId#,
+      feed_direction_id = #feedDirection.feedDirectionId#,
+      feed_group_id = #feedGroup.feedGroupId#
+    where feed_id = #feedId#
+  </update>
+
+  <delete id="delete" parameterClass="Feed">
+    delete from t_feed where feed_id = #feedId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="Feed.resultMap">
+    select * from t_feed where feed_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="Feed.resultMap">
+    select * from t_feed
+  </select>
+  
+</sqlMap>

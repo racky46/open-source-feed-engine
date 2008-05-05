@@ -1,0 +1,13 @@
+To install database using ant you must have ant already installed.
+If you do not then visit http://ant.apache.org/.
+
+change into install/database/scripts and execute the following command
+
+ant -buildfile DBLoader.xml
+
+To install database using Groovy you must have Groovy already installed.
+If you do not then visit http://groovy.codehaus.org/.
+
+change into install/database/scripts and execute the following command
+
+groovy DBLoader.groovy

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL MAP Config 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+  <settings useStatementNamespaces="true"/>
+
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/DataSource.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedType.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedProtocol.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedFileState.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedJobState.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/Feed.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedFile.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedJob.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedDirection.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedQueue.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/FeedGroup.xml"/>
+  <sqlMap resource="com/qagen/feedEngine/dataAccess/dao/ibatis/Checkpoint.xml"/>
+
+</sqlMapConfig>

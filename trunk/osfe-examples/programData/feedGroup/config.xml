@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+  <table name="t_feed_group">
+    <columns>
+      <column name="feed_group_id" isString="true"/>
+      <column name="allow_concurrent_runs" isString="true"/>
+      <column name="allow_failed_state_runs" isString="true"/>
+    </columns>
+    <rows>
+      <row>
+        <feed_group_id>test_group</feed_group_id>
+        <allow_concurrent_runs>true</allow_concurrent_runs>
+        <allow_failed_state_runs>true</allow_failed_state_runs>
+      </row>
+      <row>
+        <feed_group_id>student_group</feed_group_id>
+        <allow_concurrent_runs>true</allow_concurrent_runs>
+        <allow_failed_state_runs>true</allow_failed_state_runs>
+      </row>
+      <row>
+        <feed_group_id>product_group</feed_group_id>
+        <allow_concurrent_runs>true</allow_concurrent_runs>
+        <allow_failed_state_runs>true</allow_failed_state_runs>
+      </row>
+    </rows>
+  </table>
+</dataset>

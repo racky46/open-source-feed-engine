@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedGroup">
+
+  <typeAlias alias="FeedGroup" type="com.qagen.osfe.dataAccess.vo.FeedGroup"/>
+
+  <resultMap id="resultMap" class="FeedGroup">
+    <result property="feedGroupId" column="feed_group_id"/>
+    <result property="allowConcurrentRuns" column="allow_concurrent_runs"/>
+    <result property="allowFailedStateRuns" column="allow_failed_state_runs"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedGroup">
+    insert into
+    t_feed_group (
+      feed_group_id,
+      allow_concurrent_runs,
+      allow_failed_state_runs
+    ) values (
+      #feedGroupId#,
+      #allowConcurrentRuns#,
+      #allowFailedStateRuns#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedGroup">
+    update t_feed_group set
+      feed_group_id = #feedGroupId#,
+      allow_concurrent_runs = #allowConcurrentRuns#,
+      allow_failed_state_runs = #allowFailedStateRuns#
+    where feed_group_id = #feedGroupId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedGroup">
+    delete from t_feed_group where feed_group_id = #feedGroupId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedGroup.resultMap">
+    select * from t_feed_group where feed_group_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedGroup.resultMap">
+    select * from t_feed_group
+  </select>
+
+</sqlMap>
