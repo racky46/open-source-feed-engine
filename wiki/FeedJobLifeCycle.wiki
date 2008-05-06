@@ -19,7 +19,7 @@ During a feed job life cycle, a feed job may transition between one of four stat
 
 = active =
 
-The 'active' state is the first and initial state of a feed job.  All feed jobs must, by default, state in an 'active' state.
+The 'active' state is the first and initial state of a feed job.  All feed jobs must, by default, start in an 'active' state.
 
 = completed =
 
