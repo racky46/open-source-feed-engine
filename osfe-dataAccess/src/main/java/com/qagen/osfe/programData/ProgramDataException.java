@@ -12,18 +12,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.common.utils;
+package com.qagen.osfe.programData;
 
-import static com.qagen.osfe.common.CommonConstants.OSFE_HOME;
-import static com.qagen.osfe.common.CommonConstants.SLASH;
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * 
+ */
+public class ProgramDataException extends RuntimeException {
 
-public class DirectoryHelper {
+  public ProgramDataException() {
+    super();
+  }
 
-  /**
-   * Returns the feed core's home directory specified in the OSFE_HOME environment variable.<p>
-   * Example: /home/feedEngine/
-   */
-  public static String getHomeDirectory() {
-    return System.getenv(OSFE_HOME) + SLASH;
+  public ProgramDataException(String message) {
+    super(message);
+  }
+
+  public ProgramDataException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public ProgramDataException(Throwable cause) {
+    super(cause);
   }
 }
