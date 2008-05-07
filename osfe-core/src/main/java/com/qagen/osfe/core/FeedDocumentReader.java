@@ -27,7 +27,7 @@ public class FeedDocumentReader  {
     try {
       final String homeDir = DirectoryHelper.getHomeDirectory();
       final SAXReader reader = new SAXReader();
-      return reader.read(homeDir + SLASH + fileName);
+      return reader.read(homeDir + fileName);
     } catch (DocumentException e) {
       throw new CommonException(e);
     }
