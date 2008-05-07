@@ -30,47 +30,47 @@
 
   <phases batchSize="10000">
     <preFeedFilePhases>
-       <phase name="fileNameValidationPhase" enable="true" className="com.acme.phases.FileNameValidationPhase"/>
+       <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
     </preFeedFilePhases>
 
     <preEventPhases>
-      <phase name="footerPhase" enable="true" className="com.acme.phases.FooterPhase"/>
-      <phase name="headerPhase" enable="true" className="com.acme.phases.HeaderPhase"/>
+      <phase name="footerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FooterPhase"/>
+      <phase name="headerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.HeaderPhase"/>
     </preEventPhases>
 
     <batchEventPhases>
-      <phase name="beanPopulatorPhase" enable="true" className="com.acme.phases.BeanPopulatorPhase"/>
-      <phase name="gradingPhase" enable="true" className="com.acme.phases.GradingPhase">
+      <phase name="beanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase"/>
+      <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
         <properties>
           <property name="echoDetail" value="true"/>
         </properties>
       </phase>
-      <phase name="checkpoint" enable="true" className="com.qagen.feedEngine.core.phases.CheckPointPhase"/>
+      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckPointPhase"/>
     </batchEventPhases>
 
     <postEventPhases>
-      <phase name="statsPhase" enable="true" className="com.acme.phases.StatsPhase"/>
+      <phase name="statsPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
     </postEventPhases>
   </phases>
 
   <splitters>
-    <header>com.qagen.feedEngine.core.delimited.DelimitedHeaderSplitter</header>
-    <detail>com.qagen.feedEngine.core.delimited.DelimitedDetailSplitter</detail>
-    <footer>com.qagen.feedEngine.core.delimited.DelimitedFooterSplitter</footer>
+    <header>com.qagen.osfe.core.delimited.DelimitedHeaderSplitter</header>
+    <detail>com.qagen.osfe.core.delimited.DelimitedDetailSplitter</detail>
+    <footer>com.qagen.osfe.core.delimited.DelimitedFooterSplitter</footer>
   </splitters>
 
   <services>
-    <mainService>com.qagen.feedEngine.core.services.StandardFeedLifeCycleService</mainService>
-    <phaseService>com.qagen.feedEngine.core.services.PhaseLoaderService</phaseService>
-    <exceptionService>com.qagen.feedEngine.core.services.ExceptionHandlerPlaceHolder</exceptionService>
+    <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
+    <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
+    <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
   </services>
 
   <configLoaders>
-    <propertyLoader>com.qagen.feedEngine.core.loaders.PropertiesConfigLoader</propertyLoader>
-    <phaseLoader>com.qagen.feedEngine.core.loaders.PhaseConfigLoader</phaseLoader>
-    <serviceLoader>com.qagen.feedEngine.core.loaders.ServiceConfigLoader</serviceLoader>
-    <splitterLoader>com.qagen.feedEngine.core.loaders.SplitterConfigLoader</splitterLoader>
-    <rowDescriptionLoader>com.qagen.feedEngine.core.delimited.DelimitedRowDescriptionLoader</rowDescriptionLoader>
+    <propertyLoader>com.qagen.osfe.core.loaders.PropertiesConfigLoader</propertyLoader>
+    <phaseLoader>com.qagen.osfe.core.loaders.PhaseConfigLoader</phaseLoader>
+    <serviceLoader>com.qagen.osfe.core.loaders.ServiceConfigLoader</serviceLoader>
+    <splitterLoader>com.qagen.osfe.core.loaders.SplitterConfigLoader</splitterLoader>
+    <rowDescriptionLoader>com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader</rowDescriptionLoader>
   </configLoaders>
 
 </feedDocument>
