@@ -23,7 +23,7 @@
         <include name="**/*" />
       </tarfileset>
     </tar>
-    <gzip src="target/osfe-src.tar" destfile="target/osfe-src.tar.gz" />
+    <gzip src="target/osfe-src.tar" destfile="target/osfe-1.0-src.tar.gz" />
     <delete file="target/osfe-src.tar"/>    
   </target>
 
