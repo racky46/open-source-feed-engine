@@ -14,6 +14,10 @@
       <param-name>ActionResolver.Packages</param-name>
       <param-value>com.qagen.osfe.webapp.web.action</param-value>
     </init-param>
+    <init-param>
+      <param-name>Extension.Packages</param-name>
+      <param-value>com.qagen.osfe.webapp.web.context</param-value>
+    </init-param>
   </filter>
 
   <filter-mapping>
