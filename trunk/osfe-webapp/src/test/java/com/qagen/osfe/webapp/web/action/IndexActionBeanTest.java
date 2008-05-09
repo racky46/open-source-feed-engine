@@ -20,9 +20,7 @@ public class IndexActionBeanTest extends BaseActionBeanTest {
 
     MockRoundtrip trip = new MockRoundtrip(context, IndexActionBean.class);
     trip.execute();
-    IndexActionBean indexActionBean = trip.getActionBean(IndexActionBean.class);
-    Assert.assertEquals(trip.getDestination(), "/WEB-INF/jsp/index.jsp");
-
-    
+    //IndexActionBean indexActionBean = trip.getActionBean(IndexActionBean.class);
+    Assert.assertEquals(trip.getDestination(), "/WEB-INF/jsp/index.jsp");    
   }
 }
