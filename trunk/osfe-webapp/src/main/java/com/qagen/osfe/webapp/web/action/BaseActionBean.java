@@ -1,6 +1,8 @@
 package com.qagen.osfe.webapp.web.action;
 
 import net.sourceforge.stripes.action.*;
+import com.qagen.osfe.webapp.web.context.OsfeActionBeanContext;
+import com.qagen.osfe.webapp.web.AbstractActionBeanContext;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,10 +13,13 @@ import net.sourceforge.stripes.action.*;
  */
 public abstract class BaseActionBean implements ActionBean {
 
-  private ActionBeanContext context;
+  public static final String JSP_PATH = "/WEB-INF/jsp/";
+  public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
+
+  private AbstractActionBeanContext context;
 
   public void setContext(ActionBeanContext actionBeanContext) {
-    this.context = actionBeanContext;
+    this.context = (AbstractActionBeanContext)actionBeanContext;
   }
 
   public ActionBeanContext getContext() {

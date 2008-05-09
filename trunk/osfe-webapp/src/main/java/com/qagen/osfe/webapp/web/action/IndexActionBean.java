@@ -14,6 +14,6 @@ public class IndexActionBean extends BaseActionBean {
 
   @Override
   public Resolution display() {
-    return new ForwardResolution("/WEB-INF/jsp/index.jsp");
+    return new ForwardResolution(INDEX_VIEW);
   }
 }
