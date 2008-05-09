@@ -1,15 +1,9 @@
 package com.qagen.osfe.webapp.web.action;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-import org.testng.Assert;
-import net.sourceforge.stripes.mock.MockServletContext;
 import net.sourceforge.stripes.mock.MockRoundtrip;
-import net.sourceforge.stripes.controller.StripesFilter;
-import net.sourceforge.stripes.controller.DispatcherServlet;
-
-import java.util.Map;
-import java.util.HashMap;
+import net.sourceforge.stripes.mock.MockServletContext;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 /**
  * Created by IntelliJ IDEA.
