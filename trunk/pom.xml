@@ -6,7 +6,7 @@
   <artifactId>osfe</artifactId>
   <packaging>pom</packaging>
   <version>1.0</version>
-  <name>Open Source Feed Engine</name>
+  <name>OSFE</name>
   <url>http://code.google.com/p/open-source-feed-engine/</url>
   <dependencies>
     <dependency>
@@ -30,6 +30,7 @@
   </dependencies>
 
   <modules>
+
     <module>osfe-dataAccess</module>
     <module>osfe-engine</module>
     <module>osfe-common</module>
