@@ -14,11 +14,11 @@
  */
 package com.qagen.osfe.dataAccess.dao.ibatis;
 
-import com.qagen.osfe.dataAccess.dao.CheckPointDAO;
+import com.qagen.osfe.dataAccess.dao.CheckpointDAO;
 import com.qagen.osfe.dataAccess.vo.Checkpoint;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
-public class SqlMapCheckPointDAO extends SqlMapClientDaoSupport implements CheckPointDAO {
+public class SqlMapCheckpointDAO extends SqlMapClientDaoSupport implements CheckpointDAO {
 
   public void insert(Checkpoint model) {
     getSqlMapClientTemplate().insert("CheckPoint.insert", model);

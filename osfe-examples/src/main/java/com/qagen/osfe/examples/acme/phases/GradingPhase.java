@@ -26,6 +26,7 @@ import java.util.List;
 
 public class GradingPhase extends Phase {
   private Boolean echoDetail;
+  private Integer delay;
   private GradingStatistics stats;
 
   public GradingPhase(EngineContext context, String name) {
@@ -34,7 +35,7 @@ public class GradingPhase extends Phase {
     stats = new GradingStatistics();
     context.put(AcmeConstants.stats.name(), stats);
 
-    //echoDetail = Boolean.parseBoolean((String) context.get(AcmeConstants.echoDetail.name()));
+    delay = Integer.parseInt((String) context.get(AcmeConstants.delay.name()));
   }
 
   public void setEchoDetail(Boolean echoDetail) {
@@ -46,6 +47,10 @@ public class GradingPhase extends Phase {
 
   @SuppressWarnings("unchecked")
   public void execute() {
+    if (delay > 0) {
+      try { Thread.sleep(1000 * delay); } catch (InterruptedException e) {}
+    }
+
     final List<DetailRow> rows = (List<DetailRow>) context.get(AcmeConstants.detailData.name());
 
     context.resentCurrentRowIndex();

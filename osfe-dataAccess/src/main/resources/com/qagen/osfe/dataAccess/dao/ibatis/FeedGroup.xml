@@ -10,6 +10,7 @@
     <result property="feedGroupId" column="feed_group_id"/>
     <result property="allowConcurrentRuns" column="allow_concurrent_runs"/>
     <result property="allowFailedStateRuns" column="allow_failed_state_runs"/>
+    <result property="collectPhaseStats" column="collect_phase_stats"/>
   </resultMap>
 
   <insert id="insert" parameterClass="FeedGroup">
@@ -17,11 +18,13 @@
     t_feed_group (
       feed_group_id,
       allow_concurrent_runs,
-      allow_failed_state_runs
+      allow_failed_state_runs,
+      collect_phase_stats
     ) values (
       #feedGroupId#,
       #allowConcurrentRuns#,
-      #allowFailedStateRuns#
+      #allowFailedStateRuns#,
+      #collectPhaseStats#
     )
   </insert>
 
@@ -29,7 +32,8 @@
     update t_feed_group set
       feed_group_id = #feedGroupId#,
       allow_concurrent_runs = #allowConcurrentRuns#,
-      allow_failed_state_runs = #allowFailedStateRuns#
+      allow_failed_state_runs = #allowFailedStateRuns#,
+      collect_phase_stats = #collectPhaseStats#
     where feed_group_id = #feedGroupId#
   </update>
 

@@ -18,6 +18,7 @@ import com.qagen.osfe.core.row.RowDescriptionLoader;
 import com.qagen.osfe.dataAccess.vo.Checkpoint;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
+import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
 import org.dom4j.Document;
 
 import java.io.BufferedReader;
@@ -65,6 +66,7 @@ public class EngineContext {
   private Map<String, Object> map;
   private Map<String, Loader> loaderMap;
   private Map<String, EngineService> serviceMap;
+  private Map<String, FeedPhaseStats> phaseStatsMap;
 
   /**
    * Constructor
@@ -331,5 +333,13 @@ public class EngineContext {
 
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
+  }
+
+  public Map<String, FeedPhaseStats> getPhaseStatsMap() {
+    return phaseStatsMap;
+  }
+
+  public void setPhaseStatsMap(Map<String, FeedPhaseStats> phaseStatsMap) {
+    this.phaseStatsMap = phaseStatsMap;
   }
 }

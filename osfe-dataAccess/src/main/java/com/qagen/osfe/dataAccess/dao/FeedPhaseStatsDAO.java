@@ -12,10 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.examples.acme;
+package com.qagen.osfe.dataAccess.dao;
 
-public enum AcmeConstants {
-  detailData,
-  stats,
-  delay
+import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
+
+import java.util.List;
+
+public interface FeedPhaseStatsDAO extends DAO<FeedPhaseStats> {
+
+  public FeedPhaseStats findByFeedFileId(Integer feedFileId);
 }

@@ -8,6 +8,7 @@
       <column name="termination_date" isString="true"/>
       <column name="allow_concurrent_runs" isString="false"/>
       <column name="allow_failed_state_runs" isString="false"/>
+      <column name="collect_phase_stats" isString="false"/>
       <column name="restart_at_checkpoint" isString="false"/>
       <column name="last_sequence_number" isString="true"/>
       <column name="max_concurrent_runs" isString="false"/>
@@ -29,6 +30,7 @@
         <termination_date>2009-01-01 12:00:00</termination_date>
         <allow_concurrent_runs>1</allow_concurrent_runs>
         <allow_failed_state_runs>0</allow_failed_state_runs>
+        <collect_phase_stats>1</collect_phase_stats>
         <restart_at_checkpoint>1</restart_at_checkpoint>
         <last_sequence_number>0</last_sequence_number>
         <max_concurrent_runs>1</max_concurrent_runs>
@@ -48,6 +50,7 @@
         <termination_date>2009-01-01 12:00:00</termination_date>
         <allow_concurrent_runs>1</allow_concurrent_runs>
         <allow_failed_state_runs>0</allow_failed_state_runs>
+        <collect_phase_stats>1</collect_phase_stats>
         <restart_at_checkpoint>1</restart_at_checkpoint>
         <last_sequence_number>0</last_sequence_number>
         <max_concurrent_runs>1</max_concurrent_runs>

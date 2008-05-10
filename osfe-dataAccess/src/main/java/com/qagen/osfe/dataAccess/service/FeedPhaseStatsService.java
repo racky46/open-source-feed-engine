@@ -12,10 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.examples.acme;
+package com.qagen.osfe.dataAccess.service;
 
-public enum AcmeConstants {
-  detailData,
-  stats,
-  delay
+import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
+
+import java.util.List;
+
+public interface FeedPhaseStatsService extends Service<FeedPhaseStats> {
+  public static final String SERVICE_ID = "feedPhaseStatsService";
+
+  public void insert(List<FeedPhaseStats> list);
+  
+  public void update(List<FeedPhaseStats> list);
+
+  public FeedPhaseStats findByPrimaryId(Integer primaryId);
+
+  public FeedPhaseStats findByFeedFileId(Integer feedFileId);
 }

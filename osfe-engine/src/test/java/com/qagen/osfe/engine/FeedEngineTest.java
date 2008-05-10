@@ -21,20 +21,18 @@ package com.qagen.osfe.engine;
  */
 public class FeedEngineTest {
 
-
+  //@todo: make real automated test using QAGen.
   public static void main(String[] args) {
-
     final String feedId = "acme_qagen_test_request";
-
-   final String feedFile = "acme_qagen_test_request_20080420050424.txt";
-//   final String feedFile = "acme_qagen_test_request_20080420050419.txt";
-//   final String feedFile = "acme_qagen_test_request_20080421060401.txt";
+    final String feedFile = "acme_qagen_test_request_20080420050424.txt";
+  //final String feedFile = "acme_qagen_test_request_20080420050419.txt";
+  //final String feedFile = "acme_qagen_test_request_20080421060401.txt";
 
     try {
       final FeedEngine engine = new FeedEngine(feedId, feedFile);
       engine.execute();
     } catch (Exception e) {
-      // do nothing.
+      System.out.println(e);
     }
   }
 
