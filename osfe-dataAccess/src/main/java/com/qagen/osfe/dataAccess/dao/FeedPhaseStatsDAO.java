@@ -20,5 +20,5 @@ import java.util.List;
 
 public interface FeedPhaseStatsDAO extends DAO<FeedPhaseStats> {
 
-  public FeedPhaseStats findByFeedFileId(Integer feedFileId);
+  public List<FeedPhaseStats> findByFeedFileId(Integer feedFileId);
 }

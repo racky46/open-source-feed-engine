@@ -63,7 +63,7 @@ public class FeedPhaseStatsServiceImpl implements FeedPhaseStatsService {
   }
 
   @Transactional
-  public FeedPhaseStats findByFeedFileId(Integer feedFileId) {
+  public List<FeedPhaseStats> findByFeedFileId(Integer feedFileId) {
     return feedPhaseStatsDAO.findByFeedFileId(feedFileId);
   }
 }

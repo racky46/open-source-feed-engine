@@ -12,20 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.dataAccess.service;
+package com.qagen.osfe.common.utils;
 
-import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ */
+public class RoundingHelper {
 
-import java.util.List;
+  /**
+   * Rounds a number to the given number places.
+   *
+   * @param number the value to round
+   * @param places the number of decimal places
+   * @return rounded value
+   */
+  public static double round(double number, int places) {
+    final double power = Math.pow(10, places);
+    number = number * power;
+    final double value = Math.round(number);
+    return value / power;
+  }
 
-public interface FeedPhaseStatsService extends Service<FeedPhaseStats> {
-  public static final String SERVICE_ID = "feedPhaseStatsService";
-
-  public void insert(List<FeedPhaseStats> list);
-  
-  public void update(List<FeedPhaseStats> list);
-
-  public FeedPhaseStats findByPrimaryId(Integer primaryId);
-
-  public List<FeedPhaseStats> findByFeedFileId(Integer feedFileId);
 }
