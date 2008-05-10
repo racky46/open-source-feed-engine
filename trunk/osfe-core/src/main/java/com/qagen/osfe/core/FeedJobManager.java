@@ -433,14 +433,6 @@ public class FeedJobManager {
     stats.setAvgProcessingTime(avgTime);
   }
 
-  //@todo - decide if averageProcessingTime should be rounded.
-  private double round(double number, int places) {
-    final double power = Math.pow(10, places);
-    number = number * power;
-    final double value = Math.round(number);
-    return value / power;
-  }
-
   public void savePhaseStats(EngineContext context) {
     final Map<String, FeedPhaseStats> map = context.getPhaseStatsMap();
     final List<FeedPhaseStats> list = new ArrayList<FeedPhaseStats>();

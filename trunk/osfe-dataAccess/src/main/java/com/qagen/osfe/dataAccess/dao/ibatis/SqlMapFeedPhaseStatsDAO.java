@@ -18,6 +18,8 @@ import com.qagen.osfe.dataAccess.dao.FeedPhaseStatsDAO;
 import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
+import java.util.List;
+
 public class SqlMapFeedPhaseStatsDAO extends SqlMapClientDaoSupport implements FeedPhaseStatsDAO {
 
   public void insert(FeedPhaseStats model) {
@@ -36,7 +38,8 @@ public class SqlMapFeedPhaseStatsDAO extends SqlMapClientDaoSupport implements F
     return (FeedPhaseStats) getSqlMapClientTemplate().queryForObject("FeedPhaseStats.findByPrimaryId", primaryId);
   }
 
-  public FeedPhaseStats findByFeedFileId(Integer feedFileId) {
-    return (FeedPhaseStats) getSqlMapClientTemplate().queryForObject("FeedPhaseStats.findByFeedFileId", feedFileId);
+  @SuppressWarnings("unchecked")
+  public List<FeedPhaseStats> findByFeedFileId(Integer feedFileId) {
+    return getSqlMapClientTemplate().queryForList("FeedPhaseStats.findByFeedFileId", feedFileId);
   }
 }
