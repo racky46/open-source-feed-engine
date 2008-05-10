@@ -16,5 +16,6 @@
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedQueue.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedGroup.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/Checkpoint.xml"/>
+  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedPhaseStats.xml"/>
 
 </sqlMapConfig>

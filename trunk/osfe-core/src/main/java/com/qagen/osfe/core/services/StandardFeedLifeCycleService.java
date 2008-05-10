@@ -102,6 +102,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
 
   public void shutdown() {
     try {
+      feedJobManager.savePhaseStats(context);
       doPhaseShutdown();
       BufferedReader reader = context.getBufferedReader();
       reader.close();
@@ -176,8 +177,10 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
 
     for (Phase phase : phases) {
       context.setCurrentPhaseId(phase.getName());
+      feedJobManager.startPhaseStats(phase, context);
       phase.initialize();
       phase.execute();
+      feedJobManager.endPhaseStats(phase,context);
     }
   }
 
@@ -187,7 +190,9 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
 
     for (Phase phase : phases) {
       context.setCurrentPhaseId(phase.getName());
+      feedJobManager.startPhaseStats(phase, context);
       phase.initialize();
+      feedJobManager.endPhaseStats(phase, context);
     }
 
     // Must be called after initialization and before anything else.
@@ -196,7 +201,6 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     if (splitter instanceof CheckpointHandler) {
       final Checkpoint checkpoint = context.getCheckpoint();
       if (checkpoint != null) {
-        
         ((CheckpointHandler) splitter).moveToCheckPoint(checkpoint);
       }
     }
@@ -204,7 +208,9 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     while (splitter.hasNextRow()) {
       for (Phase phase : phases) {
         context.setCurrentPhaseId(phase.getName());
+        feedJobManager.startPhaseStats(phase, context);
         phase.execute();
+        feedJobManager.endPhaseStats(phase, context);
       }
     }
   }
@@ -214,8 +220,10 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
 
     for (Phase phase : phases) {
       context.setCurrentPhaseId(phase.getName());
+      feedJobManager.startPhaseStats(phase, context);
       phase.initialize();
       phase.execute();
+      feedJobManager.endPhaseStats(phase, context);
     }
   }
 }

@@ -32,6 +32,7 @@ public class Feed extends VO {
   private Boolean allowConcurrentRuns;
   private Boolean allowFailedStateRuns;
   private Boolean restartAtCheckpoint;
+  private Boolean collectPhaseStats;
   private Integer lastSequenceNumber;
   private Integer maxConcurrentRuns;
   private String feedDirectory;
@@ -93,6 +94,14 @@ public class Feed extends VO {
 
   public void setRestartAtCheckpoint(Boolean restartAtCheckpoint) {
     this.restartAtCheckpoint = restartAtCheckpoint;
+  }
+
+  public Boolean getCollectPhaseStats() {
+    return collectPhaseStats;
+  }
+
+  public void setCollectPhaseStats(Boolean collectPhaseStats) {
+    this.collectPhaseStats = collectPhaseStats;
   }
 
   public Integer getLastSequenceNumber() {

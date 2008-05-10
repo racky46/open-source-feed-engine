@@ -16,7 +16,7 @@ package com.qagen.osfe.dataAccess.dao;
 
 import com.qagen.osfe.dataAccess.vo.Checkpoint;
 
-public interface CheckPointDAO extends DAO<Checkpoint> {
+public interface CheckpointDAO extends DAO<Checkpoint> {
 
   public Checkpoint findByFeedFileId(Integer feedFileId);
 }

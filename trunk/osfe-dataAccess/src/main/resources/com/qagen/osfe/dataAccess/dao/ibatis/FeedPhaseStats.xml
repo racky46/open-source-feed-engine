@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedPhaseStats">
+
+  <typeAlias alias="FeedPhaseStats" type="com.qagen.osfe.dataAccess.vo.FeedPhaseStats"/>
+
+  <resultMap id="resultMap" class="FeedPhaseStats">
+    <result property="feedPhaseStatId" column="feed_phase_stats_id"/>
+    <result property="phaseId" column="phase_id"/>
+    <result property="avgProcessingTime" column="avg_processing_time"/>
+    <result property="iterationCount" column="iteration_count"/>
+    <result property="totalTimeInMs" column="total_time_in_ms"/>
+    <result property="feedFileId" column="feed_file_id"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedPhaseStats">
+    insert into t_feed_phase_stats (
+      phase_id,
+      avg_processing_time,
+      iteration_count,
+      total_time_in_ms,
+      feed_file_id
+    ) values (
+      #phaseId#,
+      #avgProcessingTime#,
+      #iterationCount#,
+      #totalTimeInMs#,
+      #feedFileId#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedPhaseStatId">
+      select @@identity as feed_phase_stats_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedPhaseStats">
+    update t_feed_phase_stats set
+      avg_processing_time = #avgProcessingTime#,
+      iteration_count = #iterationCount#,
+      total_time_in_ms = #totalTimeInMs#
+    where feed_phase_stats_id = #feedPhaseStatId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedPhaseStats">
+    delete from t_feed_phase_stats where feed_phase_stats_id = #feedPhaseStatId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="int" resultMap="FeedPhaseStats.resultMap">
+    select * from t_feed_phase_stats where feed_phase_stats_id = #value#
+  </select>
+
+  <select id="findByFeedFileId" parameterClass="int" resultMap="FeedPhaseStats.resultMap">
+    select * from t_feed_phase_stats where feed_file_id = #value#
+  </select>
+
+</sqlMap>

@@ -1,42 +1,42 @@
 <?xml version="1.0" ?>
-<project name="osfe-db-install" basedir="." default="feedengine.db.populate">
+<project name="osfe-db-install" basedir="." default="osfe.db.populate">
 
   <property file="dbloader.properties"/>
 
    <path id="library.path">
     <fileset dir="../../../lib" includes="**/*.jar"/>
-  </path>  
+  </path>
 
   <!-- drop database -->
-  <target name="feedengine.db.drop">
+  <target name="osfe.db.drop">
     <sql driver="${mysql.driver}" url="${mysql.url}" userid="${mysql.root.user}" password="${mysql.root.password}" print="true">
-      DROP DATABASE IF EXISTS ${feedengine_db.dbname};
+      DROP DATABASE IF EXISTS ${osfe_db.dbname};
       <classpath refid="library.path"/>
     </sql>
   </target>
 
   <!-- create database -->
-  <target name="feedengine.db.create" depends="feedengine.db.drop">
+  <target name="osfe.db.create" depends="osfe.db.drop">
     <sql driver="${mysql.driver}" url="${mysql.url}" userid="${mysql.root.user}" password="${mysql.root.password}" print="true">
-      CREATE DATABASE IF NOT EXISTS ${feedengine_db.dbname};
-      GRANT ALL ON ${feedengine_db.dbname}.* TO '${feedengine_db.user}'@'localhost' IDENTIFIED BY '${feedengine_db.password}';
-      GRANT FILE ON *.* TO '${feedengine_db.user}'@'localhost' IDENTIFIED BY '${feedengine_db.password}';
+      CREATE DATABASE IF NOT EXISTS ${osfe_db.dbname};
+      GRANT ALL ON ${osfe_db.dbname}.* TO '${osfe_db.user}'@'localhost' IDENTIFIED BY '${osfe_db.password}';
+      GRANT FILE ON *.* TO '${osfe_db.user}'@'localhost' IDENTIFIED BY '${osfe_db.password}';
       <classpath refid="library.path"/>
     </sql>
   </target>
 
   <!-- init database -->
-  <target name="feedengine.db.init" depends="feedengine.db.create">
-    <sql driver="${mysql.driver}" url="${feedengine_db.url}" userid="${feedengine_db.user}" password="${feedengine_db.password}"
-         print="true" src="${feedengineData.dir}/create.ddl">
+  <target name="osfe.db.init" depends="osfe.db.create">
+    <sql driver="${mysql.driver}" url="${osfe_db.url}" userid="${osfe_db.user}" password="${osfe_db.password}"
+         print="true" src="${osfeData.dir}/create.ddl">
       <classpath refid="library.path"/>
     </sql>
   </target>
 
   <!-- populate database -->
-  <target name="feedengine.db.populate" depends="feedengine.db.init">
-    <sql driver="${mysql.driver}" url="${feedengine_db.url}" userid="${feedengine_db.user}" password="${feedengine_db.password}"
-         print="true" src="${feedengineData.dir}/populate.sql">
+  <target name="osfe.db.populate" depends="osfe.db.init">
+    <sql driver="${mysql.driver}" url="${osfe_db.url}" userid="${osfe_db.user}" password="${osfe_db.password}"
+         print="true" src="${osfeData.dir}/populate.sql">
       <classpath refid="library.path"/>
     </sql>
   </target>

@@ -18,30 +18,26 @@ import static com.qagen.osfe.common.FeedConstants.*;
 import com.qagen.osfe.common.utils.DirectoryHelper;
 import com.qagen.osfe.core.utils.FileMoveHelper;
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
-import com.qagen.osfe.dataAccess.service.CheckpointService;
-import com.qagen.osfe.dataAccess.service.FeedFileService;
-import com.qagen.osfe.dataAccess.service.FeedJobManagerService;
-import com.qagen.osfe.dataAccess.service.FeedService;
+import com.qagen.osfe.dataAccess.service.*;
 import com.qagen.osfe.dataAccess.vo.*;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class FeedJobManager {
   final private FeedJobManagerService jobManagerService;
   final private FeedService feedService;
   final private FeedFileService feedFileService;
   final private CheckpointService checkpointService;
+  final private FeedPhaseStatsService feedPhaseStatsService;
 
   public FeedJobManager() {
     feedService = (FeedService) DataAccessContext.getBean(FeedService.SERVICE_ID);
     feedFileService = (FeedFileService) DataAccessContext.getBean(FeedFileService.SERVICE_ID);
     jobManagerService = (FeedJobManagerService) DataAccessContext.getBean(FeedJobManagerService.SERVICE_ID);
     checkpointService = (CheckpointService) DataAccessContext.getBean(CheckpointService.SERVICE_ID);
+    feedPhaseStatsService = (FeedPhaseStatsService) DataAccessContext.getBean(FeedPhaseStatsService.SERVICE_ID);
   }
 
   private String getHomeDirectory(Feed feed) {
@@ -246,6 +242,10 @@ public class FeedJobManager {
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.active.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
 
+      if (feedJob.getFailureMessage() == null) {
+        feedJob.setFailureMessage(context.getErrorMessage());
+      }
+
       updateFeedFileStats(feedFile, context);
       updateFeedJobStats(feedJob, context);
 
@@ -325,9 +325,7 @@ public class FeedJobManager {
    * @param feedFile contains the feedFileId used to retrieve the most
    *                 recent feedJob.
    */
-  public void checkLastFeedJobIsResolved
-    (FeedFile
-      feedFile) {
+  public void checkLastFeedJobIsResolved(FeedFile feedFile) {
     final FeedJob feedJob = getMostRecentFeedJob(feedFile.getFeedFileId());
     final String feedJobState = feedJob.getFeedJobState().getFeedJobStateId();
 
@@ -345,14 +343,12 @@ public class FeedJobManager {
    * If the FeedFile already exists, then it must be in a retry state.<p>
    * The new FeedJob will reference the FeedFile.
    *
-   * @param feedId       uniquely identifies the specific feed to process
-   * @param feedFileName the feed file name without the full path
+   * @param feedId  uniquely identifies the specific feed to process
+   * @param context references the engine context
    * @return new FeedJob which references the new FeedFile.
    */
-  public FeedJob createFeedJob
-    (String
-      feedId, String
-      feedFileName) {
+  public FeedJob createFeedJob(String feedId, EngineContext context) {
+    final String feedFileName = context.getFeedFileName();
     final Feed feed = getFeed(feedId);
 
     Boolean createFeedFile = false;
@@ -370,6 +366,7 @@ public class FeedJobManager {
 
     if (createFeedFile) {
       jobManagerService.createFeedFileAndFeedJob(feedFile, feedJob);
+      initPhaseStats(feedFile.getFeedFileId(), context);
     } else {
       jobManagerService.createFeedJob(feedFile, feedJob);
     }
@@ -378,9 +375,7 @@ public class FeedJobManager {
   }
 
 
-  public FeedFile checkIfFeedFileExists
-    (String
-      feedFileName) {
+  public FeedFile checkIfFeedFileExists(String feedFileName) {
     final FeedFile feedFile = feedFileService.findByFeedFileName(feedFileName);
 
     if (feedFile != null) {
@@ -394,5 +389,75 @@ public class FeedJobManager {
     }
 
     return feedFile;
+  }
+
+  public void initPhaseStats(Integer feedFileId, EngineContext context) {
+    final Feed feed = getFeedFile(feedFileId).getFeed();
+
+    if (!feed.getCollectPhaseStats()) {
+      return;
+    }
+
+    final List<FeedPhaseStats> phaseStatsList = new ArrayList<FeedPhaseStats>();
+
+    addToPhaseList(feedFileId, context.getPreEventPhases(), phaseStatsList);
+    addToPhaseList(feedFileId, context.getPostEventPhases(), phaseStatsList);
+    addToPhaseList(feedFileId, context.getBatchEventPhases(), phaseStatsList);
+
+    feedPhaseStatsService.insert(phaseStatsList);
+
+    final Map<String, FeedPhaseStats> phaseStatsMap = new HashMap<String, FeedPhaseStats>();
+
+    for (FeedPhaseStats stats : phaseStatsList) {
+      phaseStatsMap.put(stats.getPhaseId(), stats);
+    }
+
+    context.setPhaseStatsMap(phaseStatsMap);
+  }
+
+  public void startPhaseStats(Phase phase, EngineContext context) {
+    final FeedPhaseStats stats = context.getPhaseStatsMap().get(phase.getName());
+    stats.setStartTime(System.currentTimeMillis());
+  }
+
+  public void endPhaseStats(Phase phase, EngineContext context) {
+    final FeedPhaseStats stats = context.getPhaseStatsMap().get(phase.getName());
+    final long startTime = stats.getStartTime();
+    final long endTime = System.currentTimeMillis();
+    final long totalTime = (stats.getTotalTimeInMs() + (endTime - startTime));
+    final int count = stats.getIterationCount() == null ? 1 : stats.getIterationCount() + 1;
+    final double avgTime = ((double) totalTime / (double) count) / 1000;
+
+    stats.setIterationCount(count);
+    stats.setTotalTimeInMs(totalTime);
+    stats.setAvgProcessingTime(avgTime);
+  }
+
+  //@todo - decide if averageProcessingTime should be rounded.
+  private double round(double number, int places) {
+    final double power = Math.pow(10, places);
+    number = number * power;
+    final double value = Math.round(number);
+    return value / power;
+  }
+
+  public void savePhaseStats(EngineContext context) {
+    final Map<String, FeedPhaseStats> map = context.getPhaseStatsMap();
+    final List<FeedPhaseStats> list = new ArrayList<FeedPhaseStats>();
+
+    for (FeedPhaseStats stats : map.values()) {
+      list.add(stats);
+    }
+
+    feedPhaseStatsService.update(list);
+  }
+
+  private void addToPhaseList(Integer feedFileId, List<Phase> source, List<FeedPhaseStats> phaseStatsList) {
+    if (source != null) {
+      for (Phase phase : source) {
+        final FeedPhaseStats stats = new FeedPhaseStats(phase.getName(), feedFileId);
+        phaseStatsList.add(stats);
+      }
+    }
   }
 }

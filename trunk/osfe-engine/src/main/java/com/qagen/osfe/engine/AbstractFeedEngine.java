@@ -62,7 +62,7 @@ import java.util.*;
  * following initialization sequence:
  * <ol>
  * <li>initContext(feedId, feedFileName) - store the feedId and filename as
- * instance variables, place the filename in the context and instantiate the 
+ * instance variables, place the filename in the context and instantiate the
  * feedJobManager.
  * <li> initFeedRecord() - Find the Feed record for the given feedId. Verify
  * that the feedId is valid and check it's validation rules to verify that
@@ -74,8 +74,8 @@ import java.util.*;
  * Feed record and place a reference to the document in the engine context.
  * <li>initConfigProperties() - Load any global properties defined within the
  * given feed file configuration document into the engine context.
- * <li>initServices() - Uses the servicesConfigLoader and reads from the
- * &lt;services&gt; element to load and instantiate services defined within 
+ * <li>loadServices() - Uses the servicesConfigLoader and reads from the
+ * &lt;services&gt; element to load and instantiate services defined within
  * the given configuration file.
  * <li>initPhases() - Uses the phaseConfigLoader and PhaseLoaderService to load
  * and instantiate phases defined in the given configuration file.
@@ -211,8 +211,9 @@ public abstract class AbstractFeedEngine {
     initFullPathAndFeedFileName();
     initConfigFile();
     initConfigProperties();
-    initServices();
+    final List<EngineService> list = loadServices();
     initPhases();
+    initServices(list);
     initialize();
     runPreFeedFilePhases();
     initFeedFileAndFeedJob();
@@ -409,7 +410,7 @@ public abstract class AbstractFeedEngine {
    * for managing the feed life cycle for the given feed file.
    */
   protected void initFeedFileAndFeedJob() {
-    feedJob = feedJobManager.createFeedJob(feedId, context.getFeedFileName());
+    feedJob = feedJobManager.createFeedJob(feedId, context);
     context.setFeedJob(feedJob);
   }
 
@@ -446,14 +447,17 @@ public abstract class AbstractFeedEngine {
 
   /**
    * Uses the servicesConfigLoader and reads from the &lt;services&gt; element
-   * to load and instantiate services defined within the given configuration
+   * to load services defined within the given configuration
    * file.
+   *
+   * @return list of EngineService so the can be initialized after phases have
+   *         been loaded.
    */
-  protected void initServices() {
+  protected List<EngineService> loadServices() {
     final Loader loader = context.getLoaderMap().get(LOADERS.serviceLoader.getValue());
     final List<Clazz> serviceList = ((ServiceConfigLoader) loader).getList();
     final Map<String, EngineService> map = new HashMap<String, EngineService>();
-    final List<EngineService> engineServices = new ArrayList<EngineService>();
+    final List<EngineService> list = new ArrayList<EngineService>();
 
     try {
       // First pass instantiates all services.
@@ -464,16 +468,12 @@ public abstract class AbstractFeedEngine {
         final EngineService service = (EngineService) constructor.newInstance(context);
 
         map.put(clazzInfo.getName(), service);
-        engineServices.add(service);
+        list.add(service);
       }
 
       // Add to service map in context so services can see each duringn second pass.
       context.setServiceMap(map);
-
-      // Second pass initializes all services.
-      for (EngineService service : engineServices) {
-        service.initialize();
-      }
+      return list;
 
     } catch (ClassNotFoundException e) {
       throw new FeedErrorException(e);
@@ -485,6 +485,18 @@ public abstract class AbstractFeedEngine {
       throw new FeedErrorException(e);
     } catch (InvocationTargetException e) {
       throw new FeedErrorException(e);
+    }
+  }
+
+  /**
+   * Calls the initialize() method on each service.
+   *
+   * @param engineServices list of EngineService objects to initialize.
+   */
+  protected void initServices(final List<EngineService> engineServices) {
+    // Second pass initializes all services.
+    for (EngineService service : engineServices) {
+      service.initialize();
     }
   }
 

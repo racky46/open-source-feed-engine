@@ -49,6 +49,7 @@ public class FailedFeedTest {
       final Connection con = dataSource.getConnection();
       final Statement statement = con.createStatement();
 
+      statement.execute("truncate t_feed_phase_stats");
       statement.execute("truncate t_checkpoint");
       statement.execute("truncate t_feed_job");
       statement.execute("truncate t_feed_file");

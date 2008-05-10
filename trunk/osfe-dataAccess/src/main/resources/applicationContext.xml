@@ -9,11 +9,22 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>
+          file:${OSFE_HOME}/config/common/config.properties
+        </value>
+      </list>
+    </property>
+  </bean>
+
+
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://localhost:3306/feeddb"/>
-    <property name="username" value="root"/>
-    <property name="password" value="admin"/>
+    <property name="url" value="${osfe.db.url}"/>
+    <property name="username" value="${osfe.db.username}"/>
+    <property name="password" value="${osfe.db.password}"/>
     <property name="testOnBorrow" value="true"/>
     <property name="initialSize" value="10"/>
     <property name="maxActive" value="100"/>
@@ -38,7 +49,7 @@
 
   <!-- DAO Section -->
 
-  <bean id="checkPointDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapCheckPointDAO">
+  <bean id="checkpointDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapCheckpointDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
@@ -70,6 +81,10 @@
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
+  <bean id="feedPhaseStatsDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedPhaseStatsDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
   <bean id="feedProtocolDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedProtocolDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
@@ -81,7 +96,7 @@
   <!-- Services -->
 
   <bean id="checkpointService" class="com.qagen.osfe.dataAccess.service.impl.CheckpointServiceImpl">
-    <property name="checkPointDAO" ref="checkPointDAO"/>
+    <property name="checkpointDAO" ref="checkpointDAO"/>
   </bean>
 
   <bean id="dataSourceService" class="com.qagen.osfe.dataAccess.service.impl.DataSourceServiceImpl">
@@ -115,6 +130,10 @@
 
   <bean id="feedMappedQueueService" class="com.qagen.osfe.dataAccess.service.impl.FeedQueueServiceImpl">
     <property name="feedMappedQueueDAO" ref="feedMappedQueueDAO"/>
+  </bean>
+
+  <bean id="feedPhaseStatsService" class="com.qagen.osfe.dataAccess.service.impl.FeedPhaseStatsServiceImpl">
+    <property name="feedPhaseStatsDAO" ref="feedPhaseStatsDAO"/>
   </bean>
 
   <bean id="feedProtocolService" class="com.qagen.osfe.dataAccess.service.impl.FeedProtocolServiceImpl">

@@ -2,7 +2,7 @@
 <feedDocument>
 
   <properties>
-    <property name="someProperty" value="test"/>
+    <property name="delay" value="0"/>
   </properties>
 
   <delimitedRows minusRowCount="2" delimiterValue=",">
@@ -42,7 +42,7 @@
       <phase name="beanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase"/>
       <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
         <properties>
-          <property name="echoDetail" value="true"/>
+          <property name="echoDetail" value="false"/>
         </properties>
       </phase>
       <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckPointPhase"/>

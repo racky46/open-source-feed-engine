@@ -28,6 +28,7 @@ public class FeedGroup extends VO {
   private String feedGroupId;
   private Boolean allowConcurrentRuns;
   private Boolean allowFailedStateRuns;
+  private Boolean collectPhaseStats;
 
   public FeedGroup() {
   }
@@ -54,6 +55,14 @@ public class FeedGroup extends VO {
 
   public void setAllowFailedStateRuns(Boolean allowFailedStateRuns) {
     this.allowFailedStateRuns = allowFailedStateRuns;
+  }
+
+  public Boolean getCollectPhaseStats() {
+    return collectPhaseStats;
+  }
+
+  public void setCollectPhaseStats(Boolean collectPhaseStats) {
+    this.collectPhaseStats = collectPhaseStats;
   }
 
   @Override
