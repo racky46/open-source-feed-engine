@@ -1,0 +1,15 @@
+#summary Definition of t_feed_job
+
+= t_feed_job =
+
+The t_feed_job table contains information the feed engine will use to manage a given feed job associated with a given feed file during the feed processing life cycle.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_file_id || int || No || Uniquely defines a feed file row. Automatically incremented ||
+|| || processing_start || timestamp || No || Specifies date job was created ||
+|| || processing_end || timestamp || Yes || Specifies time job was created ||
+|| || failed_row_number || int || Yes || Specifies the row number where the feed failed ||
+|| || failure_code || varchar(40) || Yes || Specifies a failure code id ||
+|| || failure_reason || varchar(5000) || No || Specifies an explanation for the failure ||
+|| FK || feed_file_id || int || No || Reference to associated feed file ||
+|| FK || feed_job_state_id || varchar(10) || No || Specifies the current state of the feed job ||
