@@ -1,0 +1,17 @@
+#summary Definition of t_feed_file
+
+= t_feed_file =
+
+t_feed_file
+The t_feed_file table contains the information the feed engine will use to manage the life cycle of a given feed file.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_file_id || int || No || Uniquely defines a feed file row. Automatically incremented ||
+|| || feed_file_date || date || No || Defines the time the feed file was created ||
+|| || feed_file_time || time || No || Defines the time the feed file was created ||
+|| || records_processed || int || No || Number of rows successfully processed ||
+|| || records_rejected || int || No || Number of rows rejected during feed processing ||
+|| || feed_file_name || varchar(255) || No || Name of the feed file being processed  *(File name must be unique)* ||
+|| || feed_document || varchar(255) || No || Name of the feed document used to configure the feed engine to process the feed ||
+|| FK || feed_id || varchar(60) || No || Reference to feed definition in t_feed || 
+|| FK || feed_file_state_id || varchar(10) || No || Specifies the current state the feed file. ||
