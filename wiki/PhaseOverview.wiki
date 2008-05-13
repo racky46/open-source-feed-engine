@@ -1,6 +1,6 @@
 #summary Overview of a Phase
 
-= Introduction =
+= Phase =
 
  * OSFE processes feeds by passing its data through one or more phases.
  * Each phase performs a specific set of operations on the given data.  
