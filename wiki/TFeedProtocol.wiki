@@ -5,12 +5,12 @@
 The t_feed_protocol table defines the two protocols, request & response.  A feed protocol is used to define the protocol of a feed in t_feed.
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
-|| PK || feed_protocol_id || varchar(10) || No || Uniquely defines the feed protocol. ||
+|| PK || feed_protocol_id || varchar(10) || No || Uniquely defines the feed protocol ||
 || || description || varchar(250) || No || Description of the feed protocol ||
 
  
 = Definitions = 
 
 || *feed_direction_id* || *description* ||
-|| request || Defines the feed as a request to be processed. ||
-|| response || Defines a response feed to a previously processed request feed. ||
+|| request || Defines the feed as a request to be processed ||
+|| response || Defines a response feed to a previously processed request feed ||
