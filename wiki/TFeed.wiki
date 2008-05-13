@@ -6,18 +6,17 @@ The t_feed tables contains feed unique definitions for each unique feed file tha
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_id || varchar(60) || No || Uniquely defines a feed ||
-|| activation_date || timestamp || No || Defines the date the feed may be processed. ||
-|| termination_date || timestamp || No || Defines the date the feed may not be processed. ||
-|| allow_concurrent_runs || tinyint || No || Defines if more than one feed matching the given feed_id can be run concurrently. ||
-|| max_concurrent_runs || int || No || Defines the number of feed files that can be processed concurrently.  Default = 1. ||  
-|| allow_failed_feed_runs || tinyint || No || Defines if more than feed matching the given feed_id can be run with at least one other feed  matching the feed_id is in a failed state. ||
-|| restart_at_checkpoint || tinyint || No || Defines if checkpoint is active. ||
-|| last_sequence_number || int || Yes || Used when tracking feed file names with sequence numbers and the sequence in which a feed is run is important. ||
-|| feed_directory || varchar(255) || No || Defines the incoming direction of the feed from the base feed engine directory structure. || 
-|| feed_document || varchar(255) || No || Defines the directory location of the configuration file to be used with the given feed. ||
-|| queue_id || varchar(60) || Yes || Defines the queue the feed should run on.
-|| FK ||
-from_data_source_id || varchar(20) || No || Defines the source the data is coming from. || 
+|| || activation_date || timestamp || No || Defines the date the feed may be processed. ||
+|| || termination_date || timestamp || No || Defines the date the feed may not be processed. ||
+|| || allow_concurrent_runs || tinyint || No || Defines if more than one feed matching the given feed_id can be run concurrently. ||
+|| || max_concurrent_runs || int || No || Defines the number of feed files that can be processed concurrently.  Default = 1. ||  
+|| || allow_failed_feed_runs || tinyint || No || Defines if more than feed matching the given feed_id can be run with at least one other feed  matching the feed_id is in a failed state. ||
+|| || restart_at_checkpoint || tinyint || No || Defines if checkpoint is active. ||
+|| || last_sequence_number || int || Yes || Used when tracking feed file names with sequence numbers and the sequence in which a feed is run is important. ||
+|| || feed_directory || varchar(255) || No || Defines the incoming direction of the feed from the base feed engine directory structure. || 
+|| || feed_document || varchar(255) || No || Defines the directory location of the configuration file to be used with the given feed. ||
+|| || queue_id || varchar(60) || Yes || Defines the queue the feed should run on.||
+|| FK || from_data_source_id || varchar(20) || No || Defines the source the data is coming from. || 
 || FK || to_data_source_id || varchar(20) || No || Defines the source the data is going to. ||
 || FK || feed_type_id || varchar(25) || No || Defines the type of feed to process. ||
 || FK || feed_protocol_id || varchar(10) || No || Defines the feed protocol (request/response). ||
