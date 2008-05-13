@@ -1,0 +1,18 @@
+#summary Definition of t_feed_file_state
+
+= t_feed_file_state =
+
+The t_feed_file_state table defines the finite set of feed file states.  Contains the definitions that determine the different states of a given row in t_feed_file. 
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_file_state_id || varchar(10) || No || Uniquely defines the feed file state ||
+|| || description || varchar(250) || No || Description of the feed file state ||
+ 
+= Definitions = 
+
+|| *feed_file_state_id* || *description* ||
+|| completed || The feed file life cycle was completed successfully. || 
+|| failed || The feed file life cycle was not completed successfully. ||
+|| processing || The feed file is currently being processed. ||
+|| rejected || A feed that has failed cannot be repaired and is permanently rejected. ||
+|| retry || The feed file is waiting to be reprocessed because of a previous failure. || 
