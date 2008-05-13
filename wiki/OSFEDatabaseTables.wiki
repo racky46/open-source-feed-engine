@@ -11,7 +11,7 @@ The sections defines each database table in detail.
  * t_feed - contains feed unique definitions for each unique feed file.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedGroup t_feed_group] - defines definitions for a group of t_feed definitions.
  * t_feed_file_state - defines the different states of a given row in t_feed_file. 
- * t_feed_file - contains the information to manage the life cycle of a given feed file.
+ * [ ||  t_feed_file] - contains the information to manage the life cycle of a given feed file.
  * t_feed_job_state - defines the different states of a given row in t_feed_job.
  * t_feed_job - contains the information to manage the life cycle of a given feed job.
  * t_feed_phase_stats - contains statistics on each phase of a feed file run.
