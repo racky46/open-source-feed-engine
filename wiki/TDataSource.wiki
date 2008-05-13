@@ -1,0 +1,5 @@
+#summary Definition of t_data_source
+
+= t_data_source =
+
+The t_data_source table defines unique data source.  A data source is used when defining a feed in t_feed, specifying where the data source, source and destination.
