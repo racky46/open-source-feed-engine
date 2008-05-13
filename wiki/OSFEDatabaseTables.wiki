@@ -13,7 +13,7 @@ The sections defines each database table in detail.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedFileState t_feed_file_state] - defines the different states of a given row in t_feed_file. 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedFile t_feed_file] - contains the information to manage the life cycle of a given feed file.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJobState t_feed_job_state] - defines the different states of a given row in t_feed_job.
- * t_feed_job - contains the information to manage the life cycle of a given feed job.
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJob t_feed_job] - contains the information to manage the life cycle of a given feed job.
  * t_feed_phase_stats - contains statistics on each phase of a feed file run.
  * t_check_point - contains the base information to check point a feed file run.
  * t_feed_queue - contains information for monitoring a queue of feeds. 
