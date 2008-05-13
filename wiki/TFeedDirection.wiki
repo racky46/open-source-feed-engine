@@ -1,0 +1,15 @@
+#summary Definition of t_feed_direction
+
+= t_feed_direction =
+
+The t_feed_direction table defines the two directions, inbound & outbound.  A feed direction is used to define the direction of a feed in t_feed. OSFE uses the direction information to determine the directory structure.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_direction_id || varchar(10) || No || Uniquely defines the feed direction. ||
+|| || description || varchar(250) || No || Description of the feed direction ||
+ 
+= Definitions = 
+
+|| *feed_direction_id* || *description* ||
+|| inbound || Defines that the feed file is coming in from the partner. ||
+|| outbound || Defines that the feed file is being sent to the partner. ||
