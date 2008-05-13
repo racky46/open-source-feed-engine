@@ -7,6 +7,7 @@ The t_feed_direction table defines the two directions, inbound & outbound.  A fe
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_direction_id || varchar(10) || No || Uniquely defines the feed direction. ||
 || || description || varchar(250) || No || Description of the feed direction ||
+
  
 = Definitions = 
 
