@@ -5,7 +5,7 @@
 The t_data_source table defines unique data source.  A data source is used when defining a feed in t_feed, specifying where the data source, source and destination.
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
-|| PK || data_source_id || varchar(25) || No || Uniquely defines the data source. ||
+|| PK || data_source_id || varchar(10) || No || Uniquely defines the data source. ||
 || || description || varchar(250) || No || Description of the data source ||
  
 = Examples = 
