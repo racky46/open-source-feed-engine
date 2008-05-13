@@ -10,7 +10,7 @@ The t_feed_job_state table defines the finite set of feed job states.  Feed job 
  
 = Definitions = 
 
-|| *feed_file_state_id* || *description* ||
+|| *feed_job_state_id* || *description* ||
 || active || The active state is the initial stat of a feed job ||
 || completed || The feed processing life cycle completed successfully ||
 || failed || The feed processing life cycle did not complete successfully || 
