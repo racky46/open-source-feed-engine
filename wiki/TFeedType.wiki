@@ -5,7 +5,7 @@
 The t_feed_type table defines unique feed types.  A feed type is used when defining a feed in t_feed. 
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
-|| PK || feed_type_id || varchar(25) || No || Uniquely defines a row. ||
+|| PK || feed_type_id || varchar(25) || No || Uniquely defines a feed type ||
 || || description || varchar(250) || No || Description the feed type ||
 
  
