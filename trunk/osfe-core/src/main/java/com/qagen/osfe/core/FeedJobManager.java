@@ -369,11 +369,11 @@ public class FeedJobManager {
       initPhaseStats(feedFile.getFeedFileId(), context);
     } else {
       jobManagerService.createFeedJob(feedFile, feedJob);
+      reInitPhaseStats(feedFile.getFeedFileId(), context);
     }
 
     return feedJob;
   }
-
 
   public FeedFile checkIfFeedFileExists(String feedFileName) {
     final FeedFile feedFile = feedFileService.findByFeedFileName(feedFileName);
@@ -391,10 +391,47 @@ public class FeedJobManager {
     return feedFile;
   }
 
+  /**
+   * Checks wether the given feed should track phase statistics.  It checks
+   * to see if the feed is associated to a group.  If it is, it uses the
+   * group collectPhaseStats value to override the feed's.
+   *
+   * @param feed contains configuration information about the given feed.
+   * @return true if phase statistics should be collected.
+   */
+  public Boolean checkCollectPhasStats(Feed feed) {
+    final FeedGroup feedGroup = feed.getFeedGroup();
+    return feedGroup != null ? feedGroup.getCollectPhaseStats() : feed.getCollectPhaseStats();
+  }
+
+
+  public void reInitPhaseStats(Integer feedFileId, EngineContext context) {
+    final Feed feed = getFeedFile(feedFileId).getFeed();
+
+    if (!checkCollectPhasStats(feed)) {
+      return;
+    }
+
+    final List<FeedPhaseStats> phaseStatsList = feedPhaseStatsService.findByFeedFileId(feedFileId);
+    final Map<String, FeedPhaseStats> phaseStatsMap = new HashMap<String, FeedPhaseStats>();
+
+    for (FeedPhaseStats stats : phaseStatsList) {
+      stats.setStartTime(0L);
+      stats.setTotalTimeInMs(0L);
+      stats.setAvgProcessingTime(0D);
+      stats.setIterationCount(0);
+      phaseStatsMap.put(stats.getPhaseId(), stats);
+    }
+
+    feedPhaseStatsService.insert(phaseStatsList);
+
+    context.setPhaseStatsMap(phaseStatsMap);
+  }
+
   public void initPhaseStats(Integer feedFileId, EngineContext context) {
     final Feed feed = getFeedFile(feedFileId).getFeed();
 
-    if (!feed.getCollectPhaseStats()) {
+    if (!checkCollectPhasStats(feed)) {
       return;
     }
 
@@ -416,12 +453,26 @@ public class FeedJobManager {
   }
 
   public void startPhaseStats(Phase phase, EngineContext context) {
+    final Feed feed = context.getFeed();
+
+    if (!checkCollectPhasStats(feed)) {
+      return;
+    }
+
     final FeedPhaseStats stats = context.getPhaseStatsMap().get(phase.getName());
+
     stats.setStartTime(System.currentTimeMillis());
   }
 
   public void endPhaseStats(Phase phase, EngineContext context) {
+    final Feed feed = context.getFeed();
+
+    if (!checkCollectPhasStats(feed)) {
+      return;
+    }
+
     final FeedPhaseStats stats = context.getPhaseStatsMap().get(phase.getName());
+
     final long startTime = stats.getStartTime();
     final long endTime = System.currentTimeMillis();
     final long totalTime = (stats.getTotalTimeInMs() + (endTime - startTime));
@@ -434,6 +485,12 @@ public class FeedJobManager {
   }
 
   public void savePhaseStats(EngineContext context) {
+    final Feed feed = context.getFeed();
+
+    if (!checkCollectPhasStats(feed)) {
+      return;
+    }
+
     final Map<String, FeedPhaseStats> map = context.getPhaseStatsMap();
     final List<FeedPhaseStats> list = new ArrayList<FeedPhaseStats>();
 
