@@ -8,7 +8,7 @@ The sections defines each database table in detail.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TDataSource t_data_source] - defines unique data sources.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedDirection t_feed_direction] - defines the two directions, inbound & outbound.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedProtocol t_feed_protocol] - defines the two protocols,  request & response.
- * t_feed - contains feed unique definitions for each unique feed file.
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeed t_feed] - contains feed unique definitions for each unique feed file.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedGroup t_feed_group] - defines definitions for a group of t_feed definitions.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedFileState t_feed_file_state] - defines the different states of a given row in t_feed_file. 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeed t_feed_file] - contains the information to manage the life cycle of a given feed file.
