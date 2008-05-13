@@ -1,0 +1,22 @@
+#summary Table Definition of t_feed_group
+
+= t_feed_group =
+
+The t_feed_group table defines groups that feed definitions can attach to in order to share common behavior as it concerns allowing concurrent runs, allowing failed state runs and check pointing.  Feed groups are used when defining the group for a given row in t_feed_file. 
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_group_id || varchar(60) || No || Uniquely defines a feed group ||
+|| || allow_concurrent_runs || tinyint(1) || No || Defines if more than one feed matching the given feed_group_id can be run concurrently.
+ ||
+|| || allow_failed_state_runs || tinyint(1) || No || Defines if more than feed matching the given feed_id can be run with at least one other feed  matching the feed_id is in a failed state.
+ ||
+|| || collect_phase_stats || tinyint(1) || No || Determines is OSFE will collect phase statistics during a feed run.
+ ||
+
+ 
+= Examples = 
+
+|| *feed_type_id* || *description* ||
+|| course || feeds that contain course information ||
+|| student || feeds that contain student demographic information ||
+|| test ||feeds that contain test scores ||
