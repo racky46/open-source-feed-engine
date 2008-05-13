@@ -2,7 +2,7 @@
 
 = t_data_source =
 
-The t_data_source table defines unique data source.  A data source is used when defining a feed in t_feed, specifying where the data source, source and destination.
+The t_data_source table defines unique data source. Data sources are used in t_feed to define where data originates from and where data is being sent to. 
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || data_source_id || varchar(10) || No || Uniquely defines the data source. ||
