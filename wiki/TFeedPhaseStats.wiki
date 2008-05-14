@@ -1,0 +1,13 @@
+#summary Definition of t_feed_phase_stats
+
+= t_feed_phase_stats =
+
+The t_feed_phase_stats table contains statistics on each phase of a given feed file life cycle.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_phase_stats_id || int || No || Uniquely defines a feed phase stats row. Automatically incremented ||
+|| || phase_id || varchar(60) || No || Uniquely identifies the phase within the set of phases ||
+|| || avg_processing_time || real || Yes || Contains the average processing time of a phase  ||
+|| || total_time_in_ms || int || Yes || Contains the total processing time in milliseconds  ||
+|| || iteration_count || int || Yes || Contains the total number of times the phase was called ||
+|| FK || feed_file_id || int || No || Reference to associated feed file ||
