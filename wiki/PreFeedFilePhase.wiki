@@ -5,7 +5,7 @@
 A preFeedFilePhase is defined as phases that are executed before the FeedFile and FeedJob   
 objects are created and persisted in t_feed_file and t_feed_job.
 
-= PhaseEvent Activity Diagram =
+= Phase Event Processing Activity Diagram =
 The diagram below describes the basic process of a phase event life cycle.
 
 http://www.qagen.com/images/osfe/basicPhaseEventProcessing.jpg
