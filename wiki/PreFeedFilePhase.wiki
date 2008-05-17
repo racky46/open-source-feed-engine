@@ -8,7 +8,7 @@ objects are created and persisted in t_feed_file and t_feed_job.
 = Phase Event Processing Activity Diagram =
 The activity diagram below describes the basic process of a phase event life cycle.
 
-http://www.qagen.com/images/osfe/basicPhaseEventProcessing.jpg
+http://www.qagen.com/images/osfe/preFilePhaseProcessing.jpg
 
 = Basic Code Logic =
 The basic logic for processing preFeedFilePhases is defined below.
