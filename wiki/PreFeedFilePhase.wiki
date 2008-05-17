@@ -6,11 +6,20 @@ A preFeedFilePhase is defined as phases that are executed before the FeedFile an
 objects are created and persisted in t_feed_file and t_feed_job.
 
 = Phase Event Processing Activity Diagram =
-The diagram below describes the basic process of a phase event life cycle.
+The activity diagram below describes the basic process of a phase event life cycle.
 
 http://www.qagen.com/images/osfe/basicPhaseEventProcessing.jpg
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= Basic Code Logic =
+The basic logic for processing preFeedFilePhases is defined below.
+{{{
+  protected void runPreFeedFilePhases() {
+    final List<Phase> phases = context.getPreFeedFilePhases();
+
+    for (Phase phase : phases) {
+      context.setCurrentPhaseId(phase.getName());
+      phase.initialize();
+      phase.execute();
+    }
+  }
+}}}
