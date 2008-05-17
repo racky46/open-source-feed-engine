@@ -6,7 +6,9 @@
  * Services are also defined within an XMLconfiguration document. 
  * Services may be interchanged to modify OSFE's core behavior.  
  * OSFE comes with a set of core services.
-   * StandardFeedLifeCycleServiceDefines a standard feed processing life cycle.
+   * StandardFeedLifeCycleService Defines a standard feed processing life cycle
+   * StandardFeedLifeCycleService
+Defines a standard feed processing life cycle.
    * PhaseLoaderService
 Defines a standard phase loader. 
    * ExceptionHandlerPlaceHolder
