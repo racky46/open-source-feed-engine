@@ -15,7 +15,7 @@
 }}}
 
 = Basic Code Logic =
-The logic for batchEventPhase is more complex than other phase processing events. The code snippet below is used in the StandardFeedLifeCycleService.
+The logic for a batchEventPhase is more complex than other phase processing events. The code snippet below is used in the StandardFeedLifeCycleService.
 {{{
 private void doBatchEventPhases() {
     final Splitter splitter = context.getDetailSplitter();
