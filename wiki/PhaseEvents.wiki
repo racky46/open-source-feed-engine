@@ -10,7 +10,11 @@ OSFE processes phases in what are called Phase Events.  There are four possible 
 
 
 = <phases> configuration element =
-Within a feed configuration document, phases are defined within the sub elements of the <phases> element. 
+Within a feed configuration document, phases are defined within the sub elements of the <phases> element. For example:
+ * FileNameValidationPhase: checks that the file name is valid during the preFeedFilePhase phase lifecycle.
+ * FooterPhase: checks that the number of detail rows defined in the footer row is the same number of actual rows in the feed file. Executed in the preEventPhase life cycle.
+ * GradingPhase: grade test scores during the batchEventPhase phase life cycle.
+ * StatsPhase: calls set of stored procedures to perform statistical analysis at the end of the feed process during the postEventPhase life cycle.
 {{{
 <phases batchSize="10000">
     <preFeedFilePhases>
