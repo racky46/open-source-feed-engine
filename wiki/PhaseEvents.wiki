@@ -1,0 +1,39 @@
+#summary Overview of Phase Events
+
+= Phase Events =
+
+OSFE processes phases in what are called Phase Events.  There are four possible phase events where phases can be configured to be loaded and executed.
+ * preFeedFilePhase
+ * preEventPhase
+ * batchEventPhase
+ * postEventPhase   
+
+
+= Phase Element Configuration Example =
+{{{
+<phases batchSize="10000">
+    <preFeedFilePhases>
+       <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+    </preFeedFilePhases>
+
+    <preEventPhases>
+      <phase name="footerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FooterPhase"/>
+      <phase name="headerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.HeaderPhase"/>
+    </preEventPhases>
+
+    <batchEventPhases>
+      <phase name="beanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase"/>
+      <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
+        <properties>
+          <property name="echoDetail" value="false"/>
+        </properties>
+      </phase>
+      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckPointPhase"/>
+    </batchEventPhases>
+
+    <postEventPhases>
+      <phase name="statsPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+    </postEventPhases>
+  </phases>
+
+}}}
