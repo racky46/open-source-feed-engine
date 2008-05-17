@@ -3,7 +3,7 @@
 = Services =
 
  * OSFE uses services to define its core behavior. 
- * Services are also defined within an XMLconfiguration document. 
+ * Services are also defined within an XML [http://code.google.com/p/open-source-feed-engine/wiki/ServiceConfigElement configuration] document. 
  * Services may be interchanged to modify OSFE's core behavior.  
  * OSFE comes with a set of core services.
    * *StandardFeedLifeCycleService* - Defines a standard feed processing life cycle.
