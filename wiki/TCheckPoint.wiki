@@ -7,6 +7,6 @@ The t_checkpoint table contains the base information for a check point.  A check
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || checkpoint_id || int || No || Uniquely defines a row (Automatically incremented) ||
 || || phase_id || varchar(60) || No || Uniquely defines the checkpoint phase within the given set ||
-|| || current_file_index || int || Specifies the position in feed file of the most recent checkpoint. ||
-|| FK || feed_file_id || int || Reference to associated feed file. || 
+|| || current_file_index || int || No || Specifies the position in feed file of the most recent checkpoint. ||
+|| FK || feed_file_id || int || No || Reference to associated feed file. || 
  
