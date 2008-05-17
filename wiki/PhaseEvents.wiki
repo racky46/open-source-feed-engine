@@ -3,7 +3,7 @@
 = Phase Events =
 
 OSFE processes phases in what are called Phase Events.  There are four possible phase events where phases can be configured for loading and execution.
- * preFeedFilePhase
+ * [http://code.google.com/p/open-source-feed-engine/wiki/PreFeedFilePhase preFeedFilePhase]
  * preEventPhase
  * batchEventPhase
  * postEventPhase   
