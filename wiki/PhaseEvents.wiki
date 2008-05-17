@@ -9,7 +9,8 @@ OSFE processes phases in what are called Phase Events.  There are four possible 
  * postEventPhase   
 
 
-= Phase Element Configuration Example =
+= <phases> configuration element =
+Within a feed configuration document, phases are defined within the sub elements of the <phases> element. 
 {{{
 <phases batchSize="10000">
     <preFeedFilePhases>
