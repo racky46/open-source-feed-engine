@@ -11,7 +11,7 @@ The activity diagram below describes the basic process of a phase event life cyc
 http://www.qagen.com/images/osfe/preFilePhaseProcessing.jpg
 
 = Basic Code Logic =
-The basic logic for processing preFeedFilePhases is defined below.
+The basic logic for preFeedFilePhase processing is defined below.
 {{{
   protected void runPreFeedFilePhases() {
     final List<Phase> phases = context.getPreFeedFilePhases();
