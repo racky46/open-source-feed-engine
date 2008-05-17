@@ -7,7 +7,7 @@ Add your content here.
 
 = Example =
 
- <services>
+ &lt;services>
    <mainService></mainService>
    <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
    <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
