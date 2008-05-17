@@ -9,4 +9,4 @@ The feed engine database contains the set of [http://code.google.com/p/open-sour
 
 = Feed Engine Database ER Diagram =
 
-  http://www.qagen.com/images/feedDatabaseER.jpg
+  http://www.qagen.com/images/osfedb.jpg
