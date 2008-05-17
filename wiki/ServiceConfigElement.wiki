@@ -7,11 +7,10 @@ Add your content here.
 
 = Example =
 
+{{{
 <services>
-<mainService></mainService>
-
-<phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
-
-<exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
-
+  <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
+  <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
+  <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
 </services>
+}}}
