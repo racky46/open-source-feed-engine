@@ -12,7 +12,7 @@ OSFE processes phases in what are called Phase Events.  There are four possible 
 = <phases> configuration element =
 Within a feed configuration document, phases are defined within the sub elements of the <phases> element. The <phases> element below is an example configuration:
 {{{
-<phases batchSize="10000">
+  <phases batchSize="10000">
     <preFeedFilePhases>
        <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
     </preFeedFilePhases>
