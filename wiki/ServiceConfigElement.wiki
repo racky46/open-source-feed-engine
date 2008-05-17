@@ -1,0 +1,13 @@
+#summary Example Service Configuration Element
+
+= Service Configuration Element =
+
+Add your content here.
+
+
+= Example =
+
+<services>
+    <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
+    <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>      <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
+  </services>
