@@ -2,14 +2,13 @@
 
 = Service Configuration Element =
 
-Add your content here.
-
+The <service> element must be defined within a feed file configuration document and is used to define a set elements OSFE will use for the processing a given feed file.  
 
 = Example =
 
 {{{
 <services>
-  <mainService>*com.qagen.osfe.core.services.StandardFeedLifeCycleService*</mainService>
+  <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
   <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
   <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
 </services>
