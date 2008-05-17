@@ -9,7 +9,8 @@
  * A batchEventPhase is defined as a phase that is executed after the FeedFile and FeedJob  objects are created and persisted in t_feed_file and t_feed_job but *after* preEventPhase are executed. batchEventPhases are executed in batches. 
  * A batch is a finite set of row objects containing raw data parsed into a given row object. 
  * The number of rows given to each batch is defined in the configuration document as an attribute of the <phases> element.
-Example:
+
+= Defining Batch Size =
 {{{
 <phases batchSize="10000">
 }}}
