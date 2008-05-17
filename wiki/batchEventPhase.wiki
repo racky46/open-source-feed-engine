@@ -2,10 +2,6 @@
 
 = batchEventPhase =
 
-#summary preEventPhase overview.
-
-= batchEventPhase =
-
  * A batchEventPhase is defined as a phase that is executed after the FeedFile and FeedJob  objects are created and persisted in t_feed_file and t_feed_job but *after* preEventPhases are executed. 
  * batchEventPhases are executed in batches. 
  * A batch is a finite set of row objects containing raw data parsed into a specific row object type. 
