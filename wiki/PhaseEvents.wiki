@@ -2,7 +2,7 @@
 
 = Phase Events =
 
-OSFE processes phases in what are called Phase Events.  There are four possible phase events where phases can be configured to be loaded and executed.
+OSFE processes phases in what are called Phase Events.  There are four possible phase events where phases can be configured for loading and execution.
  * preFeedFilePhase
  * preEventPhase
  * batchEventPhase
