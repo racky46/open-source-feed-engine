@@ -1,0 +1,49 @@
+#summary batchEventPhase overview
+
+= batchEventPhase =
+
+#summary preEventPhase overview.
+
+= preEventPhase =
+
+A batchEventPhase is defined as a phase that is executed after the FeedFile and FeedJob   
+objects are created and persisted in t_feed_file and t_feed_job but *after* preEventPhase are executed. batchEventPhases are executed in batches. A batch is a finite set of row objects containing raw data parsed into a given row object. The number of rows given to each batch is defined in the configuration document as an attribute of the <phases> element.
+Example:
+{{{
+<phases batchSize="10000">
+}}}
+
+= Basic Code Logic =
+The logic for batchEventPhase is more complex than other phase processing events. The code snippet below is used in the StandardFeedLifeCycleService.
+{{{
+private void doBatchEventPhases() {
+    final Splitter splitter = context.getDetailSplitter();
+    final List<Phase> phases = context.getBatchEventPhases();
+
+    for (Phase phase : phases) {
+      context.setCurrentPhaseId(phase.getName());
+      feedJobManager.startPhaseStats(phase, context);
+      phase.initialize();
+      feedJobManager.endPhaseStats(phase, context);
+    }
+
+    // Must be called after initialization and before anything else.
+    splitter.prePhaseExecute();
+    
+    if (splitter instanceof CheckpointHandler) {
+      final Checkpoint checkpoint = context.getCheckpoint();
+      if (checkpoint != null) {
+        ((CheckpointHandler) splitter).moveToCheckPoint(checkpoint);
+      }
+    }
+
+    while (splitter.hasNextRow()) {
+      for (Phase phase : phases) {
+        context.setCurrentPhaseId(phase.getName());
+        feedJobManager.startPhaseStats(phase, context);
+        phase.execute();
+        feedJobManager.endPhaseStats(phase, context);
+      }
+    }
+  }  
+}}}
