@@ -8,7 +8,7 @@
 
  * A batchEventPhase is defined as a phase that is executed after the FeedFile and FeedJob  objects are created and persisted in t_feed_file and t_feed_job but *after* preEventPhases are executed. 
  * batchEventPhases are executed in batches. 
- * A batch is a finite set of row objects containing raw data parsed into a given row object. 
+ * A batch is a finite set of row objects containing raw data parsed into a specific row object type. 
  * The number of rows given to each batch is defined in the configuration document as an attribute of the <phases> element.
  * Because data is processed through batches, feed files containing millions of rows of data can be processed by OSFE with out taking up much memory. Thus, multiple OSFE instances can run on the same server within a single JVM.  
  * OSFE will process the batchEventPhases 1,000 times for a feed file containing 1,000,000 rows of data. 
