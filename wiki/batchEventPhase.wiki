@@ -15,7 +15,7 @@
 
 = Defining Batch Size =
 {{{
-<phases batchSize="1000">
+<phases batchSize="10000">
 }}}
 
 = Basic Code Logic =
