@@ -9,7 +9,7 @@ Add your content here.
 
 {{{
 <services>
-  <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
+  <mainService>*com.qagen.osfe.core.services.StandardFeedLifeCycleService*</mainService>
   <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
   <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
 </services>
