@@ -16,5 +16,5 @@ The sections defines each database table in detail.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJob t_feed_job] - contains the information to manage the life cycle of a given feed job.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedPhaseStats t_feed_phase_stats] - contains statistics on each phase of a feed file run.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TCheckPoint t_check_point] - contains the base information to check point a feed file run.
- * t_feed_queue - contains information for monitoring a queue of feeds. 
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedQueue t_feed_queue] - contains information for monitoring a queue of feeds. 
  * t_error_log - accessed by phases to store feed warnings and errors 
