@@ -17,6 +17,7 @@ package com.qagen.osfe.core.services;
 import com.qagen.osfe.common.utils.Log;
 import com.qagen.osfe.core.*;
 import com.qagen.osfe.core.loaders.SplitterConfigLoader;
+import com.qagen.osfe.core.phases.CheckpointPhase;
 import com.qagen.osfe.core.row.RowDescriptionLoader;
 import com.qagen.osfe.dataAccess.vo.Checkpoint;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
@@ -180,7 +181,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
       feedJobManager.startPhaseStats(phase, context);
       phase.initialize();
       phase.execute();
-      feedJobManager.endPhaseStats(phase,context);
+      feedJobManager.endPhaseStats(phase, context);
     }
   }
 
@@ -188,6 +189,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     final Splitter splitter = context.getDetailSplitter();
     final List<Phase> phases = context.getBatchEventPhases();
 
+    // perform batch phase initialization.
     for (Phase phase : phases) {
       context.setCurrentPhaseId(phase.getName());
       feedJobManager.startPhaseStats(phase, context);
@@ -195,22 +197,39 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
       feedJobManager.endPhaseStats(phase, context);
     }
 
+    // Get checkpoint from context after checkpoint phase.initialize().
+    final Checkpoint checkpoint = context.getCheckpoint();
+
     // Must be called after initialization and before anything else.
     splitter.prePhaseExecute();
-    
+
+    // Move to checkpoint if splitter is instance of checkpoint
     if (splitter instanceof CheckpointHandler) {
-      final Checkpoint checkpoint = context.getCheckpoint();
       if (checkpoint != null) {
         ((CheckpointHandler) splitter).moveToCheckPoint(checkpoint);
       }
     }
 
+    // Determine if a checkpoint has been created.
+    Boolean movingToCheckpoint = false;
+    if (checkpoint != null && !checkpoint.getPhaseId().equals(CheckpointPhase.NO_PHASE_ID)) {
+      movingToCheckpoint = true;
+    }
+
     while (splitter.hasNextRow()) {
       for (Phase phase : phases) {
-        context.setCurrentPhaseId(phase.getName());
-        feedJobManager.startPhaseStats(phase, context);
-        phase.execute();
-        feedJobManager.endPhaseStats(phase, context);
+        // Bypass phases processing when restart from a checkpoint.
+        if (!movingToCheckpoint) {
+          context.setCurrentPhaseId(phase.getName());
+          feedJobManager.startPhaseStats(phase, context);
+          phase.execute();
+          feedJobManager.endPhaseStats(phase, context);
+        }
+
+        // Checkpoint restart has be reached.
+        if (movingToCheckpoint && checkpoint.getPhaseId().equals(phase.getName())) {
+          movingToCheckpoint = false;
+        }
       }
     }
   }

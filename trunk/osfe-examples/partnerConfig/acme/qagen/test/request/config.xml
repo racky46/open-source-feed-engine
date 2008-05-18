@@ -45,7 +45,7 @@
           <property name="echoDetail" value="false"/>
         </properties>
       </phase>
-      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckPointPhase"/>
+      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckpointPhase"/>
     </batchEventPhases>
 
     <postEventPhases>
