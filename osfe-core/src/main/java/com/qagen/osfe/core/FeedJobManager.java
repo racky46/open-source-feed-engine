@@ -74,6 +74,10 @@ public class FeedJobManager {
     return feedFile;
   }
 
+  public Checkpoint getCheckpoint(FeedFile feedFile) {
+    return checkpointService.findByFeedFileId(feedFile.getFeedFileId());
+  }
+
   public List<FeedFile> findAllProcessingFeeds() {
     return feedFileService.findAllProcessingFeeds();
   }
@@ -242,7 +246,8 @@ public class FeedJobManager {
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.active.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
 
-      if (feedJob.getFailureMessage() == null) {
+      // Commandline utilities could send an null context.
+      if ((feedJob.getFailureMessage() == null) && (context != null)) {
         feedJob.setFailureMessage(context.getErrorMessage());
       }
 
