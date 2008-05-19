@@ -1,30 +1,13 @@
 <?xml version="1.0" ?>
-<project name="osfe-package" basedir="." default="package.src" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="osfe" basedir="." default="package.src" xmlns:ivy="antlib:org.apache.ivy.ant">
 
+  <property file="build.properties" />
   <property name="lib.dir" value="lib"/>
   <property name="deploy.lib.dir" value="${lib.dir}/deploy" />
   <property name="build.lib.dir" value="${lib.dir}/build" />
   <property name="test.lib.dir" value="${lib.dir}/test"/>
   <property name="web.lib.dir" value="${lib.dir}/web" />
   <property name="classes.dir" value="${basedir}/classes" />
-  
-  <property name="common.java.src.dir" value="${basedir}/osfe-common/src/main/java" />
-  <property name="common.resource.src.dir" value="${basedir}/osfe-common/src/main/resources" />
-
-  <property name="core.java.src.dir" value="${basedir}/osfe-core/src/main/java" />
-  <property name="core.resource.src.dir" value="${basedir}/osfe-core/src/main/resources" />
-
-  <property name="dataAccess.java.src.dir" value="${basedir}/osfe-dataAccess/src/main/java" />
-  <property name="dataAccess.resource.src.dir" value="${basedir}/osfe-dataAccess/src/main/resources" />
-
-  <property name="engine.java.src.dir" value="${basedir}/osfe-engine/src/main/java" />
-  <property name="engine.resource.src.dir" value="${basedir}/osfe-engine/src/main/resources" />
-
-  <property name="examples.java.src.dir" value="${basedir}/osfe-examples/src/main/java" />
-  <property name="examples.resource.src.dir" value="${basedir}/osfe-examples/src/main/resources" />
-
-  <property name="webapp.java.src.dir" value="${basedir}/osfe-webapp/src/main/java" />
-  <property name="webapp.resource.src.dir" value="${basedir}/osfe-webapp/src/main/resources" />
 
 
   <property name="ivy.install.version" value="2.0.0-beta1"/>
@@ -53,42 +36,11 @@
   <target name="compile-all">
     <delete dir="${classes.dir}"/>
     <mkdir dir="${classes.dir}" />
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${common.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${common.resource.src.dir}" includes="**/*"/>
-    </copy>
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${dataAccess.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${dataAccess.resource.src.dir}" includes="**/*"/>
-    </copy>
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${core.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${core.resource.src.dir}" includes="**/*"/>
-    </copy>
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${engine.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${engine.resource.src.dir}" includes="**/*"/>
-    </copy>
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${examples.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${examples.resource.src.dir}" includes="**/*"/>
-    </copy>
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${webapp.java.src.dir}" destdir="${classes.dir}" source="1.6" classpathref="library.path">
-      <classpath location="classes" />
-    </javac>
-    <copy todir="${classes.dir}">
-      <fileset dir="${webapp.resource.src.dir}" includes="**/*"/>
-    </copy>
+    <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${core.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${engine.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${webapp.module.dir}/build.xml" target="compile" />
   </target>
  
 
