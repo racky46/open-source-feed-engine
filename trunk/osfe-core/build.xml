@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<project name="osfe-core" basedir="." default="init">
+
+  <property file="../build.properties"/>
+
+  <property name="build.lib.dir" value="../lib/build"/>
+  <property name="deploy.lib.dir" value="../lib/deploy"/>
+  <property name="java.src.dir" value="src/main/java"/>
+  <property name="resource.src.dir" value="src/main/resources"/>
+
+  <path id="library.path">
+    <fileset dir="${build.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${deploy.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="clean">
+    <delete dir="classes"/>
+    <delete dir="dist"/>
+  </target>
+
+  <target name="init" depends="clean">
+    <mkdir dir="classes"/>
+    <mkdir dir="dist"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${java.src.dir}" destdir="classes"
+           source="1.6" classpathref="library.path">
+      <classpath location="${dataAccess.module.dir}/classes" />
+      <classpath location="${common.module.dir}/classes" />
+    </javac>
+    <copy todir="classes">
+      <fileset dir="${resource.src.dir}" includes="**/*"/>
+    </copy>
+  </target>
+
+  <target name="jar" depends="compile">
+    <echo message="${common.module.dir}" />
+    <jar basedir="classes" destfile="dist/osfe-core-${osfe.version}.jar"/>
+  </target>
+
+
+</project>

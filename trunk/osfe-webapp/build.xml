@@ -1,12 +1,15 @@
 <?xml version="1.0" ?>
 <project name="osfe-web" basedir="." default="init">
 
-  <property name="build.lib.dir" value="../lib/build" />
-  <property name="deploy.lib.dir" value="../lib/deploy" />
+  <property file="../build.properties"/>
 
-  <property name="osfe.compile.path" value="../classes" />
+  <property name="build.lib.dir" value="../lib/build"/>
+  <property name="deploy.lib.dir" value="../lib/deploy"/>
 
-  <path id="build.libraries">
+  <property name="java.src.dir" value="src/main/java"/>
+  <property name="resource.src.dir" value="src/main/resources"/>
+
+  <path id="library.path">
     <fileset dir="${build.lib.dir}">
       <include name="*.jar"/>
     </fileset>
@@ -17,28 +20,56 @@
 
   <path id="jetty.lib.path">
     <fileset dir="${build.lib.dir}">
-      <include name="core*.jar" />
-      <include name="jetty*.jar" />
-      <include name="jsp*.jar" />
-      <include name="servlet*.jar" />
+      <include name="core*.jar"/>
+      <include name="jetty*.jar"/>
+      <include name="jsp*.jar"/>
+      <include name="servlet*.jar"/>
     </fileset>
   </path>
 
 
+  <target name="clean">
+    <delete dir="classes"/>
+    <delete dir="dist"/>
+  </target>
 
-  <target name="init"></target>
+  <target name="init" depends="clean">
+    <mkdir dir="classes"/>
+    <mkdir dir="dist"/>
+  </target>
 
-    <taskdef classpathref="jetty.lib.path" resource="tasks.properties" loaderref="jetty.loader"/>
+  <target name="compile" depends="init">
+    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${java.src.dir}" destdir="classes"
+           source="1.6" classpathref="library.path">
+    </javac>
+    <copy todir="classes">
+      <fileset dir="${resource.src.dir}" includes="**/*"/>
+    </copy>
+  </target>
 
-  <target name="jetty.run">
+  <target name="compile-dependencies">
+    <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${core.module.dir}/build.xml" target="compile" />
+    <ant inheritall="false" antfile="${engine.module.dir}/build.xml" target="compile" />
+  </target>
+
+  <taskdef classpathref="jetty.lib.path" resource="tasks.properties" loaderref="jetty.loader"/>
+
+  <target name="jetty.run" depends="compile, compile-dependencies">
     <jetty tempdirectory="${basedir}/jetty-work">
-      <webapp scanintervalseconds="2" warfile="src/main/webapp" contextpath="/app" webxmlfile="src/main/webapp/WEB-INF/web.xml">
-        <classes dir="${osfe.compile.path}"/>
-        <scantargets dir="${osfe.compile.path}"/>
-        <lib dir="${deploy.lib.dir}" />
+      <webapp scanintervalseconds="2" warfile="src/main/webapp" contextpath="/app"
+              webxmlfile="src/main/webapp/WEB-INF/web.xml">
+        <classes dir="${common.module.dir}/classes"/>
+        <classes dir="${core.module.dir}/classes"/>
+        <classes dir="${dataAccess.module.dir}/classes"/>
+        <classes dir="${engine.module.dir}/classes"/>
+        <classes dir="${basedir}/classes" />
+        <scantargets dir="${basedir}/classes"/>
+        <lib dir="${deploy.lib.dir}"/>
       </webapp>
     </jetty>
 
   </target>
-  
+
 </project>
