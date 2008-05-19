@@ -9,6 +9,7 @@
   <artifactId>osfe-dataAccess</artifactId>
   <name>osfe-dataAccess</name>
   <version>1.0</version>
+  <url>http://code.google.com/p/open-source-feed-engine/</url>
   <dependencies>
     <dependency>
       <groupId>com.qagen.osfe</groupId>

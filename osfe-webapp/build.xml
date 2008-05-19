@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<project name="osfe-web" basedir="." default="init">
+
+  <property name="build.lib.dir" value="../lib/build" />
+  <property name="deploy.lib.dir" value="../lib/deploy" />
+
+  <property name="osfe.compile.path" value="../classes" />
+
+  <path id="build.libraries">
+    <fileset dir="${build.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${deploy.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="jetty.lib.path">
+    <fileset dir="${build.lib.dir}">
+      <include name="core*.jar" />
+      <include name="jetty*.jar" />
+      <include name="jsp*.jar" />
+      <include name="servlet*.jar" />
+    </fileset>
+  </path>
+
+
+
+  <target name="init"></target>
+
+    <taskdef classpathref="jetty.lib.path" resource="tasks.properties" loaderref="jetty.loader"/>
+
+  <target name="jetty.run">
+    <jetty tempdirectory="${basedir}/jetty-work">
+      <webapp scanintervalseconds="2" warfile="src/main/webapp" contextpath="/app" webxmlfile="src/main/webapp/WEB-INF/web.xml">
+        <classes dir="${osfe.compile.path}"/>
+        <scantargets dir="${osfe.compile.path}"/>
+        <lib dir="${deploy.lib.dir}" />
+      </webapp>
+    </jetty>
+
+  </target>
+  
+</project>

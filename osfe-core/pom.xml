@@ -10,6 +10,7 @@
   <artifactId>osfe-core</artifactId>
   <name>osfe-core</name>
   <version>1.0</version>
+  <url>http://code.google.com/p/open-source-feed-engine/</url>
   <dependencies>
     <dependency>
       <groupId>com.qagen.osfe</groupId>
