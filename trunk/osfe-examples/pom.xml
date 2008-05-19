@@ -9,7 +9,7 @@
   <artifactId>osfe-examples</artifactId>
   <name>osfe-examples</name>
   <version>1.0</version>
-  <url>http://maven.apache.org</url>
+  <url>http://code.google.com/p/open-source-feed-engine/</url>
   <dependencies>
     <dependency>
       <groupId>com.qagen.osfe</groupId>
