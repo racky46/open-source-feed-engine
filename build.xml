@@ -1,30 +1,66 @@
 <?xml version="1.0" ?>
-<project name="osfe-package" basedir="." default="package.src">
+<project name="osfe-package" basedir="." default="package.src" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property name="lib.dir" value="lib"/>
+  <property name="deploy.lib.dir" value="${lib.dir}/deploy" />
+  <property name="build.lib.dir" value="${lib.dir}/build" />
+  <property name="web.lib.dir" value="${lib.dir}/web" />
+
+  <property name="ivy.install.version" value="2.0.0-beta1"/>
+  <property name="ivy.jar.file" value="${build.lib.dir}/ivy.jar"/>
 
   <target name="init">
-    <mkdir dir="target" />
+    <mkdir dir="target"/>
+    <mkdir dir="${lib.dir}" />
+    <mkdir dir="${build.lib.dir}" />
+    <mkdir dir="${deploy.lib.dir}" />
+    <mkdir dir="${web.lib.dir}" />
   </target>
+ 
+
+
+  <target name="download-ivy" unless="skip.download" depends="init">
+    <!-- download Ivy from web site so that it can be used even without any special installation -->
+    <echo message="installing ivy..."/>
+    <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
+         dest="${ivy.jar.file}" usetimestamp="true"/>
+  </target>
+
+  <target name="install-ivy" depends="download-ivy">
+    <path id="build.lib.path">
+      <fileset dir="${build.lib.dir}" includes="*.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="build.lib.path"/>
+  </target>
+
+  <target name="update" depends="install-ivy" description="Download project dependencies">
+    <!--<ivy:settings file="ivysettings.xml" />-->
+    <ivy:retrieve conf="deploy" pattern="${deploy.lib.dir}/[artifact]-[revision].[ext]"/>
+    <ivy:retrieve conf="build" pattern="${build.lib.dir}/[artifact]-[revision].[ext]"/>
+  
+  </target>
+
 
   <target name="package.src" depends="init">
     <tar destfile="target/osfe-src.tar">
       <tarfileset dir="osfe-common/src">
-        <include name="**/*" />
+        <include name="**/*"/>
       </tarfileset>
       <tarfileset dir="osfe-core/src">
-        <include name="**/*" />
+        <include name="**/*"/>
       </tarfileset>
       <tarfileset dir="osfe-dataAccess/src">
-        <include name="**/*" />
+        <include name="**/*"/>
       </tarfileset>
       <tarfileset dir="osfe-engine/src">
-        <include name="**/*" />
+        <include name="**/*"/>
       </tarfileset>
       <tarfileset dir="osfe-examples/src">
-        <include name="**/*" />
+        <include name="**/*"/>
       </tarfileset>
     </tar>
-    <gzip src="target/osfe-src.tar" destfile="target/osfe-1.0-src.tar.gz" />
-    <delete file="target/osfe-src.tar"/>    
+    <gzip src="target/osfe-src.tar" destfile="target/osfe-1.0-src.tar.gz"/>
+    <delete file="target/osfe-src.tar"/>
   </target>
 
 </project>
