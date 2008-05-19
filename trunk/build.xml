@@ -80,7 +80,7 @@
 	</target>
   -->
 
-  <target name="dist">
+  <target name="dist" depends="update">
     <mkdir dir="target" />
     <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="jar" />
