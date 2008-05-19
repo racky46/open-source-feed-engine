@@ -81,6 +81,7 @@
   -->
 
   <target name="dist">
+    <mkdir dir="target" />
     <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${core.module.dir}/build.xml" target="jar" />
