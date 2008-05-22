@@ -7,6 +7,8 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/main.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jquery-1.2.3.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jquery.corner.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/common.js"></script>
 
     <s:layout-component name="html-head">
        	${headerStuff}

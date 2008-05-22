@@ -1,19 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <s:layout-render name="/layout/default.jsp">
-  <s:layout-component name="headerStuff">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jquery.corner.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/login.js"></script>
-  </s:layout-component>
   <s:layout-component name="contents">
-
     <div id="middleContents">
-      <div id="errors">
-
-      </div>
-
       <div id="loginContainer" class="outerBorder">
-
         <div style="color:white">LOGIN</div>
         <div id="innerContainer" class="innerBorder">
            <s:errors/>
@@ -33,8 +23,7 @@
             </table>
           </s:form>
         </div>
-      </div>
-      
+      </div>      
     </div>
   </s:layout-component>
 </s:layout-render>
