@@ -1,0 +1,17 @@
+#summary Definition of t_feed_user
+
+= t_feed_user =
+
+The t_feed_user tables contains information for each user allowed access to the OSFE administration console.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed__userid || varchar(60) || No || Uniquely defines a user row (auto incremented) ||
+|| || username || varchar(30) || No || Uniquely identifies a user ||
+|| || password || varchar(32) || No ||User password hash value ||
+|| || first_name || varchar(30) || No || Specifies the user's first name ||
+|| || last_name || varchar(30) || No || Specifies the user's last name ||
+|| || email_address || varchar(50) || Yes || User's email address ||
+|| || date_created || timestamp || No || Specifies the time the user row was created ||
+|| || date_modified || timestamp || No || Specifies the time the user row was last modified || 
+|| || data_last_login || timestamp || No || Specifies the last time the user logged in ||
+|| FK || feed_role_id || int || No || Defines the user access and capabilities ||
