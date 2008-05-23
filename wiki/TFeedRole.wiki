@@ -5,13 +5,15 @@
 The t_feed_role table defines user role which determines the level of access of a given user.
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
-|| PK || feed_role_id || int || No || Uniquely defines the row ||
+|| PK || feed_role_id || int || No || Uniquely defines the role id ||
 || || role_name || varcher(30) || No || Uniquely defines the role ||
 || || description || varchar(250) || No || Description of the feed role ||
 
  
 = Definitions = 
 
-|| *feed_direction_id* || *description* ||
-|| request || Defines the feed as a request to be processed ||
-|| response || Defines a response feed to a previously processed request feed ||
+|| feed_role_id || *feed_direction_id* || *description* ||
+|| 100 || Administrator || Ability to do everything ||
+|| 200 || Feed Manager || Ability to manage the processing of feeds ||
+|| 300 || Data Manager || Ability to manager t_data_source, t_feet_type, t_feed & t_feed_group || 
+|| 400 || User || Defines a response feed to a previously processed request feed ||
