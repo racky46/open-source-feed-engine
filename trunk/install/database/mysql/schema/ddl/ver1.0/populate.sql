@@ -27,3 +27,10 @@ insert into t_feed_job_state (feed_job_state_id, description) values ("resolved"
 insert into t_feed_protocol (feed_protocol_id, description) values ("request", "Defines the feed as a request to be procecessed.");
 insert into t_feed_protocol (feed_protocol_id, description) values ("response", "Defines a respose feed to a previously processed request feed.");
 
+--
+-- Populate t_feed_role
+--
+insert into t_feed_role (feed_role_id, role_name, description) values (200, 'User', 'Ability to query data and run reports');
+insert into t_feed_role (feed_role_id, role_name, description) values (300, 'Data Manager', 'Ability to manage user managed tables');
+insert into t_feed_role (feed_role_id, role_name, description) values (400, 'Feed Manager', 'Ability to manage the processing of feeds');
+insert into t_feed_role (feed_role_id, role_name, description) values (500, 'Administrator', 'Ability to do everything');
