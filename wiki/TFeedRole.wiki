@@ -13,7 +13,7 @@ The t_feed_role table defines user role which determines the level of access of 
 = Definitions = 
 
 || feed_role_id || *feed_direction_id* || *description* ||
-|| 100 || Administrator || Ability to do everything ||
-|| 200 || Feed Manager || Ability to manage the processing of feeds ||
+|| 500 || Administrator || Ability to do everything ||
+|| 400 || Feed Manager || Ability to manage the processing of feeds ||
 || 300 || Data Manager || Ability to manager t_data_source, t_feet_type, t_feed & t_feed_group || 
-|| 400 || User || Ability to query data and run reports ||
+|| 200 || User || Ability to query data and run reports ||
