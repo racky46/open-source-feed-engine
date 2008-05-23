@@ -33,6 +33,7 @@
     <dependency transitive="false" org="org.springframework" name="spring-core" rev="2.5.4" />
     <dependency transitive="false" org="org.springframework" name="spring-orm" rev="2.5.4"  />
     <dependency transitive="false" org="org.springframework" name="spring-tx" rev="2.5.4"/>
+    <dependency transitive="false" org="org.springframework" name="spring-web" rev="2.5.4"/>
     <dependency transitive="false" org="aopalliance" name="aopalliance" rev="1.0"/>
     <dependency transitive="false" org="commons-collections" name="commons-collections" rev="3.2.1" />
     <dependency transitive="false" org="commons-beanutils" name="commons-beanutils" rev="1.7.0" />

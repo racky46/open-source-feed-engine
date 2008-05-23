@@ -162,4 +162,24 @@
     <delete file="target/osfe-src.tar"/>
   </target>
 
+  <target name="javadoc" >
+    <javadoc destdir="docs/api" author="true" version="true" use="true" windowtitle="OSFE API">
+      <packageset dir="${common.module.dir}/src/main/java" defaultexcludes="true">
+        <include name="com/**"/>
+      </packageset>
+      <packageset dir="${dataAccess.module.dir}/src/main/java" defaultexcludes="true">
+        <include name="com/**"/>
+      </packageset>
+      <packageset dir="${core.module.dir}/src/main/java" defaultexcludes="true">
+        <include name="com/**"/>
+      </packageset>
+      <packageset dir="${engine.module.dir}/src/main/java" defaultexcludes="true">
+        <include name="com/**"/>
+      </packageset>
+      <packageset dir="${webapp.module.dir}/src/main/java" defaultexcludes="true">
+        <include name="com/**"/>
+      </packageset>
+    </javadoc>
+  </target>
+
 </project>
