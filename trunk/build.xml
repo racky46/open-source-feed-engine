@@ -25,7 +25,11 @@
     </fileset>
   </path>
 
-  <target name="init">
+  <target name="clean">
+    <delete dir="${lib.dir}"/>    
+  </target>
+
+  <target name="init" depends="clean">
     <mkdir dir="target"/>
     <mkdir dir="${lib.dir}" />
     <mkdir dir="${build.lib.dir}" />
