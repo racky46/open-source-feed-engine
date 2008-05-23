@@ -9,4 +9,4 @@ The OSFE database contains the set of [http://code.google.com/p/open-source-feed
 
 = OSFE Database ER Diagram =
 
-  http://www.qagen.com/images/osfedb.jpg
+  http://www.qagen.com/images/osfe/osfedb.jpg
