@@ -22,4 +22,6 @@ public interface FeedUserDAO extends DAO<FeedUser> {
 
   public List<FeedUser> findAll();
 
+  public FeedUser findByUsernameAndPassword(FeedUser feedUser);
+
 }

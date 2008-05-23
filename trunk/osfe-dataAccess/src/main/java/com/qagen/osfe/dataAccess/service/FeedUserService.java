@@ -25,4 +25,6 @@ public interface FeedUserService extends Service<FeedUser> {
   public FeedUser findByPrimaryId(Integer primaryId);
 
   public List<FeedUser> findAll();
+
+  public FeedUser authenticateFeedUser(FeedUser feedUser);
 }

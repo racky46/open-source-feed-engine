@@ -52,4 +52,9 @@ public class FeedUserServiceImpl implements FeedUserService {
   public List<FeedUser> findAll() {
     return feedUserDAO.findAll();
   }
+
+  @Transactional
+  public FeedUser authenticateFeedUser(FeedUser feedUser) {
+    return feedUserDAO.findByUsernameAndPassword(feedUser);
+  }
 }

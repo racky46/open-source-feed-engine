@@ -42,4 +42,8 @@ public class SqlMapFeedUserDAO extends SqlMapClientDaoSupport implements FeedUse
   public List<FeedUser> findAll() {
     return getSqlMapClientTemplate().queryForList("FeedUser.findAll");
   }
+
+  public FeedUser findByUsernameAndPassword(FeedUser feedUser) {
+    return (FeedUser)getSqlMapClientTemplate().queryForObject("FeedUser.findByUsernameAndPasword", feedUser);
+  }
 }
