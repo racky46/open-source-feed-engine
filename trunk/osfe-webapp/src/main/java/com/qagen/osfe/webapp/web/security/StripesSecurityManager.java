@@ -12,18 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.webapp.web;
+package com.qagen.osfe.webapp.web.security;
 
 import net.sourceforge.stripes.action.ActionBeanContext;
-import com.qagen.osfe.dataAccess.vo.FeedUser;
+import net.sourceforge.stripes.action.Resolution;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Author: Gregg Bolinger
- * <p>
+ * <p/>
  */
-public abstract class AbstractActionBeanContext extends ActionBeanContext {
+public interface StripesSecurityManager
+{
+	public boolean isUserInRole(List<String> roles, ActionBeanContext context);
+	public boolean isUserInRole(List<String> roles, HttpServletRequest request, HttpServletResponse response);
+	public Resolution getUnauthorizedResolution();
 
-  public abstract void setFeedUser(FeedUser feedUser);
-  public abstract FeedUser getFeedUser();
-  
 }

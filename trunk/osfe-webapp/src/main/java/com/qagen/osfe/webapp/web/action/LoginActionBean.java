@@ -17,29 +17,42 @@ package com.qagen.osfe.webapp.web.action;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import com.qagen.osfe.webapp.model.User;
+import com.qagen.osfe.webapp.web.action.auth.HomeActionBean;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
+import com.qagen.osfe.dataAccess.service.FeedUserService;
 
 /**
  * Author: Gregg Bolinger
- * <p>
+ * <p/>
  */
 @UrlBinding("/action/login")
 public class LoginActionBean extends BaseActionBean {
 
   @ValidateNestedProperties({
-      @Validate(field="username", required=true),
-      @Validate(field="password", required=true)
+  @Validate(field = "username", required = true),
+  @Validate(field = "password", required = true)
       })
-  private User user;
+  private FeedUser user;
 
-  public User getUser() {
+  private FeedUserService feedUserService;
+
+  public FeedUser getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(FeedUser user) {
     this.user = user;
+  }
+
+  @SpringBean("feedUserService")
+  public void setFeedUserService(FeedUserService feedUserService) {
+    this.feedUserService = feedUserService;
   }
 
   @Override
@@ -48,6 +61,13 @@ public class LoginActionBean extends BaseActionBean {
   }
 
   public Resolution login() {
-    return null;
+    FeedUser fu = feedUserService.authenticateFeedUser(user);
+    if (fu == null) {
+      getContext().getValidationErrors().add("login", new LocalizableError("/action/login.invalid"));
+      return getContext().getSourcePageResolution();
+    }else{
+      getContext().setFeedUser(fu);
+      return new RedirectResolution(HomeActionBean.class);
+    }
   }
 }

@@ -12,18 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.webapp.web;
+package com.qagen.osfe.webapp.web.action.auth;
 
-import net.sourceforge.stripes.action.ActionBeanContext;
-import com.qagen.osfe.dataAccess.vo.FeedUser;
+import static com.qagen.osfe.common.RoleConstants.*;
+import com.qagen.osfe.webapp.web.action.BaseActionBean;
+import com.qagen.osfe.webapp.web.security.Secure;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
 
 /**
  * Author: Gregg Bolinger
- * <p>
+ * <p/>
  */
-public abstract class AbstractActionBeanContext extends ActionBeanContext {
+@Secure(roles = {ADMINISTRATOR, DATA_MANAGER, FEED_MANAGER, USER})
+public class HomeActionBean extends BaseActionBean {
 
-  public abstract void setFeedUser(FeedUser feedUser);
-  public abstract FeedUser getFeedUser();
-  
+  @Override
+  public Resolution display() {
+    return new ForwardResolution(HOME_VIEW);
+  }
 }

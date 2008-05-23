@@ -15,10 +15,21 @@
 package com.qagen.osfe.webapp.web.context;
 
 import com.qagen.osfe.webapp.web.AbstractActionBeanContext;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
 
 /**
  * Author: Gregg Bolinger
  * <p>
  */
 public class OsfeActionBeanContext extends AbstractActionBeanContext {
+
+  public static final String SESSION_FEED_USER = "FEED_USER";
+
+  public void setFeedUser(FeedUser feedUser) {
+    getRequest().getSession().setAttribute(SESSION_FEED_USER, feedUser);
+  }
+
+  public FeedUser getFeedUser() {
+    return (FeedUser)getRequest().getSession().getAttribute(SESSION_FEED_USER);
+  }
 }
