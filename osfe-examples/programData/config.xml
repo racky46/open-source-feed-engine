@@ -6,5 +6,6 @@
     <configFile>/feedType/config.xml</configFile>
     <configFile>/feedGroup/config.xml</configFile>
     <configFile>/feed/config.xml</configFile>
+    <configFile>/feedRole/config.xml</configFile>
   </configFiles>
 </config>
