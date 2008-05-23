@@ -17,8 +17,6 @@ package com.qagen.osfe.dataAccess.service;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 
-import java.util.List;
-
 public interface FeedJobManagerService {
   public static final String SERVICE_ID = "feedJobManagerService";
 

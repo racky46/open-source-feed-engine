@@ -15,7 +15,6 @@
 package com.qagen.osfe.dataAccess.service;
 
 import com.qagen.osfe.dataAccess.vo.FeedJobState;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

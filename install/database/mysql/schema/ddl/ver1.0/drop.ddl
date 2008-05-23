@@ -13,6 +13,7 @@ alter table t_feed drop foreign key t_feed_group_t_feed;
 alter table t_feed drop foreign key t_feed_direction_t_feed;
 alter table t_checkpoint drop foreign key t_feed_file_t_checkpoint;
 alter table t_feed_phase_stats drop foreign key t_feed_file_t_feed_phase_stats;
+alter table t_feed_user drop foreign key t_feed_role_t_feed_user;
 drop table if exists t_feed_type;
 drop table if exists t_feed_retrieve_state;
 drop table if exists t_feed_retrieve;
@@ -29,4 +30,6 @@ drop table if exists t_feed_queue;
 drop table if exists t_feed_group;
 drop table if exists t_checkpoint;
 drop table if exists t_feed_phase_stats;
+drop table if exists t_feed_user;
+drop table if exists t_feed_role;
 
