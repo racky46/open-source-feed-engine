@@ -1,0 +1,17 @@
+#summary Definition of t_feed_role
+
+= t_feed_role =
+
+The t_feed_role table defines user role which determines the level of access of a given user.
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_role_id || int || No || Uniquely defines the row ||
+|| || role_name || varcher(30) || No || Uniquely defines the role ||
+|| || description || varchar(250) || No || Description of the feed role ||
+
+ 
+= Definitions = 
+
+|| *feed_direction_id* || *description* ||
+|| request || Defines the feed as a request to be processed ||
+|| response || Defines a response feed to a previously processed request feed ||
