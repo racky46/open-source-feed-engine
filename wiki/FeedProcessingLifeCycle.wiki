@@ -14,4 +14,4 @@ The examples scenarios below show the state transitions of the feedFile, feedJob
 
 The diagram defines the combined states of the feed file and feed a given feed job during the feed file life cycle.
 
- http://www.qagen.com/images/feedProcessingLifeCycle.jpg
+ http://www.qagen.com/images/osfe/feedProcessingLifeCycle.jpg
