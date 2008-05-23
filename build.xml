@@ -164,6 +164,7 @@
 
   <target name="javadoc" >
     <javadoc destdir="docs/api" author="true" version="true" use="true" windowtitle="OSFE API">
+      <classpath refid="library.path" />
       <packageset dir="${common.module.dir}/src/main/java" defaultexcludes="true">
         <include name="com/**"/>
       </packageset>
