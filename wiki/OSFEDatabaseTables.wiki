@@ -18,4 +18,6 @@ The sections defines each database table in detail.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TCheckPoint t_check_point] - contains the base information to check point a feed file run.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedQueue t_feed_queue] - contains information for monitoring a queue of feeds. 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TErrorLog t_error_log] - accessed by phases to store feed warnings and errors.
- * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedUser t_feed_user] -  contains information for each user allowed access to the OSFE administration console. 
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedUser t_feed_user] -  contains information for each user allowed access to the OSFE administration console. \
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedRole t_feed_rol] - defines user role which determines the level of access of a given user.
+ 
