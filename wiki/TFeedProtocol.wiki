@@ -11,6 +11,6 @@ The t_feed_protocol table defines the two protocols, request & response.  A feed
  
 = Definitions = 
 
-|| *feed_direction_id* || *description* ||
+|| *feed_protcol_id* || *description* ||
 || request || Defines the feed as a request to be processed ||
 || response || Defines a response feed to a previously processed request feed ||
