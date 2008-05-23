@@ -11,4 +11,4 @@
 
 = Example Phases Extended From Phase = 
 
-http://www.qagen.com/images/phase.jpg
+http://www.qagen.com/images/osfe/phase.jpg
