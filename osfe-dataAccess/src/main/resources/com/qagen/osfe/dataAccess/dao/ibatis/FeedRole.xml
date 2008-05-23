@@ -9,7 +9,7 @@
   <resultMap id="resultMap" class="FeedRole">
     <result property="feedRoleId" column="feed_role_id"/>
     <result property="roleName" column="role_name"/>
-    <result property="roleDescription" column="role_description"/>
+    <result property="roleDescription" column="description"/>
   </resultMap>
 
   <insert id="insert" parameterClass="FeedRole">

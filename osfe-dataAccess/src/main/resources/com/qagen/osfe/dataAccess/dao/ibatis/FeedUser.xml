@@ -33,7 +33,7 @@
       feed_role_id
     ) values (
       #username#,
-      #password#,
+      md5(#password#),
       #firstName#,
       #lastName#,
       #dateCreated#,
@@ -73,6 +73,10 @@
 
   <select id="findAll" resultClass="int" resultMap="FeedUser.resultMap">
     select * from t_feed_user
+  </select>
+
+  <select id="findByUsernameAndPasword" resultMap="FeedUser.resultMap" parameterClass="FeedUser">
+    select * from t_feed_user where username = #username# and password = md5(#password#)
   </select>
 
 </sqlMap>
