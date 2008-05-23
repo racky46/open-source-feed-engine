@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+  <table name="t_feed_role">
+    <columns>
+      <column name="feed_role_id" isString="true"/>
+      <column name="role_name" isString="true"/>
+      <column name="description" isString="true"/>
+    </columns>
+    <rows>
+      <row>
+        <feed_role_id>500</feed_role_id>
+        <role_name>Administrator</role_name>
+        <description>Ability to do everything</description>
+      </row>
+      <row>
+        <feed_role_id>400</feed_role_id>
+        <role_name>Feed Manager</role_name>
+        <description>Ability to manage the processing of feeds</description>
+      </row>
+      <row>
+        <feed_role_id>300</feed_role_id>
+        <role_name>Data Manager</role_name>
+        <description>Ability to manage user managed tables</description>
+      </row>
+      <row>
+        <feed_role_id>200</feed_role_id>
+        <role_name>User</role_name>
+        <description>Ability to query data and run reports</description>
+      </row>
+    </rows>
+  </table>
+</dataset>
