@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedRole">
+
+  <typeAlias alias="FeedRole" type="com.qagen.osfe.dataAccess.vo.FeedRole"/>
+
+  <resultMap id="resultMap" class="FeedRole">
+    <result property="feedRoleId" column="feed_role_id"/>
+    <result property="roleName" column="role_name"/>
+    <result property="roleDescription" column="role_description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedRole">
+    insert into t_feed_role (
+      role_name,
+      role_description
+    ) values (
+      #roleName#,
+      #roleDescription#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedRoleId">
+      select @@identity as feed_role_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedRole">
+    update t_feed_role set
+      feed_role_id = #feedRoleId#,
+      role_name = #roleName#,
+      role_description = #roleDescription#
+    where feed_role_id = #feedRoleId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedRole">
+    delete from t_feed_role where feed_role_id = #feedRoleId#
+  </delete>
+
+  <select id="findByPrimaryId" resultClass="int" resultMap="FeedRole.resultMap">
+    select * from t_feed_role where feed_role_id = #feedRoleId#
+  </select>
+
+  <select id="findAll" resultClass="int" resultMap="FeedRole.resultMap">
+    select * from t_feed_role
+  </select>
+
+</sqlMap>

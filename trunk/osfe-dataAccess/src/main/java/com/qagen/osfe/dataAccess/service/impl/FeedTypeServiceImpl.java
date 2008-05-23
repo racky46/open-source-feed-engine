@@ -17,10 +17,9 @@ package com.qagen.osfe.dataAccess.service.impl;
 import com.qagen.osfe.dataAccess.dao.FeedTypeDAO;
 import com.qagen.osfe.dataAccess.service.FeedTypeService;
 import com.qagen.osfe.dataAccess.vo.FeedType;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import org.springframework.transaction.annotation.Transactional;
 
 public class FeedTypeServiceImpl implements FeedTypeService {
   private FeedTypeDAO feedTypeDAO;

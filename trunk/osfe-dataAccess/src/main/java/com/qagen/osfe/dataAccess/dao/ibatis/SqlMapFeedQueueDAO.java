@@ -15,8 +15,8 @@
 package com.qagen.osfe.dataAccess.dao.ibatis;
 
 import com.qagen.osfe.dataAccess.dao.FeedQueueDAO;
-import com.qagen.osfe.dataAccess.vo.FeedQueue;
 import com.qagen.osfe.dataAccess.param.MonitorQueueParam;
+import com.qagen.osfe.dataAccess.vo.FeedQueue;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import java.util.List;

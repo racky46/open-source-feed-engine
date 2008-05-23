@@ -14,42 +14,42 @@
  */
 package com.qagen.osfe.dataAccess.service.impl;
 
-import com.qagen.osfe.dataAccess.dao.FeedProtocolDAO;
-import com.qagen.osfe.dataAccess.service.FeedProtocolService;
-import com.qagen.osfe.dataAccess.vo.FeedProtocol;
+import com.qagen.osfe.dataAccess.dao.FeedRoleDAO;
+import com.qagen.osfe.dataAccess.service.FeedRoleService;
+import com.qagen.osfe.dataAccess.vo.FeedRole;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class FeedProtocolServiceImpl implements FeedProtocolService {
-  private FeedProtocolDAO feedProtocolDAO;
+public class FeedRoleServiceImpl implements FeedRoleService {
+  private FeedRoleDAO feedRoleDAO;
 
-  public void setFeedProtocolDAO(FeedProtocolDAO feedProtocolDAO) {
-    this.feedProtocolDAO = feedProtocolDAO;
+  public void setFeedRoleDAO(FeedRoleDAO feedRoleDAO) {
+    this.feedRoleDAO = feedRoleDAO;
   }
 
   @Transactional
-  public void insert(FeedProtocol model) {
-    feedProtocolDAO.insert(model);
+  public void insert(FeedRole model) {
+    feedRoleDAO.insert(model);
   }
 
   @Transactional
-  public void update(FeedProtocol model) {
-    feedProtocolDAO.update(model);
+  public void update(FeedRole model) {
+    feedRoleDAO.update(model);
   }
 
   @Transactional
-  public void delete(FeedProtocol model) {
-    feedProtocolDAO.delete(model);
+  public void delete(FeedRole model) {
+    feedRoleDAO.delete(model);
   }
 
   @Transactional
-  public FeedProtocol findByPrimaryId(Integer primaryId) {
-    return feedProtocolDAO.findByPrimaryId(primaryId);
+  public FeedRole findByPrimaryId(Integer primaryId) {
+    return feedRoleDAO.findByPrimaryId(primaryId);
   }
 
   @Transactional
-  public List<FeedProtocol> findAll() {
-    return feedProtocolDAO.findAll();
+  public List<FeedRole> findAll() {
+    return feedRoleDAO.findAll();
   }
 }

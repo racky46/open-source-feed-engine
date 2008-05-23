@@ -17,10 +17,9 @@ package com.qagen.osfe.dataAccess.service.impl;
 import com.qagen.osfe.dataAccess.dao.FeedJobStateDAO;
 import com.qagen.osfe.dataAccess.service.FeedJobStateService;
 import com.qagen.osfe.dataAccess.vo.FeedJobState;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import org.springframework.transaction.annotation.Transactional;
 
 public class FeedJobStateServiceImpl implements FeedJobStateService {
   private FeedJobStateDAO feedJobStateDAO;

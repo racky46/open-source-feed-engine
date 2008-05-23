@@ -21,8 +21,6 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 public class FeedJobManangerServiceImpl implements FeedJobManagerService {
   private FeedJobDAO feedJobDAO;
   private FeedFileDAO feedFileDAO;

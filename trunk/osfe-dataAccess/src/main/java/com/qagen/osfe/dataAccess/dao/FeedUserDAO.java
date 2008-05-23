@@ -12,26 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.dataAccess.service;
+package com.qagen.osfe.dataAccess.dao;
 
-import com.qagen.osfe.dataAccess.param.MonitorQueueParam;
-import com.qagen.osfe.dataAccess.vo.FeedQueue;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
 
 import java.util.List;
 
+public interface FeedUserDAO extends DAO<FeedUser> {
 
-public interface FeedQueueService extends Service<FeedQueue> {
-  public static final String SERVICE_ID = "feedMappedQueueService";
-
-  public FeedQueue findByPrimaryId(Integer primaryId);
-
-  public void deleteAll(Integer monitorId);
-
-  public void deleteByMonitorIdQueueId(MonitorQueueParam param);
-
-  public List<FeedQueue> findAll(Integer monitorId);
-
-  public List<FeedQueue> findByMonitorIdQueueId(MonitorQueueParam param);
-
+  public List<FeedUser> findAll();
 
 }

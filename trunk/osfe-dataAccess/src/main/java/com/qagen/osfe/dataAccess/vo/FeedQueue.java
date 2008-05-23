@@ -14,7 +14,11 @@
  */
 package com.qagen.osfe.dataAccess.vo;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * model class generate from table t_feed_mapped_queue
@@ -85,5 +89,39 @@ public class FeedQueue extends VO {
 
   public void setFeed(Feed feed) {
     this.feed = feed;
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if (this == object) {
+      return true;
+    }
+
+    if (!(object instanceof FeedQueue)) {
+      return false;
+    }
+
+    final FeedQueue model = (FeedQueue) object;
+    if (feedQueueId.equals(model.feedQueueId)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    HashCodeBuilder builder = new HashCodeBuilder(17, 37);
+    builder.append(feedQueueId);
+    return builder.toHashCode();
+  }
+
+  @Override
+  public String toString() {
+    final List<String> list = new ArrayList<String>();
+
+    list.add(feedQueueId.toString());
+
+    return toString(list);
   }
 }

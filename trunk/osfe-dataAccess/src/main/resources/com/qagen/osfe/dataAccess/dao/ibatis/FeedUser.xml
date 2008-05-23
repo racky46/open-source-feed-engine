@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedUser">
+
+  <typeAlias alias="FeedUser" type="com.qagen.osfe.dataAccess.vo.FeedUser"/>
+
+  <resultMap id="resultMap" class="FeedUser">
+    <result property="feedUserId" column="feed_user_id"/>
+    <result property="username" column="username"/>
+    <result property="password" column="password"/>
+    <result property="firstName" column="first_name"/>
+    <result property="lastName" column="last_name"/>
+    <result property="emailAddres" column="email_address"/>
+    <result property="dateCreated" column="date_created"/>
+    <result property="dateModified" column="date_modified"/>
+    <result property="dateLastLogin" column="date_last_login"/>
+    <result property="locked" column="locked"/>
+    <result property="feedRole" column="feed_role_id" select="FeedRole.findByPrimaryId"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedUser">
+    insert into t_feed_user (
+      username,
+      password,
+      first_name,
+      last_name,
+      date_created,
+      date_modified,
+      date_last_login,
+      locked,
+      feed_role_id
+    ) values (
+      #username#,
+      #password#,
+      #firstName#,
+      #lastName#,
+      #dateCreated#,
+      #dateModified#,
+      #dateLastLogin#,
+      #locked#,
+      #feedRole.feedRoleId#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedUserId">
+      select @@identity as feed_role_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedUser">
+    update t_feed_user set
+      feed_user_id = #feedUserId#,
+      username = #username#,
+      password = #password#,
+      first_name = #firstName#,
+      last_name = #lastName#,
+      date_created = #dateCreated#,
+      date_modified = #dateModified#,
+      date_last_login = #dateLastLogin#,
+      locked = #locked#,
+      feed_role_id = #feedRole.feedRoleId#
+    where feed_user_id = #feedUserId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedUser">
+    delete from t_feed_user where feed_user_id = #feedUserId#
+  </delete>
+
+  <select id="priamryId" resultClass="int" resultMap="FeedUser.resultMap">
+    select * from t_feed_user where feed_user_id = #feedUserId#
+  </select>
+
+  <select id="findAll" resultClass="int" resultMap="FeedUser.resultMap">
+    select * from t_feed_user
+  </select>
+
+</sqlMap>

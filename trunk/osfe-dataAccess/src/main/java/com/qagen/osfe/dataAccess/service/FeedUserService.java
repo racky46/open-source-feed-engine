@@ -14,24 +14,15 @@
  */
 package com.qagen.osfe.dataAccess.service;
 
-import com.qagen.osfe.dataAccess.param.MonitorQueueParam;
-import com.qagen.osfe.dataAccess.vo.FeedQueue;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
 
 import java.util.List;
 
 
-public interface FeedQueueService extends Service<FeedQueue> {
-  public static final String SERVICE_ID = "feedMappedQueueService";
+public interface FeedUserService extends Service<FeedUser> {
+  public static final String SERVICE_ID = "feedUserService";
 
-  public FeedQueue findByPrimaryId(Integer primaryId);
+  public FeedUser findByPrimaryId(Integer primaryId);
 
-  public void deleteAll(Integer monitorId);
-
-  public void deleteByMonitorIdQueueId(MonitorQueueParam param);
-
-  public List<FeedQueue> findAll(Integer monitorId);
-
-  public List<FeedQueue> findByMonitorIdQueueId(MonitorQueueParam param);
-
-
+  public List<FeedUser> findAll();
 }

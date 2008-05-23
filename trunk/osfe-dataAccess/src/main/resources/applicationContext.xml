@@ -21,7 +21,7 @@
 
 
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="driverClassName" value="${osfe.db.jdbc.driver}"/>
     <property name="url" value="${osfe.db.url}"/>
     <property name="username" value="${osfe.db.username}"/>
     <property name="password" value="${osfe.db.password}"/>
@@ -89,7 +89,15 @@
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
+  <bean id="feedRoleDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedRoleDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
   <bean id="feedTypeDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedTypeDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedUserDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedUserDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
@@ -140,8 +148,16 @@
     <property name="feedProtocolDAO" ref="feedProtocolDAO"/>
   </bean>
 
+  <bean id="feedRoleService" class="com.qagen.osfe.dataAccess.service.impl.FeedRoleServiceImpl">
+    <property name="feedRoleDAO" ref="feedRoleDAO"/>
+  </bean>
+
   <bean id="feedTypeService" class="com.qagen.osfe.dataAccess.service.impl.FeedTypeServiceImpl">
     <property name="feedTypeDAO" ref="feedTypeDAO"/>
+  </bean>
+
+  <bean id="feedUserService" class="com.qagen.osfe.dataAccess.service.impl.FeedUserServiceImpl">
+    <property name="feedUserDAO" ref="feedUserDAO"/>
   </bean>
 
 </beans>
