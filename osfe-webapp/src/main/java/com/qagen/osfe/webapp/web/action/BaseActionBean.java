@@ -27,6 +27,7 @@ public abstract class BaseActionBean implements ActionBean {
   public static final String JSP_PATH = "/WEB-INF/jsp/";
   public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
   public static final String LOGIN_VIEW = JSP_PATH + "login.jsp";
+  public static final String HOME_VIEW = JSP_PATH + "auth/home.jsp";
 
   private AbstractActionBeanContext context;
 
@@ -34,7 +35,7 @@ public abstract class BaseActionBean implements ActionBean {
     this.context = (AbstractActionBeanContext)actionBeanContext;
   }
 
-  public ActionBeanContext getContext() {
+  public AbstractActionBeanContext getContext() {
     return this.context;
   }
 

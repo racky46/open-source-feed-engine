@@ -4,6 +4,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      classpath:applicationContext.xml
+    </param-value>
+  </context-param>
+
+
+  <listener>
+    <listener-class>
+      org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+  </listener>
+
   <filter>
     <display-name>Stripes Filter</display-name>
     <filter-name>StripesFilter</filter-name>
@@ -16,7 +30,17 @@
     </init-param>
     <init-param>
       <param-name>Extension.Packages</param-name>
-      <param-value>com.qagen.osfe.webapp.web.context</param-value>
+      <param-value>com.qagen.osfe.webapp.web.context,com.qagen.osfe.webapp.web.interceptor</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Interceptor.Classes</param-name>
+      <param-value>
+        net.sourceforge.stripes.integration.spring.SpringInterceptor
+      </param-value>
+    </init-param>
+    <init-param>
+      <param-name>StripesSecurityManager.class</param-name>
+      <param-value>com.qagen.osfe.webapp.web.security.OsfeSecurityManager</param-value>
     </init-param>
   </filter>
 

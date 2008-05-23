@@ -15,10 +15,19 @@
 package com.qagen.osfe.webapp.web.context;
 
 import com.qagen.osfe.webapp.web.AbstractActionBeanContext;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
 
 /**
  * Author: Gregg Bolinger
  * <p>
  */
 public class OsfeTestActionBeanContext extends AbstractActionBeanContext {
+
+  public void setFeedUser(FeedUser feedUser) {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  public FeedUser getFeedUser() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
+  }
 }
