@@ -2,7 +2,7 @@
 
 = t_feed_role =
 
-The t_feed_role table defines user role which determines the level of access of a given user.
+The t_feed_role table defines user roles which determines the level of access of a given user.
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_role_id || int || No || Uniquely defines the role id ||
