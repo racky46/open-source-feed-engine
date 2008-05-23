@@ -20,29 +20,26 @@ import java.lang.annotation.*;
  * Annotation used to secure ActionBean classes and methods with roles within the web appliction. If
  * the
  *
+ * @author Nic Holbrook, Gregg Bolinger
  * @Secure annotation is used, the default behavior is to deny access even if no roles are
- *         specified. If roles are specified, they are processed in the order of notAllowed,
- *         requiresAll, and then requiresAny. Any combination of these may be set. You must create a
- *         class that implements StripesSecurityManager and set this as your security manager in the
- *         web.xml config as shown below.
- *
- * <servlet> <servlet-name>StripesDispatcher</servlet-name>
- * <servlet-class>net.sourceforge.stripes.security.controller.DispatcherServlet</servlet-class> <init-param>
- * <param-name>SecurityManager</param-name>
- * <param-value>net.sourceforge.stripes.security.MyContainerSecurityManager</param-value>
- * </init-param> <load-on-startup>1</load-on-startup> </servlet>
- *
+ * specified. If roles are specified, they are processed in the order of notAllowed,
+ * requiresAll, and then requiresAny. Any combination of these may be set. You must create a
+ * class that implements StripesSecurityManager and set this as your security manager in the
+ * web.xml stripes filter config as shown below.
+ * <p/>
+ * <init-param>
+ * <param-name>StripesSecurityManager.class</param-name>
+ * <param-value>com.qagen.osfe.webapp.web.security.OsfeSecurityManager</param-value>
+ * </init-param>
+ * <p/>
  * You can then add the
  * @Secure annotation to any of your action class or method declarations like so.
- *
  * @Secure( roles={"MANAGE_USERS", "MANAGE_CUSTOMERS"} )
- *
- * @author Nic Holbrook, Gregg Bolinger
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target( {ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Documented
 public @interface Secure {
-	String[] roles() default {};
+  String[] roles() default {};
 }
 
