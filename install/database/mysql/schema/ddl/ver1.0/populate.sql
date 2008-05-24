@@ -34,3 +34,8 @@ insert into t_feed_role (feed_role_id, role_name, description) values (200, 'Use
 insert into t_feed_role (feed_role_id, role_name, description) values (300, 'Data Manager', 'Ability to manage user managed tables');
 insert into t_feed_role (feed_role_id, role_name, description) values (400, 'Feed Manager', 'Ability to manage the processing of feeds');
 insert into t_feed_role (feed_role_id, role_name, description) values (500, 'Administrator', 'Ability to do everything');
+
+--
+-- Populate t_feed_user
+--
+insert into t_feed_user (username, password, first_name, last_name, date_modified, date_last_login, feed_role_id) values ('admin', md5('admin'), 'Admin', 'Admin', now(), now(), 500);
