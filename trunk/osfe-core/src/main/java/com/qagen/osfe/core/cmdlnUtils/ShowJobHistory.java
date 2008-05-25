@@ -18,19 +18,43 @@ import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * ShowJobHistory retrieves the set of feed jobs for the given feed file
+ * and echos the results to the system console.
+ */
 public class ShowJobHistory extends ShowJobsBase {
   private final Integer feedFileId;
 
+  /**
+   * Constructor
+   *
+   * @param feedFileId identifies the feedFile to show feed job history.
+   */
   public ShowJobHistory(String feedFileId) {
     super();
     this.feedFileId = Integer.parseInt(feedFileId);
   }
 
+  /**
+   * This method must be called in order to perform the tasks of retrieving
+   * the set of feed jobs for the given feed file and echoed to the console.
+   */
   public void execute() {
     final List<FeedJob> failedJobs = feedJobService.findByFeedFileId(feedFileId);
     showFeedJobsForFeedFile(failedJobs);
   }
 
+  /**
+   * arg[0] must contain the feedFileId.
+   * <ul>
+   * <li>Usage: ShowJobHistory feedFileId
+   * <li>Example: ShowJobHistory 1000010
+   * </ul>
+   *
+   * @param args reference to the command line arguments.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       System.err.println("Usage: ShowJobHistory feedFileId");

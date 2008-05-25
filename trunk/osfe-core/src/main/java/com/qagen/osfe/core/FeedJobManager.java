@@ -25,6 +25,14 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.*;
 
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * The FeedJobManager is a helper class and contains many common tasks for
+ * managing a complete feed life cycle.  Other classes such as the
+ * StandardStandardFeedLifeCycleService and the AbstractFeedEngine use this
+ * class to simplify and handle most common tasks.
+ */
 public class FeedJobManager {
   final private FeedJobManagerService jobManagerService;
   final private FeedService feedService;
@@ -32,6 +40,9 @@ public class FeedJobManager {
   final private CheckpointService checkpointService;
   final private FeedPhaseStatsService feedPhaseStatsService;
 
+  /**
+   * Constructor
+   */
   public FeedJobManager() {
     feedService = (FeedService) DataAccessContext.getBean(FeedService.SERVICE_ID);
     feedFileService = (FeedFileService) DataAccessContext.getBean(FeedFileService.SERVICE_ID);
@@ -40,10 +51,24 @@ public class FeedJobManager {
     feedPhaseStatsService = (FeedPhaseStatsService) DataAccessContext.getBean(FeedPhaseStatsService.SERVICE_ID);
   }
 
+  /**
+   * Returns the feed directory related to the OSFE home directory for the givne feed.
+   *
+   * @param feed contains the feed directory information.
+   * @return return the directory concatentated with the OSFE home directory.
+   */
   private String getHomeDirectory(Feed feed) {
     return DirectoryHelper.getHomeDirectory() + feed.getFeedDirectory();
   }
 
+  /**
+   * Moves the feed file associated to the given feed job from the specified
+   * source directory to the specified destination directory.
+   *
+   * @param feedJob   identifies the feed file to move.
+   * @param sourceDir defines where to move the file from.
+   * @param destDir   defines where to move the file to.
+   */
   private void moveFeedFile(FeedJob feedJob, String sourceDir, String destDir) {
     final FeedFile feedFile = feedJob.getFeedFile();
     final String fileName = feedFile.getFeedFileName();
@@ -52,6 +77,13 @@ public class FeedJobManager {
     FileMoveHelper.moveFromDirToDir(homeDir, fileName, fileName, sourceDir, destDir);
   }
 
+  /**
+   * Retrieves the Feed object for the given feedId.
+   *
+   * @param feedId idenitfies the Feed object to retrieve.
+   * @return feed object.
+   * @throws FeedErrorException if object not found.
+   */
   public Feed getFeed(String feedId) {
     final Feed feed = feedService.findByPrimaryId(feedId);
 
@@ -63,6 +95,13 @@ public class FeedJobManager {
     return feed;
   }
 
+  /**
+   * Retrieves the feedFile object for the given feedfileId.
+   *
+   * @param feedFileId identifies the feedFile object to retrieve.
+   * @return feedFile object.
+   * @throws FeedErrorException if feedFile not found.
+   */
   public FeedFile getFeedFile(Integer feedFileId) {
     final FeedFile feedFile = feedFileService.findByPrimaryId(feedFileId);
 
@@ -74,27 +113,67 @@ public class FeedJobManager {
     return feedFile;
   }
 
+  /**
+   * Retrieves the checkpoint object for the given feed file.
+   *
+   * @param feedFile used to search for the checkpoint object.
+   * @return null if not found.
+   */
   public Checkpoint getCheckpoint(FeedFile feedFile) {
     return checkpointService.findByFeedFileId(feedFile.getFeedFileId());
   }
 
+  /**
+   * Retrieves a list of all feedFile objects in a processing state.
+   *
+   * @return List of processing feedFile objects or any empty set if none
+   *         were found.
+   */
   public List<FeedFile> findAllProcessingFeeds() {
     return feedFileService.findAllProcessingFeeds();
   }
 
+  /**
+   * Retrieves a list of feedFile objects in a processing state for the given feedFileId.
+   *
+   * @param feedId the feedId to filter the search for.
+   * @return List of processing feedFile objects or any empty set if none
+   *         were found.
+   */
   public List<FeedFile> findAllProcessingFeedsForFeedId(String feedId) {
     return feedFileService.findAllProcessingFeedsForFeedId(feedId);
   }
 
+  /**
+   * Checks to see if there are any feed files currently in a processing state
+   * for the given feed.
+   *
+   * @param feed the feed to check for.
+   * @return true if number of processing feeds is > 0;
+   */
   public Boolean anyFeedsInProcessingState(Feed feed) {
     final List<FeedFile> feedFiles = findAllProcessingFeedsForFeedId(feed.getFeedId());
     return feedFiles.size() > 0;
   }
 
+  /**
+   * Retrieves a list of feedFile objects in a failed state for the given feedFileId.
+   *
+   * @param feedId the feedId to filter the search for.
+   * @return List of failed feedFile objects or any empty set if none
+   *         were found.
+   */
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId) {
     return feedFileService.findAllFailedFeedsForFeedId(feedId);
   }
 
+  /**
+   * Checks to see if there are any feed files currently in a failed state for
+   * the given feed.
+   *
+   * @param feed the feed to check for.
+   * @return true if number of failed feeds is > 0;
+   */
   public Boolean anyFeedsInFailedState(Feed feed) {
     final List<FeedFile> feedFiles = findAllFailedFeedsForFeedId(feed.getFeedId());
     return feedFiles.size() > 0;
@@ -114,7 +193,7 @@ public class FeedJobManager {
    * <li>	Set feed_file_state = Processing.
    * <li>	Call createFeefJob.
    * </lu>
-   *
+   * <p>
    * @param feed         contains the definition of the type of feedFile that will be created.
    * @param feedFileName the  feed file name.
    * @return reference to newly created FeedFile.
@@ -153,6 +232,12 @@ public class FeedJobManager {
     return feedFile;
   }
 
+  /**
+   * Updates feed file stats from the context into the feed file.
+   *
+   * @param feedFile the feed file to update.
+   * @param context  references the engine context.
+   */
   private void updateFeedFileStats(FeedFile feedFile, EngineContext context) {
     if (context != null) {
       feedFile.setRecordProcessed(context.getProcessedRowCount());
@@ -160,6 +245,12 @@ public class FeedJobManager {
     }
   }
 
+  /**
+   * Updates the feed job error information from the context into the feed job.
+   *
+   * @param feedJob the feedJob object to update.
+   * @param context references the engine context.
+   */
   private void updateFeedJobStats(FeedJob feedJob, EngineContext context) {
     if (context != null) {
       feedJob.setFailedRowNumber(context.getRejectedRowNumber());
@@ -168,6 +259,17 @@ public class FeedJobManager {
     }
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a processing state.
+   * <li>creates a feedJob in an active state.
+   * </ul>
+   * <p>
+   * @param feedFile identifies the feedjob to create a job for.
+   * @return the feedJob object
+   */
   private FeedJob createFeedJobObject(FeedFile feedFile) {
     final FeedJob feedJob = new FeedJob();
     final Timestamp startTimeStamp = new Timestamp(System.currentTimeMillis());
@@ -182,6 +284,17 @@ public class FeedJobManager {
     return feedJob;
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a rejected state.
+   * <li>moves feedJob to a resolved state.
+   * </ul>
+   * <p>
+   * @param feedJob identifies the feed job to fail.
+   * @return true if it all steps completed.
+   */
   public boolean moveToRejectedNoFileMove(FeedJob feedJob) {
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.failed.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
@@ -196,12 +309,36 @@ public class FeedJobManager {
     return false;
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a rejected state.
+   * <li>moves feedJob to a resolved state.
+   * <li>moves physical feed file from the failed to rejected directory.
+   * </ul>
+   * <p>
+   * @param feedJob identifies the feed job to fail.
+   * @return true if it all steps completed.
+   */
   public boolean moveToRejected(FeedJob feedJob) {
     // This statement should succeed before changing the state of the feedFile and feedJob.
     moveFeedFile(feedJob, FEED_DIR.failed.getValue(), FEED_DIR.rejected.getValue());
     return moveToRejectedNoFileMove(feedJob);
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a retry state.
+   * <li>moves feedJob to a resolved state.
+   * <li>moves physical feed file from the failed to incoming directory.
+   * </ul>
+   * <p>
+   * @param feedJob identifies the feed job to fail.
+   * @return true if it all steps completed.
+   */
   public boolean moveToRetry(FeedJob feedJob) {
     // This statement should succeed before changing the state of the feedFile and feedJob.
     moveFeedFile(feedJob, FEED_DIR.failed.getValue(), FEED_DIR.incoming.getValue());
@@ -218,10 +355,39 @@ public class FeedJobManager {
     return false;
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a completed state.
+   * <li>moves feedJob to a completed state.
+   * <li>moves physical feed file from the workarea to archive directory.
+   * </ul>
+   * <p/>
+   * This method will not update feed phase stats because stats are managed by
+   * the engine context. Use method moveToCompleted(FeedJob, EngineContext)
+   * instead.
+   *
+   * @param feedJob identifies the feed job to fail.
+   * @return true if it all steps completed.
+   */
   public boolean moveToCompleted(FeedJob feedJob) {
     return moveToCompleted(feedJob, null);
   }
 
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a completed state.
+   * <li>moves feedJob to a completed state.
+   * <li>moves physical feed file from the workarea to archive directory.
+   * </ul>
+   * <p>
+   * @param feedJob identifies the feed job to fail.
+   * @param context references the engine context.
+   * @return true if it all steps completed.
+   */
   public boolean moveToCompleted(FeedJob feedJob, EngineContext context) {
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.active.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
@@ -238,10 +404,19 @@ public class FeedJobManager {
     return false;
   }
 
-  public boolean moveToFailed(FeedJob feedJob) {
-    return moveToFailed(feedJob, null);
-  }
-
+  /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a failed state.
+   * <li>moves feedJob to a failed state.
+   * <li>moves physical feed file from the workarea to failed directory.
+   * </ul>
+   * <p>
+   * @param feedJob identifies the feed job to fail.
+   * @param context references the engine context.
+   * @return true if it all steps completed.
+   */
   public boolean moveToFailed(FeedJob feedJob, EngineContext context) {
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.active.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
@@ -266,6 +441,26 @@ public class FeedJobManager {
   }
 
   /**
+   * This method completes the following tasks.
+   * <p>
+   * <ul>
+   * <li>moves feedFile to a completed state.
+   * <li>moves feedJob to a completed state.
+   * <li>moves physical feed file from the workarea to archive directory.
+   * </ul>
+   * <p/>
+   * This method will not update feed phase stats because stats are managed by
+   * the engine context. Use method moveToFailed(FeedJob, EngineContext)
+   * instead.
+   *
+   * @param feedJob identifies the feed job to fail.
+   * @return true if it all steps completed.
+   */
+  public boolean moveToFailed(FeedJob feedJob) {
+    return moveToFailed(feedJob, null);
+  }
+
+  /**
    * Retrieves the most recent FeedJob for the given feedFileId.
    *
    * @param feedFileId the id of the feedFile to reference.
@@ -281,11 +476,13 @@ public class FeedJobManager {
   /**
    * This method can only restart a feed file if the following conditions
    * are true:
+   * <p>
    * <ul>
    * <li>feedFile.state must be in a processing state.
    * <li>feed.restartAtCheckpoint set to true.
    * <li>feedFile.checkpoint must not be null.
    * </ul>
+   * <p>
    * If the above conditions are true, then the feed file is moved to a failed
    * state and then to a retry state.
    * <p/>
@@ -325,10 +522,10 @@ public class FeedJobManager {
 
   /**
    * Checks to see if most recent FeedJob is in a 'RESOLVED' state.
-   * If it is not, an IllegalStateTransitionException is thrown.
    *
    * @param feedFile contains the feedFileId used to retrieve the most
    *                 recent feedJob.
+   * @throws FeedErrorException if not in resolved state.
    */
   public void checkLastFeedJobIsResolved(FeedFile feedFile) {
     final FeedJob feedJob = getMostRecentFeedJob(feedFile.getFeedFileId());
@@ -357,7 +554,7 @@ public class FeedJobManager {
     final Feed feed = getFeed(feedId);
 
     Boolean createFeedFile = false;
-    FeedFile feedFile = checkIfFeedFileExists(feedFileName);
+    FeedFile feedFile = checkIfFeedFileExistsInRetry(feedFileName);
     if (feedFile == null) {
       createFeedFile = true;
       feedFile = createFeedFile(feed, feedFileName);
@@ -380,7 +577,14 @@ public class FeedJobManager {
     return feedJob;
   }
 
-  public FeedFile checkIfFeedFileExists(String feedFileName) {
+  /**
+   * Checks if a given feed file exists.
+   *
+   * @param feedFileName the name of the feed file to check for.
+   * @return the feedFile object if the feedFile is found.
+   * @throws FeedErrorException if exists but is not in a retry state.
+   */
+  public FeedFile checkIfFeedFileExistsInRetry(String feedFileName) {
     final FeedFile feedFile = feedFileService.findByFeedFileName(feedFileName);
 
     if (feedFile != null) {
@@ -409,7 +613,14 @@ public class FeedJobManager {
     return feedGroup != null ? feedGroup.getCollectPhaseStats() : feed.getCollectPhaseStats();
   }
 
-
+  /**
+   * Reinitializes and persists phase stat records for the given feedFileId.
+   * This should only be called when rerunning a failed feed and after a restart
+   * or retry has been executed.
+   *
+   * @param feedFileId identfies the feed file the phase stats are related to.
+   * @param context    references the engine context.
+   */
   public void reInitPhaseStats(Integer feedFileId, EngineContext context) {
     final Feed feed = getFeedFile(feedFileId).getFeed();
 
@@ -428,11 +639,17 @@ public class FeedJobManager {
       phaseStatsMap.put(stats.getPhaseId(), stats);
     }
 
-    feedPhaseStatsService.insert(phaseStatsList);
+    feedPhaseStatsService.update(phaseStatsList);
 
     context.setPhaseStatsMap(phaseStatsMap);
   }
 
+  /**
+   * Creates and persists phase stat records for the given feedFileId.
+   *
+   * @param feedFileId identfies the feed file the phase stats are related to.
+   * @param context    references the engine context.
+   */
   public void initPhaseStats(Integer feedFileId, EngineContext context) {
     final Feed feed = getFeedFile(feedFileId).getFeed();
 
@@ -457,6 +674,12 @@ public class FeedJobManager {
     context.setPhaseStatsMap(phaseStatsMap);
   }
 
+  /**
+   * Initalizes the phase stats for the given phase.
+   *
+   * @param phase   the phase to collect statistics for.
+   * @param context reference to the engine context.
+   */
   public void startPhaseStats(Phase phase, EngineContext context) {
     final Feed feed = context.getFeed();
 
@@ -469,6 +692,12 @@ public class FeedJobManager {
     stats.setStartTime(System.currentTimeMillis());
   }
 
+  /**
+   * Calculates feed statistcs and the end of a phase.
+   *
+   * @param phase   the phase to collect statistics for.
+   * @param context reference to the engine context.
+   */
   public void endPhaseStats(Phase phase, EngineContext context) {
     final Feed feed = context.getFeed();
 
@@ -489,6 +718,12 @@ public class FeedJobManager {
     stats.setAvgProcessingTime(avgTime);
   }
 
+  /**
+   * Updates the current phase statistics and associated to the current feed file
+   * to the t_feed_stats.
+   *
+   * @param context reference to the engine context
+   */
   public void savePhaseStats(EngineContext context) {
     final Feed feed = context.getFeed();
 
