@@ -20,6 +20,14 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * RejectAllForFeedId retrieves the set all of the feed files in a failed
+ * state for the given feedFileId.  It then iterates over each one and calls
+ * RejectFeed.java which performs the actual task of rejecting an individual
+ * feed file.
+ */
 public class RejectAllForFeedId {
   public enum PARAM {
     IGNORE_FILE_MOVE
@@ -28,6 +36,17 @@ public class RejectAllForFeedId {
   private String feedId;
   private String ignoreFileMoveFlag;
 
+  /**
+   * Constructor
+   *
+   * @param feedId             identifies the set of feedFiles to reject.
+   * @param ignoreFileMoveFlag specifies whether the task to move the physical
+   *                           file from the /failed directory to /rejected directory
+   *                           should be executed.
+   *                           It may be the case that the physical file is not
+   *                           in the /failed directory.  Thus, the task of moving
+   *                           the physical file should not be done.
+   */
   public RejectAllForFeedId(String feedId, String ignoreFileMoveFlag) {
     this.feedId = feedId;
     this.ignoreFileMoveFlag = ignoreFileMoveFlag;
@@ -40,6 +59,10 @@ public class RejectAllForFeedId {
     }
   }
 
+  /**
+   * This method must be called in order to perform the tasks of retrieving
+   * the set of feed files in a failed state and moving them to the rejected state.
+   */
   public void execute() {
     final FeedJobManager feedJobManager = new FeedJobManager();
     final List<FeedFile> feedFiles = feedJobManager.findAllFailedFeedsForFeedId(feedId);
@@ -51,6 +74,19 @@ public class RejectAllForFeedId {
     }
   }
 
+  /**
+   * <ul>
+   * <li>arg[0] must contain the feedFileId.
+   * <li>arg[1] may contain the constant IGNORE_FILE_MOVE.
+   * </ul>
+   * <ul>
+   * <li>Usage: RejectFeed feedFileId [IGNORE_FILE_MOVE]
+   * <li>Example: RejectFeed 100009
+   * <li>Example: RejectFeed 100009 IGNORE_FILE_MOVE
+   * </ul>
+   *
+   * @param args reference to the command line arguments.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       System.err.println("Usage: RejectAllForFeedId feedId [IGNORE_FILE_MOVE]");

@@ -19,17 +19,33 @@ import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * ShowActiveJobs retrieves the set of feed jobs that are in an active state
+ * and echos the results to the console.
+ */
 public class ShowActiveJobs extends ShowJobsBase {
 
+  /**
+   * Constructor
+   */
   public ShowActiveJobs() {
     super();
   }
 
+  /**
+   * This method must be called in order to perform the tasks of retrieving
+   * the set of feed jobs in an active state and echoed to the console.
+   */
   public void execute() {
     final List<FeedJob> failedJobs = feedJobService.findByFeedJobStateId(FEED_JOB_STATE.active.getValue());
     showJobs(failedJobs);
   }
 
+  /**
+   * @param args no argurments necessary.
+   */
   public static void main(String[] args) {
     final ShowActiveJobs job = new ShowActiveJobs();
     job.execute();

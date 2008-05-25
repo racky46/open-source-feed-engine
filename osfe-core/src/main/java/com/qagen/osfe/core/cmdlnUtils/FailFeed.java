@@ -21,7 +21,7 @@ import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * FailFeed performs the following tasks.
  * <ul>
  * <li> Locates the processing feed for the given feed file id.
@@ -37,7 +37,7 @@ public class FailFeed {
 
   /**
    * Constructor
-   *
+   * <p/>
    * When instantiating with this constructor, make sure to call the
    * setFeedFileId() method before calling the execute() method.
    */
@@ -68,6 +68,8 @@ public class FailFeed {
    * given processing feed to the failed state.
    *
    * @return true if able to move to a failed state.
+   * @throws FeedErrorException if no feed file exists for the given
+   *                            feedFileId.
    */
   public Boolean execute() {
     final FeedJobManager feedJobManager = new FeedJobManager();
@@ -83,6 +85,10 @@ public class FailFeed {
 
   /**
    * arg[0] must contain the feedFileId.
+   * <ul>
+   * <li>Usage: FailFeed feedFileId
+   * <li>Example: FaileFeed 10099
+   * </ul>
    *
    * @param args reference to the command line arguments.
    */

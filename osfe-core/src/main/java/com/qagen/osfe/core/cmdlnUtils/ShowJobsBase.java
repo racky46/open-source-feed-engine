@@ -22,6 +22,12 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * ShowJobsBase is an abstract class and must be extended.  It contains
+ * methods for echoing formatted data to the system console.
+ */
 public abstract class ShowJobsBase {
   public static final String FORMAT_I = "|%1$-10s|%2$-10s|%3$-40s|%4$-22s|%5$-60s|\n";
   public static final String FORMAT_II = "|%1$-10s|%2$-10s|%3$-40s|%4$-15s|%5$-22s|%6$-22s|\n";
@@ -30,10 +36,25 @@ public abstract class ShowJobsBase {
   final FeedJobService feedJobService;
   private SimpleDateFormat dateFormat = new SimpleDateFormat(TIMESTAMP_FORMAT);
 
+  /**
+   * Constructor
+   */
   public ShowJobsBase() {
     feedJobService = (FeedJobService) DataAccessContext.getBean(FeedJobService.SERVICE_ID);
   }
 
+  /**
+   * Echos formatted data to the system console for the follwoing attributes:
+   * <ul>
+   * <li>FeedJobId
+   * <li>FeedFileId
+   * <li>FeedId
+   * <li>StartTime
+   * <li>FeedFileName
+   * </ul>
+   *
+   * @param feedJobs reference to the set of feedJob objects to echo information for.
+   */
   public void showJobs(List<FeedJob> feedJobs) {
     System.out.format(FORMAT_I, "FeedJobId", "FeedFileId", "FeedId", "StartTime", "FeedFileName");
 
@@ -49,6 +70,19 @@ public abstract class ShowJobsBase {
     }
   }
 
+  /**
+   * Echos formatted data to the system console for the follwoing attributes:
+   * <ul>
+   * <li>FeedJobId
+   * <li>FeedFileId
+   * <li>FeedId
+   * <li>State
+   * <li>StartTime
+   * <li>EndTime
+   * </ul>
+   *
+   * @param feedJobs reference to the set of feedJob objects to echo information for.
+   */
   public void showFeedJobsForFeedFile(List<FeedJob> feedJobs) {
     System.out.format(FORMAT_II, "FeedJobId", "FeedFileId", "FeedId", "State", "StartTime", "EndTime");
 

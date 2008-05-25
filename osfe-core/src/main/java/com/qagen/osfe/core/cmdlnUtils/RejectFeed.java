@@ -140,6 +140,11 @@ public class RejectFeed {
    * <li>arg[0] must contain the feedFileId.
    * <li>arg[1] may contain the constant IGNORE_FILE_MOVE.
    * </ul>
+   * <ul>
+   * <li>Usage: RejectFeed feedFileId [IGNORE_FILE_MOVE]
+   * <li>Example: RejectFeed 100009
+   * <li>Example: RejectFeed 100009 IGNORE_FILE_MOVE
+   * </ul>
    *
    * @param args reference to the command line arguments.
    */

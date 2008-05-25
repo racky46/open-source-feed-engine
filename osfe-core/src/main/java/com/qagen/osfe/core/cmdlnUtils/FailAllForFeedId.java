@@ -19,13 +19,28 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * FailAllForFeedId retrieves the set all of the feed files in a processing
+ * state for the given feedFileId.  It then iterates over each one and calls
+ * FailFeed.java which performs the actual task of failing an individual feed
+ * file.
+ */
 public class FailAllForFeedId {
   private String feedId;
 
+  /**
+   * @param feedId identifies the set of processing feeds to fail.
+   */
   public FailAllForFeedId(String feedId) {
     this.feedId = feedId;
   }
 
+  /**
+   * This method must be called in order to perform the tasks of retrieving
+   * the set of feed files in a processing state and moving them to the failed state.
+   */
   public void execute() {
     final FeedJobManager feedJobManager = new FeedJobManager();
     final List<FeedFile> feedFiles = feedJobManager.findAllProcessingFeedsForFeedId(feedId);
@@ -37,6 +52,15 @@ public class FailAllForFeedId {
     }
   }
 
+  /**
+   * arg[0] must contain the feedId.
+   * <ul>
+   * <li>Usage: Usage: FailAllForFeedId feedId
+   * <li>Example: FailAllForFeedId wsi_lm_warnings_request
+   * </ul>
+   *
+   * @param args reference to the command line arguments.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       System.err.println("Usage: FailAllForFeedId feedId");

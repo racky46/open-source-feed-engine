@@ -21,18 +21,33 @@ import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
 
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * ShowPhaseStats echos, to the system console, the phase statistics for a
+ * given feed file.
+ */
 public class ShowPhaseStats {
   public static final String FORMAT = "|%1$-40s|%2$-12s|%3$-10s|%4$-10s|\n";
 
   private final Integer feedFileId;
   private final FeedPhaseStatsService service;
 
+  /**
+   * Constuctor
+   *
+   * @param feedFileId identifies the feed file to echo phase statistics for.
+   */
   public ShowPhaseStats(String feedFileId) {
     super();
     this.feedFileId = Integer.parseInt(feedFileId);
     this.service = (FeedPhaseStatsService) DataAccessContext.getBean(FeedPhaseStatsService.SERVICE_ID);
   }
 
+  /**
+   * This method must be called in order to perform the tasks of retrieving
+   * the phases statistics for the given feed file and echo to the system console.
+   */
   public void execute() {
     System.out.println("*** phase statistics for feedFileId: " + feedFileId + " ***");
     System.out.format(FORMAT, "phase_id", "avg_time_ms", "total_time", "iterations");
@@ -40,7 +55,7 @@ public class ShowPhaseStats {
 
     for (FeedPhaseStats stat : stats) {
       final String phaseId = stat.getPhaseId();
-      final Double avgTime = RoundingHelper.round(stat.getAvgProcessingTime(),4);
+      final Double avgTime = RoundingHelper.round(stat.getAvgProcessingTime(), 4);
       final Long totalTime = stat.getTotalTimeInMs();
       final Integer count = stat.getIterationCount();
 
@@ -48,6 +63,15 @@ public class ShowPhaseStats {
     }
   }
 
+  /**
+   * arg[0] must contain the feedId.
+   * <ul>
+   * <li>Usage: ShowPhaseStats feedFileId
+   * <li>Example: ShowPhaseStats 1000010
+   * </ul>
+   *
+   * @param args reference to the command line arguments.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       System.err.println("Usage: ShowPhaseStats feedFileId");
