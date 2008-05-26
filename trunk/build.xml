@@ -29,7 +29,7 @@
     <delete dir="${lib.dir}"/>    
   </target>
 
-  <target name="init" depends="clean">
+  <target name="init">
     <mkdir dir="target"/>
     <mkdir dir="${lib.dir}" />
     <mkdir dir="${build.lib.dir}" />
@@ -84,7 +84,7 @@
 	</target>
   -->
 
-  <target name="dist" depends="update">
+  <target name="dist" depends="clean, update">
     <mkdir dir="target" />
     <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="jar" />
@@ -104,6 +104,7 @@
     <antcall target="package.with.dependencies" />
     <antcall target="package.without.dependencies" />
     <antcall target="package.src" />
+    <antcall target="package.javadoc" />
   </target>
 
   <target name="package.with.dependencies">
@@ -181,6 +182,19 @@
         <include name="com/**"/>
       </packageset>
     </javadoc>
+  </target>
+
+
+  <target name="package.javadoc" depends="javadoc">
+
+    <tar destfile="target/osfe-javadoc.tar">
+      <tarfileset dir="${basedir}/docs">
+        <include name="**/*"/>
+      </tarfileset>
+    </tar>
+    <gzip src="target/osfe-javadoc.tar" destfile="target/osfe-javadoc-${osfe.version}.tar.gz"/>
+    <delete file="target/osfe-javadoc.tar"/>
+
   </target>
 
 </project>
