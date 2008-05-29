@@ -5,7 +5,6 @@
 
   <property name="build.lib.dir" value="../lib/build"/>
   <property name="deploy.lib.dir" value="../lib/deploy"/>
-
   <property name="java.src.dir" value="src/main/java"/>
   <property name="resource.src.dir" value="src/main/resources"/>
 
