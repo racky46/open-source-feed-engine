@@ -610,7 +610,7 @@ public class EngineContext {
    * over the list of Row objects.
    * <p>Example:
    * <p><hr><blockquote><pre>
-   *     final List<DetailRow> rows = (List<DetailRow>) context.get(AcmeConstants.detailData.name());
+   *     final List<DetailRow> rows = (List<DetailRow>) context.getRows();
    * --> context.resetCurrentRowIndex();
    *     for (DetailRow row : rows) {
    *       context.incrementCurrentRowIndex();
@@ -630,7 +630,7 @@ public class EngineContext {
    * is iterated over for processing.
    * <p>Example:
    * <p><hr><blockquote><pre>
-   *     final List<DetailRow> rows = (List<DetailRow>) context.get(AcmeConstants.detailData.name());
+   *     final List<DetailRow> rows = (List<DetailRow>) context.getRows();
    *     context.resetCurrentRowIndex();
    *     for (DetailRow row : rows) {
    * -->   context.incrementCurrentRowIndex();
@@ -673,7 +673,7 @@ public class EngineContext {
    * processing and processing completes successfully.
    * <p>Example:
    * <p><hr><blockquote><pre>
-   *     final List<DetailRow> rows = (List<DetailRow>) context.get(AcmeConstants.detailData.name());
+   *     final List<DetailRow> rows = (List<DetailRow>) context.getRows();
    *     context.resetCurrentRowIndex();
    *     for (DetailRow row : rows) {
    *       context.incrementCurrentRowIndex();
