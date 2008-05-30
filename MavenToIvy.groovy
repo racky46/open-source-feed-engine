@@ -2,7 +2,6 @@ import groovy.swing.SwingBuilder
 import javax.swing.JFileChooser
 import javax.swing.WindowConstants as WC
 
-
 class Dependency {
   String org
   String name
@@ -10,7 +9,8 @@ class Dependency {
 }
 
 swing = SwingBuilder.build {
-  frame(id:'f', title: "Maven To Ivy", pack: true, show: true, defaultCloseOperation: WC.EXIT_ON_CLOSE) {
+  frame(id:'f', title: "Maven To Ivy", pack: true, show: true,
+        defaultCloseOperation: WC.EXIT_ON_CLOSE) {
     panel(id: 'p') {
       tableLayout {
         tr {
