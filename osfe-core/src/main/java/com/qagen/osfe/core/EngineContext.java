@@ -28,6 +28,17 @@ import java.util.Map;
 /**
  * Author: Hycel Taylor
  * <p/>
+ * The EngineContext is a container class for common global resources that
+ * are shared and referenced by many components of the feed engine.  The
+ * EngineContext is automatically created by the AbstractFeedEngine which
+ * provides the base behavior for all concrete feed engines.  Thus, each
+ * instance of a given  concrete feed engine will always contain it's own
+ * EngineContext.  Phases are one component of the feed engine that apply
+ * heavy use of the EngineContext.  As each phase is traversed during a
+ * given feed life cycle, they are constantly accessing and modifying
+ * resources from the context.  Each phase then acts on data modified from
+ * phases preceding it.  For example, a filter phase may disable other rows
+ * that are of no importance to phases following it.
  */
 public class EngineContext {
   private String feedFileName;
@@ -677,46 +688,97 @@ public class EngineContext {
     processedRowCount++;
   }
 
+  /**
+   * Retrieves the accumulated count of rejected rows.
+   *
+   * @return accumulated count of rejected rows.
+   */
   public Integer getRejectedRowCount() {
     return rejectedRowCount;
   }
 
+  /**
+   * Increments the accumlated number of rejected rows by the count.
+   *
+   * @param count the amount to increment.
+   */
   public void addToRejectedRowCount(Integer count) {
     rejectedRowCount += count;
   }
 
+  /**
+   * Increments the accumulated count of rejected rows by one.
+   */
   public void incrementRejectedRowCount() {
     rejectedRowCount++;
   }
 
+  /**
+   * Retrives the index of the rejected row in the context.
+   *
+   * @return index of the rejected row.
+   */
   public Integer getRejectedRowNumber() {
     return rejectedRowNumber;
   }
 
+  /**
+   * Internally sets the index of the current rejected row in the context.
+   */
   public void setRejectedRowNumber() {
     rejectedRowNumber = getPreviousSplitterIndex() + getCurrentRowIndex();
   }
 
+  /**
+   * Retrievers the current error code stored in the context.
+   *
+   * @return current error code stored in the context.
+   */
   public String getErrorCode() {
     return errorCode;
   }
 
+  /**
+   * Stores an error code in the context.
+   *
+   * @param errorCode identifies a type of error.
+   */
   public void setErrorCode(String errorCode) {
     this.errorCode = errorCode;
   }
 
+  /**
+   * Retrieves the current error message stored in the context.
+   *
+   * @return string cotaining an explanation of an error.
+   */
   public String getErrorMessage() {
     return errorMessage;
   }
 
+  /**
+   * Stores an error message in the context.
+   *
+   * @param errorMessage the error message to store.
+   */
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
   }
 
+  /**
+   * Stores the reference to the map of FeedPhaseStats objects.
+   *
+   * @return map of FeedPhaseStats objects.
+   */
   public Map<String, FeedPhaseStats> getPhaseStatsMap() {
     return phaseStatsMap;
   }
 
+  /**
+   * Retrieves the reference to the map of FeedPhaseStats objects.
+   *
+   * @param phaseStatsMap
+   */
   public void setPhaseStatsMap(Map<String, FeedPhaseStats> phaseStatsMap) {
     this.phaseStatsMap = phaseStatsMap;
   }
