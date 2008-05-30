@@ -105,7 +105,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     try {
       feedJobManager.savePhaseStats(context);
       doPhaseShutdown();
-      BufferedReader reader = context.getBufferedReader();
+      BufferedReader reader = (BufferedReader) context.getFeedFileReader();
       reader.close();
     } catch (IOException e) {
       logger.warn("*** Unable to close feed file, " + context.getFeedFileName());
@@ -125,7 +125,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
       final FileReader fileReader = new FileReader(fullFeedFileName);
       final BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-      context.setBufferedReader(bufferedReader);
+      context.setFeedFileReader(bufferedReader);
 
     } catch (FileNotFoundException e) {
       throw new FeedErrorException(e);

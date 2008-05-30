@@ -34,7 +34,7 @@ public class DelimitedHeaderSplitter extends DelimitedSplitter {
   }
 
   public void initialize() {
-    final BufferedReader bufferedReader = context.getBufferedReader();
+    final BufferedReader bufferedReader = (BufferedReader) context.getFeedFileReader();
     rowCount = rowDescription.getRowCount();
     rows = new ArrayList<List<RowValue>>();
     rowIndex = 0;

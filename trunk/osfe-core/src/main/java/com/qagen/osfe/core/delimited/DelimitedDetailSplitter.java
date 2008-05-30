@@ -51,7 +51,7 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     batchSize = context.getBatchSize();
     linesToSkip = getRowDescription().getLinesToSkip();
     currentRowIndex = context.getCurrentSplitterIndex();
-    bufferedReader = context.getBufferedReader();
+    bufferedReader = (BufferedReader) context.getFeedFileReader();
 
     localRowIndex = 0;
     localRowSize = 0;

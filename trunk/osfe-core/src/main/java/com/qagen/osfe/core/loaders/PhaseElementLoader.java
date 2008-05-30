@@ -17,7 +17,6 @@ package com.qagen.osfe.core.loaders;
 import com.qagen.osfe.common.utils.DomReader;
 import com.qagen.osfe.core.Loader;
 import com.qagen.osfe.core.vo.PhaseInfo;
-import com.qagen.osfe.core.vo.Property;
 import org.dom4j.Element;
 
 import java.util.ArrayList;

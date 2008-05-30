@@ -14,7 +14,6 @@
  */
 package com.qagen.osfe.core.cmdlnUtils;
 
-import com.qagen.osfe.common.CommonConstants;
 import com.qagen.osfe.core.FeedJobManager;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import com.qagen.osfe.dataAccess.vo.FeedJob;

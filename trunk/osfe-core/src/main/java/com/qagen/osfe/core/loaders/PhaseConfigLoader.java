@@ -14,8 +14,8 @@
  */
 package com.qagen.osfe.core.loaders;
 
-import com.qagen.osfe.core.vo.PhaseSetInfo;
 import com.qagen.osfe.core.Loader;
+import com.qagen.osfe.core.vo.PhaseSetInfo;
 import org.dom4j.Element;
 
 public class PhaseConfigLoader extends Loader {

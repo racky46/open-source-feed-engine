@@ -18,10 +18,10 @@ import com.qagen.osfe.core.*;
 import com.qagen.osfe.core.utils.BeanPopulator;
 import com.qagen.osfe.core.vo.PhaseInfo;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor

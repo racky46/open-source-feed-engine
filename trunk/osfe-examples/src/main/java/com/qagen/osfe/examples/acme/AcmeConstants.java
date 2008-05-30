@@ -15,7 +15,7 @@
 package com.qagen.osfe.examples.acme;
 
 public enum AcmeConstants {
-  detailData,
+  echoDetail,
   stats,
   delay
 }

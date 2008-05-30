@@ -15,10 +15,15 @@
 package com.qagen.osfe.core.utils;
 
 import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.core.row.RowValue;
 import org.apache.commons.beanutils.WrapDynaBean;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -26,12 +31,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Author: Gregg Bolinger, Hycel Taylor

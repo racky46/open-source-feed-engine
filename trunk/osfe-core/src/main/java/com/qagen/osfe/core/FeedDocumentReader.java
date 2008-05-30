@@ -14,7 +14,6 @@
  */
 package com.qagen.osfe.core;
 
-import static com.qagen.osfe.common.CommonConstants.SLASH;
 import com.qagen.osfe.common.CommonException;
 import com.qagen.osfe.common.utils.DirectoryHelper;
 import org.dom4j.Document;
