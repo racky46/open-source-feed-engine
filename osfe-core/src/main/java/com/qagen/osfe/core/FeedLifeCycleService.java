@@ -14,10 +14,10 @@
  */
 package com.qagen.osfe.core;
 
-import com.qagen.osfe.dataAccess.vo.FeedJob;
-import com.qagen.osfe.dataAccess.vo.FeedFile;
-import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.common.utils.Log;
+import com.qagen.osfe.dataAccess.vo.Feed;
+import com.qagen.osfe.dataAccess.vo.FeedFile;
+import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.util.List;
 

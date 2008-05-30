@@ -20,7 +20,6 @@ import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.utils.BeanPopulator;
-import com.qagen.osfe.examples.acme.AcmeConstants;
 import com.qagen.osfe.examples.acme.row.DetailRow;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class BeanPopulatorPhase extends Phase {
       rows.add(detailRow);
     }
 
-    context.put(AcmeConstants.detailData.name(), rows);
+    context.setRows(rows);
   }
 
   /**

@@ -14,8 +14,8 @@
  */
 package com.qagen.osfe.core.loaders;
 
-import com.qagen.osfe.core.vo.Clazz;
 import com.qagen.osfe.core.Loader;
+import com.qagen.osfe.core.vo.Clazz;
 import org.dom4j.Element;
 
 import java.util.*;

@@ -15,8 +15,8 @@
 package com.qagen.osfe.core.delimited;
 
 import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.column.ColumnDescription;
 import com.qagen.osfe.core.RowParser;
+import com.qagen.osfe.core.column.ColumnDescription;
 import com.qagen.osfe.core.row.RowDescription;
 import com.qagen.osfe.core.row.RowValue;
 

@@ -14,9 +14,9 @@
  */
 package com.qagen.osfe.core.services;
 
+import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.EngineService;
 import com.qagen.osfe.core.ExceptionHandler;
-import com.qagen.osfe.core.EngineContext;
 
 /**
  * Author: Hycel Taylor
