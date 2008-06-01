@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * model class generate from table t_data_source
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the value object class for table t_data_source
  *
  * @table t_data_source
  */

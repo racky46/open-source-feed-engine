@@ -22,7 +22,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * model class generate from table t_feed_file
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the value object class for table t_feed_file
  *
  * @table t_feed_file
  */
