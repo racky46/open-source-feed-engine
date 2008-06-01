@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * model class generate from table t_feed_job_state
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the value object class for table t_feed_job_state
  *
  * @table t_feed_job_state
  */

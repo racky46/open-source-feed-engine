@@ -15,7 +15,9 @@
 package com.qagen.osfe.dataAccess.vo;
 
 /**
- * model class generate from table t_feed_direction
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the value object class for table t_feed_direction
  *
  * @table t_feed_direction
  */

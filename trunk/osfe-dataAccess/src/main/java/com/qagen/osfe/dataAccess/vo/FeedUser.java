@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * model class generate from table t_feed_user
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the value object class for table t_feed_user
  *
  * @table t_feed_user
  */

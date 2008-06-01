@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * model class generate from table t_check_point
+ * Author: Hycel Taylor
+ * <p>
+ * This is the value object class for table t_check_point.
  *
  * @table t_check_point
  */

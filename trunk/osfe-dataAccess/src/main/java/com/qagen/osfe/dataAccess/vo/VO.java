@@ -17,9 +17,14 @@ package com.qagen.osfe.dataAccess.vo;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the base value object class from which all other value objects
+ * extend.
+ */
 public class VO implements Serializable {
   public static final String BAR = " | ";
-  public Integer primaryId;
 
   public String toString(List<String> list) {
     final StringBuilder builder = new StringBuilder();
