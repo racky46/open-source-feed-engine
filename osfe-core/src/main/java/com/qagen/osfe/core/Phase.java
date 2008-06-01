@@ -43,6 +43,7 @@ public abstract class Phase {
    * Constructor
    *
    * @param context reference to the engine context.
+   * @param name uniquely identifies the given phase.
    */
   public Phase(EngineContext context, String name) {
     this.context = context;

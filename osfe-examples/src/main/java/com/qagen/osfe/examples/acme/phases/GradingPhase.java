@@ -20,11 +20,12 @@ import com.qagen.osfe.examples.acme.row.DetailRow;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.Phase;
+import com.qagen.osfe.core.ProcessPhase;
 import com.qagen.osfe.core.row.Row;
 
 import java.util.List;
 
-public class GradingPhase extends Phase {
+public class GradingPhase extends ProcessPhase {
   private Boolean echoDetail;
   private GradingStatistics stats;
 
@@ -46,31 +47,27 @@ public class GradingPhase extends Phase {
 
   @SuppressWarnings("unchecked")
   public void execute() {
-    final List<DetailRow> rows = (List<DetailRow>) context.getRows();
+    singlePhaseLoop();
+  }
 
-    context.resetCurrentRowIndex();
-    for (DetailRow row : rows) {
-      context.incrementCurrentRowIndex();
+  public void processRow(Row row) {
+    DetailRow detailRow = (DetailRow) row;
+    final Integer score = detailRow.getScore();
 
-      final Integer score = row.getScore();
+    if ((score < 0) || (score > 100)) {
+      context.setRejectedRowNumber();
+      context.setErrorCode("GRAD100");
+      context.setErrorMessage("Illegal score: " + score);
+      throw new FeedErrorException(context.getErrorMessage());
+    }
 
-      if ((score < 0) || (score > 100)) {
-        context.setRejectedRowNumber();
-        context.setErrorCode("GRAD100");
-        context.setErrorMessage("Illegal score: " + score);
-        throw new FeedErrorException(context.getErrorMessage());
-      }
+    stats.setTotalScore(stats.getTotalScore() + score);
+    stats.setExamCount(stats.getExamCount() + 1);
 
-      stats.setTotalScore(stats.getTotalScore() + score);
-      stats.setExamCount(stats.getExamCount() + 1);
+    determineGrade(detailRow);
 
-      determineGrade(row);
-
-      if (echoDetail) {
-        echoRowInfo(row);
-      }
-
-      context.incrementProcessedRowCount();
+    if (echoDetail) {
+      echoRowInfo(row);
     }
   }
 
