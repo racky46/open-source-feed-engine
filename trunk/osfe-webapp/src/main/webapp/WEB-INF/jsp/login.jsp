@@ -6,7 +6,7 @@
       <div id="loginContainer" class="outerBorder">
         <div style="color:white">LOGIN</div>
         <div id="innerContainer" class="innerBorder">
-           <s:errors/>
+          <s:errors/>
           <s:messages/>
           <s:form beanclass="com.qagen.osfe.webapp.web.action.LoginActionBean">
             <table align="center">
