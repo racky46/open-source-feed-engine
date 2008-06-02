@@ -60,7 +60,7 @@ public class LoginActionBean extends BaseActionBean {
   }
 
   public Resolution login() {
-    FeedUser fu = feedUserService.authenticateFeedUser(user);
+    final FeedUser fu = feedUserService.authenticateFeedUser(user);
     if (fu == null) {
       getContext().getValidationErrors().add("login", new LocalizableError("/action/login.invalid"));
       return getContext().getSourcePageResolution();
