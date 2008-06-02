@@ -14,18 +14,17 @@
  */
 package com.qagen.osfe.webapp.web.action;
 
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.UrlBinding;
-import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.LocalizableError;
-import net.sourceforge.stripes.integration.spring.SpringBean;
-import com.qagen.osfe.webapp.model.User;
-import com.qagen.osfe.webapp.web.action.auth.HomeActionBean;
-import com.qagen.osfe.dataAccess.vo.FeedUser;
 import com.qagen.osfe.dataAccess.service.FeedUserService;
+import com.qagen.osfe.dataAccess.vo.FeedUser;
+import com.qagen.osfe.webapp.web.action.auth.HomeActionBean;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.RedirectResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 /**
  * Author: Gregg Bolinger
