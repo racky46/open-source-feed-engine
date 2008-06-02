@@ -17,17 +17,15 @@ package com.qagen.osfe.webapp.web.action;
 import net.sourceforge.stripes.action.*;
 import com.qagen.osfe.webapp.web.context.OsfeActionBeanContext;
 import com.qagen.osfe.webapp.web.AbstractActionBeanContext;
+import com.qagen.osfe.webapp.web.util.ViewConstants;
 
 /**
  * Author: Gregg Bolinger
  * <p>
  */
-public abstract class BaseActionBean implements ActionBean {
+public abstract class BaseActionBean implements ActionBean, ViewConstants {
 
-  public static final String JSP_PATH = "/WEB-INF/jsp/";
-  public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
-  public static final String LOGIN_VIEW = JSP_PATH + "login.jsp";
-  public static final String HOME_VIEW = JSP_PATH + "auth/home.jsp";
+ 
 
   private AbstractActionBeanContext context;
 
