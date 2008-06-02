@@ -29,6 +29,7 @@
     </dependency>
   </dependencies>
 
+  <!--
   <modules>
 
     <module>osfe-dataAccess</module>
@@ -38,6 +39,7 @@
     <module>osfe-examples</module>
     <module>osfe-webapp</module>
   </modules>
+  -->
 
   <reporting>
     <plugins>
