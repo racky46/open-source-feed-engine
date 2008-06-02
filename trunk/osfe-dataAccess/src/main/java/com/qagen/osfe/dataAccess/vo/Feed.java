@@ -40,8 +40,8 @@ public class Feed extends VO {
   private String feedDirectory;
   private String feedDocument;
   private String queueId;
-  private DataSource fromDataSource;
-  private DataSource toDataSource;
+  private FeedDataSource fromDataSource;
+  private FeedDataSource toDataSource;
   private FeedType feedType;
   private FeedProtocol feedProtocol;
   private FeedDirection feedDirection;
@@ -146,19 +146,19 @@ public class Feed extends VO {
     this.queueId = queueId;
   }
 
-  public DataSource getFromDataSource() {
+  public FeedDataSource getFromDataSource() {
     return fromDataSource;
   }
 
-  public void setFromDataSource(DataSource fromDataSource) {
+  public void setFromDataSource(FeedDataSource fromDataSource) {
     this.fromDataSource = fromDataSource;
   }
 
-  public DataSource getToDataSource() {
+  public FeedDataSource getToDataSource() {
     return toDataSource;
   }
 
-  public void setToDataSource(DataSource toDataSource) {
+  public void setToDataSource(FeedDataSource toDataSource) {
     this.toDataSource = toDataSource;
   }
 
@@ -205,11 +205,7 @@ public class Feed extends VO {
     }
 
     final Feed model = (Feed) object;
-    if (feedId.equals(model.feedId)) {
-      return true;
-    } else {
-      return false;
-    }
+    return feedId.equals(model.feedId);
   }
 
   @Override

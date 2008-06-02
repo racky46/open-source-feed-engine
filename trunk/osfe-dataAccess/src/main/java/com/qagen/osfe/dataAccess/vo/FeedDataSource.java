@@ -24,21 +24,21 @@ import java.util.List;
  * <p/>
  * This is the value object class for table t_data_source
  *
- * @table t_data_source
+ * @table t_feed_data_source
  */
-public class DataSource extends VO {
-  private String dataSourceId;
+public class FeedDataSource extends VO {
+  private String feedDataSourceId;
   private String description;
 
-  public DataSource() {
+  public FeedDataSource() {
   }
 
-  public String getDataSourceId() {
-    return dataSourceId;
+  public String getFeedDataSourceId() {
+    return feedDataSourceId;
   }
 
-  public void setDataSourceId(String dataSourceId) {
-    this.dataSourceId = dataSourceId;
+  public void setFeedDataSourceId(String feedDataSourceId) {
+    this.feedDataSourceId = feedDataSourceId;
   }
 
   public String getDescription() {
@@ -55,22 +55,18 @@ public class DataSource extends VO {
       return true;
     }
 
-    if (!(object instanceof DataSource)) {
+    if (!(object instanceof FeedDataSource)) {
       return false;
     }
 
-    final DataSource model = (DataSource) object;
-    if (dataSourceId.equals(model.dataSourceId)) {
-      return true;
-    } else {
-      return false;
-    }
+    final FeedDataSource model = (FeedDataSource) object;
+    return feedDataSourceId.equals(model.feedDataSourceId);
   }
 
   @Override
   public int hashCode() {
     HashCodeBuilder builder = new HashCodeBuilder(17, 37);
-    builder.append(dataSourceId);
+    builder.append(feedDataSourceId);
     return builder.toHashCode();
   }
 
@@ -78,7 +74,7 @@ public class DataSource extends VO {
   public String toString() {
     final List<String> list = new ArrayList<String>();
 
-    list.add(dataSourceId);
+    list.add(feedDataSourceId);
 
     return toString(list);
   }

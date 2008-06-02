@@ -21,7 +21,7 @@ import com.qagen.osfe.core.CheckpointHandler;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.row.RowValue;
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -127,7 +127,7 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     return (localRowSize != 0);
   }
 
-  public void moveToCheckPoint(Checkpoint checkpoint) {
+  public void moveToCheckPoint(FeedCheckpoint checkpoint) {
     final int fileIndex = checkpoint.getCurrentFileIndex();
     int currentIndex = context.getCurrentSplitterIndex();
     

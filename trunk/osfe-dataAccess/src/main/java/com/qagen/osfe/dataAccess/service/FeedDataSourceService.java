@@ -12,11 +12,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.dataAccess.dao;
+package com.qagen.osfe.dataAccess.service;
 
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 
-public interface CheckpointDAO extends DAO<Checkpoint> {
+import java.util.List;
 
-  public Checkpoint findByFeedFileId(Integer feedFileId);
+
+public interface FeedDataSourceService extends Service<FeedDataSource> {
+  public static final String SERVICE_ID = "dataSourceService";
+
+  public List<FeedDataSource> findAll();
+
 }

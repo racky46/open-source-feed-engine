@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedDataSource">
+
+  <typeAlias alias="FeedDataSource" type="com.qagen.osfe.dataAccess.vo.FeedDataSource"/>
+
+  <resultMap id="resultMap" class="FeedDataSource">
+    <result property="feedDataSourceId" column="feed_data_source_id"/>
+    <result property="description" column="description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedDataSource">
+    insert into t_feed_data_source (
+      feed_data_source_id,
+      description
+    ) values (
+      #feedDataSourceId#,
+      #description#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedDataSource">
+    update t_feed_data_source set
+      feed_data_source_id = #feedDataSourceId#,
+      description = #description#
+    where feed_data_source_id = #feedDataSourceId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedDataSource">
+    delete from t_feed_data_source where feed_data_source_id = #feedDataSourceId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedDataSource.resultMap">
+    select * from t_feed_data_source where feed_data_source_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedDataSource.resultMap">
+    select * from t_feed_data_source
+  </select>
+
+</sqlMap>

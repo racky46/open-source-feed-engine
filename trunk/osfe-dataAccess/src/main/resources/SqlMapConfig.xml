@@ -4,7 +4,7 @@
 <sqlMapConfig>
   <settings useStatementNamespaces="true"/>
 
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/DataSource.xml"/>
+  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedDataSource.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedType.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedProtocol.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedFileState.xml"/>
@@ -15,7 +15,7 @@
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedDirection.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedQueue.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedGroup.xml"/>
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/Checkpoint.xml"/>
+  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedCheckpoint.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedPhaseStats.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedRole.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedUser.xml"/>

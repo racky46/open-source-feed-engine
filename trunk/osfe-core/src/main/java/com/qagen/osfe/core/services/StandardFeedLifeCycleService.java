@@ -19,7 +19,7 @@ import com.qagen.osfe.core.*;
 import com.qagen.osfe.core.loaders.SplitterConfigLoader;
 import com.qagen.osfe.core.phases.CheckpointPhase;
 import com.qagen.osfe.core.row.RowDescriptionLoader;
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.io.BufferedReader;
@@ -198,7 +198,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
 
     // Get checkpoint from context after checkpoint phase.initialize().
-    final Checkpoint checkpoint = context.getCheckpoint();
+    final FeedCheckpoint checkpoint = context.getCheckpoint();
 
     // Must be called after initialization and before anything else.
     splitter.prePhaseExecute();

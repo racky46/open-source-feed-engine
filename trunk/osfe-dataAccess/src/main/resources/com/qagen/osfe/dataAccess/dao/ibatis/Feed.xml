@@ -19,8 +19,8 @@
     <result property="queueId" column="queue_id"/>
     <result property="feedDirectory" column="feed_directory"/>
     <result property="feedDocument" column="feed_document"/>
-    <result property="fromDataSource" column="from_data_source_id" select="DataSource.findByPrimaryId"/>
-    <result property="toDataSource" column="to_data_source_id" select="DataSource.findByPrimaryId"/>
+    <result property="fromDataSource" column="from_data_source_id" select="FeedDataSource.findByPrimaryId"/>
+    <result property="toDataSource" column="to_data_source_id" select="FeedDataSource.findByPrimaryId"/>
     <result property="feedType" column="feed_type_id" select="FeedType.findByPrimaryId"/>
     <result property="feedProtocol" column="feed_protocol_id" select="FeedProtocol.findByPrimaryId"/>
     <result property="feedDirection" column="feed_direction_id" select="FeedDirection.findByPrimaryId"/>
@@ -61,8 +61,8 @@
       #queueId#,
       #feedDirectory#,
       #feedDocument#,
-      #fromDataSource.dataSourceId#,
-      #toDataSource.dataSourceId#,
+      #fromDataSource.feedDataSourceId#,
+      #toDataSource.feedDataSourceId#,
       #feedType.feedTypeId#,
       #feedProtocol.feedProtocolId#,
       #feedDirection.feedDirectionId#,
@@ -84,8 +84,8 @@
       queue_id = #queueId#,
       feed_directory = #feedDirectory#,
       feed_document = #feedDocument#,
-      from_data_source_id = #fromDataSource.dataSourceId#,
-      to_data_source_id = #toDataSource.dataSourceId#,
+      from_data_source_id = #fromDataSource.feedDataSourceId#,
+      to_data_source_id = #toDataSource.feedDataSourceId#,
       feed_type_id = #feedType.feedTypeId#,
       feed_protocol_id = #feedProtocol.feedProtocolId#,
       feed_direction_id = #feedDirection.feedDirectionId#,

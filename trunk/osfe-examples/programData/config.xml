@@ -2,7 +2,7 @@
 
 <config>
   <configFiles>
-    <configFile>/dataSource/config.xml</configFile>
+    <configFile>/feedDataSource/config.xml</configFile>
     <configFile>/feedType/config.xml</configFile>
     <configFile>/feedGroup/config.xml</configFile>
     <configFile>/feed/config.xml</configFile>

@@ -14,42 +14,42 @@
  */
 package com.qagen.osfe.dataAccess.service.impl;
 
-import com.qagen.osfe.dataAccess.dao.DataSourceDAO;
-import com.qagen.osfe.dataAccess.service.DataSourceService;
-import com.qagen.osfe.dataAccess.vo.DataSource;
+import com.qagen.osfe.dataAccess.dao.FeedDataSourceDAO;
+import com.qagen.osfe.dataAccess.service.FeedDataSourceService;
+import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class DataSourceServiceImpl implements DataSourceService {
-  private DataSourceDAO dataSourceDAO;
+public class FeedDataSourceServiceImpl implements FeedDataSourceService {
+  private FeedDataSourceDAO dataSourceDAO;
 
-  public void setDataSourceDAO(DataSourceDAO dataSourceDAO) {
+  public void setDataSourceDAO(FeedDataSourceDAO dataSourceDAO) {
     this.dataSourceDAO = dataSourceDAO;
   }
 
   @Transactional
-  public void insert(DataSource model) {
+  public void insert(FeedDataSource model) {
     dataSourceDAO.insert(model);
   }
 
   @Transactional
-  public void update(DataSource model) {
+  public void update(FeedDataSource model) {
     dataSourceDAO.update(model);
   }
 
   @Transactional
-  public void delete(DataSource model) {
+  public void delete(FeedDataSource model) {
     dataSourceDAO.delete(model);
   }
 
   @Transactional
-  public DataSource findByPrimaryId(Integer primaryId) {
+  public FeedDataSource findByPrimaryId(Integer primaryId) {
     return dataSourceDAO.findByPrimaryId(primaryId);
   }
 
   @Transactional
-  public List<DataSource> findAll() {
+  public List<FeedDataSource> findAll() {
     return dataSourceDAO.findAll();
   }
 }

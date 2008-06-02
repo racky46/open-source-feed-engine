@@ -14,11 +14,11 @@
  */
 package com.qagen.osfe.dataAccess.dao;
 
-import com.qagen.osfe.dataAccess.vo.DataSource;
+import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 
 import java.util.List;
 
-public interface DataSourceDAO extends DAO<DataSource> {
+public interface FeedDataSourceDAO extends DAO<FeedDataSource> {
 
-  public List<DataSource> findAll();
+  public List<FeedDataSource> findAll();
 }

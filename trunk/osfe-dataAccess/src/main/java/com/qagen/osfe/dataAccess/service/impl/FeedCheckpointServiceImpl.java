@@ -14,40 +14,40 @@
  */
 package com.qagen.osfe.dataAccess.service.impl;
 
-import com.qagen.osfe.dataAccess.dao.CheckpointDAO;
-import com.qagen.osfe.dataAccess.service.CheckpointService;
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.dao.FeedCheckpointDAO;
+import com.qagen.osfe.dataAccess.service.FeedCheckpointService;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import org.springframework.transaction.annotation.Transactional;
 
-public class CheckpointServiceImpl implements CheckpointService {
-  private CheckpointDAO checkpointDAO;
+public class FeedCheckpointServiceImpl implements FeedCheckpointService {
+  private FeedCheckpointDAO checkpointDAO;
 
-  public void setCheckpointDAO(CheckpointDAO checkpointDAO) {
+  public void setCheckpointDAO(FeedCheckpointDAO checkpointDAO) {
     this.checkpointDAO = checkpointDAO;
   }
 
   @Transactional
-  public void insert(Checkpoint model) {
+  public void insert(FeedCheckpoint model) {
     checkpointDAO.insert(model);
   }
 
   @Transactional
-  public void update(Checkpoint model) {
+  public void update(FeedCheckpoint model) {
     checkpointDAO.update(model);
   }
 
   @Transactional
-  public void delete(Checkpoint model) {
+  public void delete(FeedCheckpoint model) {
     checkpointDAO.delete(model);
   }
 
   @Transactional
-  public Checkpoint findByPrimaryId(Integer primaryId) {
+  public FeedCheckpoint findByPrimaryId(Integer primaryId) {
     return checkpointDAO.findByPrimaryId(primaryId);
   }
 
   @Transactional
-  public Checkpoint findByFeedFileId(Integer feedFileId) {
+  public FeedCheckpoint findByFeedFileId(Integer feedFileId) {
     return checkpointDAO.findByFeedFileId(feedFileId);
   }
 }
