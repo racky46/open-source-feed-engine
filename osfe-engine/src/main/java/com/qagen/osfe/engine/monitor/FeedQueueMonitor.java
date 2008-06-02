@@ -29,9 +29,11 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * Author: Hycel Taylor
+ * <p>
  * FeedQueueMonitor does the heavy lifting of managing multiple feed engine
  * threads by monitoring multiple queues that contain information about the
- * feeds that should be launched from the given queue.
+ * feeds that should be launched from a given queue.
  */
 public class FeedQueueMonitor implements FeedQueueMonitorMBean {
   public static final String MONITOR_ID = "MONITOR_ID";
@@ -56,7 +58,7 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
   private static Log logger = Log.getInstance(FeedQueueMonitor.class);
 
   /**
-   * Private Constructor
+   * Constructor
    */
   public FeedQueueMonitor() {
     this.monitorId = Integer.parseInt(System.getenv(MONITOR_ID));
@@ -88,6 +90,9 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
     return singleton;
   }
 
+  /**
+   * Initializes a queue by loading data from t_feed_queue
+   */
   private void initializeQueue() {
     final List<FeedQueue> feedQueues = queueService.findAll(monitorId);
 

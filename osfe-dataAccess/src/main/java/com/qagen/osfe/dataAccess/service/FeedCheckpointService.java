@@ -14,14 +14,12 @@
  */
 package com.qagen.osfe.dataAccess.service;
 
-import com.qagen.osfe.dataAccess.vo.DataSource;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 
-import java.util.List;
+public interface FeedCheckpointService extends Service<FeedCheckpoint> {
+  public static final String SERVICE_ID = "checkpointService";
 
+  public FeedCheckpoint findByPrimaryId(Integer primaryId);
 
-public interface DataSourceService extends Service<DataSource> {
-  public static final String SERVICE_ID = "dataSourceService";
-
-  public List<DataSource> findAll();
-
+  public FeedCheckpoint findByFeedFileId(Integer feedFileId);
 }

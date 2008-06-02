@@ -14,7 +14,7 @@
  */
 package com.qagen.osfe.core;
 
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 
 /**
  * Author: Hycel Taylor
@@ -31,6 +31,6 @@ public interface CheckpointAble {
    * @param checkpoint contains the information about the position in
    *                   the file to move to.
    */
-  public void moveToCheckPoint(Checkpoint checkpoint);
+  public void moveToCheckPoint(FeedCheckpoint checkpoint);
 
 }

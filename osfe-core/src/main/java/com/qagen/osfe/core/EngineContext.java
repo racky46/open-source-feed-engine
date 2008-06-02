@@ -15,7 +15,7 @@
 package com.qagen.osfe.core;
 
 import com.qagen.osfe.core.row.RowDescriptionLoader;
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
@@ -61,7 +61,7 @@ public class EngineContext {
   private Object feedFileReader;
   private Feed feed;
   private FeedJob feedJob;
-  private Checkpoint checkpoint;
+  private FeedCheckpoint checkpoint;
 
   private Splitter headerSplitter;
   private Splitter footerSplitter;
@@ -365,7 +365,7 @@ public class EngineContext {
    *
    * @return null if checpoint is not being used.
    */
-  public Checkpoint getCheckpoint() {
+  public FeedCheckpoint getCheckpoint() {
     return checkpoint;
   }
 
@@ -374,7 +374,7 @@ public class EngineContext {
    *
    * @param checkpoint reference to the current checkpoint object.
    */
-  public void setCheckpoint(Checkpoint checkpoint) {
+  public void setCheckpoint(FeedCheckpoint checkpoint) {
     this.checkpoint = checkpoint;
   }
 

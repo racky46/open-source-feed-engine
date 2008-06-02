@@ -49,11 +49,11 @@
 
   <!-- DAO Section -->
 
-  <bean id="checkpointDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapCheckpointDAO">
+  <bean id="checkpointDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedCheckpointDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
-  <bean id="dataSourceDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapDataSourceDAO">
+  <bean id="dataSourceDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedDataSourceDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
@@ -103,11 +103,11 @@
 
   <!-- Services -->
 
-  <bean id="checkpointService" class="com.qagen.osfe.dataAccess.service.impl.CheckpointServiceImpl">
+  <bean id="checkpointService" class="com.qagen.osfe.dataAccess.service.impl.FeedCheckpointServiceImpl">
     <property name="checkpointDAO" ref="checkpointDAO"/>
   </bean>
 
-  <bean id="dataSourceService" class="com.qagen.osfe.dataAccess.service.impl.DataSourceServiceImpl">
+  <bean id="dataSourceService" class="com.qagen.osfe.dataAccess.service.impl.FeedDataSourceServiceImpl">
     <property name="dataSourceDAO" ref="dataSourceDAO"/>
   </bean>
 

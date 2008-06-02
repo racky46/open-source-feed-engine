@@ -24,29 +24,29 @@ import java.util.ArrayList;
  * <p>
  * This is the value object class for table t_check_point.
  *
- * @table t_check_point
+ * @table t_feed_check_point
  */
-public class Checkpoint extends VO {
-  private Integer checkpointId;
+public class FeedCheckpoint extends VO {
+  private Integer feedCheckpointId;
   private String phaseId;
   private Integer currentFileIndex;
   private FeedFile feedFile;
 
-  public Checkpoint() {
+  public FeedCheckpoint() {
   }
 
-  public Checkpoint(String phaseId, Integer currentFileIndex, FeedFile feedFile) {
+  public FeedCheckpoint(String phaseId, Integer currentFileIndex, FeedFile feedFile) {
     this.phaseId = phaseId;
     this.currentFileIndex = currentFileIndex;
     this.feedFile = feedFile;
   }
 
-  public Integer getCheckpointId() {
-    return checkpointId;
+  public Integer getFeedCheckpointId() {
+    return feedCheckpointId;
   }
 
-  public void setCheckpointId(Integer checkpointId) {
-    this.checkpointId = checkpointId;
+  public void setFeedCheckpointId(Integer feedCheckpointId) {
+    this.feedCheckpointId = feedCheckpointId;
   }
 
   public String getPhaseId() {
@@ -79,22 +79,18 @@ public class Checkpoint extends VO {
       return true;
     }
 
-    if (!(object instanceof Checkpoint)) {
+    if (!(object instanceof FeedCheckpoint)) {
       return false;
     }
 
-    final Checkpoint model = (Checkpoint) object;
-    if (checkpointId.equals(model.checkpointId)) {
-      return true;
-    } else {
-      return false;
-    }
+    final FeedCheckpoint model = (FeedCheckpoint) object;
+    return feedCheckpointId.equals(model.feedCheckpointId);
   }
 
   @Override
   public int hashCode() {
     HashCodeBuilder builder = new HashCodeBuilder(17, 37);
-    builder.append(checkpointId);
+    builder.append(feedCheckpointId);
     return builder.toHashCode();
   }
 
@@ -102,7 +98,7 @@ public class Checkpoint extends VO {
   public String toString() {
     final List<String> list = new ArrayList<String>();
 
-    list.add(checkpointId.toString());
+    list.add(feedCheckpointId.toString());
 
     return toString(list);
   }

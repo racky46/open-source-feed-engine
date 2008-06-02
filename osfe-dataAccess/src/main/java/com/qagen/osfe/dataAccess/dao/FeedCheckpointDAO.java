@@ -12,14 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.dataAccess.service;
+package com.qagen.osfe.dataAccess.dao;
 
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 
-public interface CheckpointService extends Service<Checkpoint> {
-  public static final String SERVICE_ID = "checkpointService";
+public interface FeedCheckpointDAO extends DAO<FeedCheckpoint> {
 
-  public Checkpoint findByPrimaryId(Integer primaryId);
-
-  public Checkpoint findByFeedFileId(Integer feedFileId);
+  public FeedCheckpoint findByFeedFileId(Integer feedFileId);
 }

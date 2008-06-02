@@ -37,7 +37,7 @@ public class FeedJobManager {
   final private FeedJobManagerService jobManagerService;
   final private FeedService feedService;
   final private FeedFileService feedFileService;
-  final private CheckpointService checkpointService;
+  final private FeedCheckpointService checkpointService;
   final private FeedPhaseStatsService feedPhaseStatsService;
 
   /**
@@ -47,7 +47,7 @@ public class FeedJobManager {
     feedService = (FeedService) DataAccessContext.getBean(FeedService.SERVICE_ID);
     feedFileService = (FeedFileService) DataAccessContext.getBean(FeedFileService.SERVICE_ID);
     jobManagerService = (FeedJobManagerService) DataAccessContext.getBean(FeedJobManagerService.SERVICE_ID);
-    checkpointService = (CheckpointService) DataAccessContext.getBean(CheckpointService.SERVICE_ID);
+    checkpointService = (FeedCheckpointService) DataAccessContext.getBean(FeedCheckpointService.SERVICE_ID);
     feedPhaseStatsService = (FeedPhaseStatsService) DataAccessContext.getBean(FeedPhaseStatsService.SERVICE_ID);
   }
 
@@ -119,7 +119,7 @@ public class FeedJobManager {
    * @param feedFile used to search for the checkpoint object.
    * @return null if not found.
    */
-  public Checkpoint getCheckpoint(FeedFile feedFile) {
+  public FeedCheckpoint getCheckpoint(FeedFile feedFile) {
     return checkpointService.findByFeedFileId(feedFile.getFeedFileId());
   }
 
@@ -502,7 +502,7 @@ public class FeedJobManager {
 
     if (feedFileState.equals(FEED_FILE_STATE.processing.getValue())) {
       final Feed feed = feedFile.getFeed();
-      final Checkpoint checkpoint = checkpointService.findByFeedFileId(feedFileId);
+      final FeedCheckpoint checkpoint = checkpointService.findByFeedFileId(feedFileId);
 
       if ((checkpoint != null) && (feed.getRestartAtCheckpoint())) {
         final FeedJob feedJob = getMostRecentFeedJob(feedFileId);

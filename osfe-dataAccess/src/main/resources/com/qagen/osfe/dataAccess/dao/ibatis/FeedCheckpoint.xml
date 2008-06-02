@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedCheckPoint">
+
+  <typeAlias alias="FeedCheckPoint" type="com.qagen.osfe.dataAccess.vo.FeedCheckpoint"/>
+
+  <resultMap id="resultMap" class="FeedCheckPoint">
+    <result property="feedCheckpointId" column="feed_checkpoint_id"/>
+    <result property="phaseId" column="phase_id"/>
+    <result property="currentFileIndex" column="current_file_index"/>
+    <result property="feedFile" column="feed_file_id" select="FeedFile.findByPrimaryId"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedCheckPoint">
+    insert into t_feed_checkpoint (
+      phase_id,
+      current_file_index,
+      feed_file_id
+    ) values (
+      #phaseId#,
+      #currentFileIndex#,
+      #feedFile.feedFileId#
+    )
+
+    <selectKey resultClass="int" keyProperty="feedCheckpointId">
+      select @@identity as feed_checkpoint_id
+    </selectKey>
+  </insert>
+
+  <update id="update" parameterClass="FeedCheckPoint">
+    update t_feed_checkpoint set
+      phase_id = #phaseId#,
+      current_file_index = #currentFileIndex#,
+      feed_file_id = #feedFile.feedFileId#
+    where feed_checkpoint_id = #feedCheckpointId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedCheckPoint">
+    delete from t_feed_checkpoint where feed_checkpoint_id = #feedCheckpointId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="int" resultMap="FeedCheckPoint.resultMap">
+    select * from t_feed_checkpoint where feed_checkpoint_id = #value#
+  </select>
+
+  <select id="findByFeedFileId" parameterClass="int" resultMap="FeedCheckPoint.resultMap">
+    select * from t_feed_checkpoint where feed_file_id = #value#
+  </select>
+
+</sqlMap>

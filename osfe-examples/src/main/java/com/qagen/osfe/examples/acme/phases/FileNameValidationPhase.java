@@ -52,7 +52,7 @@ public class FileNameValidationPhase extends Phase {
     }
 
     String token = tokens.get(0);
-    String match = feed.getFromDataSource().getDataSourceId();
+    String match = feed.getFromDataSource().getFeedDataSourceId();
     if (!match.equals(token)) {
       final String message =
         "FromDataSource does not match for FeedId: " + feed.getFeedId() + ". Found: " + token + ". Shound be: " + match + ".";
@@ -60,7 +60,7 @@ public class FileNameValidationPhase extends Phase {
     }
 
     token = tokens.get(1);
-    match = feed.getToDataSource().getDataSourceId();
+    match = feed.getToDataSource().getFeedDataSourceId();
     if (!match.equals(token)) {
       final String message =
         "ToDataSource does not match for FeedId: " + feed.getFeedId() + ". Found: " + token + ". Shound be: " + match + ".";

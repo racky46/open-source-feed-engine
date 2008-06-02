@@ -17,8 +17,8 @@ package com.qagen.osfe.core.phases;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
-import com.qagen.osfe.dataAccess.service.CheckpointService;
-import com.qagen.osfe.dataAccess.vo.Checkpoint;
+import com.qagen.osfe.dataAccess.service.FeedCheckpointService;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 /**
@@ -58,7 +58,7 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
  */
 public class CheckpointPhase extends Phase {
   public static final String NO_PHASE_ID = "NO_PHASE_ID";
-  private CheckpointService service;
+  private FeedCheckpointService service;
 
   /**
    * Constructor
@@ -68,7 +68,7 @@ public class CheckpointPhase extends Phase {
    */
   public CheckpointPhase(EngineContext context, String name) {
     super(context, name);
-    service = (CheckpointService) DataAccessContext.getBean(CheckpointService.SERVICE_ID);
+    service = (FeedCheckpointService) DataAccessContext.getBean(FeedCheckpointService.SERVICE_ID);
   }
 
   /**
@@ -76,7 +76,7 @@ public class CheckpointPhase extends Phase {
    * if one does not already exist.
    */
   public void initialize() {
-    Checkpoint checkpoint = context.getCheckpoint();
+    FeedCheckpoint checkpoint = context.getCheckpoint();
 
     if (checkpoint == null) {
       final FeedFile feedFile = context.getFeedJob().getFeedFile();
@@ -85,7 +85,7 @@ public class CheckpointPhase extends Phase {
       checkpoint = service.findByFeedFileId(feedFileId);
 
       if (checkpoint == null) {
-        checkpoint = new Checkpoint(NO_PHASE_ID, 0, feedFile);
+        checkpoint = new FeedCheckpoint(NO_PHASE_ID, 0, feedFile);
         service.insert(checkpoint);
       }
     }
@@ -97,7 +97,7 @@ public class CheckpointPhase extends Phase {
    * Updates the checkpoint.
    */
   public void execute() {
-    final Checkpoint checkpoint = context.getCheckpoint();
+    final FeedCheckpoint checkpoint = context.getCheckpoint();
 
     checkpoint.setPhaseId(context.getCurrentPhaseId());
     checkpoint.setCurrentFileIndex(context.getPreviousSplitterIndex());
