@@ -14,30 +14,48 @@
  */
 package com.qagen.osfe.webapp.model;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Author: Gregg Bolinger
- * <p>
+ * <p/>
  */
-public class User implements Serializable {
+public class JqGridJsonModel {
 
-  private String username;
-  private String password;
+  private String page;
+  private String total;
+  private Integer records;
+  private List<JqGridRow> rows;
 
-  public String getUsername() {
-    return username;
+  public String getPage() {
+    return page;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setPage(String page) {
+    this.page = page;
   }
 
-  public String getPassword() {
-    return password;
+  public String getTotal() {
+    return total;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setTotal(String total) {
+    this.total = total;
+  }
+
+  public Integer getRecords() {
+    return records;
+  }
+
+  public void setRecords(Integer records) {
+    this.records = records;
+  }
+
+  public List<JqGridRow> getRows() {
+    return rows;
+  }
+
+  public void setRows(List<JqGridRow> rows) {
+    this.rows = rows;
   }
 }
