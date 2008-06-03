@@ -2,7 +2,7 @@
 
 = t_feed_checkpoint =
 
-The t_checkpoint table contains the base information for a check point.  A checkpoint is directly associated to a row in t_feed_file. 
+The t_feed_checkpoint table contains the base information for a check point.  A checkpoint is directly associated to a row in t_feed_file. 
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_checkpoint_id || int || No || Uniquely defines a row (Automatically incremented) ||
