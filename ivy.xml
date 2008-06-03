@@ -43,6 +43,9 @@
     <dependency transitive="false" org='dom4j' name='dom4j' rev='1.6.1' />
     <dependency transitive="false" org='org.apache.ibatis' name='ibatis-sqlmap' rev='2.3.0' />
     <dependency transitive="false" org="mysql" name="mysql-connector-java" rev="3.1.14" />
+    <dependency transitive="false" org="jstl" name="jstl" rev="1.1.2" />
+    <dependency transitive="false" org="taglibs" name="standard" rev="1.1.2" />
+    
 
   </dependencies>
 </ivy-module>
