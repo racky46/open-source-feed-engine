@@ -68,6 +68,7 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
       List<String> cells = new ArrayList<String>();
       cells.add(fds.getFeedDataSourceId());
       cells.add(fds.getDescription());
+      cells.add("<a title='delete' id='" + fds.getFeedDataSourceId() + "'>Delete</div>");
       row.setCell(cells);
       rows.add(row);
       counter++;
