@@ -69,7 +69,7 @@
     <ivy:retrieve conf="build" pattern="${build.lib.dir}/[artifact]-[revision].[ext]"/>
     <ivy:retrieve conf="test" pattern="${test.lib.dir}/[artifact]-[revision].[ext]"/>
 
-    <get dest="${deploy.lib.dir}/stripes-1.5.911.jar" src="http://www.paradigmcoders.net/tools/stripes/rev/911/stripes.jar" />
+    <get dest="${deploy.lib.dir}/stripes-1.5.jar" src="http://www.paradigmcoders.net/tools/stripes/rev/935/stripes.jar" />
   
   </target>
 
