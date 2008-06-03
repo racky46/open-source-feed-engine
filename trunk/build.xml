@@ -70,6 +70,7 @@
     <ivy:retrieve conf="test" pattern="${test.lib.dir}/[artifact]-[revision].[ext]"/>
 
     <get dest="${deploy.lib.dir}/stripes-1.5.jar" src="http://www.paradigmcoders.net/tools/stripes/rev/935/stripes.jar" />
+    <get dest="${deploy.lib.dir}/flexjson.jar" src="http://www.paradigmcoders.net/tools/flexjson/flexjson.jar" />
   
   </target>
 
