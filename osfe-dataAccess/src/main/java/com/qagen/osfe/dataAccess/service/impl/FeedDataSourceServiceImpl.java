@@ -44,7 +44,7 @@ public class FeedDataSourceServiceImpl implements FeedDataSourceService {
   }
 
   @Transactional
-  public FeedDataSource findByPrimaryId(Integer primaryId) {
+  public FeedDataSource findByPrimaryId(String primaryId) {
     return dataSourceDAO.findByPrimaryId(primaryId);
   }
 
