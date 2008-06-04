@@ -14,10 +14,9 @@
  */
 package com.qagen.osfe.webapp.web.action;
 
-import net.sourceforge.stripes.action.*;
-import com.qagen.osfe.webapp.web.context.OsfeActionBeanContext;
 import com.qagen.osfe.webapp.web.AbstractActionBeanContext;
 import com.qagen.osfe.webapp.web.util.ViewConstants;
+import net.sourceforge.stripes.action.*;
 
 /**
  * Author: Gregg Bolinger
@@ -38,6 +37,7 @@ public abstract class BaseActionBean implements ActionBean, ViewConstants {
   }
 
   @DefaultHandler
+  @DontBind
   @DontValidate
   public abstract Resolution display();
 }
