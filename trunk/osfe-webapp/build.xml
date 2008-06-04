@@ -38,7 +38,7 @@
   </target>
 
   <target name="compile" depends="init">
-    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${java.src.dir}" destdir="classes"
+    <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${java.src.dir}" destdir="${basedir}/src/main/webapp/WEB-INF/classes"
            source="1.6" classpathref="library.path">
       <classpath location="${common.module.dir}/classes" />
       <classpath location="${dataAccess.module.dir}/classes" />
@@ -70,7 +70,7 @@
         <classes dir="${dataAccess.module.dir}/classes"/>
         <classes dir="${engine.module.dir}/classes"/>
         <classes dir="${basedir}/classes" />
-        <scantargets dir="${basedir}/classes"/>
+        <scantargets dir="${basedir}/src/main/webapp/WEB-INF/classes"/>
         <lib dir="${deploy.lib.dir}"/>
       </webapp>
     </jetty>

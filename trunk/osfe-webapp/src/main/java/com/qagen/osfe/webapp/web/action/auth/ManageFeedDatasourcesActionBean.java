@@ -32,8 +32,45 @@ import java.util.List;
  * Author: Gregg Bolinger
  * <p/>
  */
-@UrlBinding("/action/feed/datasources/{$event}")
+@UrlBinding("/action/feed/datasources/{$event}/{page}/{rows}/{sidx}/{sord}")
 public class ManageFeedDatasourcesActionBean extends BaseActionBean {
+
+  private String page = "1";
+  private String rows = "10";
+  private String sidx = "";
+  private String sord = "asc";
+
+  public String getPage() {
+    return page;
+  }
+
+  public void setPage(String page) {
+    this.page = page;
+  }
+
+  public String getRows() {
+    return rows;
+  }
+
+  public void setRows(String rows) {
+    this.rows = rows;
+  }
+
+  public String getSidx() {
+    return sidx;
+  }
+
+  public void setSidx(String sidx) {
+    this.sidx = sidx;
+  }
+
+  public String getSord() {
+    return sord;
+  }
+
+  public void setSord(String sortd) {
+    this.sord = sortd;
+  }
 
   @Override
   public Resolution display() {
@@ -45,7 +82,7 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     // This would generally be a simple service call to get all the
     // datasources.  Faked here for ease of explination
     List<FeedDataSource> feeds = new ArrayList<FeedDataSource>();
-    for (int index = 0; index < 10; index++) {
+    for (int index = 0; index < 55; index++) {
       FeedDataSource fds = new FeedDataSource();
 
       fds.setFeedDataSourceId("ID " + index);
@@ -54,24 +91,33 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     }
     // End fake service call
 
+    double val = 0;
+    double totalPages = 0;
+    if (feeds.size() >= new Double(rows)) {
+      val = feeds.size() / new Double(rows);
+      totalPages = Math.round(val);
+    }else{
+        totalPages = 1;
+    }
+
     JqGridJsonModel json = new JqGridJsonModel();
-    json.setPage("1");
-    json.setRecords(feeds.size());
-    json.setTotal("1");
+    json.setPage(page);
+    json.setRecords(rows);
+    json.setTotal(((int)totalPages));
+
+    System.out.println((int)totalPages);
 
 
     List<JqGridRow> rows = new ArrayList<JqGridRow>();
-    int counter = 0;
     for (FeedDataSource fds : feeds) {
       JqGridRow row = new JqGridRow();
-      row.setId(counter);
+      row.setId(fds.getFeedDataSourceId());
       List<String> cells = new ArrayList<String>();
       cells.add(fds.getFeedDataSourceId());
       cells.add(fds.getDescription());
       cells.add("<a title='delete' id='" + fds.getFeedDataSourceId() + "'>Delete</div>");
       row.setCell(cells);
       rows.add(row);
-      counter++;
     }
     json.setRows(rows);
 
