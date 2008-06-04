@@ -43,7 +43,7 @@
       <classpath location="${common.module.dir}/classes" />
       <classpath location="${dataAccess.module.dir}/classes" />
     </javac>
-    <copy todir="classes">
+    <copy todir="${basedir}/src/main/webapp/WEB-INF/classes">
       <fileset dir="${resource.src.dir}" includes="**/*"/>
     </copy>
   </target>
