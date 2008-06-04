@@ -9,10 +9,10 @@
                 {index:'actions',width:100,sortable:false}
             ],
             caption: 'Feed Data Source List',
-            rowNum: 25,
-            rowList:[25,50,100],
+            rowNum: 10,
+            rowList:[10,25,50],
             imgpath: '/app/styles/jqGrid/themes/basic/images',
-            pager: jQuery('#pager'),
+            pager: $('#pager'),
             sortname: 'name',
             sortorder: 'asc',
             width: 400,

@@ -23,8 +23,8 @@ import java.util.List;
 public class JqGridJsonModel {
 
   private String page;
-  private String total;
-  private Integer records;
+  private Integer total;
+  private String records;
   private List<JqGridRow> rows;
 
   public String getPage() {
@@ -35,19 +35,19 @@ public class JqGridJsonModel {
     this.page = page;
   }
 
-  public String getTotal() {
+  public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(String total) {
+  public void setTotal(Integer total) {
     this.total = total;
   }
 
-  public Integer getRecords() {
+  public String getRecords() {
     return records;
   }
 
-  public void setRecords(Integer records) {
+  public void setRecords(String records) {
     this.records = records;
   }
 
