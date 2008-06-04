@@ -23,7 +23,9 @@
                 alert("Going to delete " + this.id);
               });
 
-              $('#feedDatasourceList a').css("cursor", "pointer");
+              $('a[title=edit]').click(function() {
+                  alert("Going to edit " + this.id)
+              });
             }
         }).navGrid('#pager', {edit:false, add:false, del:false},{},{},{},{sopt:['bw','eq','ew','cn']});
     });

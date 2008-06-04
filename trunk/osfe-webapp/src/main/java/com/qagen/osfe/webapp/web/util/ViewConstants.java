@@ -24,5 +24,7 @@ public interface ViewConstants {
   public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
   public static final String LOGIN_VIEW = JSP_PATH + "login.jsp";
   public static final String HOME_VIEW = JSP_PATH + "auth/home.jsp";
-  public static final String FEED_DATASOURCE_LIST_VIEW = JSP_PATH + "auth/feed_datasource_list.jsp";
+  public static final String FEED_DATASOURCE_LIST_VIEW = JSP_PATH + "auth/feed_datasource/list.jsp";
+  public static final String FEED_DATASOURCE_MODIFY_VIEW = JSP_PATH + "auth/feed_datasource/modify.jsp";
+
 }

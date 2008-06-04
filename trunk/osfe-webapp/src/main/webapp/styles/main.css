@@ -40,3 +40,7 @@ input[type=text],input[type=password] {
   width: 300px;
   margin: auto;
 }
+
+.scroll a {
+  font-size: 10px;
+}

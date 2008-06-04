@@ -14,15 +14,16 @@
  */
 package com.qagen.osfe.webapp.web.action.auth;
 
+import com.qagen.osfe.dataAccess.service.FeedDataSourceService;
 import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 import com.qagen.osfe.webapp.model.JqGridJsonModel;
 import com.qagen.osfe.webapp.model.JqGridRow;
 import com.qagen.osfe.webapp.web.action.BaseActionBean;
 import flexjson.JSONSerializer;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.StreamingResolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -35,10 +36,32 @@ import java.util.List;
 @UrlBinding("/action/feed/datasources/{$event}/{page}/{rows}/{sidx}/{sord}")
 public class ManageFeedDatasourcesActionBean extends BaseActionBean {
 
+  @ValidateNestedProperties({
+  @Validate(field = "feedDataSourceId", required = true),
+  @Validate(field = "description", required = true)
+      })
+  private FeedDataSource dataSource;
+
+  private FeedDataSourceService dataSourceService;
+
+
   private String page = "1";
   private String rows = "10";
   private String sidx = "";
   private String sord = "asc";
+
+  public FeedDataSource getDataSource() {
+    return dataSource;
+  }
+
+  public void setDataSource(FeedDataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @SpringBean(FeedDataSourceService.SERVICE_ID)
+  public void setDataSourceService(FeedDataSourceService dataSourceService) {
+    this.dataSourceService = dataSourceService;
+  }
 
   public String getPage() {
     return page;
@@ -72,41 +95,46 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     this.sord = sortd;
   }
 
-  @Override
+  @DefaultHandler
+  @DontValidate
   public Resolution display() {
     return new ForwardResolution(FEED_DATASOURCE_LIST_VIEW);
   }
 
+  @DontBind
+  public Resolution add() {
+    return new ForwardResolution(FEED_DATASOURCE_MODIFY_VIEW);
+  }
+
+  public Resolution save() {
+    dataSourceService.insert(dataSource);
+    getContext().getMessages().add(new LocalizableMessage("feedDataSourceSaveSuccess"));
+    return new RedirectResolution(ManageFeedDatasourcesActionBean.class);
+  }
+
+  @DontValidate
+  public Resolution cancel() {
+    return new RedirectResolution(ManageFeedDatasourcesActionBean.class);
+  }
+
+  @DontValidate
   public Resolution list() {
 
-    // This would generally be a simple service call to get all the
-    // datasources.  Faked here for ease of explination
-    List<FeedDataSource> feeds = new ArrayList<FeedDataSource>();
-    for (int index = 0; index < 55; index++) {
-      FeedDataSource fds = new FeedDataSource();
-
-      fds.setFeedDataSourceId("ID " + index);
-      fds.setDescription("Desc " + index);
-      feeds.add(fds);
-    }
-    // End fake service call
-
+    List<FeedDataSource> feeds = dataSourceService.findAll();
+    
     double val = 0;
     double totalPages = 0;
     if (feeds.size() >= new Double(rows)) {
       val = feeds.size() / new Double(rows);
       totalPages = Math.round(val);
-    }else{
-        totalPages = 1;
+    } else {
+      totalPages = 1;
     }
 
     JqGridJsonModel json = new JqGridJsonModel();
     json.setPage(page);
     json.setRecords(rows);
-    json.setTotal(((int)totalPages));
-
-    System.out.println((int)totalPages);
-
+    json.setTotal(((int) totalPages));
 
     List<JqGridRow> rows = new ArrayList<JqGridRow>();
     for (FeedDataSource fds : feeds) {
@@ -115,7 +143,10 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
       List<String> cells = new ArrayList<String>();
       cells.add(fds.getFeedDataSourceId());
       cells.add(fds.getDescription());
-      cells.add("<a title='delete' id='" + fds.getFeedDataSourceId() + "'>Delete</div>");
+      StringBuilder actions = new StringBuilder();
+      actions.append("<a href='#' title='delete' id='").append(fds.getFeedDataSourceId()).append("'>Delete</a><br/>");
+      actions.append("<a href='#' title='edit' id='").append(fds.getFeedDataSourceId()).append("'>Edit</a>");
+      cells.add(actions.toString());
       row.setCell(cells);
       rows.add(row);
     }
