@@ -1,20 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<s:layout-render name="/layout/default.jsp">
+<s:layout-render name="/layout/default.jsp" pageTitle="Data Source List">
   <s:layout-component name="html-head">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/jqGrid/themes/basic/grid.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/jqGrid/themes/green/grid.css"
+    />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/jqGrid/themes/jqModal.css"/>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/js/jqModal.js"></script>
+    
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/js/jqModal.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/js/jqDnR.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/jquery.jqGrid.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/jquery.jqGrid.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/feed_datasource_list.js"></script>
   </s:layout-component>
   <s:layout-component name="contents">
     <s:messages/>
-    <table id="feedDatasourceList" class="scroll" cellpadding="0" cellspacing="0" ></table>
-    <div id="pager" class="scroll" style="text-align:center;"></div>
+    <table id="feedDatasourceList" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <div id="pager" class="scroll" style="text-align:center;margin-bottom: 5px;"></div>
     <s:link beanclass="com.qagen.osfe.webapp.web.action.auth.ManageFeedDatasourcesActionBean" event="add">
-      Add New Data Source
+      <img border="0" align="left" src="${pageContext.request.contextPath}/images/row_add.gif" alt="Add Row" />Add New Data Source
     </s:link>
   </s:layout-component>
 </s:layout-render>

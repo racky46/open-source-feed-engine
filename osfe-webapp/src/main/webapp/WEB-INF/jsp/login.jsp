@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<s:layout-render name="/layout/default.jsp">
+<s:layout-render name="/layout/default.jsp" pageTitle="OSFE - Login">
   <s:layout-component name="contents">
     <div id="middleContents">
       <div id="loginContainer" class="outerBorder">

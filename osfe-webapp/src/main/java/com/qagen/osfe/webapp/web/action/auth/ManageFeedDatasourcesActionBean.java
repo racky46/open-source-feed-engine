@@ -33,7 +33,7 @@ import java.util.List;
  * Author: Gregg Bolinger
  * <p/>
  */
-@UrlBinding("/action/feed/datasources/{$event}/{page}/{rows}/{sidx}/{sord}")
+@UrlBinding("/action/feed/datasources/{$event}/{dataSource.feedDataSourceId}/{page}/{rows}/{sidx}/{sord}")
 public class ManageFeedDatasourcesActionBean extends BaseActionBean {
 
   @ValidateNestedProperties({
@@ -106,10 +106,31 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     return new ForwardResolution(FEED_DATASOURCE_MODIFY_VIEW);
   }
 
+  @DontValidate
+  public Resolution edit() {
+    if (dataSource.getFeedDataSourceId() != null) {
+      setEditMode(true);
+      dataSource = dataSourceService.findByPrimaryId(dataSource.getFeedDataSourceId());
+    }
+    return new ForwardResolution(FEED_DATASOURCE_MODIFY_VIEW);
+  }
+
   public Resolution save() {
-    dataSourceService.insert(dataSource);
+    System.out.println(isEditMode());
+    if (!isEditMode()) {
+      dataSourceService.insert(dataSource);
+    } else {
+      System.out.println("Updating");
+      dataSourceService.update(dataSource);
+    }
     getContext().getMessages().add(new LocalizableMessage("feedDataSourceSaveSuccess"));
     return new RedirectResolution(ManageFeedDatasourcesActionBean.class);
+  }
+
+  @DontValidate
+  public Resolution delete() {
+    dataSourceService.delete(dataSource);
+    return null;
   }
 
   @DontValidate
@@ -121,7 +142,7 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
   public Resolution list() {
 
     List<FeedDataSource> feeds = dataSourceService.findAll();
-    
+
     double val = 0;
     double totalPages = 0;
     if (feeds.size() >= new Double(rows)) {
@@ -143,10 +164,7 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
       List<String> cells = new ArrayList<String>();
       cells.add(fds.getFeedDataSourceId());
       cells.add(fds.getDescription());
-      StringBuilder actions = new StringBuilder();
-      actions.append("<a href='#' title='delete' id='").append(fds.getFeedDataSourceId()).append("'>Delete</a><br/>");
-      actions.append("<a href='#' title='edit' id='").append(fds.getFeedDataSourceId()).append("'>Edit</a>");
-      cells.add(actions.toString());
+      cells.add("action");
       row.setCell(cells);
       rows.add(row);
     }
