@@ -35,7 +35,8 @@ import java.util.List;
  */
 public abstract class FeedLifeCycleService extends ExecutionService {
   protected enum SERVICES {
-    exceptionService("exceptionService");
+    exceptionService("exceptionService"),
+    checkpointService("checkpointService");
 
     private String value;
 

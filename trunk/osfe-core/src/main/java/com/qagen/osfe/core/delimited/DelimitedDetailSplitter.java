@@ -130,7 +130,9 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
   public void moveToCheckPoint(FeedCheckpoint checkpoint) {
     final int fileIndex = checkpoint.getCurrentFileIndex();
     int currentIndex = context.getCurrentSplitterIndex();
-    
+
+    logger.info("Moving to checkpoint, " + checkpoint.getPhaseId() + ", at file index, " + fileIndex);
+
     while (fileIndex != currentIndex) {
       getNextBlockOfRows();
       currentIndex = context.getCurrentSplitterIndex();

@@ -34,6 +34,16 @@ import java.util.concurrent.LinkedBlockingQueue;
  * FeedQueueMonitor does the heavy lifting of managing multiple feed engine
  * threads by monitoring multiple queues that contain information about the
  * feeds that should be launched from a given queue.
+ * <p>
+ * The FeedQueueMonitor uses the singleton design pattern to ensure that only
+ * one instance of a FeedQueueMonitor is instantiated for a given JVM.
+ * <p>
+ * All instances of FeedQueueMonitor share a common persistant storage
+ * table, t_feed_queue, which allows each instance to manange its queues.
+ * Thus, each time an instance of FeedQueueMonitor is launched from a new JVM,
+ * the environment variable, MONITOR_ID must be specified.  Specifiying the
+ * MONITOR_ID allows the FeedQueueMonitor to identify and manage its queues
+ * located in t_feed_queue.
  */
 public class FeedQueueMonitor implements FeedQueueMonitorMBean {
   public static final String MONITOR_ID = "MONITOR_ID";

@@ -53,15 +53,37 @@ import java.util.Map;
  * feeds formated as, delimited, fixed, XML and custom binary.
  */
 public class StandardFeedLifeCycleService extends FeedLifeCycleService {
+  // This LifeCycle service is responsible for loader the splitters and row description.
   private enum LOADERS {
-    splitterLoader,
-    rowDescriptionLoader
+    splitterLoader("splitterLoader"),
+    rowDescriptionLoader("rowDescriptionLoader");
+
+    private String value;
+
+    LOADERS(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 
+  // This LifeCycle service excpects a header, detail & footer splitters.
   public static enum SPLITTERS {
-    header,
-    detail,
-    footer
+    header("header"),
+    detail("detail"),
+    footer("footer");
+
+    private String value;
+
+    SPLITTERS(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 
   private static Log logger = Log.getInstance(StandardFeedLifeCycleService.class);
@@ -75,16 +97,36 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     super(context);
   }
 
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
   public String name() {
     return this.getClass().getSimpleName();
   }
 
+  /**
+   * Initialize service by peforming the following tasks:
+   * <ul>
+   * <li>load the feed file
+   * <li>instantiate the row description loader
+   * <li>load the splitters
+   * </ul>
+   */
   public void initialize() {
     loadFeedFile();
     initRowLoader();
     initSplitters();
   }
 
+  /**
+   * This method should contain the set of instructions necessary to perform
+   * the tasks of the given service.  All exceptions are handled here by
+   * catching Exception and calling method, handleFailure().
+   */
   public void execute() throws FeedErrorException {
     final FeedJob feedJob = context.getFeedJob();
 
@@ -101,6 +143,11 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
   public void shutdown() {
     try {
       feedJobManager.savePhaseStats(context);
@@ -112,6 +159,9 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Perform shutdown operations on all phases.
+   */
   protected void doPhaseShutdown() {
     shutdownPhases(context.getPostEventPhases());
     shutdownPhases(context.getBatchEventPhases());
@@ -119,6 +169,10 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     shutdownPhases(context.getPreFeedFilePhases());
   }
 
+  /**
+   * Load the feed file into a BufferedReader and stored the reader
+   * in the context.
+   */
   protected void loadFeedFile() {
     try {
       final String fullFeedFileName = context.getFullFeedFileName();
@@ -132,27 +186,41 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Initialize the row description loader and store it in the context.
+   */
   protected void initRowLoader() {
-    final Loader loader = context.getLoaderMap().get(LOADERS.rowDescriptionLoader.name());
+    final Loader loader = context.getLoaderMap().get(LOADERS.rowDescriptionLoader.getValue());
     final RowDescriptionLoader rowDescriptionLoader = ((RowDescriptionLoader) loader);
 
     context.setRowDescriptionLoader(rowDescriptionLoader);
   }
 
+  /**
+   * Load the header, detail and footer splitter and store the in the context.
+   */
   protected void initSplitters() {
-    final Loader loader = context.getLoaderMap().get(LOADERS.splitterLoader.name());
+    final Loader loader = context.getLoaderMap().get(LOADERS.splitterLoader.getValue());
     final Map<String, String> map = ((SplitterConfigLoader) loader).getMap();
 
-    Splitter splitter = loadSplitter(SPLITTERS.header.name(), map.get(SPLITTERS.header.name()));
+    Splitter splitter = loadSplitter(SPLITTERS.header.getValue(), map.get(SPLITTERS.header.getValue()));
     context.setHeaderSplitter(splitter);
 
-    splitter = loadSplitter(SPLITTERS.detail.name(), map.get(SPLITTERS.detail.name()));
+    splitter = loadSplitter(SPLITTERS.detail.getValue(), map.get(SPLITTERS.detail.getValue()));
     context.setDetailSplitter(splitter);
 
-    splitter = loadSplitter(SPLITTERS.footer.name(), map.get(SPLITTERS.footer.name()));
+    splitter = loadSplitter(SPLITTERS.footer.getValue(), map.get(SPLITTERS.footer.getValue()));
     context.setFooterSplitter(splitter);
   }
 
+  /**
+   * Instantiates a specific splitter using java reflection.
+   *
+   * @param splitterName uniquely identifies the splitter.
+   * @param className    the full class name of the splltter to load.
+   * @return the instantiated splitter.
+   * @throws FeedErrorException wrapps the original exception.
+   */
   private Splitter loadSplitter(String splitterName, String className) {
     try {
       final Class clazz = Class.forName(className);
@@ -173,6 +241,9 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Iterates and executes the list of preEventPhases.
+   */
   private void doPreEventPhases() {
     final List<Phase> phases = context.getPreEventPhases();
 
@@ -185,6 +256,9 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Iterates and executes the list of batchEventPhases.
+   */
   private void doBatchEventPhases() {
     final Splitter splitter = context.getDetailSplitter();
     final List<Phase> phases = context.getBatchEventPhases();
@@ -197,24 +271,14 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
       feedJobManager.endPhaseStats(phase, context);
     }
 
-    // Get checkpoint from context after checkpoint phase.initialize().
-    final FeedCheckpoint checkpoint = context.getCheckpoint();
-
     // Must be called after initialization and before anything else.
     splitter.prePhaseExecute();
 
-    // Move to checkpoint if splitter is instance of checkpoint
-    if (splitter instanceof CheckpointHandler) {
-      if (checkpoint != null) {
-        ((CheckpointHandler) splitter).moveToCheckPoint(checkpoint);
-      }
-    }
+    // Get checkpoint from context after checkpoint phase.initialize().
+    final FeedCheckpoint checkpoint = context.getCheckpoint();
 
-    // Determine if a checkpoint has been created.
-    Boolean movingToCheckpoint = false;
-    if (checkpoint != null && !checkpoint.getPhaseId().equals(CheckpointPhase.NO_PHASE_ID)) {
-      movingToCheckpoint = true;
-    }
+    // Determine if a checkpoint has been created and if so, move to it.
+    Boolean movingToCheckpoint = performCheckpoint(splitter, checkpoint);
 
     while (splitter.hasNextRow()) {
       for (Phase phase : phases) {
@@ -234,6 +298,33 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     }
   }
 
+  /**
+   * Checks to see if there is a check point.  If so, and the checkpoint phaseId
+   * does not equal, NO_PHASE_ID, call the necessary opertions to move to the
+   * current checkpoint.
+   *
+   * @param splitter   the splitter to see if it implments the interface CheckpointHandler.
+   * @param checkpoint the checkpoint object associated with the given feed file.
+   * @return true if a move to check point was initiated.
+   */
+  private Boolean performCheckpoint(Splitter splitter, FeedCheckpoint checkpoint) {
+    // Move to checkpoint if splitter is instance of checkpoint
+    if (splitter instanceof CheckpointHandler) {
+      // Determine if a checkpoint has been created.
+      if (checkpoint != null && !checkpoint.getPhaseId().equals(CheckpointPhase.NO_PHASE_ID)) {
+        final CheckpointService service = (CheckpointService) context.getServiceMap(SERVICES.checkpointService.getValue());
+        if (service != null) service.beforeCheckpoint();
+        ((CheckpointHandler) splitter).moveToCheckPoint(checkpoint);
+        if (service != null) service.afterCheckpoint();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Iterates and executes the list of postEventPhases.
+   */
   private void doPostEventPhases() {
     final List<Phase> phases = context.getPostEventPhases();
 

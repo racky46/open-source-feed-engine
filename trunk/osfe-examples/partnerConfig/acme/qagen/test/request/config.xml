@@ -63,6 +63,7 @@
     <mainService>com.qagen.osfe.core.services.StandardFeedLifeCycleService</mainService>
     <phaseService>com.qagen.osfe.core.services.PhaseLoaderService</phaseService>
     <exceptionService>com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder</exceptionService>
+    <checkpointService>com.qagen.osfe.core.services.CheckpointPlaceHolder</checkpointService>
   </services>
 
   <configLoaders>

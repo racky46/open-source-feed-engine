@@ -14,20 +14,21 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
+import com.qagen.osfe.core.EngineContext;
+import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.core.ProcessPhase;
+import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.examples.acme.AcmeConstants;
 import com.qagen.osfe.examples.acme.GradingStatistics;
 import com.qagen.osfe.examples.acme.row.DetailRow;
-import com.qagen.osfe.core.EngineContext;
-import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.Phase;
-import com.qagen.osfe.core.ProcessPhase;
-import com.qagen.osfe.core.row.Row;
-
-import java.util.List;
+import com.qagen.osfe.common.utils.Log;
 
 public class GradingPhase extends ProcessPhase {
   private Boolean echoDetail;
   private GradingStatistics stats;
+  private Integer delayInSeconds;
+
+  private static Log logger = Log.getInstance(GradingPhase.class);
 
   public GradingPhase(EngineContext context, String name) {
     super(context, name);
@@ -36,6 +37,7 @@ public class GradingPhase extends ProcessPhase {
     context.put(AcmeConstants.stats.name(), stats);
 
     echoDetail = Boolean.parseBoolean((String) context.get(AcmeConstants.echoDetail.name()));
+    delayInSeconds = Integer.parseInt((String) context.get(AcmeConstants.delay.name()));
   }
 
   public void setEchoDetail(Boolean echoDetail) {
@@ -54,7 +56,12 @@ public class GradingPhase extends ProcessPhase {
     DetailRow detailRow = (DetailRow) row;
     final Integer score = detailRow.getScore();
 
+    if (delayInSeconds > 0) {
+      try { Thread.sleep(delayInSeconds * 1000); } catch (InterruptedException e) {}
+    }
+
     if ((score < 0) || (score > 100)) {
+
       context.setRejectedRowNumber();
       context.setErrorCode("GRAD100");
       context.setErrorMessage("Illegal score: " + score);

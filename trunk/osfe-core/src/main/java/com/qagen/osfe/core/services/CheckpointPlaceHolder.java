@@ -14,36 +14,32 @@
  */
 package com.qagen.osfe.core.services;
 
+import com.qagen.osfe.core.CheckpointService;
 import com.qagen.osfe.core.EngineContext;
-import com.qagen.osfe.core.EngineService;
-import com.qagen.osfe.core.ExceptionHandler;
 
 /**
  * Author: Hycel Taylor
- * <p/>
- * This is just a place holder class as an example of a concrete exception
+ * <p>
+ * This is just a place holder class as an example of a concrete checkpoint
  * handler.  It can be defined within the &lt;services&gt; element in a given
  * feed file configuration document.
  */
-public class ExceptionHandlerPlaceHolder extends EngineService implements ExceptionHandler {
+public class CheckpointPlaceHolder extends CheckpointService {
 
-  /**
-   * Constructor
-   *
-   * @param context reference to the engine context.
-   */
-  public ExceptionHandlerPlaceHolder(EngineContext context) {
+  public CheckpointPlaceHolder(EngineContext context) {
     super(context);
   }
 
   /**
-   * Set the reference to the exception and performs the necessary operations
-   * to handle the given exception.
-   *
-   * @param exception the exception to handle.
+   * Perform some action before the checkpoint has stared.
    */
-  public void handleException(Exception exception) {
-    // Nothing to do here.
+  public void beforeCheckpoint() {
+  }
+
+  /**
+   * Perform some action after the checkpoint has completed.
+   */
+  public void afterCheckpoint() {
   }
 
   /**
@@ -65,7 +61,6 @@ public class ExceptionHandlerPlaceHolder extends EngineService implements Except
    * initialization method on each service is called.
    */
   public void initialize() {
-    // Nothing to do here.
   }
 
   /**
@@ -74,6 +69,5 @@ public class ExceptionHandlerPlaceHolder extends EngineService implements Except
    * and other depended services.
    */
   public void shutdown() {
-    // Nothing to do here.
   }
 }
