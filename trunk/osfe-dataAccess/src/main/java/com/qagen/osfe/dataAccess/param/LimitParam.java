@@ -12,15 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.dataAccess.dao;
+package com.qagen.osfe.dataAccess.param;
 
-import com.qagen.osfe.dataAccess.param.LimitParam;
-import com.qagen.osfe.dataAccess.vo.FeedDataSource;
+/**
+ * Author: Gregg Bolinger
+ * <p/>
+ */
+public class LimitParam {
+  private final Integer first;
+  private final Integer last;
 
-import java.util.List;
+  public LimitParam(Integer first, Integer last) {
+    this.first = first;
+    this.last = last;
+  }
 
-public interface FeedDataSourceDAO extends DAO<FeedDataSource> {
+  public Integer getFirst() {
+    return first;
+  }
 
-  public List<FeedDataSource> findAll();
-  public List<FeedDataSource> findAllWithLimit(LimitParam limits);
+  public Integer getLast() {
+    return last;
+  }
 }

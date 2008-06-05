@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.dao.ibatis;
 
 import com.qagen.osfe.dataAccess.dao.FeedDataSourceDAO;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
@@ -41,5 +42,10 @@ public class SqlMapFeedDataSourceDAO extends SqlMapClientDaoSupport implements F
   @SuppressWarnings("unchecked")
   public List<FeedDataSource> findAll() {
     return getSqlMapClientTemplate().queryForList("FeedDataSource.findAll");
+  }
+
+  public List<FeedDataSource> findAllWithLimit(LimitParam limits) {
+    return getSqlMapClientTemplate().queryForList("FeedDataSource.findAllWithLimit", limits);
+
   }
 }
