@@ -20,16 +20,25 @@ import net.sourceforge.stripes.action.*;
 
 /**
  * Author: Gregg Bolinger
- * <p>
+ * <p/>
  */
 public abstract class BaseActionBean implements ActionBean, ViewConstants {
 
- 
+  private boolean editMode = false;
+
 
   private AbstractActionBeanContext context;
 
+  public boolean isEditMode() {
+    return editMode;
+  }
+
+  public void setEditMode(boolean editMode) {
+    this.editMode = editMode;
+  }
+
   public void setContext(ActionBeanContext actionBeanContext) {
-    this.context = (AbstractActionBeanContext)actionBeanContext;
+    this.context = (AbstractActionBeanContext) actionBeanContext;
   }
 
   public AbstractActionBeanContext getContext() {

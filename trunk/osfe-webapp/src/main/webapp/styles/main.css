@@ -1,8 +1,7 @@
-body {
-  margin:0;
+html,body {
+  margin:10px;
   padding:0;
-  font-size: 12px;
-  font-family: verdana;
+  font: 12px "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana;
 }
 
 label {
@@ -27,7 +26,7 @@ input[type=text],input[type=password] {
 }
 
 .outerBorder {
-  background-color: #3C1C14;
+  background-color: #3C964B;
   padding: 7px;
 }
 
@@ -39,8 +38,4 @@ input[type=text],input[type=password] {
 #loginContainer {
   width: 300px;
   margin: auto;
-}
-
-.scroll a {
-  font-size: 10px;
 }
