@@ -14,6 +14,7 @@
  */
 package com.qagen.osfe.webapp.web.action.auth;
 
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.service.FeedDataSourceService;
 import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 import com.qagen.osfe.webapp.model.JqGridJsonModel;
@@ -32,6 +33,8 @@ import java.util.List;
 /**
  * Author: Gregg Bolinger
  * <p/>
+ * This is the management class for Feed Data Sources.  This action provides code
+ * for listing all data sources as well as general CRUD methods
  */
 @UrlBinding("/action/feed/datasources/{$event}/{dataSource.feedDataSourceId}/{page}/{rows}/{sidx}/{sord}")
 public class ManageFeedDatasourcesActionBean extends BaseActionBean {
@@ -41,13 +44,11 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
   @Validate(field = "description", required = true)
       })
   private FeedDataSource dataSource;
-
   private FeedDataSourceService dataSourceService;
 
-
-  private String page = "1";
-  private String rows = "10";
-  private String sidx = "";
+  private Integer page = 1;
+  private Integer rows = 10;
+  private String sidx = "feedDataSourceId";
   private String sord = "asc";
 
   public FeedDataSource getDataSource() {
@@ -63,19 +64,19 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     this.dataSourceService = dataSourceService;
   }
 
-  public String getPage() {
+  public Integer getPage() {
     return page;
   }
 
-  public void setPage(String page) {
+  public void setPage(Integer page) {
     this.page = page;
   }
 
-  public String getRows() {
+  public Integer getRows() {
     return rows;
   }
 
-  public void setRows(String rows) {
+  public void setRows(Integer rows) {
     this.rows = rows;
   }
 
@@ -147,14 +148,17 @@ public class ManageFeedDatasourcesActionBean extends BaseActionBean {
     double totalPages = 0;
     if (feeds.size() >= new Double(rows)) {
       val = feeds.size() / new Double(rows);
-      totalPages = Math.round(val);
+      totalPages = Math.ceil(val);
     } else {
       totalPages = 1;
     }
 
+    int start = rows*page - rows;
+    feeds = dataSourceService.findAllWithLimit(new LimitParam(start, rows));
+
     JqGridJsonModel json = new JqGridJsonModel();
-    json.setPage(page);
-    json.setRecords(rows);
+    json.setPage(String.valueOf(page));
+    json.setRecords(String.valueOf(rows));
     json.setTotal(((int) totalPages));
 
     List<JqGridRow> rows = new ArrayList<JqGridRow>();
