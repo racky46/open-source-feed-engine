@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service.impl;
 
 import com.qagen.osfe.dataAccess.dao.FeedDataSourceDAO;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.service.FeedDataSourceService;
 import com.qagen.osfe.dataAccess.vo.FeedDataSource;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,5 +52,9 @@ public class FeedDataSourceServiceImpl implements FeedDataSourceService {
   @Transactional
   public List<FeedDataSource> findAll() {
     return dataSourceDAO.findAll();
+  }
+
+  public List<FeedDataSource> findAllWithLimit(LimitParam limits) {
+    return dataSourceDAO.findAllWithLimit(limits);
   }
 }
