@@ -40,7 +40,7 @@ $(function() {
         });
       });
     }
-  }).navGrid('#pager', {edit:false, add:false, del:false}, {}, {}, {}, {sopt:['bw','eq','ew','cn']});
+  });
 });
 
 function confirmDelete(message, callback) {
