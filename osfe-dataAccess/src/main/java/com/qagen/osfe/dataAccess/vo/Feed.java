@@ -31,10 +31,10 @@ public class Feed extends VO {
   private String feedId;
   private Timestamp activationDate;
   private Timestamp terminationDate;
-  private Boolean allowConcurrentRuns;
-  private Boolean allowFailedStateRuns;
-  private Boolean restartAtCheckpoint;
-  private Boolean collectPhaseStats;
+  private boolean allowConcurrentRuns;
+  private boolean allowFailedStateRuns;
+  private boolean restartAtCheckpoint;
+  private boolean collectPhaseStats;
   private Integer lastSequenceNumber;
   private Integer maxConcurrentRuns;
   private String feedDirectory;
