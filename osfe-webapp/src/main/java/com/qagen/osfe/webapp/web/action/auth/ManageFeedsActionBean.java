@@ -204,6 +204,12 @@ public class ManageFeedsActionBean extends BaseActionBean {
   }
 
   @DontValidate
+  public Resolution delete() {
+    feedService.delete(feed);
+    return null;
+  }
+
+  @DontValidate
   public Resolution list() {
 
     List<Feed> feeds = feedService.findAll();
