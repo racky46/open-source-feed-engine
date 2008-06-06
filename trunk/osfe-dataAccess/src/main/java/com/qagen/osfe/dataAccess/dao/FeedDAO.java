@@ -16,6 +16,10 @@ package com.qagen.osfe.dataAccess.dao;
 
 import com.qagen.osfe.dataAccess.vo.Feed;
 
+import java.util.List;
+
 public interface FeedDAO extends DAO<Feed> {
+
+  public List<Feed> findAll();
 
 }

@@ -16,9 +16,13 @@ package com.qagen.osfe.dataAccess.service;
 
 import com.qagen.osfe.dataAccess.vo.Feed;
 
+import java.util.List;
+
 
 public interface FeedService extends Service<Feed> {
   public static final String SERVICE_ID = "feedService";
+
+  public List<Feed> findAll();
 
   public Feed findByPrimaryId(String primaryId);
 }
