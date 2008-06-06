@@ -19,6 +19,8 @@ import com.qagen.osfe.dataAccess.service.FeedService;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public class FeedServiceImpl implements FeedService {
   private FeedDAO feedDAO;
 
@@ -44,6 +46,11 @@ public class FeedServiceImpl implements FeedService {
   @Transactional
   public Feed findByPrimaryId(String primaryId) {
     return feedDAO.findByPrimaryId(primaryId);
+  }
+
+  @Transactional
+  public List<Feed> findAll() {
+    return feedDAO.findAll();
   }
 
 }

@@ -18,6 +18,8 @@ import com.qagen.osfe.dataAccess.dao.FeedDAO;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
+import java.util.List;
+
 public class SqlMapFeedDAO extends SqlMapClientDaoSupport implements FeedDAO {
 
   public void insert(Feed model) {
@@ -34,5 +36,9 @@ public class SqlMapFeedDAO extends SqlMapClientDaoSupport implements FeedDAO {
 
   public Feed findByPrimaryId(Object primaryId) {
     return (Feed) getSqlMapClientTemplate().queryForObject("Feed.findByPrimaryId", primaryId);
+  }
+
+  public List<Feed> findAll() {
+    return getSqlMapClientTemplate().queryForList("Feed.findAll");
   }
 }
