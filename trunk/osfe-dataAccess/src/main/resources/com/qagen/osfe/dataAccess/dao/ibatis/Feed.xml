@@ -45,7 +45,6 @@
       to_data_source_id,
       feed_type_id,
       feed_protocol_id,
-      feed_sequence_type_id,
       feed_direction_id,
       feed_group_id
     ) values (
