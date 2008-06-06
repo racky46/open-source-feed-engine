@@ -47,6 +47,5 @@ public abstract class BaseActionBean implements ActionBean, ViewConstants {
 
   @DefaultHandler
   @DontBind
-  @DontValidate
   public abstract Resolution display();
 }
