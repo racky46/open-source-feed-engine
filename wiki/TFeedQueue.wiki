@@ -6,7 +6,7 @@ The t_feed_queue is use by the monitor classes that manage the number of OSFE en
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_queue_id || int || No || Uniquely defines a row (Automatically incremented) ||
-|| || queue_id || varchar(40) || No || Specifies which  queue will manage the feed ||
+|| || queue_id || varchar(60) || No || Specifies which  queue will manage the feed ||
 || || monitor_id || int || No || Specifies which monitor is managing the queue ||
 || || entry_time || timestamp|| No || Specifies the time the file was added to the queue ||
 || || feed_file_name || varchar(255) || No || Specifies the name of the feed file ||
