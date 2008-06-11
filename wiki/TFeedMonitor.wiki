@@ -2,7 +2,7 @@
 
 = t_feed_monitor =
 
-The t_feed_monitor table defines monitor identifiers.  An OSFE feed monitor can manage the processing multiple feeds and one time.  When a monitor is launched, it must be associated with a defined monitor in t_feed_monitor. Multiple feed monitors can be launched but each in a different JVM.  Each feed monitor must be assigned a unique monitor id defined in t_feed_monitor.
+The t_feed_monitor table defines monitor identifiers.  An OSFE feed monitor can manage the processing multiple feeds simultaneously.  When a monitor is launched, it must be associated with a defined monitor in t_feed_monitor. Multiple feed monitors can be launched but each in a different JVM.  Each feed monitor must be assigned a unique monitor id defined in t_feed_monitor.
  
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_monitor_id || varchar(30) || No || Uniquely defines the feed monitor ||
