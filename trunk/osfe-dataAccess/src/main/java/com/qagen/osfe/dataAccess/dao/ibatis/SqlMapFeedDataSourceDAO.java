@@ -44,6 +44,7 @@ public class SqlMapFeedDataSourceDAO extends SqlMapClientDaoSupport implements F
     return getSqlMapClientTemplate().queryForList("FeedDataSource.findAll");
   }
 
+  @SuppressWarnings("unchecked")
   public List<FeedDataSource> findAllWithLimit(LimitParam limits) {
     return getSqlMapClientTemplate().queryForList("FeedDataSource.findAllWithLimit", limits);
 

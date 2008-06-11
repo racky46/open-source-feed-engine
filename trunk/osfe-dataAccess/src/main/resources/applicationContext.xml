@@ -85,6 +85,10 @@
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
+  <bean id="feedMonitorDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedMonitorDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
   <bean id="feedPhaseStatsDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedPhaseStatsDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
@@ -98,6 +102,14 @@
   </bean>
 
   <bean id="feedTypeDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedTypeDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedQueueStateDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedQueueStateDAO">
+    <property name="sqlMapClient" ref="sqlMapClient"/>
+  </bean>
+
+  <bean id="feedQueueTypeDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedQueueTypeDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
@@ -148,6 +160,10 @@
     <property name="feedMappedQueueDAO" ref="feedMappedQueueDAO"/>
   </bean>
 
+  <bean id="feedMonitorService" class="com.qagen.osfe.dataAccess.service.impl.FeedMonitorServiceImpl">
+    <property name="feedMonitorDAO" ref="feedMonitorDAO"/>
+  </bean>
+
   <bean id="feedPhaseStatsService" class="com.qagen.osfe.dataAccess.service.impl.FeedPhaseStatsServiceImpl">
     <property name="feedPhaseStatsDAO" ref="feedPhaseStatsDAO"/>
   </bean>
@@ -162,6 +178,14 @@
 
   <bean id="feedTypeService" class="com.qagen.osfe.dataAccess.service.impl.FeedTypeServiceImpl">
     <property name="feedTypeDAO" ref="feedTypeDAO"/>
+  </bean>
+
+  <bean id="feedQueueStateService" class="com.qagen.osfe.dataAccess.service.impl.FeedQueueStateServiceImpl">
+    <property name="feedQueueStateDAO" ref="feedQueueStateDAO"/>
+  </bean>
+
+  <bean id="feedQueueTypeService" class="com.qagen.osfe.dataAccess.service.impl.FeedQueueTypeServiceImpl">
+    <property name="feedQueueTypeDAO" ref="feedQueueTypeDAO"/>
   </bean>
 
   <bean id="feedUserService" class="com.qagen.osfe.dataAccess.service.impl.FeedUserServiceImpl">

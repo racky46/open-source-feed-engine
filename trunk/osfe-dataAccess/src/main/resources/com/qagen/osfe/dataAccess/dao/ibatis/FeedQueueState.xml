@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FeedQueueState">
+
+  <typeAlias alias="FeedQueueState" type="com.qagen.osfe.dataAccess.vo.FeedQueueState"/>
+
+  <resultMap id="resultMap" class="FeedQueueState">
+    <result property="feedQueueStateId" column="feed_queue_state_id"/>
+    <result property="description" column="description"/>
+  </resultMap>
+
+  <insert id="insert" parameterClass="FeedQueueState">
+    insert into t_feed_queue_state (
+      feed_queue_state_id,
+      description
+    ) values (
+      #feedQueueStateId#,
+      #description#
+    )
+  </insert>
+
+  <update id="update" parameterClass="FeedQueueState">
+    update t_feed_queue_state set
+      feed_queue_state_id = #feedQueueStateId#,
+      description = #description#
+    where feed_queue_state_id = #feedQueueStateId#
+  </update>
+
+  <delete id="delete" parameterClass="FeedQueueState">
+    delete from t_feed_queue_state where feed_queue_state_id = #feedQueueStateId#
+  </delete>
+
+  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedQueueState.resultMap">
+    select * from t_feed_queue_state where feed_queue_state_id = #value#
+  </select>
+
+  <select id="findAll" resultMap="FeedQueueState.resultMap">
+    select * from t_feed_queue_state
+  </select>
+
+</sqlMap>

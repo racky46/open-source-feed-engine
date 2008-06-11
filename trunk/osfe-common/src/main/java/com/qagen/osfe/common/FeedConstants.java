@@ -113,6 +113,23 @@ public class FeedConstants extends CommonConstants {
     }
   }
 
+  public enum FEED_QUEUE_STATE {
+    waiting("waiting"),
+    processing("processing"),
+    failed("failed"),
+    completed("completed");
+
+    private String value;
+
+    FEED_QUEUE_STATE(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
   // Feed Protocols
   public enum FEED_PROTOCOL {
     request("request"),

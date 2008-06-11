@@ -5,6 +5,8 @@
     <configFile>/feedDataSource/config.xml</configFile>
     <configFile>/feedType/config.xml</configFile>
     <configFile>/feedGroup/config.xml</configFile>
+    <configFile>/feedQueueType/config.xml</configFile>
+    <configFile>/feedMonitor/config.xml</configFile>
     <configFile>/feed/config.xml</configFile>
   </configFiles>
 </config>

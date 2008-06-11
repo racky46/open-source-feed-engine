@@ -40,11 +40,11 @@ public class SqlMapFeedQueueDAO extends SqlMapClientDaoSupport implements FeedQu
   }
 
   @SuppressWarnings("unchecked")
-  public List<FeedQueue> findAll(Integer monitorId) {
+  public List<FeedQueue> findAll(String monitorId) {
     return getSqlMapClientTemplate().queryForList("FeedQueue.findAll", monitorId);
   }
 
-  public void deleteAll(Integer monitorId) {
+  public void deleteAll(String monitorId) {
     getSqlMapClientTemplate().delete("FeedQueue.deleteAll", monitorId);
   }
 

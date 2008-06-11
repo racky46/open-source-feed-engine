@@ -22,38 +22,40 @@ import java.util.ArrayList;
 /**
  * Author: Hycel Taylor
  * <p/>
- * This is the value object class for table t_feed_role
+ * This is the value object class for table t_feed_queue_type
  *
- * @table t_feed_role
+ * @table t_feed_queue_type
  */
-public class FeedRole extends VO {
-  private Integer feedRoleId;
-  private String roleName;
-  private String roleDescription;
+public class FeedQueueType extends VO {
+  private String feedQueueTypeId;
+  private Integer maxConcurrentRun;
+  private String description;
 
-
-  public Integer getFeedRoleId() {
-    return feedRoleId;
+  public FeedQueueType() {
   }
 
-  public void setFeedRoleId(Integer feedRoleId) {
-    this.feedRoleId = feedRoleId;
+  public String getFeedQueueTypeId() {
+    return feedQueueTypeId;
   }
 
-  public String getRoleName() {
-    return roleName;
+  public void setFeedQueueTypeId(String feedQueueTypeId) {
+    this.feedQueueTypeId = feedQueueTypeId;
   }
 
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
+  public Integer getMaxConcurrentRun() {
+    return maxConcurrentRun;
   }
 
-  public String getRoleDescription() {
-    return roleDescription;
+  public void setMaxConcurrentRun(Integer maxConcurrentRun) {
+    this.maxConcurrentRun = maxConcurrentRun;
   }
 
-  public void setRoleDescription(String roleDescription) {
-    this.roleDescription = roleDescription;
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   @Override
@@ -62,12 +64,12 @@ public class FeedRole extends VO {
       return true;
     }
 
-    if (!(object instanceof FeedRole)) {
+    if (!(object instanceof FeedQueueType)) {
       return false;
     }
 
-    final FeedRole model = (FeedRole) object;
-    if (feedRoleId.equals(model.feedRoleId)) {
+    final FeedQueueType model = (FeedQueueType) object;
+    if (feedQueueTypeId.equals(model.feedQueueTypeId)) {
       return true;
     } else {
       return false;
@@ -77,7 +79,7 @@ public class FeedRole extends VO {
   @Override
   public int hashCode() {
     HashCodeBuilder builder = new HashCodeBuilder(17, 37);
-    builder.append(feedRoleId);
+    builder.append(feedQueueTypeId);
     return builder.toHashCode();
   }
 
@@ -85,7 +87,7 @@ public class FeedRole extends VO {
   public String toString() {
     final List<String> list = new ArrayList<String>();
 
-    list.add(feedRoleId.toString());
+    list.add(feedQueueTypeId);
 
     return toString(list);
   }

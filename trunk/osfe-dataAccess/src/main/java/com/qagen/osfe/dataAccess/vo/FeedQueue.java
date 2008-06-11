@@ -29,17 +29,20 @@ import java.util.ArrayList;
  */
 public class FeedQueue extends VO {
   private Integer feedQueueId;
-  private String queueId;
-  private Integer monitorId;
   private Timestamp entryTime;
   private String feedFileName;
   private Feed feed;
+  private FeedQueueType feedQueueType;
+  private FeedMonitor feedMonitor;
+  private FeedQueueState feedQueueState;
 
   public FeedQueue() {
   }
 
-  public FeedQueue(String queueId, Feed feed, String feedFileName) {
-    this.queueId = queueId;
+  public FeedQueue(FeedQueueType feedQueueType, FeedMonitor feedMonitor, FeedQueueState feedQueueState, Feed feed, String feedFileName) {
+    this.feedQueueType = feedQueueType;
+    this.feedMonitor = feedMonitor;
+    this.feedQueueState = feedQueueState;
     this.feed = feed;
     this.entryTime = new Timestamp(System.currentTimeMillis());
     this.feedFileName = feedFileName;
@@ -53,20 +56,28 @@ public class FeedQueue extends VO {
     this.feedQueueId = feedQueueId;
   }
 
-  public String getQueueId() {
-    return queueId;
+  public FeedMonitor getFeedMonitor() {
+    return feedMonitor;
   }
 
-  public void setQueueId(String queueId) {
-    this.queueId = queueId;
+  public void setFeedMonitor(FeedMonitor feedMonitor) {
+    this.feedMonitor = feedMonitor;
   }
 
-  public Integer getMonitorId() {
-    return monitorId;
+  public FeedQueueState getFeedQueueState() {
+    return feedQueueState;
   }
 
-  public void setMonitorId(Integer monitorId) {
-    this.monitorId = monitorId;
+  public void setFeedQueueState(FeedQueueState feedQueueState) {
+    this.feedQueueState = feedQueueState;
+  }
+
+  public FeedQueueType getFeedQueueType() {
+    return feedQueueType;
+  }
+
+  public void setFeedQueueType(FeedQueueType feedQueueType) {
+    this.feedQueueType = feedQueueType;
   }
 
   public Timestamp getEntryTime() {
