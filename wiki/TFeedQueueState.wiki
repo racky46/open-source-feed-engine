@@ -11,7 +11,7 @@ The t_feed_queue_state table defines the finite set of feed queue states.  Feed 
 = Definitions = 
 
 || *feed_queue_state_id* || *description* ||
-|| waiting || The initial state.  Feed file is waiting to be processed ||
+|| waiting || The initial state.  The feed file is waiting to be processed ||
 || processing || The feed file is current being processed ||
-|| completed || The feed file was completed successfully ||
+|| completed || The feed processing life cycle completed successfully ||
 || failed || The feed processing life cycle did not complete successfully || 
