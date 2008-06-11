@@ -36,6 +36,12 @@ insert into t_feed_role (feed_role_id, role_name, description) values (400, 'Fee
 insert into t_feed_role (feed_role_id, role_name, description) values (500, 'Administrator', 'Ability to do everything');
 
 --
+-- Populate t_feed_queue_state
+--
+insert into t_feed_queue_state (feed_queue_state_id, description) values ("waiting", "Feed is waiting in queue to be processed.");
+insert into t_feed_queue_state (feed_queue_state_id, description) values ("processing", "Feed has been pulled from the queue and is processing.");
+
 -- Populate t_feed_user
 --
 insert into t_feed_user (username, password, first_name, last_name, date_modified, date_last_login, feed_role_id) values ('admin', md5('admin'), 'Admin', 'Admin', now(), now(), 500);
+

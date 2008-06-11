@@ -9,26 +9,29 @@
 
   <resultMap id="resultMap" class="FeedQueue">
     <result property="feedQueueId" column="feed_queue_id"/>
-    <result property="queueId" column="queue_id"/>
-    <result property="monitorId" column="monitor_id"/>
     <result property="entryTime" column="entry_time"/>
     <result property="feedFileName" column="feed_file_name"/>
-    <result property="feed" column="feed_id"/>
+    <result property="feed" column="feed_id" select="Feed.findByPrimaryId"/>
+    <result property="feedQueueType" column="feed_queue_id" select="FeedQueueType.findByPrimaryId"/>
+    <result property="feedQueueState" column="feed_queue_state_id" select="FeedQueueState.findByPrimaryId"/>
+    <result property="feedMonitor" column="feed_monitor_id" select="FeedMonitor.findByPrimaryId"/>
   </resultMap>
 
   <insert id="insert" parameterClass="FeedQueue">
     insert into t_feed_queue (
-      queue_id,
-      monitor_id,
       entry_time,
       feed_file_name,
-      feed_id
+      feed_id,
+      feed_queue_type_id,
+      feed_queue_state_id,
+      feed_monitor_id
     ) values (
-      #queueId#,
-      #monitorId#,
       #entryTime#,
       #feedFileName#,
-      #feed.feedId#
+      #feed.feedId#,
+      #feedQueueType.feedQueueTypeId#,
+      #feedQueueState.feedQueueStateId#,
+      #feedMonitor.feedMonitorId#
     )
 
     <selectKey resultClass="int" keyProperty="feedQueueId">
@@ -38,12 +41,13 @@
 
   <update id="update" parameterClass="FeedQueue">
     update t_feed_queue set
-      queue_id = #queueId#,
-      monitor_id = #monitorId#,
       feed_queue_id = #feedQueueId#,
       entry_time = #entryTime#,
       feed_file_name = #feedFileName#,
-      feed_id = #feed.feedId#
+      feed_id = #feed.feedId#,
+      feed_queue_type_id = #feedQueueType.feedQueueTypeId#,
+      feed_queue_state_id = #feedQueueState.feedQueueStateId#,
+      feed_monitor_id = #feedMonitor.feedMonitorId#
     where feed_queue_id = #feedQueueId#
   </update>
 
@@ -51,14 +55,14 @@
     delete from t_feed_queue where feed_queue_id = #feedQueueId#
   </delete>
 
-  <delete id="deleteAll" parameterClass="int">
-    delete from t_feed_queue where monitor_id = #value#
+  <delete id="deleteAll" parameterClass="string">
+    delete from t_feed_queue where feed_monitor_id = #value#
   </delete>
 
   <delete id="deleteByMonitorIdQueueId" parameterClass="MonitorQueue">
     delete from t_feed_queue
-    where monitor_id = #monitorId#
-    and queue_id = #queueId#
+    where feed_monitor_id = #monitorId#
+    and feed_queue_id = #queueId#
   </delete>
 
   <select id="findByPrimaryId" parameterClass="int" resultMap="FeedQueue.resultMap">
@@ -67,11 +71,11 @@
 
   <select id="findByMonitorIdQueueId" parameterClass="MonitorQueue" resultMap="FeedQueue.resultMap">
     select * from t_feed_queue
-    where monitorId = #monitorId#
-    and queue_id = #queueId#
+    where feed_monitor_id = #monitorId#
+    and feed_queue_id = #queueId#
   </select>
 
-  <select id="findAll" parameterClass="int" resultMap="FeedQueue.resultMap">
+  <select id="findAll" parameterClass="string" resultMap="FeedQueue.resultMap">
     select * from t_feed_queue where monitor_id = #value#
   </select>
 

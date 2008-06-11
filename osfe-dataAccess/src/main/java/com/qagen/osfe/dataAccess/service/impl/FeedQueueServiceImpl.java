@@ -50,12 +50,12 @@ public class FeedQueueServiceImpl implements FeedQueueService {
   }
 
   @Transactional
-  public List<FeedQueue> findAll(Integer monitorId) {
+  public List<FeedQueue> findAll(String monitorId) {
     return feedQueueDAO.findAll(monitorId);
   }
 
   @Transactional
-  public void deleteAll(Integer monitorId) {
+  public void deleteAll(String monitorId) {
     feedQueueDAO.deleteAll(monitorId);
   }
 

@@ -14,7 +14,6 @@
       <column name="max_concurrent_runs" isString="false"/>
       <column name="feed_directory" isString="true"/>
       <column name="feed_document" isString="true"/>
-      <column name="queue_id" isString="true"/>
       <column name="from_data_source_id" isString="true"/>
       <column name="to_data_source_id" isString="true"/>
       <column name="feed_type_id" isString="true"/>
@@ -22,6 +21,7 @@
       <column name="feed_sequence_type_id" isString="true"/>
       <column name="feed_direction_id" isString="true"/>
       <column name="feed_group_id" isString="true"/>
+      <column name="feed_queue_type_id" isString="true"/>
     </columns>
     <rows>
       <row>
@@ -36,13 +36,13 @@
         <max_concurrent_runs>1</max_concurrent_runs>
         <feed_directory>feed/acme/qagen/test/request</feed_directory>
         <feed_document>partnerConfig/acme/qagen/test/request</feed_document>
-        <queue_id>test_queue</queue_id>
         <from_data_source_id>acme</from_data_source_id>
         <to_data_source_id>qagen</to_data_source_id>
         <feed_type_id>test</feed_type_id>
         <feed_protocol_id>request</feed_protocol_id>
         <feed_direction_id>inbound</feed_direction_id>
         <feed_group_id>test_group</feed_group_id>
+        <feed_queue_type_id>test_queue</feed_queue_type_id>
       </row>
       <row>
         <feed_id>acme_qagen_student_request</feed_id>
@@ -56,13 +56,13 @@
         <max_concurrent_runs>1</max_concurrent_runs>
         <feed_directory>feed/acme/qagen/student/request</feed_directory>
         <feed_document>partnerConfig/acme/qagen/student/request</feed_document>
-        <queue_id>student_queue</queue_id>
         <from_data_source_id>acme</from_data_source_id>
         <to_data_source_id>qagen</to_data_source_id>
         <feed_type_id>test</feed_type_id>
         <feed_protocol_id>request</feed_protocol_id>
         <feed_direction_id>inbound</feed_direction_id>
         <feed_group_id>student_group</feed_group_id>
+        <feed_queue_type_id>test_queue</feed_queue_type_id>
       </row>
     </rows>
   </table>

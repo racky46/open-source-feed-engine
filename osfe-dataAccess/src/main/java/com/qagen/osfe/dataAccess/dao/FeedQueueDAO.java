@@ -21,11 +21,11 @@ import java.util.List;
 
 public interface FeedQueueDAO extends DAO<FeedQueue> {
 
-  public void deleteAll(Integer monitorId);
+  public void deleteAll(String monitorId);
 
   public void deleteByMonitorIdQueueId(MonitorQueueParam param);
 
-  public List<FeedQueue> findAll(Integer monitorId);
+  public List<FeedQueue> findAll(String monitorId);
 
   public List<FeedQueue> findByMonitorIdQueueId(MonitorQueueParam param);
 

@@ -16,7 +16,6 @@
     <result property="restartAtCheckpoint" column="restart_at_checkpoint"/>
     <result property="lastSequenceNumber" column="last_sequence_number"/>
     <result property="maxConcurrentRuns" column="max_concurrent_runs"/>
-    <result property="queueId" column="queue_id"/>
     <result property="feedDirectory" column="feed_directory"/>
     <result property="feedDocument" column="feed_document"/>
     <result property="fromDataSource" column="from_data_source_id" select="FeedDataSource.findByPrimaryId"/>
@@ -25,6 +24,7 @@
     <result property="feedProtocol" column="feed_protocol_id" select="FeedProtocol.findByPrimaryId"/>
     <result property="feedDirection" column="feed_direction_id" select="FeedDirection.findByPrimaryId"/>
     <result property="feedGroup" column="feed_group_id" select="FeedGroup.findByPrimaryId"/>
+    <result property="feedQueueType" column="feed_queue_type_id" select="FeedQueueType.findByPrimaryId"/>
   </resultMap>
 
   <insert id="insert" parameterClass="Feed">
@@ -38,7 +38,6 @@
       restart_at_checkpoint,
       last_sequence_number,
       max_concurrent_runs,
-      queue_id,
       feed_directory,
       feed_document,
       from_data_source_id,
@@ -46,7 +45,8 @@
       feed_type_id,
       feed_protocol_id,
       feed_direction_id,
-      feed_group_id
+      feed_group_id,
+      feed_queue_type_id
     ) values (
       #feedId#,
       #activationDate#,
@@ -57,7 +57,6 @@
       #restartAtCheckpoint#,
       #lastSequenceNumber#,
       #maxConcurrentRuns#,
-      #queueId#,
       #feedDirectory#,
       #feedDocument#,
       #fromDataSource.feedDataSourceId#,
@@ -65,7 +64,8 @@
       #feedType.feedTypeId#,
       #feedProtocol.feedProtocolId#,
       #feedDirection.feedDirectionId#,
-      #feedGroup.feedGroupId#
+      #feedGroup.feedGroupId#,
+      #feedQueueType.feedQueueTypeId#
     )
   </insert>
 
@@ -80,7 +80,6 @@
       restart_at_checkpoint = #restartAtCheckpoint#,
       last_sequence_number = #lastSequenceNumber#,
       max_concurrent_runs = #maxConcurrentRuns#,
-      queue_id = #queueId#,
       feed_directory = #feedDirectory#,
       feed_document = #feedDocument#,
       from_data_source_id = #fromDataSource.feedDataSourceId#,
@@ -88,7 +87,8 @@
       feed_type_id = #feedType.feedTypeId#,
       feed_protocol_id = #feedProtocol.feedProtocolId#,
       feed_direction_id = #feedDirection.feedDirectionId#,
-      feed_group_id = #feedGroup.feedGroupId#
+      feed_group_id = #feedGroup.feedGroupId#,
+      feed_queue_type_id = #feedQueueType.feedQueueTypeId#
     where feed_id = #feedId#
   </update>
 

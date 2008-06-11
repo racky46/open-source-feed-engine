@@ -20,15 +20,15 @@ package com.qagen.osfe.dataAccess.param;
  * 
  */
 public class MonitorQueueParam {
-  private final Integer monitorId;
+  private final String monitorId;
   private final String queueId;
 
-  public MonitorQueueParam(Integer monitorId, String queueId) {
+  public MonitorQueueParam(String monitorId, String queueId) {
     this.monitorId = monitorId;
     this.queueId = queueId;
   }
 
-  public Integer getMonitorId() {
+  public String getMonitorId() {
     return monitorId;
   }
 

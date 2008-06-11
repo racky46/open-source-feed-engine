@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+  <table name="t_feed_queue_type">
+    <columns>
+      <column name="feed_queue_type_id" isString="true"/>
+      <column name="description" isString="true"/>
+    </columns>
+    <rows>
+      <row>
+        <feed_queue_type_id>test_queue</feed_queue_type_id>
+        <description>testing feeds only</description>
+      </row>
+      <row>
+        <feed_queue_type_id>acme_queue</feed_queue_type_id>
+        <description>Acme stats data only</description>
+      </row>
+    </rows>
+  </table>
+</dataset>

@@ -38,6 +38,7 @@ public class SqlMapFeedDAO extends SqlMapClientDaoSupport implements FeedDAO {
     return (Feed) getSqlMapClientTemplate().queryForObject("Feed.findByPrimaryId", primaryId);
   }
 
+  @SuppressWarnings("unchecked")
   public List<Feed> findAll() {
     return getSqlMapClientTemplate().queryForList("Feed.findAll");
   }

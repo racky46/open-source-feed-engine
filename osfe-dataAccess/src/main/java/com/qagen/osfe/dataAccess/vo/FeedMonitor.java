@@ -16,44 +16,37 @@ package com.qagen.osfe.dataAccess.vo;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor
  * <p/>
- * This is the value object class for table t_feed_role
+ * This is the value object class for table t_feed_monitor
  *
- * @table t_feed_role
+ * @table t_feed_monitor
  */
-public class FeedRole extends VO {
-  private Integer feedRoleId;
-  private String roleName;
-  private String roleDescription;
+public class FeedMonitor extends VO {
+  private String feedMonitorId;
+  private String description;
 
-
-  public Integer getFeedRoleId() {
-    return feedRoleId;
+  public FeedMonitor() {
   }
 
-  public void setFeedRoleId(Integer feedRoleId) {
-    this.feedRoleId = feedRoleId;
+  public String getFeedMonitorId() {
+    return feedMonitorId;
   }
 
-  public String getRoleName() {
-    return roleName;
+  public void setFeedMonitorId(String feedMonitorId) {
+    this.feedMonitorId = feedMonitorId;
   }
 
-  public void setRoleName(String roleName) {
-    this.roleName = roleName;
+  public String getDescription() {
+    return description;
   }
 
-  public String getRoleDescription() {
-    return roleDescription;
-  }
-
-  public void setRoleDescription(String roleDescription) {
-    this.roleDescription = roleDescription;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   @Override
@@ -62,12 +55,12 @@ public class FeedRole extends VO {
       return true;
     }
 
-    if (!(object instanceof FeedRole)) {
+    if (!(object instanceof FeedMonitor)) {
       return false;
     }
 
-    final FeedRole model = (FeedRole) object;
-    if (feedRoleId.equals(model.feedRoleId)) {
+    final FeedMonitor model = (FeedMonitor) object;
+    if (feedMonitorId.equals(model.feedMonitorId)) {
       return true;
     } else {
       return false;
@@ -77,7 +70,7 @@ public class FeedRole extends VO {
   @Override
   public int hashCode() {
     HashCodeBuilder builder = new HashCodeBuilder(17, 37);
-    builder.append(feedRoleId);
+    builder.append(feedMonitorId);
     return builder.toHashCode();
   }
 
@@ -85,7 +78,7 @@ public class FeedRole extends VO {
   public String toString() {
     final List<String> list = new ArrayList<String>();
 
-    list.add(feedRoleId.toString());
+    list.add(feedMonitorId);
 
     return toString(list);
   }

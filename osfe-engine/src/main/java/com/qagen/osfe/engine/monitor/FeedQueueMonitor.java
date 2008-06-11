@@ -15,14 +15,15 @@
 package com.qagen.osfe.engine.monitor;
 
 import com.qagen.osfe.common.utils.Log;
+import com.qagen.osfe.common.FeedConstants;
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
 import com.qagen.osfe.dataAccess.param.MonitorQueueParam;
 import com.qagen.osfe.dataAccess.service.FeedFileService;
 import com.qagen.osfe.dataAccess.service.FeedQueueService;
 import com.qagen.osfe.dataAccess.service.FeedService;
-import com.qagen.osfe.dataAccess.vo.Feed;
-import com.qagen.osfe.dataAccess.vo.FeedFile;
-import com.qagen.osfe.dataAccess.vo.FeedQueue;
+import com.qagen.osfe.dataAccess.service.FeedMonitorService;
+import com.qagen.osfe.dataAccess.vo.*;
+import com.qagen.osfe.core.FeedErrorException;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,14 +31,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * FeedQueueMonitor does the heavy lifting of managing multiple feed engine
  * threads by monitoring multiple queues that contain information about the
  * feeds that should be launched from a given queue.
- * <p>
+ * <p/>
  * The FeedQueueMonitor uses the singleton design pattern to ensure that only
  * one instance of a FeedQueueMonitor is instantiated for a given JVM.
- * <p>
+ * <p/>
  * All instances of FeedQueueMonitor share a common persistant storage
  * table, t_feed_queue, which allows each instance to manange its queues.
  * Thus, each time an instance of FeedQueueMonitor is launched from a new JVM,
@@ -61,9 +62,10 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
   private static FeedQueueService queueService;
   private static FeedService feedService;
   private static FeedFileService feedFileService;
+  private static FeedMonitor feedMonitor;
 
   private static final String wait = "wait";
-  private Integer monitorId;
+  private static String monitorId;
 
   private static Log logger = Log.getInstance(FeedQueueMonitor.class);
 
@@ -71,8 +73,8 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
    * Constructor
    */
   public FeedQueueMonitor() {
-    this.monitorId = Integer.parseInt(System.getenv(MONITOR_ID));
-    
+    this.monitorId = System.getenv(MONITOR_ID);
+
     activeMap = new HashMap<String, FeedQueue>();
     queueMap = new HashMap<String, Queue<FeedQueue>>();
     onHold = new HashSet<String>();
@@ -80,6 +82,7 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
     feedFileService = (FeedFileService) DataAccessContext.getBean(FeedFileService.SERVICE_ID);
     queueService = (FeedQueueService) DataAccessContext.getBean(FeedQueueService.SERVICE_ID);
 
+    initFeedMonitor(monitorId);
     initializeQueue();
   }
 
@@ -100,6 +103,16 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
     return singleton;
   }
 
+  private void initFeedMonitor(String monitorId) {
+    final FeedMonitorService service = (FeedMonitorService) DataAccessContext.getBean(FeedMonitorService.SERVICE_ID);
+
+    feedMonitor = service.findByPrimaryId(monitorId);
+
+    if (feedMonitor == null) {
+      throw new FeedErrorException("Feed Monitor Id, " + monitorId + ", is not define in table t_feed_monitor.");
+    }
+  }
+
   /**
    * Initializes a queue by loading data from t_feed_queue
    */
@@ -109,6 +122,46 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
     for (FeedQueue feedQueue : feedQueues) {
       add(feedQueue, false);
     }
+  }
+
+  /**
+   * Performs the following actions:
+   * <ul>
+   * <li>Creates the queue if one does not exist for the given queueId.
+   * <li>Persist the feedQueue object to database cache if usePersistance is true.
+   * <li>Adds the feedQueue object to the queue.
+   * <li>Calls launchRequest for the given queueId.
+   * </ul>
+   *
+   * @param feedQueue      contains the information about the queue to create and
+   *                       the feed to launch.
+   * @param usePersistance speicifies whether the feedQueue object being added to
+   *                       the queue in memory should also be persisted to the
+   *                       database. A queue that is being reinitialized from the
+   *                       database should not persist the feedQueue object again.
+   */
+  private synchronized void add(FeedQueue feedQueue, Boolean usePersistance) {
+    logAddRequest(feedQueue);
+
+    final String queueId = feedQueue.getFeedQueueType().getFeedQueueTypeId();
+    Queue<FeedQueue> queue = queueMap.get(queueId);
+
+    // Create the queue if one does not exist for the given queueId.
+    if (queue == null) {
+      queue = new LinkedBlockingQueue<FeedQueue>();
+      queueMap.put(queueId, queue);
+    }
+
+    // usePersistance will be true if the feedMappedQueue was not already pulled from persistance.
+    if (usePersistance) {
+      logAddPersisted(feedQueue);
+      queueService.insert(feedQueue);
+    }
+
+    // Add the feedQueue object to the queue.
+    queue.add(feedQueue);
+
+    launchRequest(queueId);
   }
 
   /**
@@ -150,47 +203,7 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
   }
 
   /**
-   * Performs the following actions:
-   * <ul>
-   * <li>Creates the queue if one does not exist for the given queueId.
-   * <li>Persist the feedQueue object to database cache if usePersistance is true.
-   * <li>Adds the feedQueue object to the queue.
-   * <li>Calls launchRequest for the given queueId.
-   * </ul>
-   *
-   * @param feedQueue      contains the information about the queue to create and
-   *                       the feed to launch.
-   * @param usePersistance speicifies whether the feedQueue object being added to
-   *                       the queue in memory should also be persisted to the
-   *                       database. A queue that is being reinitialized from the
-   *                       database should not persist the feedQueue object again.
-   */
-  private synchronized void add(FeedQueue feedQueue, Boolean usePersistance) {
-    logAddRequest(feedQueue);
-
-    final String queueId = feedQueue.getQueueId();
-    Queue<FeedQueue> queue = queueMap.get(queueId);
-
-    // Create the queue if one does not exist for the given queueId.
-    if (queue == null) {
-      queue = new LinkedBlockingQueue<FeedQueue>();
-      queueMap.put(queueId, queue);
-    }
-
-    // usePersistance will be true if the feedMappedQueue was not already pulled from persistance.
-    if (usePersistance) {
-      logAddPersisted(feedQueue);
-      queueService.insert(feedQueue);
-    }
-
-    // Add the feedQueue object to the queue.
-    queue.add(feedQueue);
-
-    launchRequest(queueId);
-  }
-
-  /**
-   * Adds add new FeedMappedQueue object to the feed queue. Then checks to see
+   * Adds add new FeedMappedQueue object to the feed queue. Then check to see
    * if the oldest FeedMappedQueue object of the given feedId type can be launched.
    *
    * @param feedId       identifies the feed.
@@ -200,7 +213,9 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
     final Feed feed = feedService.findByPrimaryId(feedId);
 
     if (feed != null) {
-      final FeedQueue feedQueue = new FeedQueue(feed.getQueueId(), feed, feedFileName);
+      final FeedQueueState feedQueueState = new FeedQueueState(FeedConstants.FEED_QUEUE_STATE.waiting.getValue());
+      final FeedQueueType feedQueueType = feed.getFeedQueueType();
+      final FeedQueue feedQueue = new FeedQueue(feedQueueType, feedMonitor, feedQueueState, feed, feedFileName);
       add(feedQueue, true);
     } else {
       final String message =
@@ -291,11 +306,13 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
 
     changeOnHoldState(true);
     final Feed feed = feedService.findByPrimaryId(feedId);
-    final String queueId = feed.getQueueId();
+    final String queueId = feed.getFeedQueueType().getFeedQueueTypeId();
 
     waitTillFeedNotActive(queueId);
 
-    final FeedQueue feedQueue = new FeedQueue(queueId, feed, feedFileName);
+    final FeedQueueType feedQueueType = feed.getFeedQueueType();
+    final FeedQueueState feedQueueState = new FeedQueueState(FeedConstants.FEED_QUEUE_STATE.waiting.getValue());
+    final FeedQueue feedQueue = new FeedQueue(feedQueueType, feedMonitor, feedQueueState, feed, feedFileName);
     final FeedQueueFeedLauncher feedLauncher = new FeedQueueFeedLauncher(feedId, feedFileName);
 
     // States that a feed of the given feed type is now being processed.
@@ -322,11 +339,13 @@ public class FeedQueueMonitor implements FeedQueueMonitorMBean {
 
       final Feed feed = feedFile.getFeed();
       final String feedId = feed.getFeedId();
-      final String queueId = feed.getQueueId();
+      final String queueId = feed.getFeedQueueType().getFeedQueueTypeId();
 
       waitTillFeedNotActive(queueId);
 
-      final FeedQueue feedQueue = new FeedQueue(queueId, feed, feedFile.getFeedFileName());
+      final FeedQueueType feedQueueType = feed.getFeedQueueType();
+      final FeedQueueState feedQueueState = new FeedQueueState(FeedConstants.FEED_QUEUE_STATE.waiting.getValue());
+      final FeedQueue feedQueue = new FeedQueue(feedQueueType, feedMonitor, feedQueueState, feed, feedFile.getFeedFileName());
       final FeedQueueRetryFeedLauncher retryFeedLauncher = new FeedQueueRetryFeedLauncher(feedFileId);
 
       // States that a feed of the given feed type is now being processed.

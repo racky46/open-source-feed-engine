@@ -39,13 +39,13 @@ public class Feed extends VO {
   private Integer maxConcurrentRuns;
   private String feedDirectory;
   private String feedDocument;
-  private String queueId;
   private FeedDataSource fromDataSource;
   private FeedDataSource toDataSource;
   private FeedType feedType;
   private FeedProtocol feedProtocol;
   private FeedDirection feedDirection;
   private FeedGroup feedGroup;
+  private FeedQueueType feedQueueType;
 
   public Feed() {
   }
@@ -138,14 +138,6 @@ public class Feed extends VO {
     this.feedDocument = feedDocument;
   }
 
-  public String getQueueId() {
-    return queueId;
-  }
-
-  public void setQueueId(String queueId) {
-    this.queueId = queueId;
-  }
-
   public FeedDataSource getFromDataSource() {
     return fromDataSource;
   }
@@ -192,6 +184,14 @@ public class Feed extends VO {
 
   public void setFeedGroup(FeedGroup feedGroup) {
     this.feedGroup = feedGroup;
+  }
+
+  public FeedQueueType getFeedQueueType() {
+    return feedQueueType;
+  }
+
+  public void setFeedQueueType(FeedQueueType feedQueueType) {
+    this.feedQueueType = feedQueueType;
   }
 
   @Override
