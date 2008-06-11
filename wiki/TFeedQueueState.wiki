@@ -5,7 +5,7 @@
 The t_feed_queue_state table defines the finite set of feed queue states.  Feed queue states are used when defining the state of a feedFile associated to a queue and managed by a feed monitor.
  
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
-|| PK || feed_queue_state_id || varchar(10) || No || Uniquely defines q feed queue state ||
+|| PK || feed_queue_state_id || varchar(10) || No || Uniquely defines the feed queue state ||
 || || description || varchar(250) || No || Description of the feed queue state ||
  
 = Definitions = 
