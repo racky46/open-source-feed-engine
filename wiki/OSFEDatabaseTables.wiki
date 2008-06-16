@@ -22,4 +22,3 @@ The sections defines each database table in detail.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedQueueState t_feed_queue_state] - defines the different state of a feed queue object.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedRole t_feed_role] - defines user roles which determine the level of access of a given user.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedUser t_feed_user] -  contains information for each user allowed access to the OSFE administration console. 
- 
