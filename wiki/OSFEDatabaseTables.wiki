@@ -6,17 +6,16 @@ The sections defines each database table in detail.
 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TErrorLog t_error_log] - accessed by phases to store feed warnings and errors.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedType t_feed_type] - defines unique feed types.
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TCheckPoint t_feed_check_point] - contains the base information to check point a feed file run.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TDataSource t_feed_data_source] - defines unique data sources.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedDirection t_feed_direction] - defines the two directions, inbound & outbound.
- * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedProtocol t_feed_protocol] - defines the two protocols,  request & response.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeed t_feed] - contains feed unique definitions for each unique feed file.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedFileState t_feed_file_state] - defines the different states of a given row in t_feed_file. 
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedFile t_feed_file] - contains the information to manage the life cycle of a given feed file.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedGroup t_feed_group] - defines definitions for a group of t_feed definitions.
- * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJobState t_feed_job_state] - defines the different states of a given row in t_feed_job.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJob t_feed_job] - contains the information to manage the life cycle of a given feed job.
+ * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedJobState t_feed_job_state] - defines the different states of a given row in t_feed_job.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedPhaseStats t_feed_phase_stats] - contains statistics on each phase of a feed file run.
- * [http://code.google.com/p/open-source-feed-engine/wiki/TCheckPoint t_feed_check_point] - contains the base information to check point a feed file run.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedMonitor t_feed_monitor] - defines unique monitor id's and used to establish unique feed monitors.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedQueueState t_feed_queue_state] - defines the different state of a feed queue object.
  * [http://code.google.com/p/open-source-feed-engine/wiki/TFeedQueue t_feed_queue] - contains information for monitoring a queue of feeds. 
