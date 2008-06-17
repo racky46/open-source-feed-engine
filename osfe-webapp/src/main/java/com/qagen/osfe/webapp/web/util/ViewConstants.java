@@ -28,5 +28,7 @@ public interface ViewConstants {
   public static final String FEED_DATASOURCE_MODIFY_VIEW = JSP_PATH + "auth/feed_datasource/modify.jsp";
   public static final String FEED_LIST_VIEW = JSP_PATH + "auth/feeds/list.jsp";
   public static final String FEED_MODIFY_VIEW = JSP_PATH + "auth/feeds/modify.jsp";
+  public static final String FEED_TYPE_LIST_VIEW = JSP_PATH + "auth/feed_type/list.jsp";  
+  public static final String FEED_TYPE_MODIFY_VIEW = JSP_PATH + "auth/feed_type/modify.jsp";
 
 }
