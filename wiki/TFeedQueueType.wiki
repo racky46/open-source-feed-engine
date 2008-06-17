@@ -2,7 +2,7 @@
 
 = t_feed_queue_type =
 
-The t_feed_queue_type table defines unique queues that are managed by one or more feed monitors. Feed definitions in t_feed can reference a given feed_queue define in t_feed_queue_type.  A given feed monitor will only manage a given feed on the it references. 
+The t_feed_queue_type table defines unique queues that are managed by one or more feed monitors. Feed definitions in t_feed can reference a given feed_queue.  A given feed monitor will only manage a given feed on the it references. 
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_type_id || varchar(25) || No || Uniquely defines a feed type ||
