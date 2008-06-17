@@ -1,0 +1,17 @@
+#summary Table Definition of t_feed_queue_type
+
+= t_feed_queue_type =
+
+The t_feed_queue_type table defines unique queues that are managed by one or more feed monitors.   
+
+|| *Key* || *Name* || *Type* || *Null* || *Description* ||
+|| PK || feed_type_id || varchar(25) || No || Uniquely defines a feed type ||
+|| || max_concurrent_runs || int || No || Defines the maximum number of feeds that can run concurrently from this queue ||
+|| || description || varchar(250) || No || Description the feed queue type ||
+ 
+= Examples = 
+
+|| *feed_queue_type_id* || *description* ||
+|| sequence_queue || feeds that must run in sequence  ||
+|| small_multi_queue || feeds under 500,000 rows that can run concurrently ||
+|| huge_multi_queue ||feeds over 500,000 rows that run concurrently ||
