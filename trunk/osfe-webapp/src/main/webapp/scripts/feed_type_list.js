@@ -33,7 +33,7 @@ $(function() {
         var id = this.id;
 
         confirmDelete("Really Delete?", function() {
-          var params = {'feedType.description':id};
+          var params = {'feedType.feedTypeId':id};
           $.post(appContext + '/action/feed/type/delete/', params, function(data) {
             $('#feedTypeList').delRowData(id);
           });
