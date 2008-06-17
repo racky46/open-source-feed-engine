@@ -14,22 +14,21 @@
  */
 package com.qagen.osfe.webapp.web.action.auth;
 
-import com.qagen.osfe.webapp.web.action.BaseActionBean;
+import com.qagen.osfe.dataAccess.param.LimitParam;
+import com.qagen.osfe.dataAccess.service.FeedTypeService;
+import com.qagen.osfe.dataAccess.vo.FeedType;
 import com.qagen.osfe.webapp.model.JqGridJsonModel;
 import com.qagen.osfe.webapp.model.JqGridRow;
-import com.qagen.osfe.dataAccess.vo.FeedType;
-import com.qagen.osfe.dataAccess.service.FeedTypeService;
-import com.qagen.osfe.dataAccess.param.LimitParam;
+import com.qagen.osfe.webapp.web.action.BaseActionBean;
+import flexjson.JSONSerializer;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.io.StringReader;
-
-import flexjson.JSONSerializer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Philip Matheson
@@ -137,7 +136,7 @@ public class ManageFeedTypeActionBean extends BaseActionBean {
 
     @DontValidate
     public Resolution cancel() {
-        return new RedirectResolution(ManageFeedDatasourcesActionBean.class);
+        return new RedirectResolution(ManageFeedTypeActionBean.class);
     }
 
     @DontValidate
