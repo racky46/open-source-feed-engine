@@ -17,6 +17,7 @@ package com.qagen.osfe.dataAccess.service.impl;
 import com.qagen.osfe.dataAccess.dao.FeedTypeDAO;
 import com.qagen.osfe.dataAccess.service.FeedTypeService;
 import com.qagen.osfe.dataAccess.vo.FeedType;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -44,12 +45,16 @@ public class FeedTypeServiceImpl implements FeedTypeService {
   }
 
   @Transactional
-  public FeedType findByPrimaryId(Integer primaryId) {
+  public FeedType findByPrimaryId(String primaryId) {
     return feedTypeDAO.findByPrimaryId(primaryId);
   }
 
   @Transactional
   public List<FeedType> findAll() {
     return feedTypeDAO.findAll();
+  }
+    
+  public List<FeedType> findAllWithLimit(LimitParam limits) {
+    return feedTypeDAO.findAllWithLimit(limits);
   }
 }

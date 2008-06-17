@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service;
 
 import com.qagen.osfe.dataAccess.vo.FeedType;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 
 import java.util.List;
 
@@ -22,7 +23,9 @@ import java.util.List;
 public interface FeedTypeService extends Service<FeedType> {
   public static final String SERVICE_ID = "feedTypeService";
 
-  public FeedType findByPrimaryId(Integer primaryId);
+  public FeedType findByPrimaryId(String primaryId);
+
+  public List<FeedType> findAllWithLimit(LimitParam limits);
 
   public List<FeedType> findAll();
 }

@@ -16,30 +16,37 @@ package com.qagen.osfe.dataAccess.dao.ibatis;
 
 import com.qagen.osfe.dataAccess.dao.FeedTypeDAO;
 import com.qagen.osfe.dataAccess.vo.FeedType;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import java.util.List;
 
 public class SqlMapFeedTypeDAO extends SqlMapClientDaoSupport implements FeedTypeDAO {
 
-  public void insert(FeedType model) {
-    getSqlMapClientTemplate().insert("FeedType.insert", model);
-  }
+    public void insert(FeedType model) {
+        getSqlMapClientTemplate().insert("FeedType.insert", model);
+    }
 
-  public void update(FeedType model) {
-    getSqlMapClientTemplate().update("FeedType.update", model);
-  }
+    public void update(FeedType model) {
+        getSqlMapClientTemplate().update("FeedType.update", model);
+    }
 
-  public void delete(FeedType model) {
-    getSqlMapClientTemplate().delete("FeedType.delete", model);
-  }
+    public void delete(FeedType model) {
+        getSqlMapClientTemplate().delete("FeedType.delete", model);
+    }
 
-  public FeedType findByPrimaryId(Object primaryId) {
-    return (FeedType) getSqlMapClientTemplate().queryForObject("FeedType.findByPrimaryId", primaryId);
-  }
+    public FeedType findByPrimaryId(Object primaryId) {
+        return (FeedType) getSqlMapClientTemplate().queryForObject("FeedType.findByPrimaryId", primaryId);
+    }
 
-  @SuppressWarnings("unchecked")
-  public List<FeedType> findAll() {
-    return getSqlMapClientTemplate().queryForList("FeedType.findAll");
-  }
+    @SuppressWarnings("unchecked")
+    public List<FeedType> findAll() {
+        return getSqlMapClientTemplate().queryForList("FeedType.findAll");
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<FeedType> findAllWithLimit(LimitParam limits) {
+        return getSqlMapClientTemplate().queryForList("FeedType.findAllWithLimit", limits);
+
+    }
 }
