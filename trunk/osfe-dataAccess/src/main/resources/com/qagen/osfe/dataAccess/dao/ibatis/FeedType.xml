@@ -40,4 +40,8 @@
     select * from t_feed_type
   </select>
 
+  <select id="findAllWithLimit" resultMap="FeedType.resultMap" parameterClass="com.qagen.osfe.dataAccess.param.LimitParam">
+    select * from t_feed_type limit #first#, #last#    
+  </select>
+
 </sqlMap>
