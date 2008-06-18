@@ -262,7 +262,7 @@ public abstract class AbstractFeedEngine {
    */
   private void checkAllowConcurrentRunState(Feed feed) {
     final FeedGroup feedGroup = feed.getFeedGroup();
-    final Boolean allowConcurrentRuns = feedGroup != null ? feedGroup.getAllowConcurrentRuns() : feed.getAllowConcurrentRuns();
+    final Boolean allowConcurrentRuns = feedGroup != null ? feedGroup.isAllowConcurrentRuns() : feed.getAllowConcurrentRuns();
 
     if (!allowConcurrentRuns) {
       if (feedJobManager.anyFeedsInProcessingState(feed)) {
@@ -284,7 +284,7 @@ public abstract class AbstractFeedEngine {
    */
   private void checkAllowFailedRunState(Feed feed) {
     final FeedGroup feedGroup = feed.getFeedGroup();
-    final Boolean allowFailedStateRuns = feedGroup != null ? feedGroup.getAllowFailedStateRuns() : feed.getAllowFailedStateRuns();
+    final Boolean allowFailedStateRuns = feedGroup != null ? feedGroup.isAllowFailedStateRuns() : feed.getAllowFailedStateRuns();
 
     if (!allowFailedStateRuns) {
       if (feedJobManager.anyFeedsInFailedState(feed)) {

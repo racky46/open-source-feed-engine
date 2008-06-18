@@ -610,7 +610,7 @@ public class FeedJobManager {
    */
   public Boolean checkCollectPhasStats(Feed feed) {
     final FeedGroup feedGroup = feed.getFeedGroup();
-    return feedGroup != null ? feedGroup.getCollectPhaseStats() : feed.getCollectPhaseStats();
+    return feedGroup != null ? feedGroup.isCollectPhaseStats() : feed.getCollectPhaseStats();
   }
 
   /**
