@@ -20,15 +20,17 @@ package com.qagen.osfe.webapp.web.util;
  */
 public interface ViewConstants {
 
-  public static final String JSP_PATH = "/WEB-INF/jsp/";
-  public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
-  public static final String LOGIN_VIEW = JSP_PATH + "login.jsp";
-  public static final String HOME_VIEW = JSP_PATH + "auth/home.jsp";
-  public static final String FEED_DATASOURCE_LIST_VIEW = JSP_PATH + "auth/feed_datasource/list.jsp";
-  public static final String FEED_DATASOURCE_MODIFY_VIEW = JSP_PATH + "auth/feed_datasource/modify.jsp";
-  public static final String FEED_LIST_VIEW = JSP_PATH + "auth/feeds/list.jsp";
-  public static final String FEED_MODIFY_VIEW = JSP_PATH + "auth/feeds/modify.jsp";
-  public static final String FEED_TYPE_LIST_VIEW = JSP_PATH + "auth/feed_type/list.jsp";  
-  public static final String FEED_TYPE_MODIFY_VIEW = JSP_PATH + "auth/feed_type/modify.jsp";
+    public static final String JSP_PATH = "/WEB-INF/jsp/";
+    public static final String INDEX_VIEW = JSP_PATH + "index.jsp";
+    public static final String LOGIN_VIEW = JSP_PATH + "login.jsp";
+    public static final String HOME_VIEW = JSP_PATH + "auth/home.jsp";
+    public static final String FEED_DATASOURCE_LIST_VIEW = JSP_PATH + "auth/feed_datasource/list.jsp";
+    public static final String FEED_DATASOURCE_MODIFY_VIEW = JSP_PATH + "auth/feed_datasource/modify.jsp";
+    public static final String FEED_LIST_VIEW = JSP_PATH + "auth/feeds/list.jsp";
+    public static final String FEED_MODIFY_VIEW = JSP_PATH + "auth/feeds/modify.jsp";
+    public static final String FEED_TYPE_LIST_VIEW = JSP_PATH + "auth/feed_type/list.jsp";
+    public static final String FEED_TYPE_MODIFY_VIEW = JSP_PATH + "auth/feed_type/modify.jsp";
+    public static final String FEED_PROTOCOL_LIST_VIEW = JSP_PATH + "auth/feed_protocol/list.jsp";
+    public static final String FEED_PROTOCOL_MODIFY_VIEW = JSP_PATH + "auth/feed_protocol/modify.jsp";
 
 }
