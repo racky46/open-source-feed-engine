@@ -16,30 +16,37 @@ package com.qagen.osfe.dataAccess.dao.ibatis;
 
 import com.qagen.osfe.dataAccess.dao.FeedProtocolDAO;
 import com.qagen.osfe.dataAccess.vo.FeedProtocol;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import java.util.List;
 
 public class SqlMapFeedProtocolDAO extends SqlMapClientDaoSupport implements FeedProtocolDAO {
 
-  public void insert(FeedProtocol model) {
-    getSqlMapClientTemplate().insert("FeedProtocol.insert", model);
-  }
+    public void insert(FeedProtocol model) {
+        getSqlMapClientTemplate().insert("FeedProtocol.insert", model);
+    }
 
-  public void update(FeedProtocol model) {
-    getSqlMapClientTemplate().update("FeedProtocol.update", model);
-  }
+    public void update(FeedProtocol model) {
+        getSqlMapClientTemplate().update("FeedProtocol.update", model);
+    }
 
-  public void delete(FeedProtocol model) {
-    getSqlMapClientTemplate().delete("FeedProtocol.delete", model);
-  }
+    public void delete(FeedProtocol model) {
+        getSqlMapClientTemplate().delete("FeedProtocol.delete", model);
+    }
 
-  public FeedProtocol findByPrimaryId(Object primaryId) {
-    return (FeedProtocol) getSqlMapClientTemplate().queryForObject("FeedProtocol.findByPrimaryId", primaryId);
-  }
+    public FeedProtocol findByPrimaryId(Object primaryId) {
+        return (FeedProtocol) getSqlMapClientTemplate().queryForObject("FeedProtocol.findByPrimaryId", primaryId);
+    }
 
-  @SuppressWarnings("unchecked")
-  public List<FeedProtocol> findAll() {
-    return getSqlMapClientTemplate().queryForList("FeedProtocol.findAll");
-  }
+    @SuppressWarnings("unchecked")
+    public List<FeedProtocol> findAll() {
+        return getSqlMapClientTemplate().queryForList("FeedProtocol.findAll");
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<FeedProtocol> findAllWithLimit(LimitParam limits) {
+        return getSqlMapClientTemplate().queryForList("FeedProtocol.findAllWithLimit", limits);
+
+    }
 }

@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service;
 
 import com.qagen.osfe.dataAccess.vo.FeedProtocol;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 
 import java.util.List;
 
@@ -22,7 +23,9 @@ import java.util.List;
 public interface FeedProtocolService extends Service<FeedProtocol> {
   public static final String SERVICE_ID = "feedProtocolService";
 
-  public FeedProtocol findByPrimaryId(Integer primaryId);
+  public FeedProtocol findByPrimaryId(String primaryId);
+
+  public List<FeedProtocol> findAllWithLimit(LimitParam limits);
 
   public List<FeedProtocol> findAll();
   

@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="FeedProtocol">
 
-  <typeAlias alias="FeedProtocol" type="com.qagen.osfe.dataAccess.vo.FeedProtocol"/>
+    <typeAlias alias="FeedProtocol" type="com.qagen.osfe.dataAccess.vo.FeedProtocol"/>
 
-  <resultMap id="resultMap" class="FeedProtocol">
-    <result property="feedProtocolId" column="feed_protocol_id"/>
-    <result property="description" column="description"/>
-  </resultMap>
+    <resultMap id="resultMap" class="FeedProtocol">
+        <result property="feedProtocolId" column="feed_protocol_id"/>
+        <result property="description" column="description"/>
+    </resultMap>
 
-  <insert id="insert" parameterClass="FeedProtocol">
-    insert into t_feed_protocol (
-      feed_protocol_id
-      description
-    ) values (
-      #feedProtocolId#,
-      #description#
-    )
-  </insert>
+    <insert id="insert" parameterClass="FeedProtocol">
+        insert into t_feed_protocol (
+        feed_protocol_id,
+        description
+        ) values (
+        #feedProtocolId#,
+        #description#
+        )
+    </insert>
 
-  <update id="update" parameterClass="FeedProtocol">
-    update t_feed_protocol set
-      description = #description#
-    where feed_protocol_id = #feedProtocolId#
-  </update>
+    <update id="update" parameterClass="FeedProtocol">
+        update t_feed_protocol set
+        description = #description#
+        where feed_protocol_id = #feedProtocolId#
+    </update>
 
-  <delete id="delete" parameterClass="FeedProtocol">
-    delete from t_feed_protocol where feed_protocol_id = #feedProtocolId#
-  </delete>
+    <delete id="delete" parameterClass="FeedProtocol">
+        delete from t_feed_protocol where feed_protocol_id = #feedProtocolId#
+    </delete>
 
-  <select id="findByPrimaryId" parameterClass="string" resultMap="FeedProtocol.resultMap">
-    select * from t_feed_protocol where feed_protocol_id = #value#
-  </select>
+    <select id="findByPrimaryId" parameterClass="string" resultMap="FeedProtocol.resultMap">
+        select * from t_feed_protocol where feed_protocol_id = #value#
+    </select>
 
-  <select id="findAll" resultMap="FeedProtocol.resultMap">
-    select * from t_feed_protocol
-  </select>
+    <select id="findAll" resultMap="FeedProtocol.resultMap">
+        select * from t_feed_protocol
+    </select>
+
+    <select id="findAllWithLimit" resultMap="FeedProtocol.resultMap"
+            parameterClass="com.qagen.osfe.dataAccess.param.LimitParam">
+        select * from t_feed_protocol limit #first#, #last#
+    </select>
+
 
 </sqlMap>
