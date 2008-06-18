@@ -27,77 +27,74 @@ import java.util.List;
  * @table t_feed_group
  */
 public class FeedGroup extends VO {
-  private String feedGroupId;
-  private Boolean allowConcurrentRuns;
-  private Boolean allowFailedStateRuns;
-  private Boolean collectPhaseStats;
+    private String feedGroupId;
+    private boolean allowConcurrentRuns;
+    private boolean allowFailedStateRuns;
+    private boolean collectPhaseStats;
 
-  public FeedGroup() {
-  }
-
-  public String getFeedGroupId() {
-    return feedGroupId;
-  }
-
-  public void setFeedGroupId(String feedGroupId) {
-    this.feedGroupId = feedGroupId;
-  }
-
-  public Boolean getAllowConcurrentRuns() {
-    return allowConcurrentRuns;
-  }
-
-  public void setAllowConcurrentRuns(Boolean allowConcurrentRuns) {
-    this.allowConcurrentRuns = allowConcurrentRuns;
-  }
-
-  public Boolean getAllowFailedStateRuns() {
-    return allowFailedStateRuns;
-  }
-
-  public void setAllowFailedStateRuns(Boolean allowFailedStateRuns) {
-    this.allowFailedStateRuns = allowFailedStateRuns;
-  }
-
-  public Boolean getCollectPhaseStats() {
-    return collectPhaseStats;
-  }
-
-  public void setCollectPhaseStats(Boolean collectPhaseStats) {
-    this.collectPhaseStats = collectPhaseStats;
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    if (this == object) {
-      return true;
+    public String getFeedGroupId() {
+        return feedGroupId;
     }
 
-    if (!(object instanceof FeedGroup)) {
-      return false;
+    public void setFeedGroupId(String feedGroupId) {
+        this.feedGroupId = feedGroupId;
     }
 
-    final FeedGroup model = (FeedGroup) object;
-    if (feedGroupId.equals(model.feedGroupId)) {
-      return true;
-    } else {
-      return false;
+    public boolean isAllowConcurrentRuns() {
+        return allowConcurrentRuns;
     }
-  }
 
-  @Override
-  public int hashCode() {
-    HashCodeBuilder builder = new HashCodeBuilder(17, 37);
-    builder.append(feedGroupId);
-    return builder.toHashCode();
-  }
+    public void setAllowConcurrentRuns(boolean allowConcurrentRuns) {
+        this.allowConcurrentRuns = allowConcurrentRuns;
+    }
 
-  @Override
-  public String toString() {
-    final List<String> list = new ArrayList<String>();
+    public boolean isAllowFailedStateRuns() {
+        return allowFailedStateRuns;
+    }
 
-    list.add(feedGroupId.toString());
+    public void setAllowFailedStateRuns(boolean allowFailedStateRuns) {
+        this.allowFailedStateRuns = allowFailedStateRuns;
+    }
 
-    return toString(list);
-  }
+    public boolean isCollectPhaseStats() {
+        return collectPhaseStats;
+    }
+
+    public void setCollectPhaseStats(boolean collectPhaseStats) {
+        this.collectPhaseStats = collectPhaseStats;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (!(object instanceof FeedGroup)) {
+            return false;
+        }
+
+        final FeedGroup model = (FeedGroup) object;
+        if (feedGroupId.equals(model.feedGroupId)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder(17, 37);
+        builder.append(feedGroupId);
+        return builder.toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        final List<String> list = new ArrayList<String>();
+
+        list.add(feedGroupId.toString());
+
+        return toString(list);
+    }
 }
