@@ -3,7 +3,7 @@ $(function() {
   $('#feedList').jqGrid({
     url: appContext + '/action/feeds/list',
     datatype: 'json',
-    colNames:['Feed ID','From Data Source', 'To Data Source', 'Feed Type', 'Feed Protocol', 'Feed Direction', 'Feed Group','Actions'],
+    colNames:['Feed ID','From DS','To DS','Feed Type','Feed Protocol','Feed Direction','Feed Group','Feed Queue','Actions'],
     colModel:[
       {name:'feed.feedId',index:'feed.feedId',width:100},
       {name:'feed.fromDataSource.feedDataSourceId',index:'feed.fromDataSource.feedDataSourceId',width:120},
@@ -12,6 +12,7 @@ $(function() {
       {name:'feed.feedProtocol.feedProtocolId', index:'feed.feedProtocol.feedProtocolId', width: 100},
       {name:'feed.feedDirection.feedDirectionId', index:'feed.feedDirection.feedDirectionId', width: 100},
       {name:'feed.feedGroup.feedGroupId', index:'feed.feedGroup.feedGroupId', width: 100},
+      {name:'feed.feedQueueType.feedQueueTypeId', index:'feed.feedQueueType.feedQueueTypeId', width:100},
       {name:'actions',index:'actions',width:55,sortable:false}
     ],
     caption: 'Feed Data Source List',
