@@ -259,6 +259,7 @@ public class ManageFeedsActionBean extends BaseActionBean {
       cells.add(feed.getFeedProtocol().getFeedProtocolId());
       cells.add(feed.getFeedDirection().getFeedDirectionId());
       cells.add(feed.getFeedGroup().getFeedGroupId());
+      cells.add(feed.getFeedQueueType().getFeedQueueTypeId());
       cells.add("action");
       row.setCell(cells);
       rows.add(row);
