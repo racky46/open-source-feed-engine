@@ -15,11 +15,12 @@
 package com.qagen.osfe.dataAccess.dao;
 
 import com.qagen.osfe.dataAccess.vo.FeedProtocol;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 
 import java.util.List;
 
 public interface FeedProtocolDAO extends DAO<FeedProtocol> {
 
   public List<FeedProtocol> findAll();
-
+  public List<FeedProtocol> findAllWithLimit(LimitParam limits);
 }
