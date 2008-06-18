@@ -72,10 +72,6 @@
                 <td><s:label for="feed.feedDocument"/></td>
                 <td><s:text name="feed.feedDocument"/></td>
               </tr>
-               <tr>
-                <td><s:label for="feed.queueId"/></td>
-                <td><s:text name="feed.queueId"/></td>
-              </tr>
               <tr>
                 <td><s:label for="feed.fromDataSource"/> </td>
                 <td><s:select name="feed.fromDataSource.feedDataSourceId" >
@@ -111,10 +107,17 @@
                     </s:select>
                 </td>
               </tr>
-               <tr>
+              <tr>
                 <td><s:label for="feed.feedGroup"/> </td>
                 <td><s:select name="feed.feedGroup.feedGroupId" >
                       <s:options-collection collection="${actionBean.feedGroups}" value="feedGroupId" label="feedGroupId" />
+                    </s:select>
+                </td>
+              </tr>
+              <tr>
+                <td><s:label for="feed.feedQueueType"/> </td>
+                <td><s:select name="feed.feedQueueType.feedQueueTypeId" >
+                      <s:options-collection collection="${actionBean.feedQueueTypes}" value="feedQueueTypeId" label="feedQueueTypeId" />
                     </s:select>
                 </td>
               </tr>
@@ -124,10 +127,8 @@
                   <s:submit name="cancel" value="Cancel" />
                   <s:submit name="save" value="Save"/>
                 </td>
-
               </tr>
             </table>
-
             <s:hidden name="editMode"/>
           </s:form>
         </div>
