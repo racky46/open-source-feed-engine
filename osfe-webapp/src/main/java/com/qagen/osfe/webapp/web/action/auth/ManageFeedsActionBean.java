@@ -44,19 +44,23 @@ public class ManageFeedsActionBean extends BaseActionBean {
       @Validate(field="lastSequenceNumber", required=true),
       @Validate(field="maxConcurrentRuns", required=true)
       })
+
   private Feed feed;
+
   private FeedService feedService;
   private FeedDataSourceService feedDataSourceService;
   private FeedTypeService feedTypeService;
   private FeedProtocolService feedProtocolService;
   private FeedDirectionService feedDirectionService;
   private FeedGroupService feedGroupService;
+  private FeedQueueTypeService feedQueueTypeService;
 
   private List<FeedDataSource> dataSources;
   private List<FeedType> feedTypes;
   private List<FeedProtocol> feedProtocols;
   private List<FeedDirection> feedDirections;
   private List<FeedGroup> feedGroups;
+  private List<FeedQueueType> feedQueueTypes;
 
   private Integer page = 1;
   private Integer rows = 10;
@@ -101,6 +105,11 @@ public class ManageFeedsActionBean extends BaseActionBean {
     this.feedGroupService = feedGroupService;
   }
 
+  @SpringBean(FeedQueueTypeService.SERVICE_ID)
+  public void setFeedQueueTypeService(FeedQueueTypeService feedQueueTypeService) {
+    this.feedQueueTypeService = feedQueueTypeService;
+  }
+
   public List<FeedDataSource> getDataSources() {
     return dataSources;
   }
@@ -139,6 +148,14 @@ public class ManageFeedsActionBean extends BaseActionBean {
 
   public void setFeedGroups(List<FeedGroup> feedGroups) {
     this.feedGroups = feedGroups;
+  }
+
+  public List<FeedQueueType> getFeedQueueTypes() {
+    return feedQueueTypes;
+  }
+
+  public void setFeedQueueTypes(List<FeedQueueType> feedQueueTypes) {
+    this.feedQueueTypes = feedQueueTypes;
   }
 
   public Integer getPage() {
@@ -200,7 +217,6 @@ public class ManageFeedsActionBean extends BaseActionBean {
       feed = feedService.findByPrimaryId(feed.getFeedId());
     }
     return new ForwardResolution(FEED_MODIFY_VIEW);
-
   }
 
   @DontValidate
@@ -211,12 +227,11 @@ public class ManageFeedsActionBean extends BaseActionBean {
 
   @DontValidate
   public Resolution list() {
-
-    List<Feed> feeds = feedService.findAll();
-
+    final List<Feed> feeds = feedService.findAll();
 
     double val = 0;
     double totalPages = 0;
+
     if (feeds.size() >= new Double(rows)) {
       val = feeds.size() / new Double(rows);
       totalPages = Math.ceil(val);
@@ -224,16 +239,19 @@ public class ManageFeedsActionBean extends BaseActionBean {
       totalPages = 1;
     }
     
-    JqGridJsonModel json = new JqGridJsonModel();
+    final JqGridJsonModel json = new JqGridJsonModel();
+
     json.setPage(String.valueOf(page));
     json.setRecords(String.valueOf(rows));
     json.setTotal(((int) totalPages));
 
-    List<JqGridRow> rows = new ArrayList<JqGridRow>();
+    final List<JqGridRow> rows = new ArrayList<JqGridRow>();
+
     for (Feed feed : feeds) {
-      JqGridRow row = new JqGridRow();
+      final JqGridRow row = new JqGridRow();
+      final List<String> cells = new ArrayList<String>();
+
       row.setId(feed.getFeedId());
-      List<String> cells = new ArrayList<String>();
       cells.add(feed.getFeedId());
       cells.add(feed.getFromDataSource().getFeedDataSourceId());
       cells.add(feed.getToDataSource().getFeedDataSourceId());
@@ -245,10 +263,12 @@ public class ManageFeedsActionBean extends BaseActionBean {
       row.setCell(cells);
       rows.add(row);
     }
+    
     json.setRows(rows);
 
-    JSONSerializer serializer = new JSONSerializer();
-    String jsonResult = serializer.exclude("*.class").deepSerialize(json);
+    final JSONSerializer serializer = new JSONSerializer();
+    final String jsonResult = serializer.exclude("*.class").deepSerialize(json);
+
     return new StreamingResolution("text/javascript", new StringReader(jsonResult));
   }
 
@@ -259,5 +279,6 @@ public class ManageFeedsActionBean extends BaseActionBean {
     feedProtocols = feedProtocolService.findAll();
     feedDirections = feedDirectionService.findAll();
     feedGroups = feedGroupService.findAll();
+    feedQueueTypes = feedQueueTypeService.findAll();
   }
 }
