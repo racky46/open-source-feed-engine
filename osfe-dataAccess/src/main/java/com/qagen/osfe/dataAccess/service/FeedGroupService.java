@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service;
 
 import com.qagen.osfe.dataAccess.vo.FeedGroup;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,7 +25,10 @@ public interface FeedGroupService extends Service<FeedGroup> {
   public static final String SERVICE_ID = "feedGroupService";
 
   @Transactional
-  public FeedGroup findByPrimaryId(Integer primaryId);
+  public FeedGroup findByPrimaryId(String primaryId);
+
+  @Transactional
+  public List<FeedGroup> findAllWithLimit(LimitParam limits);
 
   @Transactional
   public List<FeedGroup> findAll();
