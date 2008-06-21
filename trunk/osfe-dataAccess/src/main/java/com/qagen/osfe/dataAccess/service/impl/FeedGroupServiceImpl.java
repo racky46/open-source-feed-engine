@@ -17,39 +17,44 @@ package com.qagen.osfe.dataAccess.service.impl;
 import com.qagen.osfe.dataAccess.dao.FeedGroupDAO;
 import com.qagen.osfe.dataAccess.service.FeedGroupService;
 import com.qagen.osfe.dataAccess.vo.FeedGroup;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public class FeedGroupServiceImpl implements FeedGroupService {
-  private FeedGroupDAO feedGroupDAO;
+    private FeedGroupDAO feedGroupDAO;
 
-  public void setFeedGroupDAO(FeedGroupDAO feedGroupDAO) {
-    this.feedGroupDAO = feedGroupDAO;
-  }
+    public void setFeedGroupDAO(FeedGroupDAO feedGroupDAO) {
+        this.feedGroupDAO = feedGroupDAO;
+    }
 
-  @Transactional
-  public void insert(FeedGroup model) {
-    feedGroupDAO.insert(model);
-  }
+    @Transactional
+    public void insert(FeedGroup model) {
+        feedGroupDAO.insert(model);
+    }
 
-  @Transactional
-  public void update(FeedGroup model) {
-    feedGroupDAO.update(model);
-  }
+    @Transactional
+    public void update(FeedGroup model) {
+        feedGroupDAO.update(model);
+    }
 
-  @Transactional
-  public void delete(FeedGroup model) {
-    feedGroupDAO.delete(model);
-  }
+    @Transactional
+    public void delete(FeedGroup model) {
+        feedGroupDAO.delete(model);
+    }
 
-  @Transactional
-  public FeedGroup findByPrimaryId(Integer primaryId) {
-    return feedGroupDAO.findByPrimaryId(primaryId);
-  }
+    @Transactional
+    public FeedGroup findByPrimaryId(String primaryId) {
+        return feedGroupDAO.findByPrimaryId(primaryId);
+    }
 
-  @Transactional
-  public List<FeedGroup> findAll() {
-    return feedGroupDAO.findAll();
-  }
+    @Transactional
+    public List<FeedGroup> findAll() {
+        return feedGroupDAO.findAll();
+    }
+
+    public List<FeedGroup> findAllWithLimit(LimitParam limits) {
+        return feedGroupDAO.findAllWithLimit(limits);
+    }
 }
