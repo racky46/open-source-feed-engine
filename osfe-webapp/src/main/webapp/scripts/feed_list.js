@@ -5,9 +5,9 @@ $(function() {
     datatype: 'json',
     colNames:['Feed ID','From DS','To DS','Feed Type','Feed Protocol','Feed Direction','Feed Group','Feed Queue','Actions'],
     colModel:[
-      {name:'feed.feedId',index:'feed.feedId',width:100},
-      {name:'feed.fromDataSource.feedDataSourceId',index:'feed.fromDataSource.feedDataSourceId',width:120},
-      {name:'feed.toDataSource.feedDataSourceId', index:'feed.toDataSource.feedDataSourceId', width:120},
+      {name:'feed.feedId',index:'feed.feedId',width:120},
+      {name:'feed.fromDataSource.feedDataSourceId',index:'feed.fromDataSource.feedDataSourceId',width:110},
+      {name:'feed.toDataSource.feedDataSourceId', index:'feed.toDataSource.feedDataSourceId', width:110},
       {name:'feed.feedType.feedTypeId', index:'feed.feedType.feedTypeId', width: 100},
       {name:'feed.feedProtocol.feedProtocolId', index:'feed.feedProtocol.feedProtocolId', width: 100},
       {name:'feed.feedDirection.feedDirectionId', index:'feed.feedDirection.feedDirectionId', width: 100},
@@ -15,7 +15,7 @@ $(function() {
       {name:'feed.feedQueueType.feedQueueTypeId', index:'feed.feedQueueType.feedQueueTypeId', width:100},
       {name:'actions',index:'actions',width:55,sortable:false}
     ],
-    caption: 'Feed Data Source List',
+    caption: 'Feed List',
     rowNum: 10,
     rowList:[10,25,50],
     imgpath: appContext + '/styles/jqGrid/themes/green/images',

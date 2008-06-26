@@ -9,7 +9,7 @@ $(function() {
       {name:'dataSource.description',index:'dataSource.description',width:100},
       {name:'actions',index:'actions',width:50,sortable:false}
     ],
-    caption: 'Feed Data Source List',
+    caption: 'Data Source List',
     rowNum: 10,
     rowList:[10,25,50],
     imgpath: appContext + '/styles/jqGrid/themes/green/images',
