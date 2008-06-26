@@ -39,3 +39,19 @@ input[type=text],input[type=password] {
   width: 300px;
   margin: auto;
 }
+
+#header {
+  background-color: #3C964B;
+  color: white;
+  padding: 10px;
+}
+
+#header a {
+  color: white;
+  text-decoration: none;
+}
+
+#footer {
+  width: 100%;
+  text-align: center;
+}
