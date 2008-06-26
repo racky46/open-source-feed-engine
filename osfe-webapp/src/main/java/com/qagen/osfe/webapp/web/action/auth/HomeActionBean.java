@@ -14,17 +14,16 @@
  */
 package com.qagen.osfe.webapp.web.action.auth;
 
-import static com.qagen.osfe.common.RoleConstants.*;
 import com.qagen.osfe.webapp.web.action.BaseActionBean;
-import com.qagen.osfe.webapp.web.security.Secure;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 
 /**
  * Author: Gregg Bolinger
  * <p/>
  */
-@Secure(roles = {ADMINISTRATOR, DATA_MANAGER, FEED_MANAGER, USER})
+@UrlBinding("/action/home")
 public class HomeActionBean extends BaseActionBean {
 
   @Override
