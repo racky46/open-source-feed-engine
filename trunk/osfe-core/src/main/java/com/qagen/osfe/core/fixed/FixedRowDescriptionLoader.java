@@ -12,9 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.core.delimited;
+package com.qagen.osfe.core.fixed;
 
 import com.qagen.osfe.common.utils.DomReader;
+import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.column.ColumnDescription;
 import com.qagen.osfe.core.row.RowDescription;
 import com.qagen.osfe.core.row.RowDescriptionLoader;
@@ -29,32 +30,52 @@ import java.util.Map;
  * Author: Hycel Taylor
  * <p/>
  * This class performs the task of loading row descriptions from XML feed file
- * documents for delimited feed files.
+ * documents for fixed feed files.
  */
-public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
-  public static enum ELEMENT {
-    delimitedRows,
-    delimitedRow,
-    delimitedColumn
+public class FixedRowDescriptionLoader extends RowDescriptionLoader {
+  protected static enum ELEMENT {
+    fixedRows,
+    fixedRow,
+    fixedColumn
   }
 
-  public static enum ATTRIBUTE {
+  protected static enum ATTRIBUTE {
+    length,
     description,
-    minusRowCount,
-    delimiterValue
+    eolCharacter,
+    minusRowCount
   }
 
-  protected String delimiter;
+  protected static enum EOL_CHARACTER {
+    Windows("\r\n"),
+    Unix("\n"),
+    Mac("\r"),
+    None("");
+
+    private String value;
+
+    EOL_CHARACTER(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
   protected Integer minusRowCount;
   protected Map<String, RowDescription> rows;
+  protected Integer eolLength;  // Used by fixed feed row description.  Defines the length eol characters.
+  protected String eolCharacter; // Defines what the end of the line character should be.  Could be nothing.
 
   /**
    * Constructor
    *
-   * @param root parent element
+   * @param root the element from which contains the sub element
+   *             that will be parsed and referenced as the parent element.
    */
-  public DelimitedRowDescriptionLoader(Element root) {
-    super(root, ELEMENT.delimitedRows.name());
+  public FixedRowDescriptionLoader(Element root) {
+    super(root, ELEMENT.fixedRows.name());
   }
 
   /**
@@ -80,9 +101,33 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
    * @param parent container of child element to parse.
    */
   protected void load(Element parent) {
-    delimiter = DomReader.getRequiredValue(parent, ATTRIBUTE.delimiterValue.name());
     minusRowCount = DomReader.getRequiredIntValue(parent, ATTRIBUTE.minusRowCount.name());
+    eolCharacter = DomReader.getValue(parent, ATTRIBUTE.eolCharacter.name());
+    eolLength = getEOLLength(eolCharacter);
+
     rows = parceRows(parent);
+  }
+
+  /**
+   * Retrieve the end of line character and determine its' length.
+   *
+   * @param name defines the eol enumation type to lookup.
+   * Name may be one of the choices:
+   * <ul>
+   * <li>Windows</li>
+   * <li>Linux</li>
+   * <li>Mac</li>
+   * <li>None</li>
+   * </ul>
+   *
+   * @return  length of the number of characters for the given eol. 
+   */
+  private int getEOLLength(String name) {
+    try {
+      return EOL_CHARACTER.valueOf(name).toString().length();
+    } catch (IllegalArgumentException e) {
+      throw new FeedErrorException(e);
+    }
   }
 
   /**
@@ -103,7 +148,7 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
 
     for (Element element : elements) {
       final List<ColumnDescription> columnDescriptions = parseColumns(element);
-      final RowDescription rowDescription = new RowDescription(element, columnDescriptions);
+      final FixedRowDescription rowDescription = new FixedRowDescription(element, columnDescriptions);
 
       rows.put(rowDescription.getName(), rowDescription);
     }
@@ -117,7 +162,7 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
     final List<ColumnDescription> columnDescriptions = new ArrayList<ColumnDescription>();
 
     for (Element element : elements) {
-      columnDescriptions.add(new DelimitedColumn(element));
+      columnDescriptions.add(new FixedColumn(element));
     }
 
     return columnDescriptions;
@@ -132,8 +177,13 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
     return minusRowCount;
   }
 
-  public String getDelimiter() {
-    return delimiter;
+  /**
+   * Retrieves the end of line characters.
+   *
+   * @return the end of line characters.
+   */
+  public String getEolCharacter() {
+    return EOL_CHARACTER.valueOf(eolCharacter).getValue();
   }
 
 }

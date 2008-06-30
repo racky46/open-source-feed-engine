@@ -12,24 +12,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.core.delimited;
+package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.common.utils.DomReader;
 import com.qagen.osfe.core.column.ColumnDescription;
+import com.qagen.osfe.common.utils.DomReader;
 import org.dom4j.Element;
 
 /**
  * Author: Hycel Taylor
- * <p/>
+ * <p>
  * This classe extends ColumnDescription and addes specific attributes for
- * describing a delimited column.
+ * describing a fixed column.
  */
-public class DelimitedColumn extends ColumnDescription {
+public class FixedColumn extends ColumnDescription {
   private static enum ATTRIBUTE {
-    description
+    start,
+    length
   }
 
-  protected final String description;
+  protected final Integer start;
+  protected final Integer length;
 
   /**
    * Constructor
@@ -37,17 +39,27 @@ public class DelimitedColumn extends ColumnDescription {
    * @param element reference to element that contains attributes for the given
    *                column description.
    */
-  public DelimitedColumn(Element element) {
+  public FixedColumn(Element element) {
     super(element);
-    description = DomReader.getValue(element, ATTRIBUTE.description.name());
+    start = DomReader.getIntValue(element, ATTRIBUTE.start.name());
+    length = DomReader.getIntValue(element, ATTRIBUTE.length.name());
   }
 
   /**
-   * Retrieves a text description of the column.
+   * Retrieves the starting position of column within the row of characters.
    *
-   * @return a text description of the column.
+   * @return starting position of the column.
    */
-  public String getDescription() {
-    return description;
+  public Integer getStart() {
+    return start;
+  }
+
+  /**
+   * Retreives the fixed length of characters the column occupies.
+   *
+   * @return fixed length of character the column occuies.
+   */
+  public Integer getLength() {
+    return length;
   }
 }

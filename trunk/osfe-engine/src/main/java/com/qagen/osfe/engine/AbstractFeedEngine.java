@@ -183,6 +183,7 @@ public abstract class AbstractFeedEngine {
     final String message =
       "*** Unable to execute feed for feedId, " + feedId + ", feedFileName " + feedFileName + "." + "\n*** Exception: " + exception.getMessage();
     logger.error(message);
+    exception.printStackTrace();
     throw new FeedErrorException(exception);
   }
 

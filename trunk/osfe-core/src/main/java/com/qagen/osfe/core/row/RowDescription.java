@@ -28,10 +28,20 @@ import java.util.List;
  */
 public class RowDescription {
   // Defines the common attributes of a row desciption element.
-  public static enum ATTRIBUTE {
-    name,
-    rowCount,
-    linesToSkip
+  private static enum ATTRIBUTE {
+    name("name"),
+    rowCount("rowCount"),
+    linesToSkip("linesToSkip");
+
+    private String value;
+
+    ATTRIBUTE(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 
   // Uniquely identifies the given row description.
@@ -42,7 +52,7 @@ public class RowDescription {
   private final Integer linesToSkip;
   // Contains the list of ColumnDescription objects.
   private final List<ColumnDescription> columnDescriptions;
-
+  
   /**
    * Constructor
    *
@@ -53,9 +63,9 @@ public class RowDescription {
    *                           objects.
    */
   public RowDescription(Element element, List<ColumnDescription> columnDescriptions) {
-    name = DomReader.getRequiredValue(element, RowDescription.ATTRIBUTE.name.name());
-    rowCount = DomReader.getIntValue(element, RowDescription.ATTRIBUTE.rowCount.name());
-    linesToSkip = DomReader.getIntValue(element, RowDescription.ATTRIBUTE.linesToSkip.name());
+    name = DomReader.getRequiredValue(element, ATTRIBUTE.name.getValue());
+    rowCount = DomReader.getIntValue(element, ATTRIBUTE.rowCount.getValue());
+    linesToSkip = DomReader.getIntValue(element, ATTRIBUTE.linesToSkip.getValue());
     this.columnDescriptions = columnDescriptions;
   }
 
@@ -99,4 +109,5 @@ public class RowDescription {
   public List<ColumnDescription> getColumns() {
     return columnDescriptions;
   }
+
 }

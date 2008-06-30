@@ -12,6 +12,10 @@
         <description>Feeds that contain course information</description>
       </row>
       <row>
+        <feed_type_id>testf</feed_type_id>
+        <description>Fixed feeds that contain course information</description>
+      </row>
+      <row>
         <feed_type_id>student</feed_type_id>
         <description>Feeds that contain student demographic information</description>
       </row>
