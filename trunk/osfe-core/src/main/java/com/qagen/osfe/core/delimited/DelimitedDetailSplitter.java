@@ -42,7 +42,7 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
   private Integer batchSize;
   private Integer linesToSkip;
   private Integer feedRowCount;
-  private Integer currentRowIndex;
+  private Long currentRowIndex;
   private BufferedReader bufferedReader;
 
   private Integer localRowIndex;
@@ -171,8 +171,8 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
    *                   the file to move to.
    */
   public void moveToCheckPoint(FeedCheckpoint checkpoint) {
-    final int fileIndex = checkpoint.getCurrentFileIndex();
-    int currentIndex = context.getCurrentSplitterIndex();
+    final long fileIndex = checkpoint.getCurrentFileIndex();
+    long currentIndex = context.getCurrentSplitterIndex();
 
     logger.info("Moving to checkpoint, " + checkpoint.getPhaseId() + ", at file index, " + fileIndex);
 
