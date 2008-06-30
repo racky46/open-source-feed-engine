@@ -71,7 +71,6 @@
 
   <update id="update" parameterClass="Feed">
     update t_feed set
-      feed_id = #feedId#,
       activation_date = #activationDate#,
       termination_date = #terminationDate#,
       allow_concurrent_runs = #allowConcurrentRuns#,
