@@ -22,14 +22,12 @@ import com.qagen.osfe.core.row.RowDescriptionLoader;
 import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * Author: Hycel Taylor
@@ -117,7 +115,6 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
    * </ul>
    */
   public void initialize() {
-    loadFeedFile();
     initRowLoader();
     initSplitters();
   }
@@ -152,7 +149,7 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     try {
       feedJobManager.savePhaseStats(context);
       doPhaseShutdown();
-      BufferedReader reader = (BufferedReader) context.getFeedFileReader();
+      FeedFileReader reader =  context.getFeedFileReader();
       reader.close();
     } catch (IOException e) {
       logger.warn("*** Unable to close feed file, " + context.getFeedFileName());
@@ -167,23 +164,6 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
     shutdownPhases(context.getBatchEventPhases());
     shutdownPhases(context.getPreEventPhases());
     shutdownPhases(context.getPreFeedFilePhases());
-  }
-
-  /**
-   * Load the feed file into a BufferedReader and stored the reader
-   * in the context.
-   */
-  protected void loadFeedFile() {
-    try {
-      final String fullFeedFileName = context.getFullFeedFileName();
-      final FileReader fileReader = new FileReader(fullFeedFileName);
-      final BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-      context.setFeedFileReader(bufferedReader);
-
-    } catch (FileNotFoundException e) {
-      throw new FeedErrorException(e);
-    }
   }
 
   /**
@@ -202,15 +182,31 @@ public class StandardFeedLifeCycleService extends FeedLifeCycleService {
   protected void initSplitters() {
     final Loader loader = context.getLoaderMap().get(LOADERS.splitterLoader.getValue());
     final Map<String, String> map = ((SplitterConfigLoader) loader).getMap();
+    final List<Splitter> splitters = new ArrayList<Splitter>();
 
-    Splitter splitter = loadSplitter(SPLITTERS.header.getValue(), map.get(SPLITTERS.header.getValue()));
-    context.setHeaderSplitter(splitter);
+    Splitter header = loadSplitter(SPLITTERS.header.getValue(), map.get(SPLITTERS.header.getValue()));
+    context.setHeaderSplitter(header);
+    splitters.add(header);
 
-    splitter = loadSplitter(SPLITTERS.detail.getValue(), map.get(SPLITTERS.detail.getValue()));
-    context.setDetailSplitter(splitter);
+    Splitter detail = loadSplitter(SPLITTERS.detail.getValue(), map.get(SPLITTERS.detail.getValue()));
+    context.setDetailSplitter(detail);
+    splitters.add(detail);
 
-    splitter = loadSplitter(SPLITTERS.footer.getValue(), map.get(SPLITTERS.footer.getValue()));
-    context.setFooterSplitter(splitter);
+    Splitter footer = loadSplitter(SPLITTERS.footer.getValue(), map.get(SPLITTERS.footer.getValue()));
+    context.setFooterSplitter(footer);
+    splitters.add(footer);
+
+    // First find the splitter that will instantiate the FeedFileReader.
+    for (Splitter splitter : splitters) {
+      if (splitter instanceof SplitterFileOpener) {
+        ((SplitterFileOpener) splitter).openFeedFileReader();
+      }
+    }
+
+    // Initialize all splitters.
+    for (Splitter splitter : splitters) {
+      splitter.initialize();
+    }
   }
 
   /**

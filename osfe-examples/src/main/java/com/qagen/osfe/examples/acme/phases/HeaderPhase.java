@@ -17,6 +17,7 @@ package com.qagen.osfe.examples.acme.phases;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
+import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.delimited.DelimitedHeaderSplitter;
 import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.core.row.RowValue;
@@ -35,7 +36,7 @@ public class HeaderPhase extends Phase {
   }
 
   public void execute() {
-    final DelimitedHeaderSplitter splitter = (DelimitedHeaderSplitter) context.getHeaderSplitter();
+    final Splitter splitter = context.getHeaderSplitter();
     final List<RowValue> rowValues = splitter.getNextRow();
     final HeaderRow headerRow = new HeaderRow();
 

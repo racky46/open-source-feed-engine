@@ -12,39 +12,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.core.delimited;
+package com.qagen.osfe.core.fixed;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Splitter;
-import com.qagen.osfe.core.row.RowDescription;
 
 /**
- * The DelimitedSplitter class is the base abstract class for splitters
- * that will parse data from delimited feed files.
+ * Author: Hycel Taylor
+ * <p/>
+ * The FixedSplitter class is the base abstract class for splitters
+ * that will parse data from fixed feed files.
  */
-public abstract class DelimitedSplitter implements Splitter {
+public abstract class FixedSplitter implements Splitter {
   protected final String rowDescriptionName;
-  protected final String delimiter;
+  protected final Integer rowCount;
+  protected final Integer rowLength;
   protected final EngineContext context;
-  protected final DelimitedRowParser rowParser;
-  protected final RowDescription rowDescription;
-  protected final DelimitedRowDescriptionLoader rowLoader;
+  protected final FixedRowParser rowParser;
+  protected final FixedRowDescription rowDescription;
+  protected final FixedRowDescriptionLoader rowLoader;
 
   /**
    * Constructor
    *
-   * @param context            reference to the engine context
+   * @param context reference to the engine context
    * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
+   *                configuration file.
    */
-  public DelimitedSplitter(EngineContext context, String rowDescriptionName) {
+  public FixedSplitter(EngineContext context, String rowDescriptionName) {
     this.context = context;
     this.rowDescriptionName = rowDescriptionName;
 
-    rowLoader = (DelimitedRowDescriptionLoader) context.getRowDescriptionLoader();
-    delimiter = rowLoader.getDelimiter();
-    rowDescription = rowLoader.getRows().get(rowDescriptionName);
-    rowParser = new DelimitedRowParser(rowDescription, delimiter);
+    rowLoader = (FixedRowDescriptionLoader) context.getRowDescriptionLoader();
+    rowDescription = (FixedRowDescription) rowLoader.getRows().get(rowDescriptionName);
+    rowParser = new FixedRowParser(rowDescription);
+    rowCount = rowDescription.getRowCount();
+    rowLength = rowDescription.getRowLength() + rowLoader.getEolCharacter().length();
   }
 
   /**
@@ -68,18 +71,18 @@ public abstract class DelimitedSplitter implements Splitter {
   /**
    * Retrieves the object that knows how to load the row description.
    *
-   * @return reference to the DelimitedRowDescriptionLoader.
+   * @return reference to the FixedRowDescriptionLoader.
    */
-  public DelimitedRowDescriptionLoader getRowsLoader() {
+  public FixedRowDescriptionLoader getRowsLoader() {
     return rowLoader;
   }
 
   /**
-   * Retrieves the object that knows how to parser a delimited row.
+   * Retrieves the object that knows how to parser a fixed row.
    *
-   * @return reference to the DelimitedRowParser.
+   * @return reference to the FixedRowParser.
    */
-  public DelimitedRowParser getRowParser() {
+  public FixedRowParser getRowParser() {
     return rowParser;
   }
 
@@ -88,16 +91,25 @@ public abstract class DelimitedSplitter implements Splitter {
    *
    * @return reference to the rowDescription object.
    */
-  public RowDescription getRowDescription() {
+  public FixedRowDescription getRowDescription() {
     return rowDescription;
   }
 
   /**
-   * Retrieves the character(s) being used to delimit the rows.
+   * Retrieves the total number of rows the splitter has access to.
    *
-   * @return the delimiter.
+   * @return the total number of rows the splitter has access to.
    */
-  public String getDelimiter() {
-    return delimiter;
+  public Integer getRowCount() {
+    return rowCount;
+  }
+
+  /**
+   * Retrieves the length of the fixed row.
+   *
+   * @return the length of the fixed row.
+   */
+  public Integer getRowLength() {
+    return rowLength;
   }
 }

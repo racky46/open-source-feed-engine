@@ -58,7 +58,7 @@ public class EngineContext {
 
   private Document feedDocument;
   private RowDescriptionLoader rowDescriptionLoader;
-  private Object feedFileReader;
+  private FeedFileReader feedFileReader;
   private Feed feed;
   private FeedJob feedJob;
   private FeedCheckpoint checkpoint;
@@ -308,7 +308,7 @@ public class EngineContext {
    *
    * @return reference to object used to access the physical feed file.
    */
-  public Object getFeedFileReader() {
+  public FeedFileReader getFeedFileReader() {
     return feedFileReader;
   }
 
@@ -320,7 +320,7 @@ public class EngineContext {
    * @param feedFileReader reference to the object used to access the physical
    *                       feed file.
    */
-  public void setFeedFileReader(Object feedFileReader) {
+  public void setFeedFileReader(FeedFileReader feedFileReader) {
     this.feedFileReader = feedFileReader;
   }
 

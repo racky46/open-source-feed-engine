@@ -17,6 +17,11 @@ package com.qagen.osfe.core.column;
 import com.qagen.osfe.common.utils.DomReader;
 import org.dom4j.Element;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * This is the base class for describing a column within a row of a feed file.
+ */
 public class ColumnDescription {
   public static enum ATTRIBUTE {
     name,
@@ -28,6 +33,12 @@ public class ColumnDescription {
   protected final String type;
   protected final String format;
 
+  /**
+   * Constructor
+   *
+   * @param element reference to element that contains attributes for the given
+   *                column description.
+   */
   protected ColumnDescription(Element element) {
     name = DomReader.getRequiredValue(element, ColumnDescription.ATTRIBUTE.name.name());
     type = DomReader.getRequiredValue(element, ColumnDescription.ATTRIBUTE.type.name());

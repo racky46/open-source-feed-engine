@@ -28,6 +28,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * The DelimitedDetailSplitter parses the detail data in delimited feed files.
+ * This splitter will read and parse N number of rows where N is the batch size
+ * defined in the given feed file document and deliver the parsed data in a list of
+ * RowValue objects. This splitter will continue to parse N rows of data until all
+ * rows in the given feed file have been parsed.
+ */
 public class DelimitedDetailSplitter extends DelimitedSplitter implements CheckpointHandler {
   private List<List<RowValue>> rows;
   private Integer batchSize;
@@ -42,21 +51,35 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
 
   private static Log logger = Log.getInstance(DelimitedDetailSplitter.class);
 
-  public DelimitedDetailSplitter(EngineContext context, String rowName) {
-    super(context, rowName);
-    context.setDetailSplitter(this);
+  /**
+   * Constructor
+   *
+   * @param context            reference to the engine context
+   * @param rowDescriptionName uniquely identifies the row description in the
+   *                           configuration file.
+   */
+  public DelimitedDetailSplitter(EngineContext context, String rowDescriptionName) {
+    super(context, rowDescriptionName);
   }
 
+  /**
+   * Called during second pass of splitter initialization. Should this splitter need
+   * access to another splitter, all other splitters will have been instantiated in
+   * the first pass.
+   */
   public void initialize() {
     batchSize = context.getBatchSize();
     linesToSkip = getRowDescription().getLinesToSkip();
     currentRowIndex = context.getCurrentSplitterIndex();
-    bufferedReader = (BufferedReader) context.getFeedFileReader();
+    bufferedReader = ((DelimitedFileReader) context.getFeedFileReader()).getBufferedReader();
 
     localRowIndex = 0;
     localRowSize = 0;
   }
 
+  /**
+   * Skip over any lines that need to be skipped.
+   */
   public void prePhaseExecute() {
     feedRowCount = context.getFeedRowCount();
     skipLines();
@@ -82,6 +105,9 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     }
   }
 
+  /**
+   * Calculates the next N rows of data and converts to a list of RowValue objects.
+   */
   private void getNextBlockOfRows() {
     try {
       context.setPreviousSplitterIndex(context.getCurrentSplitterIndex());
@@ -111,6 +137,11 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     }
   }
 
+  /**
+   * Retrieves a list or RowValue objects for the given feed file.
+   *
+   * @return reference to a list of RowValue objects.
+   */
   public List<RowValue> getNextRow() {
     if (hasNextRow()) {
       return rows.get(localRowIndex++);
@@ -119,6 +150,11 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     return null;
   }
 
+  /**
+   * Determines if there is another row to retrieve from the feed file.
+   *
+   * @return true if more rows. false if end of file has been reached.
+   */
   public Boolean hasNextRow() {
     if (localRowIndex > localRowSize - 1) {
       getNextBlockOfRows();
@@ -127,6 +163,13 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
     return (localRowSize != 0);
   }
 
+  /**
+   * Performs the task of moving the file pointer to the last checkpoint
+   * position in the file.
+   *
+   * @param checkpoint contains the information about the position in
+   *                   the file to move to.
+   */
   public void moveToCheckPoint(FeedCheckpoint checkpoint) {
     final int fileIndex = checkpoint.getCurrentFileIndex();
     int currentIndex = context.getCurrentSplitterIndex();

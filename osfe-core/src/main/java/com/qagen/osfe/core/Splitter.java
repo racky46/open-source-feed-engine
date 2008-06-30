@@ -20,16 +20,48 @@ import java.util.List;
 
 /**
  * Author: Hycel Taylor
+ * <p/>
+ * This interface defines the contract for all splitter classes.  A splitter
+ * is responsible for accessing the rows of data from a specific block of
+ * data within a given feed file.
  * <p>
- *
+ * For example, most feed files are broken up into three blocks:
+ * <ul>
+ * <li>header - access to the header rows of a feed file
+ * <li>detail - access to the detail rows of a feed file (normally in batches of 1,000 - 10,000 rows).
+ * <li>footer - access to the footer rows of a feed file
+ * </ul>
+ * Splitters hide all of the complexities of retrieving data from a feed file.
+ * The contract methods below ensure a clean and consistent representation of
+ * the feed file to all classes needing data from a given feed file irrespective
+ * of the original format of the given feed file.
  */
 public interface Splitter {
 
-  public abstract void initialize();
+  /**
+   * Called during second pass of splitter initialization. Should this splitter need
+   * access to another splitter, all other splitters will have been instantiated in
+   * the first pass.
+   */
+  public void initialize();
 
-  public abstract List<RowValue> getNextRow();
+  /**
+   * Retrieves a list or RowValue objects for the given feed file.
+   *
+   * @return reference to a list of RowValue objects.
+   */
+  public List<RowValue> getNextRow();
 
-  public abstract Boolean hasNextRow();
+  /**
+   * Determines if there is another row to retrieve from the feed file.
+   *
+   * @return true if more rows. false if end of file has been reached.
+   */
+  public Boolean hasNextRow();
 
+  /**
+   * Sometimes certain operations need to be executed prior to the first row
+   * being retrieved but after initialization.
+   */
   public void prePhaseExecute();
 }

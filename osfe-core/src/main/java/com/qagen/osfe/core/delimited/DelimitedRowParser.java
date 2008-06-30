@@ -23,21 +23,44 @@ import com.qagen.osfe.core.row.RowValue;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * The behavior of a row parser is to parse data for a specific row type and place
+ * the raw values in to a list of RowValue objects. This particular class parses
+ * delimited column data.
+ */
 public class DelimitedRowParser implements RowParser {
   public static enum DELEMITER_TYPE {
     Tab,
     Windows,
-    Unix
+    Unix,
+    Mac
   }
 
   private List<ColumnDescription> columnDescriptions;
   private String delimiter;
 
+  /**
+   * Constructor
+   *
+   * @param rowDescription contains the column descriptions.
+   * @param delimiter defines the value used to delimited the columns.
+   */
   public DelimitedRowParser(RowDescription rowDescription, String delimiter) {
     this.delimiter = checkDelimiterType(delimiter);
     this.columnDescriptions = rowDescription.getColumns();
   }
 
+  /**
+   * Determines if the type of delimiter is specifically a tab,
+   * Unix, Windows or Mac. If it is one of these, then it returns
+   * that appriate character delimiter.  Otherwise it returns
+   * the character(s) defined as the delimiter.
+   *
+   * @param delimiter defines the type of delimiter.
+   * @return the character delimiter.
+   */
   private String checkDelimiterType(String delimiter) {
     if (delimiter.equals(DELEMITER_TYPE.Tab.name())) {
       return "\t";
@@ -45,14 +68,30 @@ public class DelimitedRowParser implements RowParser {
       return "\r\n";
     } else if (delimiter.equals(DELEMITER_TYPE.Unix.name())) {
       return "\n";
+    } else if (delimiter.equals(DELEMITER_TYPE.Mac.name())) {
+      return "\r";
     } else {
       return delimiter;
     }
   }
 
+  /**
+   * Performs the task of parsing the values of a row and creating a list of
+   * row value objects.
+   *
+   * @param row the object that contains a row of data to be parsed in to a
+   *            list of row values.
+   * @return    list of RowValue objects.
+   */
   public List<RowValue> parseRow(Object row) {
     final String string = (String) row;
-    final String[] array = string.split(delimiter, 1000);
+
+    int limit = 1000;
+    if (string.length() > limit) {
+      limit = string.length();
+    }
+
+    final String[] array = string.split(delimiter, limit);
     final List<RowValue> rowValues = new ArrayList<RowValue>();
 
     if (array.length > columnDescriptions.size()) {

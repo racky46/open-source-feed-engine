@@ -16,8 +16,8 @@ package com.qagen.osfe.examples.acme.phases;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.core.FooterSplitter;
 import com.qagen.osfe.core.Phase;
-import com.qagen.osfe.core.delimited.DelimitedFooterSplitter;
 import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.utils.BeanPopulator;
@@ -35,14 +35,14 @@ public class FooterPhase extends Phase {
   }
 
   public void execute() {
-    final DelimitedFooterSplitter splitter = (DelimitedFooterSplitter) context.getFooterSplitter();
+    final FooterSplitter splitter = (FooterSplitter) context.getFooterSplitter();
     final List<RowValue> rowValues = splitter.getNextRow();
     final FooterRow footerRow = new FooterRow();
 
     BeanPopulator.populateBean(rowValues, footerRow);
 
     final Integer totalRowCount = splitter.getTotalRowCount();
-    final Integer minusRowCount = splitter.getRowsLoader().getMinusRowCount();
+    final Integer minusRowCount = splitter.getMinusRowCount();
     final Integer footerRowCount = footerRow.getRowCount();
 
     rowCountCheck(totalRowCount, footerRowCount, minusRowCount);
@@ -60,7 +60,7 @@ public class FooterPhase extends Phase {
     if ((totalRowCount - minusRowCount) != footerRowCount) {
       final String fileName = context.getFeedFileName();
       final String message =
-        "The total number of rows in file, " + fileName + ", (" + totalRowCount + " = " + minusRowCount + ") " +
+        "The total number of rows in file, " + fileName + ", (" + totalRowCount + " <> " + minusRowCount + ") " +
           " does not match the rows count of " + footerRowCount + ", defined in the footer.";
       throw new FeedErrorException(message);
     }

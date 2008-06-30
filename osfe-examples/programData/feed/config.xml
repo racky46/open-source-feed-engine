@@ -45,6 +45,26 @@
         <feed_queue_type_id>test_queue</feed_queue_type_id>
       </row>
       <row>
+        <feed_id>acme_qagen_testf_request</feed_id>
+        <activation_date>2008-01-01 12:00:00</activation_date>
+        <termination_date>2009-01-01 12:00:00</termination_date>
+        <allow_concurrent_runs>1</allow_concurrent_runs>
+        <allow_failed_state_runs>0</allow_failed_state_runs>
+        <collect_phase_stats>1</collect_phase_stats>
+        <restart_at_checkpoint>1</restart_at_checkpoint>
+        <last_sequence_number>0</last_sequence_number>
+        <max_concurrent_runs>1</max_concurrent_runs>
+        <feed_directory>feed/acme/qagen/testf/request</feed_directory>
+        <feed_document>partnerConfig/acme/qagen/testf/request</feed_document>
+        <from_data_source_id>acme</from_data_source_id>
+        <to_data_source_id>qagen</to_data_source_id>
+        <feed_type_id>test</feed_type_id>
+        <feed_protocol_id>request</feed_protocol_id>
+        <feed_direction_id>inbound</feed_direction_id>
+        <feed_group_id>test_group</feed_group_id>
+        <feed_queue_type_id>test_queue</feed_queue_type_id>
+      </row>
+      <row>
         <feed_id>acme_qagen_student_request</feed_id>
         <activation_date>2008-01-01 12:00:00</activation_date>
         <termination_date>2009-01-01 12:00:00</termination_date>

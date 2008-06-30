@@ -64,11 +64,6 @@ public abstract class FeedLifeCycleService extends ExecutionService {
   }
 
   /**
-   * Logic in this method should perform the task of loading the feed file.
-   */
-  protected abstract void loadFeedFile();
-
-  /**
    * Locic in this method should perform the task of instantiating a row
    * descritption loader apprpriate for the loading the specific type of
    * row data.
