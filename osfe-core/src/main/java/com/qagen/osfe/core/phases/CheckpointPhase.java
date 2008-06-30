@@ -85,7 +85,7 @@ public class CheckpointPhase extends Phase {
       checkpoint = service.findByFeedFileId(feedFileId);
 
       if (checkpoint == null) {
-        checkpoint = new FeedCheckpoint(NO_PHASE_ID, 0, feedFile);
+        checkpoint = new FeedCheckpoint(NO_PHASE_ID, 0L, feedFile);
         service.insert(checkpoint);
       }
     }

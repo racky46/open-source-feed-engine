@@ -45,8 +45,8 @@ public class EngineContext {
   private String fullFeedFileName;
   private String currentPhaseId;
   private Integer feedRowCount;
-  private Integer previousSplitterIndex = 0;
-  private Integer currentSplitterIndex = 0;
+  private Long previousSplitterIndex = 0L;
+  private Long currentSplitterIndex = 0L;
   private Integer currentRowIndex = 0;
   private Integer batchSize;
 
@@ -227,7 +227,7 @@ public class EngineContext {
    *
    * @return the index where that last split took place.
    */
-  public Integer getPreviousSplitterIndex() {
+  public Long getPreviousSplitterIndex() {
     return previousSplitterIndex;
   }
 
@@ -237,7 +237,7 @@ public class EngineContext {
    *
    * @param previousSplitterIndex the index where that last split took place.
    */
-  public void setPreviousSplitterIndex(Integer previousSplitterIndex) {
+  public void setPreviousSplitterIndex(Long previousSplitterIndex) {
     this.previousSplitterIndex = previousSplitterIndex;
   }
 
@@ -247,7 +247,7 @@ public class EngineContext {
    *
    * @return the index where that current split took place.
    */
-  public Integer getCurrentSplitterIndex() {
+  public Long getCurrentSplitterIndex() {
     return currentSplitterIndex;
   }
 
@@ -257,7 +257,7 @@ public class EngineContext {
    *
    * @param currentSplitterIndex the index where the current split took place.
    */
-  public void setCurrentSplitterIndex(Integer currentSplitterIndex) {
+  public void setCurrentSplitterIndex(Long currentSplitterIndex) {
     this.currentSplitterIndex = currentSplitterIndex;
   }
 
@@ -726,7 +726,7 @@ public class EngineContext {
    * Internally sets the index of the current rejected row in the context.
    */
   public void setRejectedRowNumber() {
-    rejectedRowNumber = getPreviousSplitterIndex() + getCurrentRowIndex();
+    rejectedRowNumber = (int) (getPreviousSplitterIndex() + getCurrentRowIndex());
   }
 
   /**
@@ -777,7 +777,7 @@ public class EngineContext {
   /**
    * Retrieves the reference to the map of FeedPhaseStats objects.
    *
-   * @param phaseStatsMap
+   * @param phaseStatsMap map of FeedPhaseStats objects
    */
   public void setPhaseStatsMap(Map<String, FeedPhaseStats> phaseStatsMap) {
     this.phaseStatsMap = phaseStatsMap;

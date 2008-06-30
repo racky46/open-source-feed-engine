@@ -29,13 +29,13 @@ import java.util.ArrayList;
 public class FeedCheckpoint extends VO {
   private Integer feedCheckpointId;
   private String phaseId;
-  private Integer currentFileIndex;
+  private Long currentFileIndex;
   private FeedFile feedFile;
 
   public FeedCheckpoint() {
   }
 
-  public FeedCheckpoint(String phaseId, Integer currentFileIndex, FeedFile feedFile) {
+  public FeedCheckpoint(String phaseId, Long currentFileIndex, FeedFile feedFile) {
     this.phaseId = phaseId;
     this.currentFileIndex = currentFileIndex;
     this.feedFile = feedFile;
@@ -57,11 +57,11 @@ public class FeedCheckpoint extends VO {
     this.phaseId = phaseId;
   }
 
-  public Integer getCurrentFileIndex() {
+  public Long getCurrentFileIndex() {
     return currentFileIndex;
   }
 
-  public void setCurrentFileIndex(Integer currentFileIndex) {
+  public void setCurrentFileIndex(Long currentFileIndex) {
     this.currentFileIndex = currentFileIndex;
   }
 

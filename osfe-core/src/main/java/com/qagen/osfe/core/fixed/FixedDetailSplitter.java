@@ -40,7 +40,7 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
   private List<List<RowValue>> rows;
   private Integer batchSize;
   private Integer linesToSkip;
-  private Integer currentRowIndex;
+  private Long currentRowIndex;
 
   private Integer localRowIndex;
   private Integer localRowSize;
@@ -181,10 +181,11 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
    *                   the file to move to.
    */
   public void moveToCheckPoint(FeedCheckpoint checkpoint) {
-    final int fileIndex = checkpoint.getCurrentFileIndex();
-    final long blockSize = fileIndex * getRowLength();
+    final long fileIndex = checkpoint.getCurrentFileIndex();
 
-    fileReader.movePointer(blockSize);
+    currentRowIndex = fileIndex;
+    fileReader.movePointer(fileIndex);
+    getNextBlockOfRows();
   }
 
   /**
