@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="ConfigLoader.xsd"/>
+  <xs:include schemaLocation="Services.xsd"/>
+  <xs:include schemaLocation="Phases.xsd"/>
+  <xs:include schemaLocation="Splitters.xsd"/>
+  <xs:include schemaLocation="EventPhases.xsd"/>
+  <xs:include schemaLocation="SaxPhases.xsd"/>
+  <!--<xs:include schemaLocation="DelimitedColumn.xsd"/>-->
+
+  <xs:annotation>
+    <xs:documentation>
+      Schema definition that defines the configuration metadata for the feed engine.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="config">
+    <xs:annotation>
+      <xs:documentation>Configuration information</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="phases" type="phases" minOccurs="0" maxOccurs="1"/>
+        <!--<xs:element name="delimitedColumns" type="delimitedColumns" minOccurs="0" maxOccurs="1"/>-->
+        <xs:element name="eventPhases" type="eventPhases" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="saxPhases" type="saxPhases" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="splitters" type="splitters" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="services" type="services" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="configLoaders" type="configLoaders" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

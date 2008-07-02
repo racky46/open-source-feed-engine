@@ -45,8 +45,8 @@ public class ServiceConfigLoader extends Loader {
 
     while (it.hasNext()) {
       final Element element = (Element) it.next();
-      final String name = element.getName();
-      final String value = element.getTextTrim();
+      final String name = element.attributeValue(ATTRIBUTE.name.name());
+      final String value = element.attributeValue(ATTRIBUTE.className.name());
 
       final PropertiesConfigLoader loader = new PropertiesConfigLoader(element);
       final Map<String, String> propertyMap = loader.getPropertyMap();
