@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define properties.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="property">
+    <xs:annotation>
+      <xs:documentation>
+        The property element represents a name/value attribute pair.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="properties">
+    <xs:annotation>
+      <xs:documentation>
+        Properties are a set of property elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="property" type="property" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

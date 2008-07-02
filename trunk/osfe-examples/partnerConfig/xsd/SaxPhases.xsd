@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="Phases.xsd"/>
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define phases.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="saxPhases">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="preFeedFilePhases" type="preFeedFilePhases" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="preEventPhases" type="preEventPhases" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="saxEventPhases" type="saxEventPhases" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="postEventPhases" type="postEventPhases" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="preFeedFilePhases">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="phase" type="phase" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="preEventPhases">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="phase" type="phase" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="postEventPhases">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="phase" type="phase" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="saxEventPhases">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="saxEventPhase" type="saxEventPhase" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="saxEventPhase">
+    <xs:annotation>
+      <xs:documentation>
+        Defines attribues of an individual phase.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="saxElementPaths" type="saxElementPaths" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="enable" type="xs:boolean" use="required"/>
+    <xs:attribute name="className" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="saxElementPaths">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of phase's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="saxElementPath" type="saxElementPath" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="saxElementPath">
+    <xs:annotation>
+      <xs:documentation>
+        Defines attribues of an individual saxElementPath.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="event" type="eventType" use="required"/>
+    <xs:attribute name="nameSpace" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="eventType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="onStart"/>
+      <xs:enumeration value="onEnd"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

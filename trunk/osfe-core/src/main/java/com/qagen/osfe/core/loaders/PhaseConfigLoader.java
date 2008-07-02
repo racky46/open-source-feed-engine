@@ -21,7 +21,7 @@ import org.dom4j.Element;
 public class PhaseConfigLoader extends Loader {
   public enum ELEMENT {
     phase,
-    phases,
+    eventPhases,
     preEventPhases,
     postEventPhases,
     batchEventPhases,
@@ -38,7 +38,7 @@ public class PhaseConfigLoader extends Loader {
   private PhaseSetInfo phaseSetInfo;
 
   public PhaseConfigLoader(Element root) {
-    super(root, ELEMENT.phases.name());
+    super(root, ELEMENT.eventPhases.name());
   }
 
   protected void load(Element parent) {
