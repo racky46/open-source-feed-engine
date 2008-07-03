@@ -20,11 +20,11 @@ import org.testng.annotations.Test;
  * Author: Hycel Taylor
  * <p/>
  */
-public class FixedFeedEngineTest extends FeedTestBase {
+public class DelimitedFeedEngineTest extends FeedTestBase {
 
   public void runTest() {
-    final String feedId = "acme_qagen_testf_request";
-    final String feedFile = "acme_qagen_testf_request_20080617010641.txt";
+    final String feedId = "acme_qagen_test_request";
+    final String feedFile = "acme_qagen_test_request_20080420050424.txt";
 
     setup(feedId);
     final FeedEngine engine = new FeedEngine(feedId, feedFile);
@@ -32,7 +32,7 @@ public class FixedFeedEngineTest extends FeedTestBase {
   }
 
   public static void main(String[] args) {
-    final FixedFeedEngineTest test = new FixedFeedEngineTest();
+    final DelimitedFeedEngineTest test = new DelimitedFeedEngineTest();
 
     test.runTest();
   }

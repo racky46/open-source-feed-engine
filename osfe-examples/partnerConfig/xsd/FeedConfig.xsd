@@ -4,13 +4,15 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
+  <xs:include schemaLocation="Properties.xsd"/>
   <xs:include schemaLocation="ConfigLoader.xsd"/>
   <xs:include schemaLocation="Services.xsd"/>
   <xs:include schemaLocation="Phases.xsd"/>
   <xs:include schemaLocation="Splitters.xsd"/>
   <xs:include schemaLocation="EventPhases.xsd"/>
   <xs:include schemaLocation="SaxPhases.xsd"/>
-  <!--<xs:include schemaLocation="DelimitedColumn.xsd"/>-->
+  <xs:include schemaLocation="DelimitedRows.xsd"/>
+  <xs:include schemaLocation="FixedRows.xsd"/>
 
   <xs:annotation>
     <xs:documentation>
@@ -26,7 +28,8 @@
       <xs:sequence>
         <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
         <xs:element name="phases" type="phases" minOccurs="0" maxOccurs="1"/>
-        <!--<xs:element name="delimitedColumns" type="delimitedColumns" minOccurs="0" maxOccurs="1"/>-->
+        <xs:element name="delimitedRows" type="delimitedRows" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="fixedRows" type="fixedRows" minOccurs="0" maxOccurs="1"/>
         <xs:element name="eventPhases" type="eventPhases" minOccurs="0" maxOccurs="1"/>
         <xs:element name="saxPhases" type="saxPhases" minOccurs="0" maxOccurs="1"/>
         <xs:element name="splitters" type="splitters" minOccurs="1" maxOccurs="1"/>

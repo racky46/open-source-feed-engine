@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.locomobile.com/feedconfig"
+           xmlns="http://www.locomobile.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define fixed row descriptions.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="fixedRows">
+    <xs:annotation>
+      <xs:documentation>
+        The fixedFeed element is the parent element to all fixed feed specific elements.
+        Rows contains a set of row elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fixedRow" type="fixedRow" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="eolCharacter" type="xs:string" use="required"/>
+    <xs:attribute name="minusRowCount" type="xs:integer" use="required"/>
+    <!--<xs:attribute name="skipHeaderCount" type="xs:string" use="required"/>-->
+    <!--<xs:attribute name="skipFooterCount" type="xs:string" use="required"/>-->
+  </xs:complexType>
+
+  <xs:complexType name="fixedRow">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the attributes of a fixedRow.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="fixedColumn" type="fixedColumn" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="rowCount" type="xs:integer" use="optional"/>
+    <xs:attribute name="linesToSkip" type="xs:integer" use="optional"/>
+    <xs:attribute name="length" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="fixedColumn">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the attributes of a row.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="start" type="xs:integer" use="required"/>
+    <xs:attribute name="length" type="xs:integer" use="required"/>
+    <xs:attribute name="type" type="xs:string" use="required"/>
+    <xs:attribute name="format" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+</xs:schema>
