@@ -19,17 +19,11 @@ import static com.qagen.osfe.common.FeedConstants.FEED_JOB_STATE;
 import com.qagen.osfe.core.FeedJobManager;
 import com.qagen.osfe.core.cmdlnUtils.RejectFeed;
 import com.qagen.osfe.core.cmdlnUtils.RetryFeed;
-import com.qagen.osfe.dataAccess.context.DataAccessContext;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -41,23 +35,7 @@ import java.util.List;
  * <p/>
  * 2) Copy test data from testData module to you defined directory.
  */
-public class FailedFeedTest {
-
-  public void cleanDataTables() {
-    try {
-      final DataSource dataSource = (DataSource) DataAccessContext.getBean("dataSource");
-      final Connection con = dataSource.getConnection();
-      final Statement statement = con.createStatement();
-
-      statement.execute("truncate t_feed_phase_stats");
-      statement.execute("truncate t_checkpoint");
-      statement.execute("truncate t_feed_job");
-      statement.execute("truncate t_feed_file");
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
+public class FailedFeedTest extends FeedTestBase {
 
   private void runFeedEngine(String feedId, String feedFileName) {
     try {

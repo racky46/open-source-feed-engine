@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feedDocument>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
+        xmlns="http://www.osfe.com/feedconfig">
 
   <properties>
     <property name="delay" value="0"/>
@@ -74,4 +76,4 @@
     <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader"/>
   </configLoaders>
 
-</feedDocument>
+</config>

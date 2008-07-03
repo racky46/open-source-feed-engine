@@ -18,16 +18,47 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.sql.DataSource;
+
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * The DataAccessContext contains static methods that reference the Spring
+ * application context and reference Spring beans.
+ */
 public class DataAccessContext {
-  private static BeanFactory factory = null;
   private static ApplicationContext context = null;
 
-  public static Object getBean(String bean) {
+  /**
+   * Retrieves a reference to the Spring application context.
+   *
+   * @return reference to the Spring application context.
+   */
+  public static ApplicationContext getContext() {
     if (context == null) {
       context = new ClassPathXmlApplicationContext("applicationContext.xml");
-      factory = context;
     }
+    return context;
+  }
 
-    return factory.getBean(bean);
+  /**
+   * Retrieve a reference to a given Spring bean.
+   *
+   * @param name identifies the bean to reference.
+   *
+   * @return null if bean not identified.
+   */
+  public static Object getBean(String name) {
+    final BeanFactory factory = getContext();
+    return factory.getBean(name);
+  }
+
+  /**
+   * Retrieves a reference to the applicationContext datasouce.
+   *
+   * @return reference to the datasource.
+   */
+  public static DataSource getDataSource() {
+    return (DataSource) getBean("dataSource");
   }
 }
