@@ -1,0 +1,12 @@
+<beans xmlns="http://xfire.codehaus.org/config/1.0">
+  <service>
+    <name>MerchantRecommendationService</name>
+    <namespace>http://www.mallnetworks.com/MerchantRecommendations</namespace>
+    <serviceClass>com.qagen.osfe.webapp.service.MerchantRecommendations</serviceClass>
+    <implementationClass>com.qagen.osfe.webapp.service.</implementationClass>
+    <inHandlers>
+     <handler handlerClass="org.codehaus.xfire.demo.handlers.CheckVersionHandler" />
+    </inHandlers>
+  </service>
+</beans>
+
