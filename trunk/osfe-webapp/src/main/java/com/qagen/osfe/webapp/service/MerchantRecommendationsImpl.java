@@ -12,37 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.webapp.model;
+package com.qagen.osfe.webapp.service;
+
+import com.qagen.osfe.webapp.model.MerchantRecommendation;
 
 /**
  * Author: Gregg Bolinger
  * <p/>
  */
-public class MerchantRecommendation {
-  private String merchantId;
-  private String mechantName;
+public class MerchantRecommendationsImpl implements MerchantRecommendations {
+  public MerchantRecommendation[] getRecomendations(String userId, String merchantName) {
+    final MerchantRecommendation[] merchants = new MerchantRecommendation[3];
 
-  public MerchantRecommendation() {
+    merchants[0] = new MerchantRecommendation("4", "1-800-Flowers.com");
+    merchants[1] = new MerchantRecommendation("518", "39DollarGlasses.com");
+    merchants[3] = new MerchantRecommendation("561", "Acorn Online");
+
+    return merchants;
   }
 
-  public MerchantRecommendation(String merchantId, String mechantName) {
-    this.merchantId = merchantId;
-    this.mechantName = mechantName;
-  }
-
-  public String getMerchantId() {
-    return merchantId;
-  }
-
-  public void setMerchantId(String merchantId) {
-    this.merchantId = merchantId;
-  }
-
-  public String getMechantName() {
-    return mechantName;
-  }
-
-  public void setMechantName(String mechantName) {
-    this.mechantName = mechantName;
-  }
 }
