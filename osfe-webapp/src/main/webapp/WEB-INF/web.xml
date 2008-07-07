@@ -6,7 +6,6 @@
 
   <servlet>
      <servlet-name>XFireServlet</servlet-name>
-     <display-name>XFire Servlet</display-name>
      <servlet-class>
          org.codehaus.xfire.transport.http.XFireConfigurableServlet
      </servlet-class>
