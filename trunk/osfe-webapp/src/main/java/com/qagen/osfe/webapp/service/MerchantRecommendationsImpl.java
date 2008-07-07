@@ -28,9 +28,9 @@ public class MerchantRecommendationsImpl implements MerchantRecommendations {
   public MerchantRecommendation[] getRecommendations(String userId, String merchantName) {
     final MerchantRecommendation[] merchants = new MerchantRecommendation[3];
 
-    merchants[0] = new MerchantRecommendation("4", "1-800-Flowers.com");
-    merchants[1] = new MerchantRecommendation("518", "39DollarGlasses.com");
-    merchants[2] = new MerchantRecommendation("561", "Acorn Online");
+    merchants[0] = new MerchantRecommendation("EXPDIIA001", "expedia.com");
+    merchants[1] = new MerchantRecommendation("WALMRT001", "Wal-Mart");
+    merchants[2] = new MerchantRecommendation("123NJK001", "123Inkjets.com");
 
     return merchants;
   }
