@@ -8,6 +8,6 @@ import com.qagen.osfe.webapp.model.MerchantRecommendation;
  */
 public interface MerchantRecommendations {
 
-  public MerchantRecommendation[] getRecomendations(String userId, String merchantName);
+  public MerchantRecommendation[] getRecommendations(String userId, String merchantName);
 
 }

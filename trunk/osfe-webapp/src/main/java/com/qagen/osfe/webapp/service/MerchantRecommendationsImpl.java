@@ -16,19 +16,23 @@ package com.qagen.osfe.webapp.service;
 
 import com.qagen.osfe.webapp.model.MerchantRecommendation;
 
+import javax.jws.WebMethod;
+
 /**
  * Author: Gregg Bolinger
  * <p/>
  */
-public class MerchantRecommendationsImpl implements MerchantRecommendations { 
-  public MerchantRecommendation[] getRecomendations(String userId, String merchantName) {
-      final MerchantRecommendation[] merchants = new MerchantRecommendation[3];
+public class MerchantRecommendationsImpl implements MerchantRecommendations {
 
-      merchants[0] = new MerchantRecommendation("4","1-800-Flowers.com");
-      merchants[1] = new MerchantRecommendation("518","39DollarGlasses.com");
-      merchants[3] = new MerchantRecommendation("561","Acorn Online");
+  @WebMethod
+  public MerchantRecommendation[] getRecommendations(String userId, String merchantName) {
+    final MerchantRecommendation[] merchants = new MerchantRecommendation[3];
 
-      return merchants;
-    }
+    merchants[0] = new MerchantRecommendation("4", "1-800-Flowers.com");
+    merchants[1] = new MerchantRecommendation("518", "39DollarGlasses.com");
+    merchants[2] = new MerchantRecommendation("561", "Acorn Online");
+
+    return merchants;
+  }
 
 }
