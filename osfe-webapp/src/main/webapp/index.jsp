@@ -1,1 +1,1 @@
-<% response.sendRedirect("/app/action/home"); %>
+<% response.sendRedirect("/app/action/login"); %>
