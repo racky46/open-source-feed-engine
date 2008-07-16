@@ -66,9 +66,9 @@
       <webapp scanintervalseconds="2" warfile="src/main/webapp" contextpath="/app"
               webxmlfile="src/main/webapp/WEB-INF/web.xml">
         <classes dir="${common.module.dir}/classes"/>
-        <!--<classes dir="${core.module.dir}/classes"/>-->
-        <!--<classes dir="${dataAccess.module.dir}/classes"/>-->
-        <!--<classes dir="${engine.module.dir}/classes"/>-->
+        <classes dir="${core.module.dir}/classes"/>
+        <classes dir="${dataAccess.module.dir}/classes"/>
+        <classes dir="${engine.module.dir}/classes"/>
         <classes dir="${basedir}/src/main/webapp/WEB-INF/classes" />
         <scantargets dir="${basedir}/src/main/webapp/WEB-INF/classes"/>
         <lib dir="${deploy.lib.dir}"/>
