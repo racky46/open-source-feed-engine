@@ -67,4 +67,9 @@ public class FeedFileServiceImpl implements FeedFileService {
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId) {
     return feedFileDAO.findAllFailedFeedsForFeedId(feedId);
   }
+
+  @Transactional
+  public List<FeedFile> findAll() {
+    return feedFileDAO.findAll();
+  }
 }

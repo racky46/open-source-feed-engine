@@ -56,4 +56,9 @@ public class SqlMapFeedFileDAO extends SqlMapClientDaoSupport implements FeedFil
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId) {
     return getSqlMapClientTemplate().queryForList("FeedFile.findAllFailedFeedsForFeedId", feedId);
   }
+
+  @SuppressWarnings("unchecked")
+  public List<FeedFile> findAll() {
+    return getSqlMapClientTemplate().queryForList("FeedFile.findAll");    
+  }
 }
