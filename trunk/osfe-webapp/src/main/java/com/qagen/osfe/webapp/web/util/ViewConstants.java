@@ -37,5 +37,6 @@ public interface ViewConstants {
   public static final String MANAGEMENT_FORMS_HOME_VIEW = JSP_PATH + "auth/management_forms_home.jsp";
   public static final String QUERY_FORMS_HOME_VIEW = JSP_PATH + "auth/query_forms_home.jsp";
   public static final String SCHEDULING_FORMS_HOME_VIEW = JSP_PATH + "auth/scheduling_forms_home.jsp";
+  public static final String FEED_JOBS_VIEW = JSP_PATH + "auth/feed_jobs/list.jsp";
 
 }

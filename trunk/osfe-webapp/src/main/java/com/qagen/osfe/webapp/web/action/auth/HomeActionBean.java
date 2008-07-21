@@ -39,7 +39,7 @@ public class HomeActionBean extends BaseActionBean {
   }
 
   public Resolution queryFormsHome() {
-    return null;
+    return new ForwardResolution(QUERY_FORMS_HOME_VIEW);
   }
 
   public Resolution schedulingFormsHome() {
