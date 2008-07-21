@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.dao.ibatis;
 
 import com.qagen.osfe.dataAccess.dao.FeedJobDAO;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
@@ -46,5 +47,15 @@ public class SqlMapFeedJobDAO extends SqlMapClientDaoSupport implements FeedJobD
   @SuppressWarnings("unchecked")
   public List<FeedJob> findByFeedFileId(Integer feedFileId) {
     return getSqlMapClientTemplate().queryForList("FeedJob.findByFeedFileId", feedFileId);
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<FeedJob> findByActiveFailedJobStateId() {
+    return getSqlMapClientTemplate().queryForList("FeedJob.findByActiveFailedJobStateId");
+  }
+  
+  @SuppressWarnings("unchecked")
+  public List<FeedJob> findByActiveFailedJobStateIdWithLimit(LimitParam limitParam) {
+    return getSqlMapClientTemplate().queryForList("FeedJob.findByActiveFailedJobStateIdWithLimit", limitParam);
   }
 }

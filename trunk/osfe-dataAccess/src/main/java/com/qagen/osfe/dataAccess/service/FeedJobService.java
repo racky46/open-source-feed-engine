@@ -14,6 +14,7 @@
  */
 package com.qagen.osfe.dataAccess.service;
 
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface FeedJobService extends Service<FeedJob> {
   public FeedJob findByPrimaryId(Integer feedJobId);
 
   public List<FeedJob> findByFeedJobStateId(String stateId);
+
+  public List<FeedJob> findByActiveFailedJobStateId();
+
+  public List<FeedJob> findByActiveFailedJobStateIdWithLimit(LimitParam limitParam);
 
   public List<FeedJob> findByFeedFileId(Integer feedFileId);
 

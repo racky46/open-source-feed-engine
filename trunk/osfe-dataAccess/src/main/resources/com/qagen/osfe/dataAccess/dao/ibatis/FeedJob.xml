@@ -64,6 +64,27 @@
   <select id="findByFeedJobStateId" parameterClass="string" resultMap="FeedJob.resultMap">
     select * from t_feed_job where feed_job_state_id = #value#
   </select>
+  
+  <select id="findByActiveFailedJobStateId" resultMap="FeedJob.resultMap">
+    select * from t_feed_job where feed_job_state_id = 'active' or feed_job_state_id = 'failed' order by feed_job_state_id asc
+  </select>
+
+  <select id="findByActiveFailedJobStateIdWithLimit" resultMap="FeedJob.resultMap" parameterClass="com.qagen.osfe.dataAccess.param.LimitParam">
+    select
+      *
+    from
+      t_feed_job
+    where
+      feed_job_state_id = 'active'
+    or
+      feed_job_state_id = 'failed'
+    order by
+      feed_job_state_id
+      <isEqual property="sortOrder" compareValue="asc">ASC</isEqual>
+      <isEqual property="sortOrder" compareValue="desc">DESC</isEqual>
+    limit
+      #first#, #last#
+  </select>
 
   <select id="findByFeedFileId" parameterClass="int" resultMap="FeedJob.resultMap">
     select * from t_feed_job where feed_file_id = #value#
