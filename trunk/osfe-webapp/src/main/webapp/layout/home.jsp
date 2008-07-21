@@ -11,7 +11,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/common.js"></script>
     <script type="text/javascript">
       appContext = "${pageContext.request.contextPath}";
-    </script>    
+    </script>
     <s:layout-component name="html-head">
          ${headerStuff}
     </s:layout-component>
@@ -19,7 +19,7 @@
   <body>
     <s:layout-component name="header">
       <jsp:include page="_header.jsp" />
-      <hr />
+      <jsp:include page="home_menu.jsp" />
     </s:layout-component>
     <div id="content">
       <s:layout-component name="contents" />

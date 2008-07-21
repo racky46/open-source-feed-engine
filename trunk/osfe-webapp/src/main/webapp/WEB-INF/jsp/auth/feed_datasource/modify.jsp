@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<s:layout-render name="/layout/default.jsp" pageTitle="Add" beanclass="com.qagen.osfe.webapp.web.action.auth.ManageFeedDatasourcesActionBean">
+<s:layout-render name="/layout/management_forms.jsp" pageTitle="Add" beanclass="com.qagen.osfe.webapp.web.action.auth.ManageFeedDatasourcesActionBean">
   <s:layout-component name="contents">
     <div id="middleContents">
       <div class="outerBorder">
