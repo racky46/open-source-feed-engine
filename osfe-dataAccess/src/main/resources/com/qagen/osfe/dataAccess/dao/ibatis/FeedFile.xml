@@ -10,8 +10,8 @@
     <result property="feedFileId" column="feed_file_id"/>
     <result property="feedFileDate" column="feed_file_date"/>
     <result property="feedFileTime" column="feed_file_time"/>
-    <result property="recordProcessed" column="records_processed"/>
-    <result property="recordRejected" column="records_rejected"/>
+    <result property="recordsProcessed" column="records_processed"/>
+    <result property="recordsRejected" column="records_rejected"/>
     <result property="feedFileName" column="feed_file_name"/>
     <result property="feedDocument" column="feed_document"/>
     <result property="feed" column="feed_id" select="Feed.findByPrimaryId"/>
@@ -34,8 +34,8 @@
       #feedFileTime#,
       #feedFileName#,
       #feedDocument#,
-      #recordProcessed#,
-      #recordRejected#,
+      #recordsProcessed#,
+      #recordsRejected#,
       #feed.feedId#,
       #feedFileState.feedFileStateId#
     )
@@ -51,8 +51,8 @@
       feed_file_time = #feedFileTime#,
       feed_file_name = #feedFileName#,
       feed_document = #feedDocument#,
-      records_processed = #recordProcessed#,
-      records_rejected = #recordRejected#,
+      records_processed = #recordsProcessed#,
+      records_rejected = #recordsRejected#,
       feed_id = #feed.feedId#,
       feed_file_state_id = #feedFileState.feedFileStateId#
     where feed_file_id = #feedFileId#

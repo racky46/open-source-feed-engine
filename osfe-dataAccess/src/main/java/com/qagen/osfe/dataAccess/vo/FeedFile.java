@@ -32,8 +32,8 @@ public class FeedFile extends VO {
   private Integer feedFileId;
   private Date feedFileDate;
   private Time feedFileTime;
-  private Integer recordProcessed;
-  private Integer recordRejected;
+  private Integer recordsProcessed;
+  private Integer recordsRejected;
   private String feedFileName;
   private String feedDocument;
   private Feed feed;
@@ -67,20 +67,20 @@ public class FeedFile extends VO {
     this.feedFileTime = feedFileTime;
   }
 
-  public Integer getRecordProcessed() {
-    return recordProcessed;
+  public Integer getRecordsProcessed() {
+    return recordsProcessed;
   }
 
-  public void setRecordProcessed(Integer recordProcessed) {
-    this.recordProcessed = recordProcessed;
+  public void setRecordsProcessed(Integer recordsProcessed) {
+    this.recordsProcessed = recordsProcessed;
   }
 
-  public Integer getRecordRejected() {
-    return recordRejected;
+  public Integer getRecordsRejected() {
+    return recordsRejected;
   }
 
-  public void setRecordRejected(Integer recordRejected) {
-    this.recordRejected = recordRejected;
+  public void setRecordsRejected(Integer recordsRejected) {
+    this.recordsRejected = recordsRejected;
   }
 
   public String getFeedFileName() {
