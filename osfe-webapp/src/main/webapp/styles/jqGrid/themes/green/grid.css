@@ -58,7 +58,7 @@ table.scroll tr.over td{
 }
 
 	table.scroll tbody td  {
-	font-size: 90%;
+	font-size: 70%;
 	padding: 2px;
 	text-align: left;
 	border-bottom: 1px solid #3c964b;
@@ -70,12 +70,12 @@ table.scroll tr.over td{
 }
 	
 table.scroll thead th  {
-	font-size: 90%;
+	font-size: 70%;
 	padding: 2px;
 	border-bottom: 1px solid #3c964b; 
 	border-left: 1px solid #3c964b; 
-	text-align: left;
-	font-weight: normal;
+	text-align: center;
+	font-weight: bold;
 	overflow: hidden;
 	white-space: nowrap;
 	background-image: url(images/grid-blue-hd.gif);

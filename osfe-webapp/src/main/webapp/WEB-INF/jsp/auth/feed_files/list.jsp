@@ -5,17 +5,28 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/jqGrid/themes/green/grid.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/jqGrid/themes/jqModal.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/confirm.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/boxy.css"/>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/js/jqModal.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/js/jqDnR.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jqGrid/jquery.jqGrid.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jquery.simplemodal.js"></script>
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/feed_jobs_list.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/jquery.boxy.js"></script>
+
+    
+
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/feed_file_list.js"></script>
   </s:layout-component>
   <s:layout-component name="contents">
     <s:messages/>
-    <table id="feedJobsList" class="scroll" cellpadding="0" cellspacing="0"></table>
-    <div id="pager" class="scroll" style="text-align:center;margin-bottom: 5px;"></div>
+    <table id="feed_file_list" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <div id="pager" class="scroll" style="text-align:center;margin-bottom: 10px;"></div>
+
+    <table id="feed_file_list_detail" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <div id="pager_detail" class="scroll" style="text-align:center;"></div>
+    <div class="jqmWindow" id="ex2">
+      Please wait... <img src="inc/busy.gif" alt="loading" />
+    </div>
   </s:layout-component>
 </s:layout-render>
