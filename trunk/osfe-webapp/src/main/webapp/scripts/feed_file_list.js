@@ -25,14 +25,12 @@ $(function() {
       if (ids == null) {
         alert("Please select a row");
       } else {
+
+        jQuery('#detail_container').show();
         jQuery('#feed_file_list_detail').setGridParam({url:appContext + "/action/feed/files/details/" + ids}).setCaption("Feed File Details: " + ids).trigger('reloadGrid');
       }
     },
     loadComplete: function() {
-      //$('a[rel=stats]').click(function() {
-        //var id = this.id;
-        //jQuery(this).createDialog(appContext + '/action/feed/files/stats/' + id, false, "GET");
-      //});
       $('a[rel=stats]').boxy();
     }
   });

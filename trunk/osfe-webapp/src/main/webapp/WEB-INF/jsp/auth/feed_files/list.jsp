@@ -23,10 +23,9 @@
     <table id="feed_file_list" class="scroll" cellpadding="0" cellspacing="0"></table>
     <div id="pager" class="scroll" style="text-align:center;margin-bottom: 10px;"></div>
 
+    <div id="detail_container" style="display:none;">
     <table id="feed_file_list_detail" class="scroll" cellpadding="0" cellspacing="0"></table>
     <div id="pager_detail" class="scroll" style="text-align:center;"></div>
-    <div class="jqmWindow" id="ex2">
-      Please wait... <img src="inc/busy.gif" alt="loading" />
     </div>
   </s:layout-component>
 </s:layout-render>
