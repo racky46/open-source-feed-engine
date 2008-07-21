@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<s:layout-render name="/layout/home.jsp">
+<s:layout-render name="/layout/management_forms.jsp">
   <s:layout-component name="contents">
-    <p>Welcome to the OSFE Administration Console</p>
+    <p>Welcome to the OSFE Management Console</p>
     <p>
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut vel est. Proin nisi velit, elementum et, tempus gravida,
       dapibus sit amet, nibh. Integer turpis lacus, viverra quis, bibendum molestie, congue non, augue. Aliquam erat volutpat.

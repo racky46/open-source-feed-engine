@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<s:layout-render name="/layout/default.jsp" pageTitle="Add">
+<s:layout-render name="/layout/management_forms.jsp" pageTitle="Add">
 <s:layout-component name="html-head">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/ui.datepicker.css" />
   <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery/ui.datepicker.js"></script>

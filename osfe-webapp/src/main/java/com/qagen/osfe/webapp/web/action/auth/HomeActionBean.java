@@ -33,4 +33,17 @@ public class HomeActionBean extends BaseActionBean {
   public Resolution display() {
     return new ForwardResolution(HOME_VIEW);
   }
+
+  public Resolution managementFormsHome() {
+    return new ForwardResolution(MANAGEMENT_FORMS_HOME_VIEW);
+  }
+
+  public Resolution queryFormsHome() {
+    return null;
+  }
+
+  public Resolution schedulingFormsHome() {
+    return null;
+  }
+
 }
