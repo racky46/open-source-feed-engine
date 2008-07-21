@@ -21,6 +21,8 @@ package com.qagen.osfe.dataAccess.param;
 public class LimitParam {
   private final Integer first;
   private final Integer last;
+  private String order;
+  private String sortOrder;
 
   public LimitParam(Integer first, Integer last) {
     this.first = first;
@@ -33,5 +35,21 @@ public class LimitParam {
 
   public Integer getLast() {
     return last;
+  }
+
+  public String getOrder() {
+    return order;
+  }
+
+  public void setOrder(String order) {
+    this.order = order;
+  }
+
+  public String getSortOrder() {
+    return sortOrder;
+  }
+
+  public void setSortOrder(String sortOrder) {
+    this.sortOrder = sortOrder;
   }
 }

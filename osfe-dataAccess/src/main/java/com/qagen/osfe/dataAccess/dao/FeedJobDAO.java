@@ -14,6 +14,7 @@
  */
 package com.qagen.osfe.dataAccess.dao;
 
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 import java.util.List;
@@ -21,6 +22,10 @@ import java.util.List;
 public interface FeedJobDAO extends DAO<FeedJob> {
 
   public List<FeedJob> findByFeedJobStateId(String stateId);
+
+  public List<FeedJob> findByActiveFailedJobStateId();
+
+  public List<FeedJob> findByActiveFailedJobStateIdWithLimit(LimitParam limitParam);
 
   public List<FeedJob> findByFeedFileId(Integer feedFileId);
 }

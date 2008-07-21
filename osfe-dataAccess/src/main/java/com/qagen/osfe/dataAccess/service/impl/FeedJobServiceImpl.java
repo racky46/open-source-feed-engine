@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service.impl;
 
 import com.qagen.osfe.dataAccess.dao.FeedJobDAO;
+import com.qagen.osfe.dataAccess.param.LimitParam;
 import com.qagen.osfe.dataAccess.service.FeedJobService;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,4 +59,12 @@ public class FeedJobServiceImpl implements FeedJobService {
     return feedJobDAO.findByFeedFileId(feedFileId);
   }
 
+  public List<FeedJob> findByActiveFailedJobStateId() {
+    return feedJobDAO.findByActiveFailedJobStateId();
+  }
+
+  @Transactional
+  public List<FeedJob> findByActiveFailedJobStateIdWithLimit(LimitParam limitParam) {
+    return feedJobDAO.findByActiveFailedJobStateIdWithLimit(limitParam);
+  }
 }
