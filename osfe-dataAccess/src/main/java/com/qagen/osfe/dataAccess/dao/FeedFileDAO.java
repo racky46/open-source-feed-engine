@@ -28,4 +28,6 @@ public interface FeedFileDAO extends DAO<FeedFile> {
 
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId);
 
+  public List<FeedFile> findAll();
+
 }
