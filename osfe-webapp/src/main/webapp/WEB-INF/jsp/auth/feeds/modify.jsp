@@ -66,11 +66,11 @@
               </tr>
               <tr>
                 <td><s:label for="feed.feedDirectory"/></td>
-                <td><s:text name="feed.feedDirectory"/></td>
+                <td><s:text class="wide" name="feed.feedDirectory"/></td>
               </tr>
               <tr>
                 <td><s:label for="feed.feedDocument"/></td>
-                <td><s:text name="feed.feedDocument"/></td>
+                <td><s:text class="wide" name="feed.feedDocument"/></td>
               </tr>
               <tr>
                 <td><s:label for="feed.fromDataSource"/> </td>
