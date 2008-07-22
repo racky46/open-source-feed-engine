@@ -2,4 +2,4 @@
 
 = Web Console Screen Shots =
 
-* [http://www.qagen.com/images/osfe/webconsole/ Login Form]
+* [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Login.png Login Form]
