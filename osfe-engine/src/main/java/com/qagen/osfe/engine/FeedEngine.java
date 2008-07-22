@@ -14,7 +14,7 @@
  */
 package com.qagen.osfe.engine;
 
-public class FeedEngine extends AbstractFeedEngine {
+public class FeedEngine extends AbstractFeedEngine implements Runnable {
   public FeedEngine(String feedId, String feedFileName) {
     super(feedId, feedFileName);
   }
@@ -26,4 +26,18 @@ public class FeedEngine extends AbstractFeedEngine {
     runMainService();
   }
 
+  /**
+   * When an object implementing interface <code>Runnable</code> is used
+   * to create a thread, starting the thread causes the object's
+   * <code>run</code> method to be called in that separately executing
+   * thread.
+   * <p/>
+   * The general contract of the method <code>run</code> is that it may
+   * take any action whatsoever.
+   *
+   * @see Thread#run()
+   */
+  public void run() {
+    execute();
+  }
 }
