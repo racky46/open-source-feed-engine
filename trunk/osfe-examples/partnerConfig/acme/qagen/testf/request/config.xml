@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<fixedConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
         xmlns="http://www.osfe.com/feedconfig">
 
@@ -76,4 +76,4 @@
     <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.fixed.FixedRowDescriptionLoader"/>
   </configLoaders>
 
-</config>
+</fixedConfig>

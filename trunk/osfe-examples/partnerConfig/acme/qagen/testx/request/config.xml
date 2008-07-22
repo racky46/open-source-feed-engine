@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saxConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
+        xmlns="http://www.osfe.com/feedconfig">
+
+  <properties>
+    <property name="delay" value="0"/>
+  </properties>
+
+  <saxPhases>
+    <preFeedFilePhases>
+      <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+    </preFeedFilePhases>
+
+    <saxEventPhases>
+      <saxEventPhase nameSpace="/config/channel" event="onEnd">
+        <phases>
+          <phase name="headerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.HeaderPhase"/>
+        </phases>
+      </saxEventPhase>
+
+      <saxEventPhase nameSpace="/config/channel" event="onEnd">
+        <phases>
+          <phase name="rssBeanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.RssBeanPopulatorPhase"/>
+          <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
+            <properties>
+              <property name="echoDetail" value="false"/>
+            </properties>
+          </phase>
+          <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckpointPhase">
+            <properties>
+              <property name="checkpointEvery" value="10000"/>
+            </properties>
+          </phase>
+        </phases>
+      </saxEventPhase>
+    </saxEventPhases>
+
+    <postEventPhases>
+      <phase name="statsPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+    </postEventPhases>
+  </saxPhases>
+
+  <services>
+    <service name="mainService" className="com.qagen.osfe.core.services.StandardFeedLifeCycleService"/>
+    <service name="phaseService" className="com.qagen.osfe.core.services.PhaseLoaderService"/>
+    <service name="exceptionService" className="com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder"/>
+    <service name="checkpointService" className="com.qagen.osfe.core.services.CheckpointPlaceHolder"/>
+  </services>
+
+  <configLoaders>
+    <configLoader name="propertyLoader" className="com.qagen.osfe.core.loaders.PropertiesConfigLoader"/>
+    <configLoader name="phaseLoader" className="com.qagen.osfe.core.loaders.PhaseConfigLoader"/>
+    <configLoader name="serviceLoader" className="com.qagen.osfe.core.loaders.ServiceConfigLoader"/>
+    <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader"/>
+  </configLoaders>
+
+</saxConfig>

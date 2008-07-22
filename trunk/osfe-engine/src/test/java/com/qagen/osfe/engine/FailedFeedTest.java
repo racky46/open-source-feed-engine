@@ -48,8 +48,8 @@ public class FailedFeedTest extends FeedTestBase {
 
   @Test
   public void failedFeedTest() {
-    final String feedId = "acme_qagen_test_request";
-    final String feedFileName = "acme_qagen_test_request_20080403134506.txt";
+    final String feedId = "acme_qagen_testd_request";
+    final String feedFileName = "acme_qagen_testd_request_20080403134506.txt";
     final FeedJobManager jobManager = new FeedJobManager();
 
     cleanDataTables();

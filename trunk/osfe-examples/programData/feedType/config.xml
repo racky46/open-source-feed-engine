@@ -8,12 +8,16 @@
     </columns>
     <rows>
       <row>
-        <feed_type_id>test</feed_type_id>
-        <description>Feeds that contain course information</description>
+        <feed_type_id>testd</feed_type_id>
+        <description>Test Delimited Feed File</description>
       </row>
       <row>
         <feed_type_id>testf</feed_type_id>
-        <description>Fixed feeds that contain course information</description>
+        <description>Test Fixed Feed File</description>
+      </row>
+      <row>
+        <feed_type_id>testx</feed_type_id>
+        <description>Test Complex XML Feed File</description>
       </row>
       <row>
         <feed_type_id>student</feed_type_id>
