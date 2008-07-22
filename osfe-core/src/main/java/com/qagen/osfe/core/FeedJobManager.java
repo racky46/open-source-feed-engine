@@ -240,8 +240,8 @@ public class FeedJobManager {
    */
   private void updateFeedFileStats(FeedFile feedFile, EngineContext context) {
     if (context != null) {
-      feedFile.setRecordProcessed(context.getProcessedRowCount());
-      feedFile.setRecordRejected(context.getRejectedRowCount());
+      feedFile.setRecordsProcessed(context.getProcessedRowCount());
+      feedFile.setRecordsRejected(context.getRejectedRowCount());
     }
   }
 
