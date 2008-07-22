@@ -21,18 +21,31 @@ import org.testng.annotations.Test;
  * <p/>
  */
 public class FixedFeedEngineTest extends FeedTestBase {
+  private Boolean clearFirst;
+
+  public FixedFeedEngineTest(Boolean clearFirst) {
+    this.clearFirst = clearFirst;
+  }
 
   public void runTest() {
     final String feedId = "acme_qagen_testf_request";
     final String feedFile = "acme_qagen_testf_request_20080617010641.txt";
 
-    setup(feedId);
+    if (clearFirst) {
+      setup(feedId);
+    }
+    
     final FeedEngine engine = new FeedEngine(feedId, feedFile);
     engine.execute();
   }
 
   public static void main(String[] args) {
-    final FixedFeedEngineTest test = new FixedFeedEngineTest();
+    if (args.length < 1) {
+      System.err.println("Usage: FixedFeedEngineTest clearFirst");
+      System.err.println("Example: FixedFeedEngineTest true");
+    }
+
+    final FixedFeedEngineTest test = new FixedFeedEngineTest(Boolean.parseBoolean(args[0]));
 
     test.runTest();
   }
