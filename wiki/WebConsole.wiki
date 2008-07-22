@@ -1,4 +1,4 @@
-# Web Console Screen Shots.
+#summary Web Console Screen Shots.
 
 = Web Console Screen Shots =
 
