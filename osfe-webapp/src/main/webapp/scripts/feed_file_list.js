@@ -61,5 +61,17 @@ $(function() {
     height: 150
   });
 
+  jQuery(function() {
+    jQuery('#dateFilter').datepicker({showOn:'button', buttonImage: appContext + '/images/calendar.gif', buttonImageOnly:true});
+  });
+
+  jQuery('#filterImg').click(function() {
+    //jQuery.post(jQuery('#filterForm')[0].action, { filterResults: "", stateFilter: jQuery('#stateFilter').val(), dateFilter: jQuery('#dateFilter').val() } );
+    var action = jQuery('#filterForm')[0].action;
+    jQuery('#feed_file_list').setGridParam({url:appContext + "/action/feed/files/filterResults" + "?stateFilter=" + jQuery('#stateFilter').val() + "&dateFilter=" + escape(jQuery('#dateFilter').val())}).trigger('reloadGrid');
+
+  });
+
+
 
 });

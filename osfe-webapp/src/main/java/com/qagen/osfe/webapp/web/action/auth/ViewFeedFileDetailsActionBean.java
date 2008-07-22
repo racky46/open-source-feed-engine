@@ -16,9 +16,11 @@ package com.qagen.osfe.webapp.web.action.auth;
 
 import com.qagen.osfe.common.RoleConstants;
 import com.qagen.osfe.dataAccess.service.FeedFileService;
+import com.qagen.osfe.dataAccess.service.FeedFileStateService;
 import com.qagen.osfe.dataAccess.service.FeedJobService;
 import com.qagen.osfe.dataAccess.service.FeedPhaseStatsService;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
+import com.qagen.osfe.dataAccess.vo.FeedFileState;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
 import com.qagen.osfe.webapp.model.JqGridJsonModel;
@@ -27,11 +29,13 @@ import com.qagen.osfe.webapp.web.action.BaseActionBean;
 import com.qagen.osfe.webapp.web.security.Secure;
 import flexjson.JSONSerializer;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,10 +50,14 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
   private FeedFileService feedFileService;
   private FeedJobService feedJobService;
   private FeedPhaseStatsService statsService;
+  private FeedFileStateService stateService;
   private Integer page = 1;
   private Integer rows = 10;
   private String sidx = "feedJobId";
   private String sord = "asc";
+  private List<FeedFileState> stateList;
+  private Date dateFilter;
+  private String stateFilter;
 
   public FeedFile getFeedFile() {
     return feedFile;
@@ -73,6 +81,13 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
   public void setStatsService(FeedPhaseStatsService statsService) {
     this.statsService = statsService;
   }
+
+  @SpringBean(FeedFileStateService.SERVICE_ID)
+  public void setStateService(FeedFileStateService stateService) {
+    this.stateService = stateService;
+  }
+
+
 
   public Integer getPage() {
     return page;
@@ -104,6 +119,26 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
 
   public void setSord(String sord) {
     this.sord = sord;
+  }
+
+  public List<FeedFileState> getStateList() {
+    return stateList;
+  }
+
+  public Date getDateFilter() {
+    return dateFilter;
+  }
+
+  public void setDateFilter(Date dateFilter) {
+    this.dateFilter = dateFilter;
+  }
+
+  public String getStateFilter() {
+    return stateFilter;
+  }
+
+  public void setStateFilter(String stateFilter) {
+    this.stateFilter = stateFilter;
   }
 
   @DefaultHandler
@@ -239,7 +274,55 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
     return new ForwardResolution("/WEB-INF/jsp/auth/feed_files/stats.jsp");
   }
 
+  public Resolution filterResults() {
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+    if (stateFilter.equalsIgnoreCase("ALL") && dateFilter == null) {
+      return list();
+    }
+    if (dateFilter == null) {
+
+    List<FeedFile> feedFileList = feedFileService.findByFeedFileState(stateFilter);
+    JqGridJsonModel json = new JqGridJsonModel();
+    json.setPage(String.valueOf(1));
+    json.setRecords(String.valueOf(10));
+    json.setTotal(((int) 10));
+
+    List<JqGridRow> rows = new ArrayList<JqGridRow>();
+    for (FeedFile feedFile : feedFileList) {
+      JqGridRow row = new JqGridRow();
+      row.setId(String.valueOf(feedFile.getFeedFileId()));
+      List<String> cells = new ArrayList<String>();
+      cells.add(String.valueOf(feedFile.getFeedFileId()));
+      cells.add(String.valueOf(feedFile.getFeed().getFeedId()));
+      cells.add(feedFile.getFeedFileName());
+      cells.add(sdf.format(feedFile.getFeedFileDate()));
+      cells.add(feedFile.getFeedFileTime().toString());
+      cells.add(feedFile.getFeedFileState().getFeedFileStateId());
+      cells.add("<a href='/app/action/feed/files/stats/" + feedFile.getFeedFileId() + "' rel='stats'>View Stats</a>");
+      row.setCell(cells);
+      rows.add(row);
+    }
+    json.setRows(rows);
+
+    JSONSerializer serializer = new JSONSerializer();
+    String jsonResult = serializer.exclude("*.class").deepSerialize(json);
+    return new StreamingResolution("text/javascript", new StringReader(jsonResult));
+    }else{
+      return null;
+    }
+  }
+
+
+
+
+
+
   public List<FeedPhaseStats> getStatsList() {
     return statsService.findByFeedFileId(feedFile.getFeedFileId());
+  }
+
+  @After(stages = {LifecycleStage.BindingAndValidation})
+  public void initLists() {
+    this.stateList = stateService.findAll();
   }
 }
