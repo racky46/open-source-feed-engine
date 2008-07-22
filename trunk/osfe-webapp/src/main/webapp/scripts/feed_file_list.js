@@ -5,12 +5,12 @@ $(function() {
     colNames:['Feed File ID','Feed ID', 'Feed File Name', 'Date', 'Time', 'State', 'Action'],
     colModel:[
       {name:'feedFile.feedFileId',index:'feedJob.feedJobId',width:80,sortable:false},
-      {name:'feedFile.feed.feedId',index:'feedFile.feed.feedId',width:120,sortable:false},
-      {name:'feedFile.feedFileName',index:'feedFile.feedFileName',width:220,sortable:false},
-      {name:'feedFile.feedFileDate',index:'feedFile.feedFileDate',width:65,sortable:false},
-      {name:'feedFile.feedFileTime',index:'feedFile.feedFileTime',width:65,sortable:false},
-      {name:'feedFile.feedFileState.feedFileStateId',index:'feedFile.feedFileState.feedFileStateId',width:80,sortable:false},
-      {name:'action', index:'action', width:110,sortable:false,search:false}
+      {name:'feedFile.feed.feedId',index:'feedFile.feed.feedId',width:130,sortable:false},
+      {name:'feedFile.feedFileName',index:'feedFile.feedFileName',width:270,sortable:false},
+      {name:'feedFile.feedFileDate',index:'feedFile.feedFileDate',width:60,sortable:false},
+      {name:'feedFile.feedFileTime',index:'feedFile.feedFileTime',width:60,sortable:false},
+      {name:'feedFile.feedFileState.feedFileStateId',index:'feedFile.feedFileState.feedFileStateId',width:60,sortable:false},
+      {name:'action', index:'action', width:80,sortable:false,search:false}
     ],
     caption: 'Feed File List',
     rowNum: 10,
