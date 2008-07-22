@@ -14,12 +14,11 @@
  */
 package com.qagen.osfe.dataAccess.vo;
 
+import com.qagen.osfe.common.utils.RoundingHelper;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.qagen.osfe.common.utils.RoundingHelper;
 
 /**
  * Author: Hycel Taylor
@@ -68,7 +67,7 @@ public class FeedPhaseStats extends VO {
   }
 
   public void setAvgProcessingTime(Double avgProcessingTime) {
-    this.avgProcessingTime = RoundingHelper.round(avgProcessingTime, 4);
+    this.avgProcessingTime = avgProcessingTime;//RoundingHelper.round(avgProcessingTime, 4);
   }
 
   public Integer getIterationCount() {
@@ -101,6 +100,10 @@ public class FeedPhaseStats extends VO {
 
   public void setTotalTimeInMs(Long totalTimeInMs) {
     this.totalTimeInMs = totalTimeInMs;
+  }
+
+  public Double getRoundedAvgProcessingTime() {
+    return RoundingHelper.round(getAvgProcessingTime(), 4);    
   }
 
   @Override
