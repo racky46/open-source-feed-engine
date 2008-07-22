@@ -13,3 +13,6 @@
        * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-Edit.png Edit a Feed Type]
      * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-List.png View Feed Definitions]
        * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-Edit.png Edit a Feed Definition]
+   * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Query-MainMenu.png Query Main Menu]
+     * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedFile-List.png Query Feed Files]
+     * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-View-Stats.png View Phase Statistics]
