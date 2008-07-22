@@ -8,10 +8,8 @@
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-List.png View  Datasources]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-Edit.png Edit a Datasource]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-List.png View Feed Groups]
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-Edit.png Edit a Feed Group.
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-
+ * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-Edit.png Edit a Feed Group]
+ * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-List.png View Feed Types]
+ * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-Edit.png Edit a Feed Type]
+ * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-List.png View Feed Definitions]
+ * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-Edit.png Edit a Feed Definition]
