@@ -6,7 +6,7 @@
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-MainMenu.png Main Menu] 
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-AdminMainMenu.png Administration Main Menu]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-List.png View  Datasources]
- * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-Edit.png Edit a Datasource]
+   * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-Edit.png Edit a Datasource]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-List.png View Feed Groups]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-Edit.png Edit a Feed Group]
  * [http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-List.png View Feed Types]
