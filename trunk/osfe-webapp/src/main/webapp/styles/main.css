@@ -15,9 +15,12 @@ input[type=text],input[type=password] {
 }
 
 .wide {
-  width:300px !important;;  
+  width:300px !important;
 }
 
+#filterTable {
+  font-size:11px;
+}
 #content {
   width: 100%;
   margin: 0;
