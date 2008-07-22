@@ -18,6 +18,7 @@ import com.qagen.osfe.dataAccess.dao.FeedFileDAO;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
+import java.util.Date;
 import java.util.List;
 
 public class SqlMapFeedFileDAO extends SqlMapClientDaoSupport implements FeedFileDAO {
@@ -60,5 +61,15 @@ public class SqlMapFeedFileDAO extends SqlMapClientDaoSupport implements FeedFil
   @SuppressWarnings("unchecked")
   public List<FeedFile> findAll() {
     return getSqlMapClientTemplate().queryForList("FeedFile.findAll");    
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<FeedFile> findByFeedFileState(String feedFileStateId) {
+    return getSqlMapClientTemplate().queryForList("FeedFile.findByFeedFileState", feedFileStateId);
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<FeedFile> findByFeedFileStateAndDate(String feedFileStateId, Date date) {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 }

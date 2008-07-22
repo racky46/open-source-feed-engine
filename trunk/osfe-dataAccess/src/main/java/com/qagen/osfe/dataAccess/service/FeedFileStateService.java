@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public interface FeedFileStateService extends Service<FeedFileState> {
-  public static final String SERVICE_ID = "feedFileState";
+  public static final String SERVICE_ID = "feedFileStateService";
 
   public List<FeedFileState> findAll();
 }

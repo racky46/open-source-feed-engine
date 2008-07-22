@@ -33,5 +33,7 @@ public interface FeedFileService extends Service<FeedFile> {
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId);
 
   public List<FeedFile> findAll();
+
+  public List<FeedFile> findByFeedFileState(String feedFileStateId);
   
 }
