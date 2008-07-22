@@ -10,7 +10,7 @@ $(function() {
       {name:'feedFile.feedFileDate',index:'feedFile.feedFileDate',width:100,sortable:false},
       {name:'feedFile.feedFileTime',index:'feedFile.feedFileTime',width:100,sortable:false},
       {name:'feedFile.feedFileState.feedFileStateId',index:'feedFile.feedFileState.feedFileStateId',width:110,sortable:false},
-      {name:'action', index:'action', width:110,sortable:false}
+      {name:'action', index:'action', width:110,sortable:false,search:false}
     ],
     caption: 'Feed File List',
     rowNum: 10,
@@ -33,7 +33,7 @@ $(function() {
     loadComplete: function() {
       $('a[rel=stats]').boxy();
     }
-  });
+  }).navGrid('#pager',{edit:false, add:false, del:false},{},{},{},{sopt:['bw','eq','ew','cn']});
 
   $('#feed_file_list_detail').jqGrid({
     url: appContext + '/action/feed/files/details/0',
