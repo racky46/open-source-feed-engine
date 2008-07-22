@@ -4,27 +4,27 @@
   <table name="t_feed_group">
     <columns>
       <column name="feed_group_id" isString="true"/>
-      <column name="allow_concurrent_runs" isString="true"/>
-      <column name="allow_failed_state_runs" isString="true"/>
+      <column name="allow_concurrent_runs" isString="false"/>
+      <column name="allow_failed_state_runs" isString="false"/>
       <column name="collect_phase_stats" isString="false"/>
     </columns>
     <rows>
       <row>
         <feed_group_id>test_group</feed_group_id>
-        <allow_concurrent_runs>true</allow_concurrent_runs>
-        <allow_failed_state_runs>true</allow_failed_state_runs>
+        <allow_concurrent_runs>1</allow_concurrent_runs>
+        <allow_failed_state_runs>1</allow_failed_state_runs>
         <collect_phase_stats>1</collect_phase_stats>
       </row>
       <row>
         <feed_group_id>student_group</feed_group_id>
-        <allow_concurrent_runs>true</allow_concurrent_runs>
-        <allow_failed_state_runs>true</allow_failed_state_runs>
+        <allow_concurrent_runs>0</allow_concurrent_runs>
+        <allow_failed_state_runs>1</allow_failed_state_runs>
         <collect_phase_stats>1</collect_phase_stats>
       </row>
       <row>
         <feed_group_id>product_group</feed_group_id>
-        <allow_concurrent_runs>true</allow_concurrent_runs>
-        <allow_failed_state_runs>true</allow_failed_state_runs>
+        <allow_concurrent_runs>1</allow_concurrent_runs>
+        <allow_failed_state_runs>1</allow_failed_state_runs>
         <collect_phase_stats>1</collect_phase_stats>
       </row>
     </rows>

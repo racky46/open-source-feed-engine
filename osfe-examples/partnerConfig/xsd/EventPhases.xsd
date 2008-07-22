@@ -21,7 +21,7 @@
     <xs:sequence>
       <xs:element name="preFeedFilePhases" type="preFeedFilePhases" minOccurs="1" maxOccurs="1"/>
       <xs:element name="preEventPhases" type="preEventPhases" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="batchEventPhases" type="batchEvenPhases" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="batchEventPhases" type="batchEventPhases" minOccurs="1" maxOccurs="1"/>
       <xs:element name="postEventPhases" type="postEventPhases" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="batchSize" type="xs:int" use="required"/>
@@ -49,7 +49,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="batchEvenPhases">
+  <xs:complexType name="batchEventPhases">
     <xs:annotation>
       <xs:documentation>
         Defines a set of phase's.

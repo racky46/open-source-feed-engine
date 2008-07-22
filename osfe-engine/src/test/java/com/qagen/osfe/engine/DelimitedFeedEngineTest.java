@@ -28,7 +28,7 @@ public class DelimitedFeedEngineTest extends FeedTestBase {
   }
 
   public void runTest() {
-    final String feedId = "acme_qagen_test_request";
+    final String feedId = "acme_qagen_testd_request";
 
     if (clearFirst) {
       setup(feedId);
@@ -36,16 +36,16 @@ public class DelimitedFeedEngineTest extends FeedTestBase {
 
     final String feedFiles[] =
       {
-        "acme_qagen_test_request_20080420050424.txt",
-        "acme_qagen_test_request_20080420050419.txt",
-        "acme_qagen_test_request_20080420050432.txt",
-        "acme_qagen_test_request_20080420050436.txt",
-        "acme_qagen_test_request_20080420050448.txt",
-        "acme_qagen_test_request_20080420050449.txt",
-        "acme_qagen_test_request_20080420050451.txt",
-        "acme_qagen_test_request_20080420050454.txt",
-        "acme_qagen_test_request_20080420060449.txt",
-        "acme_qagen_test_request_20080617010641.txt"
+        "acme_qagen_testd_request_20080420050424.txt",
+        "acme_qagen_testd_request_20080420050419.txt",
+        "acme_qagen_testd_request_20080420050432.txt",
+        "acme_qagen_testd_request_20080420050436.txt",
+        "acme_qagen_testd_request_20080420050448.txt",
+        "acme_qagen_testd_request_20080420050449.txt",
+        "acme_qagen_testd_request_20080420050451.txt",
+        "acme_qagen_testd_request_20080420050454.txt",
+        "acme_qagen_testd_request_20080420060449.txt",
+        "acme_qagen_testd_request_20080617010641.txt"
       };
 
     for (String feedFile : feedFiles) {
