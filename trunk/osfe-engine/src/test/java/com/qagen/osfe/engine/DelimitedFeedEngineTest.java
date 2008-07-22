@@ -21,18 +21,46 @@ import org.testng.annotations.Test;
  * <p/>
  */
 public class DelimitedFeedEngineTest extends FeedTestBase {
+  private Boolean clearFirst;
+
+  public DelimitedFeedEngineTest(Boolean clearFirst) {
+    this.clearFirst = clearFirst;
+  }
 
   public void runTest() {
     final String feedId = "acme_qagen_test_request";
-    final String feedFile = "acme_qagen_test_request_20080420050424.txt";
 
-    setup(feedId);
-    final FeedEngine engine = new FeedEngine(feedId, feedFile);
-    engine.execute();
+    if (clearFirst) {
+      setup(feedId);
+    }
+
+    final String feedFiles[] =
+      {
+        "acme_qagen_test_request_20080420050424.txt",
+        "acme_qagen_test_request_20080420050419.txt",
+        "acme_qagen_test_request_20080420050432.txt",
+        "acme_qagen_test_request_20080420050436.txt",
+        "acme_qagen_test_request_20080420050448.txt",
+        "acme_qagen_test_request_20080420050449.txt",
+        "acme_qagen_test_request_20080420050451.txt",
+        "acme_qagen_test_request_20080420050454.txt",
+        "acme_qagen_test_request_20080420060449.txt",
+        "acme_qagen_test_request_20080617010641.txt"
+      };
+
+    for (String feedFile : feedFiles) {
+      final Thread thread = new Thread(new FeedEngine(feedId, feedFile));
+      thread.start();
+    }
   }
 
   public static void main(String[] args) {
-    final DelimitedFeedEngineTest test = new DelimitedFeedEngineTest();
+    if (args.length < 1) {
+      System.err.println("Usage: DelimitedFeedEngineTest clearFirst");
+      System.err.println("Example: DelimitedFeedEngineTest true");
+    }
+
+    final DelimitedFeedEngineTest test = new DelimitedFeedEngineTest(Boolean.parseBoolean(args[0]));
 
     test.runTest();
   }
