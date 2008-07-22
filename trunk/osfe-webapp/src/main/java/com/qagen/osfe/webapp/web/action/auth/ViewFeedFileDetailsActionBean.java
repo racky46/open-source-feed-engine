@@ -148,8 +148,6 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
   }
 
   public Resolution list() {
-    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-    List<FeedFile> feedFileList = feedFileService.findAll();
 
 //    double val = 0;
 //    double totalPages = 0;
@@ -167,31 +165,8 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
 //    limitParam.setSortOrder(getSord());
 //    feedJobList = feedJobService.findByActiveFailedJobStateIdWithLimit(limitParam);
 
-    JqGridJsonModel json = new JqGridJsonModel();
-    json.setPage(String.valueOf(1));
-    json.setRecords(String.valueOf(10));
-    json.setTotal(((int) 10));
-
-    List<JqGridRow> rows = new ArrayList<JqGridRow>();
-    for (FeedFile feedFile : feedFileList) {
-      JqGridRow row = new JqGridRow();
-      row.setId(String.valueOf(feedFile.getFeedFileId()));
-      List<String> cells = new ArrayList<String>();
-      cells.add(String.valueOf(feedFile.getFeedFileId()));
-      cells.add(String.valueOf(feedFile.getFeed().getFeedId()));
-      cells.add(feedFile.getFeedFileName());
-      cells.add(sdf.format(feedFile.getFeedFileDate()));
-      cells.add(feedFile.getFeedFileTime().toString());
-      cells.add(feedFile.getFeedFileState().getFeedFileStateId());
-      cells.add("<a href='/app/action/feed/files/stats/" + feedFile.getFeedFileId() + "' rel='stats'>View Stats</a>");
-      row.setCell(cells);
-      rows.add(row);
-    }
-    json.setRows(rows);
-
-    JSONSerializer serializer = new JSONSerializer();
-    String jsonResult = serializer.exclude("*.class").deepSerialize(json);
-    return new StreamingResolution("text/javascript", new StringReader(jsonResult));
+    //List<FeedFile> feedFileList = feedFileService.findAll();
+    return new StreamingResolution("text/javascript", new StringReader(buildJsonResults(feedFileService.findAll())));
   }
 
   public Resolution details() {
@@ -275,71 +250,16 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
   }
 
   public Resolution filterResults() {
-    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
     if (stateFilter.equalsIgnoreCase("ALL") && dateFilter == null) {
       return list();
     } else if (dateFilter == null) {
-
-      List<FeedFile> feedFileList = feedFileService.findByFeedFileState(stateFilter);
-      JqGridJsonModel json = new JqGridJsonModel();
-      json.setPage(String.valueOf(1));
-      json.setRecords(String.valueOf(10));
-      json.setTotal(((int) 10));
-
-      List<JqGridRow> rows = new ArrayList<JqGridRow>();
-      for (FeedFile feedFile : feedFileList) {
-        JqGridRow row = new JqGridRow();
-        row.setId(String.valueOf(feedFile.getFeedFileId()));
-        List<String> cells = new ArrayList<String>();
-        cells.add(String.valueOf(feedFile.getFeedFileId()));
-        cells.add(String.valueOf(feedFile.getFeed().getFeedId()));
-        cells.add(feedFile.getFeedFileName());
-        cells.add(sdf.format(feedFile.getFeedFileDate()));
-        cells.add(feedFile.getFeedFileTime().toString());
-        cells.add(feedFile.getFeedFileState().getFeedFileStateId());
-        cells.add("<a href='/app/action/feed/files/stats/" + feedFile.getFeedFileId() + "' rel='stats'>View Stats</a>");
-        row.setCell(cells);
-        rows.add(row);
-      }
-      json.setRows(rows);
-
-      JSONSerializer serializer = new JSONSerializer();
-      String jsonResult = serializer.exclude("*.class").deepSerialize(json);
-      return new StreamingResolution("text/javascript", new StringReader(jsonResult));
-    } else{
-
-      sdf = new SimpleDateFormat("yyyy-MM-dd");
+      return new StreamingResolution("text/javascript", new StringReader(buildJsonResults(feedFileService.findByFeedFileState(stateFilter))));
+    } else {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       if (stateFilter.equalsIgnoreCase("ALL")) {
         stateFilter = "";
-      }
-
-      List<FeedFile> feedFileList = feedFileService.findByFeedFileStateAndDate(new FeedFileFilterParam(stateFilter, sdf.format(dateFilter)));
-      JqGridJsonModel json = new JqGridJsonModel();
-      json.setPage(String.valueOf(1));
-      json.setRecords(String.valueOf(10));
-      json.setTotal(((int) 10));
-
-      List<JqGridRow> rows = new ArrayList<JqGridRow>();
-      for (FeedFile feedFile : feedFileList) {
-        JqGridRow row = new JqGridRow();
-        row.setId(String.valueOf(feedFile.getFeedFileId()));
-        List<String> cells = new ArrayList<String>();
-        cells.add(String.valueOf(feedFile.getFeedFileId()));
-        cells.add(String.valueOf(feedFile.getFeed().getFeedId()));
-        cells.add(feedFile.getFeedFileName());
-        cells.add(sdf.format(feedFile.getFeedFileDate()));
-        cells.add(feedFile.getFeedFileTime().toString());
-        cells.add(feedFile.getFeedFileState().getFeedFileStateId());
-        cells.add("<a href='/app/action/feed/files/stats/" + feedFile.getFeedFileId() + "' rel='stats'>View Stats</a>");
-        row.setCell(cells);
-        rows.add(row);
-      }
-      json.setRows(rows);
-
-      JSONSerializer serializer = new JSONSerializer();
-      String jsonResult = serializer.exclude("*.class").deepSerialize(json);
-      return new StreamingResolution("text/javascript", new StringReader(jsonResult));
-
+      }      
+      return new StreamingResolution("text/javascript", new StringReader(buildJsonResults(feedFileService.findByFeedFileStateAndDate(new FeedFileFilterParam(stateFilter, sdf.format(dateFilter))))));
     }
   }
 
@@ -351,5 +271,35 @@ public class ViewFeedFileDetailsActionBean extends BaseActionBean {
   @After(stages = {LifecycleStage.BindingAndValidation})
   public void initLists() {
     this.stateList = stateService.findAll();
+  }
+
+  private String buildJsonResults(List<FeedFile> feedFileList) {
+
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+    JqGridJsonModel json = new JqGridJsonModel();
+    json.setPage(String.valueOf(1));
+    json.setRecords(String.valueOf(10));
+    json.setTotal(((int) 10));
+
+    List<JqGridRow> rows = new ArrayList<JqGridRow>();
+    for (FeedFile feedFile : feedFileList) {
+      JqGridRow row = new JqGridRow();
+      row.setId(String.valueOf(feedFile.getFeedFileId()));
+      List<String> cells = new ArrayList<String>();
+      cells.add(String.valueOf(feedFile.getFeedFileId()));
+      cells.add(String.valueOf(feedFile.getFeed().getFeedId()));
+      cells.add(feedFile.getFeedFileName());
+      cells.add(sdf.format(feedFile.getFeedFileDate()));
+      cells.add(feedFile.getFeedFileTime().toString());
+      cells.add(feedFile.getFeedFileState().getFeedFileStateId());
+      cells.add("<a href='/app/action/feed/files/stats/" + feedFile.getFeedFileId() + "' rel='stats'>View Stats</a>");
+      row.setCell(cells);
+      rows.add(row);
+    }
+    json.setRows(rows);
+    JSONSerializer serializer = new JSONSerializer();
+    return serializer.exclude("*.class").deepSerialize(json);
+
   }
 }
