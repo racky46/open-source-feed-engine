@@ -14,6 +14,7 @@
  */
 package com.qagen.osfe.dataAccess.service;
 
+import com.qagen.osfe.dataAccess.param.FeedFileFilterParam;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 import java.util.List;
@@ -35,5 +36,7 @@ public interface FeedFileService extends Service<FeedFile> {
   public List<FeedFile> findAll();
 
   public List<FeedFile> findByFeedFileState(String feedFileStateId);
+
+  public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param);
   
 }
