@@ -12,7 +12,7 @@
   <c:forEach var="stat" items="${actionBean.statsList}">
     <tr>
       <td>${stat.phaseId}</td>
-      <td>${stat.avgProcessingTime}</td>
+      <td>${stat.roundedAvgProcessingTime}</td>
       <td>${stat.totalTimeInMs}</td>
       <td>${stat.iterationCount}</td>
     </tr>
