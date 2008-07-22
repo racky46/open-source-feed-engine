@@ -19,6 +19,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qagen.osfe.common.utils.RoundingHelper;
+
 /**
  * Author: Hycel Taylor
  * <p/>
@@ -33,7 +35,7 @@ public class FeedPhaseStats extends VO {
   private Integer iterationCount = 0;
   private Integer feedFileId;
   private Long totalTimeInMs = 0L;
-  
+
   // Use to temporarily store time stamp when track phase stats.
   private Long startTime = 0L;
 
@@ -66,7 +68,7 @@ public class FeedPhaseStats extends VO {
   }
 
   public void setAvgProcessingTime(Double avgProcessingTime) {
-    this.avgProcessingTime = avgProcessingTime;
+    this.avgProcessingTime = RoundingHelper.round(avgProcessingTime, 4);
   }
 
   public Integer getIterationCount() {
