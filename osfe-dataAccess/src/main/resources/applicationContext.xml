@@ -65,6 +65,10 @@
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
 
+  <bean id="feedFileStateDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedFileStateDAO">
+    <property name="sqlMapClient" ref="sqlMapClient" />
+  </bean>
+
   <bean id="feedGroupDAO" class="com.qagen.osfe.dataAccess.dao.ibatis.SqlMapFeedGroupDAO">
     <property name="sqlMapClient" ref="sqlMapClient"/>
   </bean>
@@ -133,6 +137,10 @@
 
   <bean id="feedFileService" class="com.qagen.osfe.dataAccess.service.impl.FeedFileServiceImpl">
     <property name="feedFileDAO" ref="feedFileDAO"/>
+  </bean>
+
+  <bean id="feedFileStateService" class="com.qagen.osfe.dataAccess.service.impl.FeedFileStateServiceImpl">
+    <property name="dao" ref="feedFileStateDAO" />
   </bean>
 
   <bean id="feedGroupService" class="com.qagen.osfe.dataAccess.service.impl.FeedGroupServiceImpl">

@@ -72,4 +72,9 @@ public class FeedFileServiceImpl implements FeedFileService {
   public List<FeedFile> findAll() {
     return feedFileDAO.findAll();
   }
+
+  @Transactional
+  public List<FeedFile> findByFeedFileState(String feedFileStateId) {
+    return feedFileDAO.findByFeedFileState(feedFileStateId);
+  }
 }

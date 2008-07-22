@@ -16,6 +16,7 @@ package com.qagen.osfe.dataAccess.dao;
 
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FeedFileDAO extends DAO<FeedFile> {
@@ -29,5 +30,9 @@ public interface FeedFileDAO extends DAO<FeedFile> {
   public List<FeedFile> findAllFailedFeedsForFeedId(String feedId);
 
   public List<FeedFile> findAll();
+
+  public List<FeedFile> findByFeedFileState(String feedFileStateId);
+
+  public List<FeedFile> findByFeedFileStateAndDate(String feedFileStateId, Date date);
 
 }

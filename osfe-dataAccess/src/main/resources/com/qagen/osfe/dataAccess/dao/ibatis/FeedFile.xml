@@ -90,4 +90,8 @@
     and feed_id = #value#
   </select>
 
+  <select id="findByFeedFileState" parameterClass="string" resultMap="FeedFile.resultMap">
+    select * from t_feed_file where feed_file_state_id = #value#
+  </select>
+
 </sqlMap>
