@@ -94,4 +94,18 @@
     select * from t_feed_file where feed_file_state_id = #value#
   </select>
 
+  <select id="findByFeedFileStateAndDate" parameterClass="com.qagen.osfe.dataAccess.param.FeedFileFilterParam" resultMap="FeedFile.resultMap">
+    select * from t_feed_file
+    <dynamic prepend="WHERE">
+      <isNotEmpty property="feedFileStateId">
+        feed_file_state_id = #feedFileStateId# and feed_file_date = #feedFileDate#
+      </isNotEmpty>
+      <isEmpty property="feedFileStateId">
+        feed_file_date = #feedFileDate#
+      </isEmpty>
+    </dynamic>
+  </select>
+
+
+
 </sqlMap>

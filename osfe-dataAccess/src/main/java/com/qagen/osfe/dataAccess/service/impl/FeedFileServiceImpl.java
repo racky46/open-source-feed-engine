@@ -15,6 +15,7 @@
 package com.qagen.osfe.dataAccess.service.impl;
 
 import com.qagen.osfe.dataAccess.dao.FeedFileDAO;
+import com.qagen.osfe.dataAccess.param.FeedFileFilterParam;
 import com.qagen.osfe.dataAccess.service.FeedFileService;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,5 +77,10 @@ public class FeedFileServiceImpl implements FeedFileService {
   @Transactional
   public List<FeedFile> findByFeedFileState(String feedFileStateId) {
     return feedFileDAO.findByFeedFileState(feedFileStateId);
+  }
+
+  @Transactional
+  public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param) {
+    return feedFileDAO.findByFeedFileStateAndDate(param);
   }
 }
