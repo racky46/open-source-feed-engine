@@ -16,6 +16,7 @@ package com.qagen.osfe.core.loaders;
 
 import com.qagen.osfe.common.utils.DomReader;
 import com.qagen.osfe.core.Loader;
+import com.qagen.osfe.core.loaders.utils.PhaseInfoLoader;
 import com.qagen.osfe.core.vo.PhaseInfo;
 import org.dom4j.Element;
 
@@ -47,16 +48,7 @@ public class PhaseElementLoader extends Loader {
     final Iterator it = parent.elementIterator(ELEMENT.phase.name());
 
     while (it.hasNext()) {
-      final Element element = (Element) it.next();
-      final String name = DomReader.getRequiredValue(element, ATTRIBUTE.name.name());
-      final Boolean enable = DomReader.getRequiredBooleanValue(element, ATTRIBUTE.enable.name());
-      final String className = DomReader.getRequiredValue(element, ATTRIBUTE.className.name());
-
-      final PropertiesConfigLoader loader = new PropertiesConfigLoader(element);
-      final Map<String, String> propertyMap = loader.getPropertyMap();
-
-      final PhaseInfo phaseInfo = new PhaseInfo(name, enable, className, propertyMap);
-
+      final PhaseInfo phaseInfo = PhaseInfoLoader.createPhaseInfo((Element) it.next());
       list.add(phaseInfo);
     }
   }

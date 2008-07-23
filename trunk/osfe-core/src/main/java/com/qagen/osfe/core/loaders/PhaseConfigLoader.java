@@ -18,6 +18,11 @@ import com.qagen.osfe.core.Loader;
 import com.qagen.osfe.core.vo.PhaseSetInfo;
 import org.dom4j.Element;
 
+/**
+ * Author: Hycel Taylor
+ * <p>
+ * 
+ */
 public class PhaseConfigLoader extends Loader {
   public enum ELEMENT {
     phase,
