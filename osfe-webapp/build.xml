@@ -77,4 +77,16 @@
 
   </target>
 
+  <target name="package">
+    <ant inheritall="false" antfile="${common.module.dir}/build.xml" target="jar" />
+    <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="jar" />
+
+    <war destfile="app.war" basedir="src/main/webapp" webxml="src/main/webapp/WEB-INF/web.xml">
+      <lib dir="${deploy.lib.dir}" />
+      <lib dir="${common.module.dir}/dist" />
+      <lib dir="${dataAccess.module.dir}/dist" />
+      <classes dir="src/main/webapp/WEB-INF/classes"/>
+    </war>                                                
+  </target>
+
 </project>
