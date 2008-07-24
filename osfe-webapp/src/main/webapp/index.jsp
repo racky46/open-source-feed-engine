@@ -1,1 +1,1 @@
-<% response.sendRedirect("/app/action/login"); %>
+<% response.sendRedirect( request.getContextPath() + "/action/login"); %>
