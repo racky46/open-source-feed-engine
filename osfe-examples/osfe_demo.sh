@@ -18,15 +18,6 @@ cp ../install/database/mysql/config/common/config.properties $OSFE_HOME/config/c
 cp -r partnerConfig/* $OSFE_HOME/partnerConfig/
 
 ##############################################
-# Copy demoData 
-##############################################
-cp demoData/testd/request/incoming/* $OSFE_HOME/feed/acme/qagen/testd/request/incoming
-cp demoData/testf/request/incoming/* $OSFE_HOME/feed/acme/qagen/testf/request/incoming
-
-gunzip $OSFE_HOME/feed/acme/qagen/testd/request/incoming/*
-gunzip $OSFE_HOME/feed/acme/qagen/testf/request/incoming/*
-
-##############################################
 # Create Feed Directories
 ##############################################
 
@@ -52,4 +43,15 @@ full_cmd="java $JAVA_OPTS -cp $classpath $java_cmd"
 $full_cmd acme_qagen_testd_request
 $full_cmd acme_qagen_testf_request
 
+##############################################
+# Copy demoData 
+##############################################
+echo 'Extracting demo feeds.  This may take a few seconds...'
 
+cp demoData/testd/request/incoming/* $OSFE_HOME/feed/acme/qagen/testd/request/incoming
+cp demoData/testf/request/incoming/* $OSFE_HOME/feed/acme/qagen/testf/request/incoming
+
+gunzip $OSFE_HOME/feed/acme/qagen/testd/request/incoming/*
+gunzip $OSFE_HOME/feed/acme/qagen/testf/request/incoming/*
+
+echo 'All Done!'
