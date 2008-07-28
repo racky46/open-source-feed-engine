@@ -124,9 +124,10 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
       localRowIndex = 0;
       localRowSize = rows.size();
 
+      final Integer feedFileId = context.getFeedJob().getFeedFile().getFeedFileId();
       final Long heapSize = (HeapStats.getHeapSize() / 1024) / 1024;
       final Long heapFree = (HeapStats.getFreeHeapSize() / 1024) / 1024;
-      final String status = "***** " + localRowSize + " elapased time: " + ElapsedTime.getElapsedTime(startTime) +
+      final String status = "***** FeedFileId: " + feedFileId + "  batch size " + localRowSize + " elapased time: " + ElapsedTime.getElapsedTime(startTime) +
         " Heap Size = " + heapSize + "M Heap Free = " + heapFree + "M";
 
       logger.info(status);
