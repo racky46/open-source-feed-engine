@@ -14,12 +14,16 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
-
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.examples.acme.GradingStatistics;
 import com.qagen.osfe.examples.acme.AcmeConstants;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * Computes the class average and echos it to the console.
+ */
 public class StatsPhase extends Phase {
 
   public StatsPhase(EngineContext context, String name) {
@@ -29,6 +33,9 @@ public class StatsPhase extends Phase {
   public void initialize() {
   }
 
+  /**
+   * Computes the class average and echos it to the console.
+   */
   public void execute() {
     final GradingStatistics stats = (GradingStatistics) context.get(AcmeConstants.stats.name());
     final Float average = (float) stats.getTotalScore().intValue() / (float) stats.getExamCount().intValue();

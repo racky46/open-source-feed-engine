@@ -42,7 +42,7 @@
   </saxPhases>
 
   <services>
-    <service name="mainService" className="com.qagen.osfe.core.services.StandardFeedLifeCycleService"/>
+    <service name="mainService" className="com.qagen.osfe.core.services.SaxFeedLifeCycleService"/>
     <service name="phaseService" className="com.qagen.osfe.core.services.PhaseLoaderService"/>
     <service name="exceptionService" className="com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder"/>
     <service name="checkpointService" className="com.qagen.osfe.core.services.CheckpointPlaceHolder"/>
@@ -50,9 +50,8 @@
 
   <configLoaders>
     <configLoader name="propertyLoader" className="com.qagen.osfe.core.loaders.PropertiesConfigLoader"/>
-    <configLoader name="phaseLoader" className="com.qagen.osfe.core.loaders.PhaseConfigLoader"/>
+    <configLoader name="phaseLoader" className="com.qagen.osfe.core.loaders.SaxPhaseConfigLoader"/>
     <configLoader name="serviceLoader" className="com.qagen.osfe.core.loaders.ServiceConfigLoader"/>
-    <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader"/>
   </configLoaders>
 
 </saxConfig>

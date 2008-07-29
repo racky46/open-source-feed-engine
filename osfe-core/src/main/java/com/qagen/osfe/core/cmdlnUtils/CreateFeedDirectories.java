@@ -20,13 +20,13 @@ public class CreateFeedDirectories {
 
   public static void main(String[] args) {
     if (args.length < 1) {
-      System.err.println("Usage: CreateFeedDirectory feedFileId");
+      System.err.println("Usage: CreateFeedDirectory feedId");
       System.exit(0);
     }
 
     try {
       FeedFileHelper.createFeedDirectories(args[0]);
-      System.err.println("Directories for feedFileId, " + args[0] + ", have been created.");
+      System.err.println("Directories for feedId, " + args[0] + ", have been created.");
     } catch (Exception e) {
       e.printStackTrace();
     }

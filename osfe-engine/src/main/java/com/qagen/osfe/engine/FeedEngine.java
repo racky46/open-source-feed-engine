@@ -40,4 +40,16 @@ public class FeedEngine extends AbstractFeedEngine implements Runnable {
   public void run() {
     execute();
   }
+
+  public static void main(String[] args) {
+    if (args.length < 2) {
+      System.err.println("Usage: FeedEngine feedId, feedFileName");
+      System.err.println("Usage: FeedEngine acme.qagen.testd.request acme_qagen_test_request_20080101.txt");
+      System.exit(-1);
+    }
+
+    final FeedEngine engine = new FeedEngine(args[0],args[1]);
+
+    engine.execute();
+  }
 }

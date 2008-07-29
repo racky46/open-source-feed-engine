@@ -23,6 +23,13 @@ import com.qagen.osfe.examples.acme.GradingStatistics;
 import com.qagen.osfe.examples.acme.row.DetailRow;
 import com.qagen.osfe.common.utils.Log;
 
+/**
+ * Author: Hycel Taylor
+ * <p/>
+ * Determine the grade the score should receive and keeps track
+ * of the total score and count of stundents. The feed will be
+ * invalidated if any score is not within the range of 0 - 100.
+ */
 public class GradingPhase extends ProcessPhase {
   private Boolean echoDetail;
   private GradingStatistics stats;
@@ -52,6 +59,11 @@ public class GradingPhase extends ProcessPhase {
     singlePhaseLoop();
   }
 
+  /**
+   * Determine grade for score.
+   *
+   * @param row contains the data extracted from a raw feed file row.
+   */
   public void processRow(Row row) {
     DetailRow detailRow = (DetailRow) row;
     final Integer score = detailRow.getScore();
