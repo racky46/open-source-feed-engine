@@ -12,10 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.qagen.osfe.examples.acme;
+package com.qagen.osfe.examples.acme.demo;
 
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
+import com.qagen.osfe.dataAccess.service.FeedService;
+import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.engine.FeedEngine;
+import com.qagen.osfe.common.FeedConstants;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -29,30 +32,29 @@ import java.sql.SQLException;
  * Author: Hycel Taylor
  * <p/>
  */
-public class RunDemo {
+public class ProcessFeeds extends FeedConstants {
   private static final String OSFE_HOME = "OSFE_HOME";
-  private static final String SLASH = "/";
 
   private static final String FIXED_FEED_ID = "acme_qagen_testf_request";
-  private static final String FIXED_FEED_DIR = "/feed/acme/qagen/testf/request";
-
   private static final String DELIMITED_FEED_ID = "acme_qagen_testd_request";
-  private static final String DELIMITED_FEED_DIR = "/feed/acme/qagen/testd/request";
 
-  private static final String ARCHIVE_DIR = "/archive";
-  private static final String INCOMING_DIR = "/incoming";
+  private static final String ARCHIVE_DIR = SLASH + FEED_DIR.archive.getValue();
+  private static final String INCOMING_DIR = SLASH + FEED_DIR.incoming.getValue();
 
   /**
    * Constructor
    */
-  public RunDemo() {
+  public ProcessFeeds() {
     cleanDataTables();
 
-    moveFileFromArchive(DELIMITED_FEED_DIR + ARCHIVE_DIR, DELIMITED_FEED_DIR + INCOMING_DIR);
-    moveFileFromArchive(FIXED_FEED_DIR + ARCHIVE_DIR, FIXED_FEED_DIR + INCOMING_DIR);
+    final String delimitedFeedDir = getFeedFileDirectory(DELIMITED_FEED_ID);
+    final String fixedFeedDir = getFeedFileDirectory(FIXED_FEED_ID);
 
-    processFiles(DELIMITED_FEED_ID, DELIMITED_FEED_DIR + INCOMING_DIR);
-    processFiles(FIXED_FEED_ID, FIXED_FEED_DIR + INCOMING_DIR);
+    moveFileFromArchive(delimitedFeedDir + ARCHIVE_DIR, delimitedFeedDir + INCOMING_DIR);
+    moveFileFromArchive(fixedFeedDir + ARCHIVE_DIR, fixedFeedDir + INCOMING_DIR);
+
+    processFiles(DELIMITED_FEED_ID, delimitedFeedDir + INCOMING_DIR);
+    processFiles(FIXED_FEED_ID, fixedFeedDir + INCOMING_DIR);
   }
 
   /**
@@ -72,9 +74,26 @@ public class RunDemo {
   }
 
   /**
+   * Retrieve the base feed directory from the feed definition.
+   *
+   * @param feedId defines the feed definition to search for.
+   * @return the feed directory.
+   */
+  private String getFeedFileDirectory(String feedId) {
+    final FeedService service = (FeedService) DataAccessContext.getBean(FeedService.SERVICE_ID);
+    final Feed feed = service.findByPrimaryId(feedId);
+
+    if (feed == null) {
+      throw new RuntimeException("***** The feed definition for feed Id, " + feedId + " was not found. *****");
+    }
+
+    return SLASH + feed.getFeedDirectory();
+  }
+
+  /**
    * Truncates the tables that OSFE uses to manage the lifecycle of feed files.
    */
-  public void cleanDataTables() {
+  private void cleanDataTables() {
     try {
       final DataSource dataSource = (DataSource) DataAccessContext.getBean("dataSource");
       final Connection con = dataSource.getConnection();
@@ -150,6 +169,6 @@ public class RunDemo {
    * @param args no arguments are required.
    */
   public static void main(String[] args) {
-    new RunDemo();
+    new ProcessFeeds();
   }
 }
