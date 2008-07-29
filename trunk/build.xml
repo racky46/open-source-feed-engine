@@ -118,10 +118,12 @@
         <include name="install/**/*" />
         <include name="README" />
         <include name="LICENSE" />
-        <include name="NOTICE" />
+        <include name="NOTICE"/>
+        <include name="OSFE_INSTALL"/>
         <include name="osfe-examples/demoData/**/*" />
         <include name="osfe-examples/partnerConfig/**/*" />
         <include name="osfe-examples/dist/**/*" />
+        <include name="osfe-examples/**/*.sh"/>
       </tarfileset>
     </tar>
     <gzip src="target/temp.tar" destfile="target/osfe-bin-${osfe.version}-with-dependencies.tar.gz"/>
