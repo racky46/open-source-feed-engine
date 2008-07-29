@@ -91,6 +91,7 @@
     <ant inheritall="false" antfile="${dataAccess.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${core.module.dir}/build.xml" target="jar" />
     <ant inheritall="false" antfile="${engine.module.dir}/build.xml" target="jar" />
+    <ant inheritall="false" antfile="${examples.module.dir}/build.xml" target="jar" />
     <mkdir dir="dist" />
     <copy file="${common.module.dir}/dist/osfe-common-${osfe.version}.jar" todir="dist" />
     <copy file="${dataAccess.module.dir}/dist/osfe-dataAccess-${osfe.version}.jar" todir="dist" />
@@ -118,6 +119,9 @@
         <include name="README" />
         <include name="LICENSE" />
         <include name="NOTICE" />
+        <include name="osfe-examples/demoData/**/*" />
+        <include name="osfe-examples/partnerConfig/**/*" />
+        <include name="osfe-examples/dist/**/*" />
       </tarfileset>
     </tar>
     <gzip src="target/temp.tar" destfile="target/osfe-bin-${osfe.version}-with-dependencies.tar.gz"/>
@@ -134,6 +138,9 @@
         <include name="README" />
         <include name="LICENSE" />
         <include name="NOTICE" />
+        <include name="osfe-examples/demoData/**/*" />
+        <include name="osfe-examples/partnerConfig/**/*" />
+        <include name="osfe-examples/dist/**/*" />
       </tarfileset>
     </tar>
     <gzip src="target/temp.tar" destfile="target/osfe-bin-${osfe.version}.tar.gz"/>
