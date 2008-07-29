@@ -48,8 +48,8 @@
    This next step will create the OSFE directory
    structure under $OSFE_WORK.
    
-   ** NOTE! The following step will not work properly if you have 
-                 not successfully completed steps 1 through 7.  **
+*  NOTE! The following step will not work properly if you have 
+                 not successfully completed steps 1 through 7.  *
    
    Where you extracted OSFE, go to the subdirectory,
    
