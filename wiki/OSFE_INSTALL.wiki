@@ -90,8 +90,8 @@
 
 4) OSFE uses feed documents that tell it how to run a specific type of feed and what Java classes to use.  Take a look at two different feed documents: 
    
-  * [http://www.qagen.com/images/osfe/delimited_config.txt $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml]
-  * [http://www.qagen.com/images/osfe/fixed_config.txt $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml]
+  * [http://www.qagen.com/images/osfe/delimited_config.xml.txt $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml]
+  * [http://www.qagen.com/images/osfe/fixed_config.xml.txt $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml]
      
 The document under, /testd/request/config.xml, tells OSFE how to process a delimited feed file with the following format:
 
@@ -151,8 +151,8 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   To see the source files, download osfe-1.0-src-tar.gz.
   Under directory osfe-examples, look for the following classes:
    
-  * [http://www.qagen.com/images/osfe/GradingPhase.java com.qagen.osfe.examples.acme.phases.GradingPhase.java]
-  * [http://www.qagen.com/images/osfe/StatsPhase.java com.qagen.osfe.examples.acme.phases.StatPhase.java]
+  * [http://www.qagen.com/images/osfe/GradingPhase.java.txt com.qagen.osfe.examples.acme.phases.GradingPhase.java]
+  * [http://www.qagen.com/images/osfe/StatsPhase.java.txt com.qagen.osfe.examples.acme.phases.StatPhase.java]
 
   How did OSFE manage the lifecycle in the OSFE databas osfedb?
   Take a look at the following tables in osfedb:
