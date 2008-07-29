@@ -90,7 +90,7 @@
 
 4) OSFE uses feed documents that tell it how to run a specific type of feed and what Java classes to use.  Take a look at two different feed documents: 
    
-  * [http://www.qagen.com/images/osfe/delimited_config.xml $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml]
+  * [http://www.qagen.com/images/osfe/delimited_config.xml $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.txt]
   * $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml
      
 The document under, /testd/request/config.xml, tells OSFE how to process a delimited feed file with the following format:
