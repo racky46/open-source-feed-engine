@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <delimitedConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
-        xmlns="http://www.osfe.com/feedconfig">
-
+                 xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
+                 xmlns="http://www.osfe.com/feedconfig">
   <properties>
     <property name="delay" value="0"/>
   </properties>
 
   <delimitedRows minusRowCount="2" delimiterValue=",">
     <delimitedRow name="header" rowCount="1">
-      <delimitedColumn name="examId" description="Uniquely Identifies The Exam" type="Long"/>
-      <delimitedColumn name="courseId" description="Course Description" type="Integer"/>
-      <delimitedColumn name="timestamp" description="File Create TimeStamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
+      <delimitedColumn name="examId" type="Long"/>
+      <delimitedColumn name="courseId" type="Integer"/>
+      <delimitedColumn name="timestamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
     </delimitedRow>
 
     <delimitedRow name="detail" linesToSkip="0">
@@ -23,10 +22,10 @@
     </delimitedRow>
 
     <delimitedRow name="footer" rowCount="1">
-      <delimitedColumn name="examId" description="Uniquely Identifies The Exam" type="Long"/>
-      <delimitedColumn name="courseId" description="Course Description" type="Integer"/>
-      <delimitedColumn name="timestamp" description="File Create TimeStamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
-      <delimitedColumn name="rowCount" description="Row_Count" type="Integer"/>
+      <delimitedColumn name="examId" type="Long"/>
+      <delimitedColumn name="courseId" type="Integer"/>
+      <delimitedColumn name="timestamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
+      <delimitedColumn name="rowCount" type="Integer"/>
     </delimitedRow>
   </delimitedRows>
 
