@@ -15,7 +15,7 @@
 
 4) Install MySQL
    
-   You will need to download and install MySQL database, 
+   You will need to download and install MySQL database,
    if you have not done so already.
 
 5) Login into mysql and create an OSFE database:
@@ -60,8 +60,8 @@
    If the script executed correctly, you should have the 
    following subdirectories under $OSFE_WORK:
  
-    /config
-    /feeds
+    /config\n
+    /feeds\n
     /logs
     /partnerConfig
 
