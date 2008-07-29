@@ -1,10 +1,10 @@
-1) download the OSFE osfe-bin-1.0-with-dependencies.tar.gz (OSFE jar)
+1) download osfe-bin-1.0-with-dependencies.tar.gz from: http://code.google.com/p/open-source-feed-engine/downloads/list
 
-2) Create the environment variable, OSFE_HOME, that will point the location of the OSFE home director.  
+2) Create the environment variable, OSFE_HOME, that will point the location of the OSFE home directory.
  
   Example: OSFE_HOME=~/osfe.
 
-3) Extract the OSFE jar to a directory of your choosing (e.g. temp).
+3) Extract osfe-bin-1.0-with-dependencies.tar.gz to a directory of your choosing (e.g. temp).
    
   Example: tar zxf osfe-bin-1.0-with-dependencies.tar.gz
 
@@ -18,7 +18,7 @@
    
    mysql> create database osfedb;
 
-6) Where you extracted the OSFE jar, goto the following subdirectory: 
+6) Where you extracted OSFE, go to the following subdirectory: 
   
    /install/database/mysql/schema/ddl/ver1.0
    
@@ -26,10 +26,10 @@
    appropriate username and password:
  
    mysql -u??? -p??? -Dosfedb < create.ddl
-   mysql -u??? -p??? -Dosfedb < populate.ddl
-   mysql -u??? -p??? -Dosfedb < demodata.ddl 
+   mysql -u??? -p??? -Dosfedb < populate.sql
+   mysql -u??? -p??? -Dosfedb < demodata.sql
 
-7) Where you extracted the OSFE jar, goto the following subdirectory:
+7) Where you extracted OSFE, go to the following subdirectory:
 
     /install/database/mysql/config/common/
 
@@ -47,7 +47,7 @@
    NOTE! The following step will not work properly if you have 
                  not successfully completed steps 1 through 7.
    
-   Where you extracted the OSFE jar, goto the subdirectory,    
+   Where you extracted OSFE, go to the subdirectory,
    
   osfe-examples and run script, osfe_demo.sh.
 
