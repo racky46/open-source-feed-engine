@@ -24,10 +24,10 @@
 
 6) Where you extracted OSFE, go to the following subdirectory: 
   
-   /install/database/mysql/schema/ddl/ver1.0
+ /install/database/mysql/schema/ddl/ver1.0
    
-   Run the following three mysql commands using the 
-   appropriate username and password:
+ Run the following three mysql commands using the 
+ appropriate username and password:
  
     * mysql -u? -p? -Dosfedb < create.ddl
     * mysql -u? -p? -Dosfedb < populate.sql
