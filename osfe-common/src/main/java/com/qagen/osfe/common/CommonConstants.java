@@ -19,7 +19,7 @@ package com.qagen.osfe.common;
  * <p>
  */
 public class CommonConstants {
-  public static final String OSFE_HOME = "OSFE_HOME";
+  public static final String OSFE_WORK = "OSFE_WORK";
   public static final String SLASH = "/"; //System.getProperty("file.separtor");
   public static final String UNDER_SCORE = "_";
   public static final String SINGLE_BAR = "|";

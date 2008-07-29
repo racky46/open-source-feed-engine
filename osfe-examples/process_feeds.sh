@@ -1,9 +1,9 @@
 ########################################################
 # The script to shutdown other applications through JMS
 ########################################################
-# make sure OSFE_HOME directory exists
-if [ ! -d $OSFE_HOME ]; then
-  echo "Error: The ${OSFE_HOME} directory does not exists."
+# make sure OSFE_WORK directory exists
+if [ ! -d $OSFE_WORK ]; then
+  echo "Error: The ${OSFE_WORK} directory does not exists."
   exit
 fi
 

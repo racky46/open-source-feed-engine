@@ -13,7 +13,7 @@
     <property name="locations">
       <list>
         <value>
-          file:${OSFE_HOME}/config/common/config.properties
+          file:${OSFE_WORK}/config/common/config.properties
         </value>
       </list>
     </property>

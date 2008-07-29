@@ -19,6 +19,7 @@ import com.qagen.osfe.dataAccess.service.FeedService;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.engine.FeedEngine;
 import com.qagen.osfe.common.FeedConstants;
+import com.qagen.osfe.common.utils.DirectoryHelper;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -33,8 +34,6 @@ import java.sql.SQLException;
  * <p/>
  */
 public class ProcessFeeds extends FeedConstants {
-  private static final String OSFE_HOME = "OSFE_HOME";
-
   private static final String FIXED_FEED_ID = "acme_qagen_testf_request";
   private static final String DELIMITED_FEED_ID = "acme_qagen_testd_request";
 
@@ -55,22 +54,6 @@ public class ProcessFeeds extends FeedConstants {
 
     processFiles(DELIMITED_FEED_ID, delimitedFeedDir + INCOMING_DIR);
     processFiles(FIXED_FEED_ID, fixedFeedDir + INCOMING_DIR);
-  }
-
-  /**
-   * Retrieves the path from the OSFE_HOME environment variable.
-   *
-   * @return OSFE home directory path.
-   * @throws RuntimeException is path is null.
-   */
-  private String getHomeDirectory() {
-    final String path = System.getenv(OSFE_HOME);
-
-    if (path == null) {
-      throw new RuntimeException("The OSFE_HOME environment variable has not been defined.");
-    }
-
-    return path;
   }
 
   /**
@@ -117,7 +100,7 @@ public class ProcessFeeds extends FeedConstants {
    * @param toDir defines the destination diretory.
    */
   private void moveFileFromArchive(String fromDir, String toDir) {
-    final String homeDir = getHomeDirectory();
+    final String homeDir = DirectoryHelper.getHomeDirectory();
     final File file = new File(homeDir + fromDir);
     final File[] files = file.listFiles();
 
@@ -136,7 +119,7 @@ public class ProcessFeeds extends FeedConstants {
    * @return list of filenames from the given directory.
    */
   private List<String> getFileNames(String directory) {
-    final String homeDir = getHomeDirectory();
+    final String homeDir = DirectoryHelper.getHomeDirectory();
     final File[] files = new File(homeDir + directory).listFiles();
     final List<String> fileNames = new ArrayList<String>();
 

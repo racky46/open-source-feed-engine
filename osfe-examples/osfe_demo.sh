@@ -1,21 +1,21 @@
 #!/bin/bash
 ##############################################
-# Create the osfe directories under OSFE_HOME
+# Create the osfe directories under OSFE_WORK
 ##############################################
-mkdir -p $OSFE_HOME/config/common
-mkdir $OSFE_HOME/feed
-mkdir $OSFE_HOME/logs
-mkdir $OSFE_HOME/partnerConfig
+mkdir -p $OSFE_WORK/config/common
+mkdir $OSFE_WORK/feed
+mkdir $OSFE_WORK/logs
+mkdir $OSFE_WORK/partnerConfig
 
 ##############################################
 # Copy config.properties 
 ##############################################
-cp ../install/database/mysql/config/common/config.properties $OSFE_HOME/config/common
+cp ../install/database/mysql/config/common/config.properties $OSFE_WORK/config/common
 
 ##############################################
 # Copy OSFE demo feed configuration files 
 ##############################################
-cp -r partnerConfig/* $OSFE_HOME/partnerConfig/
+cp -r partnerConfig/* $OSFE_WORK/partnerConfig/
 
 ##############################################
 # Create Feed Directories
@@ -48,10 +48,10 @@ $full_cmd acme_qagen_testf_request
 ##############################################
 echo 'Extracting demo feeds.  This may take a few seconds...'
 
-cp demoData/testd/request/incoming/* $OSFE_HOME/feed/acme/qagen/testd/request/incoming
-cp demoData/testf/request/incoming/* $OSFE_HOME/feed/acme/qagen/testf/request/incoming
+cp demoData/testd/request/incoming/* $OSFE_WORK/feed/acme/qagen/testd/request/incoming
+cp demoData/testf/request/incoming/* $OSFE_WORK/feed/acme/qagen/testf/request/incoming
 
-gunzip $OSFE_HOME/feed/acme/qagen/testd/request/incoming/*
-gunzip $OSFE_HOME/feed/acme/qagen/testf/request/incoming/*
+gunzip $OSFE_WORK/feed/acme/qagen/testd/request/incoming/*
+gunzip $OSFE_WORK/feed/acme/qagen/testf/request/incoming/*
 
 echo 'All Done!'

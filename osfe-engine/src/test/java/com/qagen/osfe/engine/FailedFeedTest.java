@@ -29,9 +29,9 @@ import java.util.List;
 /**
  * Setting up test data.
  * <p/>
- * 1) Create an environment variable for OSFE_HOME
+ * 1) Create an environment variable for OSFE_WORK
  * <p/>
- * example: OSFE_HOME=/home/yourName/osfe
+ * example: OSFE_WORK=/home/yourName/osfe
  * <p/>
  * 2) Copy test data from testData module to you defined directory.
  */
