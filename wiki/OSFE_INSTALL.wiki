@@ -1,6 +1,6 @@
 #summary Installation Tutorial
 
-= Steps To Setup OSFE =
+= Setup OSFE & Run Demo =
 
 1) download osfe-bin-1.0-with-dependencies.tar.gz
    from: http://code.google.com/p/open-source-feed-engine/downloads/list
