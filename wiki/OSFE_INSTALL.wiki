@@ -172,7 +172,7 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
 
 * What just happend? * 
 
-  A class, com.qagen.osfe.examples.acme.demo.ProcessFeeds.java,
+  A class, [http://www.qagen.com/images/osfe/ProcessFeeds.java.txt com.qagen.osfe.examples.acme.demo.ProcessFeeds.java],
   retrieved all of the delimited and fixed feed files and launched
   each of them one right after the other in multiple FeedEngine 
   threads. Thus, each feed was being processed and managed by OSFE
