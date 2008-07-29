@@ -53,9 +53,9 @@
    Where you extracted OSFE, go to the subdirectory, osfe-examples and run script, sfe_demo.sh.
 
     Example: 
-        > cd osfe-examples
-        > chmod +x osfe_demo.sh
-        > ./osfe_demo.sh
+        * cd osfe-examples
+        * chmod +x osfe_demo.sh
+        * ./osfe_demo.sh
 
    If the script executed correctly, you should have the 
    following subdirectories under $OSFE_WORK:
@@ -124,9 +124,9 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   know the name of the feed you would like to process and 
   it's feed definition Id.  Lets process a feed!
 
-  > cd osfe-examples
-  > chmod +x feed_endine.sh
-  > ./feed_engine.sh acme_qagen_testd_request acme_qagen_testd_request_20080728100700.txt
+  * cd osfe-examples
+  * chmod +x feed_endine.sh
+  * ./feed_engine.sh acme_qagen_testd_request acme_qagen_testd_request_20080728100700.txt
 
 * What just happended? * 
   
@@ -162,9 +162,9 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   
   OSFE can process many feeds at one time.  Run the following script:
 
-  > cd /osfe-examples
-  > chmod +x process_feeds.sh
-  > ./process_feeds.sh 
+  * cd /osfe-examples
+  * chmod +x process_feeds.sh
+  * ./process_feeds.sh 
 
 * What just happend? * 
 
