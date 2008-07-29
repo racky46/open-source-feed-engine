@@ -66,9 +66,9 @@
     * /partnerConfig
 
     Congratulations! You should now be able to run some 
-    demo feeds using OSFE.  So, what have we've done?
+    demo feeds using OSFE.
   
-*What just happened?*
+*What have we done?*
 
 1) OSFE uses a MySql database to manager the life cycle of processing a feed file, so you created a database, osfedb.
 
