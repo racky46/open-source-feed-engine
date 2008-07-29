@@ -14,16 +14,16 @@
  */
 package com.qagen.osfe.common.utils;
 
-import static com.qagen.osfe.common.CommonConstants.OSFE_HOME;
+import static com.qagen.osfe.common.CommonConstants.OSFE_WORK;
 import static com.qagen.osfe.common.CommonConstants.SLASH;
 
 public class DirectoryHelper {
 
   /**
-   * Returns the feed core's home directory specified in the OSFE_HOME environment variable.<p>
+   * Returns the feed core's home directory specified in the OSFE_WORK environment variable.<p>
    * Example: /home/feedEngine/
    */
   public static String getHomeDirectory() {
-    return System.getenv(OSFE_HOME) + SLASH;
+    return System.getenv(OSFE_WORK) + SLASH;
   }
 }

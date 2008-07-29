@@ -60,7 +60,7 @@
   <target name="jetty.run" depends="compile">
     <jetty tempdirectory="${basedir}/jetty-work">
       <systemproperties >
-        <systemproperty name="OSFE_HOME" value="${osfe.config.path}" />
+        <systemproperty name="OSFE_WORK" value="${osfe.config.path}" />
       </systemproperties>
       
       <webapp scanintervalseconds="2" warfile="src/main/webapp" contextpath="/app"

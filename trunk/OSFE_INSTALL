@@ -1,24 +1,20 @@
-1) download osfe-bin-1.0-with-dependencies.tar.gz from: http://code.google.com/p/open-source-feed-engine/downloads/list
+1) download osfe-bin-1.0-with-dependencies.tar.gz
+   from: http://code.google.com/p/open-source-feed-engine/downloads/list
 
-2) Create the environment variable, OSFE_HOME, that will point the location of the OSFE home directory.
+2) Create the environment variable, OSFE_WORK, that will point the location of the OSFE home directory.
  
-  Example: OSFE_HOME=~/osfe.
+  Example: OSFE_WORK=~/osfe.
 
 3) Extract osfe-bin-1.0-with-dependencies.tar.gz to a directory of your choosing (e.g. temp).
    
   Example: tar zxf osfe-bin-1.0-with-dependencies.tar.gz
-
-  Note that OSFE_HOME and the directory where you extracted the OSFE binary should be different
-  from one another.  OSFE_HOME represents a work directory, not the location of OSFE and its associated
-  libraries and scripts.
 
 4) Install MySQL
    
    You will need to download and install MySQL database, 
    if you have not done so already.
 
-5) Login into mysql and create an OSFE database
-:
+5) Login into mysql and create an OSFE database:
    
    mysql> create database osfedb;
 
@@ -46,7 +42,7 @@
 ***** SETUP UP OSFE TO RUN DEMO FEEDS  *****
    
    This next step will create the OSFE directory
-   structure under $OSFE_HOME. 
+   structure under $OSFE_WORK.
    
    NOTE! The following step will not work properly if you have 
                  not successfully completed steps 1 through 7.
@@ -61,7 +57,7 @@
         ./osfe_demo.sh
 
    If the script executed correctly, you should have the 
-   following subdirectories under $OSFE_HOME:
+   following subdirectories under $OSFE_WORK:
  
     /config
     /feeds
@@ -93,8 +89,8 @@ What just happened?
 
 4) OSFE uses feed documents that tell it how to run a specific type of feed and what Java classes to use.  Take a look at two different feed documents: 
    
-  $OSFE_HOME/partnerConfig/feed/acme/testd/request/config.xml
-  $OSFE_HOME/partnerConfig/feed/acme/testf/request/config.xml
+  $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml
+  $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml
      
 The document under, /testd/request/config.xml, tells OSFE how to process a delimited feed file with the following format:
 
@@ -118,8 +114,8 @@ The document under, /testf/request/config.xml, tells OSFE how to process a fixed
 
 The script has loaded a set of delimited and fixed feed files for OSFE to process.  Look under the following directories:
 
-  $OSFE_HOME/feed/acme/qagen/testd/request/incoming
-  $OSFE_HOME/feed/acme/qagen/textf/request/incoming
+  $OSFE_WORK/feed/acme/qagen/testd/request/incoming
+  $OSFE_WORK/feed/acme/qagen/textf/request/incoming
 
 ***** RUN YOUR FIRST OSFE FEED *****
   
