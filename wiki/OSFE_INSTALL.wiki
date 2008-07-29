@@ -56,9 +56,9 @@
   osfe-examples and run script, osfe_demo.sh.
 
     Example: 
-        cd osfe-examples
-        chmod +x \*.sh
-        ./osfe_demo.sh
+        > cd osfe-examples
+        > chmod +x osfe_demo.sh
+        > ./osfe_demo.sh
 
    If the script executed correctly, you should have the 
    following subdirectories under $OSFE_WORK:
@@ -128,9 +128,10 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   it's feed definition Id.  Lets process a feed!
 
   > cd osfe-examples
+  > chmod +x feed_endine.sh
   > ./feed_engine.sh acme_qagen_testd_request acme_qagen_testd_request_20080728100700.txt
 
-  What just happended? 
+  * What just happended? * 
   
   If you have setup of OSFE correctly, OSFE processed
   a delimited feed file. The feed file contains 100,000 
@@ -165,9 +166,10 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   OSFE can process many feeds at one time.  Run the following script:
 
   > cd /osfe-examples
+  > chmod +x process_feeds.sh
   > ./process_feeds.sh 
 
-  What just happend?  
+  * What just happend? * 
 
   A class, com.qagen.osfe.examples.acme.demo.ProcessFeeds.java,
   retrieved all of the delimited and fixed feed files and launched
