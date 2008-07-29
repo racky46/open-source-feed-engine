@@ -47,15 +47,15 @@
    
 *  NOTE! The following step will not work properly if you have not successfully completed steps 1 through 7.*
    
-   
    This next step will create the OSFE directory structure under $OSFE_WORK. 
    
    Where you extracted OSFE, go to the subdirectory, osfe-examples and run script, sfe_demo.sh.
 
     Example: 
-        * cd osfe-examples
-        * chmod +x osfe_demo.sh
-        * ./osfe_demo.sh
+        
+    * cd osfe-examples
+    * chmod +x osfe_demo.sh
+    * ./osfe_demo.sh
 
    If the script executed correctly, you should have the 
    following subdirectories under $OSFE_WORK:
@@ -95,21 +95,25 @@
      
 The document under, /testd/request/config.xml, tells OSFE how to process a delimited feed file with the following format:
 
+{{{
   15020080420,150,20080420-05:04:49
   1000000,Last1,First1,A,71
   1000001,Last2,First2,B,72
   1000002,Last3,First3,C,76
   ...
   15020080420,150,20080420-05:04:49,50000
+}}}
 
 The document under, /testf/request/config.xml, tells OSFE how to process a fixed feed file with the following format:
 
+{{{
    2822008072728220080727-08:07:05
    1000000 Last1          First1         A67 
    1000001 Last2          First2         B97 
    1000002 Last3          First3         C94 
    ...
    7922008072779220080727-08:07:06100000  
+}}}
 
 5) OSFE determines where to look for feeds to process by retrieving a feed definition in table t_feed, with a given feed Id.  In table, t_feed the column, feed_directory contains the path where the feed directories for the given feed definition are located. The structure for inbound feeds will contain the following sub directories (archive, download, failed, incoming, preprocess, rejected, temp & workarea). OSFE will look in the inbound subdirectory for feeds to process.  
 
