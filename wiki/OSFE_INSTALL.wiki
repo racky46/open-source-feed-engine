@@ -57,7 +57,7 @@
 
     Example: 
         cd osfe-examples
-        chmod +x *.sh
+        chmod +x **.sh
         ./osfe_demo.sh
 
    If the script executed correctly, you should have the 
