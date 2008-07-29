@@ -32,6 +32,8 @@ import java.sql.SQLException;
 /**
  * Author: Hycel Taylor
  * <p/>
+ * This class demostrates how OSFE can easily process and manange
+ * multiple feeds simultaneously.
  */
 public class ProcessFeeds extends FeedConstants {
   private static final String FIXED_FEED_ID = "acme_qagen_testf_request";
