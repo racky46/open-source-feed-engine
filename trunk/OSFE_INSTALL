@@ -8,6 +8,10 @@
    
   Example: tar zxf osfe-bin-1.0-with-dependencies.tar.gz
 
+  Note that OSFE_HOME and the directory where you extracted the OSFE binary should be different
+  from one another.  OSFE_HOME represents a work directory, not the location of OSFE and its associated
+  libraries and scripts.
+
 4) Install MySQL
    
    You will need to download and install MySQL database, 
