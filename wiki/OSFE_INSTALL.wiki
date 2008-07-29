@@ -151,8 +151,8 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   To see the source files, download osfe-1.0-src-tar.gz.
   Under directory osfe-examples, look for the following classes:
    
-  * com.qagen.osfe.examples.acme.phases.GradingPhase.java
-  * com.qagen.osfe.examples.acme.phases.StatPhase.java
+  * [http://www.qagen.com/images/osfe/GradingPhase.java com.qagen.osfe.examples.acme.phases.GradingPhase.java]
+  * [http://www.qagen.com/images/osfe/StatsPhase.java com.qagen.osfe.examples.acme.phases.StatPhase.java]
 
   How did OSFE manage the lifecycle in the OSFE databas osfedb?
   Take a look at the following tables in osfedb:
