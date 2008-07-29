@@ -60,10 +60,10 @@
    If the script executed correctly, you should have the 
    following subdirectories under $OSFE_WORK:
  
-    /config\n
-    /feeds\n
-    /logs
-    /partnerConfig
+    * /config
+    * /feeds
+    * /logs
+    * /partnerConfig
 
     Congratulations! You should now be able to run some 
     demo feeds using OSFE.  So, what have we've done?
@@ -74,24 +74,24 @@
 
 2) The script loaded specific database tables with meta data that OSFE requires to run properly. Take a look at the content of the following tables:
   
-   - t_feed_direction
-   - t_feed_file_state
-   - t_feed_job_state
-   - t_feed_protocol
-   - t_feed_role
-   - t_feed_user
+   * t_feed_direction
+   * t_feed_file_state
+   * t_feed_job_state
+   * t_feed_protocol
+   * t_feed_role
+   * t_feed_user
 
 3) The script then loaded specific tables with program data to define feed definitions. Take a look at the content of the following tables:
 
-    -t_data_source
-    -t_feed_type
-    -t_group
-    -t_feed
+    * t_data_source
+    * t_feed_type
+    * t_group
+    * t_feed
 
 4) OSFE uses feed documents that tell it how to run a specific type of feed and what Java classes to use.  Take a look at two different feed documents: 
    
-  $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml
-  $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml
+  * $OSFE_WORK/partnerConfig/feed/acme/testd/request/config.xml
+  * $OSFE_WORK/partnerConfig/feed/acme/testf/request/config.xml
      
 The document under, /testd/request/config.xml, tells OSFE how to process a delimited feed file with the following format:
 
@@ -115,8 +115,8 @@ The document under, /testf/request/config.xml, tells OSFE how to process a fixed
 
 The script has loaded a set of delimited and fixed feed files for OSFE to process.  Look under the following directories:
 
-  $OSFE_WORK/feed/acme/qagen/testd/request/incoming
-  $OSFE_WORK/feed/acme/qagen/textf/request/incoming
+  * $OSFE_WORK/feed/acme/qagen/testd/request/incoming
+  * $OSFE_WORK/feed/acme/qagen/textf/request/incoming
 
 ***** RUN YOUR FIRST OSFE FEED *****
   
@@ -147,16 +147,16 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   To see the source files, download osfe-1.0-src-tar.gz.
   Under directory osfe-examples, look for the following classes:
    
-  com.qagen.osfe.examples.acme.phases.GradingPhase.java
-  com.qagen.osfe.examples.acme.phases.StatPhase.java
+  * com.qagen.osfe.examples.acme.phases.GradingPhase.java
+  * com.qagen.osfe.examples.acme.phases.StatPhase.java
 
   How did OSFE manage the lifecycle in the OSFE databas osfedb?
   Take a look at the following tables in osfedb:
 
-  t_feed_file
-  t_fee_job
-  t_feed_phase_stats
-  t_fee_checkpoint
+  * t_feed_file
+  * t_fee_job
+  * t_feed_phase_stats
+  * t_fee_checkpoint
 
 ***** PROCESS MANY FEEDS AT ONE TIME *****
   
@@ -175,9 +175,9 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   simultaneously.  Now, take a look at the following tables in 
   osfedb:
 
-  t_feed_file
-  t_fee_job
-  t_feed_phase_stats
-  t_fee_checkpoint
+  * t_feed_file
+  * t_fee_job
+  * t_feed_phase_stats
+  * t_fee_checkpoint
 
 ***** That's All Folks! *****
