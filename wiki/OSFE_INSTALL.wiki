@@ -183,5 +183,3 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   * t_fee_job
   * t_feed_phase_stats
   * t_fee_checkpoint
-
-***** That's All Folks! *****
