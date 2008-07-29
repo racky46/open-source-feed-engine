@@ -29,11 +29,9 @@
    Run the following three mysql commands using the 
    appropriate username and password:
  
-    mysql -u? -p? -Dosfedb < create.ddl
-
-    mysql -u? -p? -Dosfedb < populate.sql
-
-    mysql -u? -p? -Dosfedb < demodata.sql
+    * mysql -u? -p? -Dosfedb < create.ddl
+    * mysql -u? -p? -Dosfedb < populate.sql
+    * mysql -u? -p? -Dosfedb < demodata.sql
 
 7) Where you extracted OSFE, go to the following subdirectory:
 
@@ -42,15 +40,15 @@
    Edit file config.properties. If necessary, modify the following 
    properties to match your mysql username and password:
 
-   osfe.db.username=root
-   osfe.db.password=admin
+   * osfe.db.username=root
+   * osfe.db.password=admin
 
 ***** SETUP UP OSFE TO RUN DEMO FEEDS  *****
    
-   This next step will create the OSFE directory
-   structure under $OSFE_WORK.
-   
 *  NOTE! The following step will not work properly if you have not successfully completed steps 1 through 7.*
+   
+   
+   This next step will create the OSFE directory structure under $OSFE_WORK. 
    
    Where you extracted OSFE, go to the subdirectory, osfe-examples and run script, sfe_demo.sh.
 
