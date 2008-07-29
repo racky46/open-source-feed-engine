@@ -48,8 +48,8 @@
    This next step will create the OSFE directory
    structure under $OSFE_WORK.
    
-*  NOTE! The following step will not work properly if you have 
-                 not successfully completed steps 1 through 7.  *
+*  NOTE!*The following step will not work properly if you have 
+         not successfully completed steps 1 through 7.
    
    Where you extracted OSFE, go to the subdirectory,
    
@@ -71,7 +71,7 @@
     Congratulations! You should now be able to run some 
     demo feeds using OSFE.  So, what have we've done?
   
-What just happened?
+*What just happened?*
 
 1) OSFE uses a MySql database to manager the life cycle of processing a feed file, so you created a database, osfedb.
 
@@ -131,7 +131,7 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   > chmod +x feed_endine.sh
   > ./feed_engine.sh acme_qagen_testd_request acme_qagen_testd_request_20080728100700.txt
 
-  * What just happended? * 
+* What just happended? * 
   
   If you have setup of OSFE correctly, OSFE processed
   a delimited feed file. The feed file contains 100,000 
@@ -169,7 +169,7 @@ The script has loaded a set of delimited and fixed feed files for OSFE to proces
   > chmod +x process_feeds.sh
   > ./process_feeds.sh 
 
-  * What just happend? * 
+* What just happend? * 
 
   A class, com.qagen.osfe.examples.acme.demo.ProcessFeeds.java,
   retrieved all of the delimited and fixed feed files and launched
