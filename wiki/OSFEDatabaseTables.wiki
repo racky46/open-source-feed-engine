@@ -1,4 +1,4 @@
-#summary Overview of OFSE database tables
+#summary Overview of Feed Engine Tables
 
 = Feed Engine Database Table Definitions =
 
