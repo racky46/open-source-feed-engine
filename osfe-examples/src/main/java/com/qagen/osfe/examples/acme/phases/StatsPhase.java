@@ -16,8 +16,8 @@ package com.qagen.osfe.examples.acme.phases;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
-import com.qagen.osfe.examples.acme.GradingStatistics;
 import com.qagen.osfe.examples.acme.AcmeConstants;
+import com.qagen.osfe.examples.acme.GradingStatistics;
 
 /**
  * Author: Hycel Taylor

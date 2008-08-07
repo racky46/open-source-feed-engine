@@ -14,6 +14,7 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
+import com.qagen.osfe.common.utils.Log;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.ProcessPhase;
@@ -21,7 +22,6 @@ import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.examples.acme.AcmeConstants;
 import com.qagen.osfe.examples.acme.GradingStatistics;
 import com.qagen.osfe.examples.acme.row.DetailRow;
-import com.qagen.osfe.common.utils.Log;
 
 /**
  * Author: Hycel Taylor
