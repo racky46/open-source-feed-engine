@@ -18,7 +18,6 @@ package com.qagen.osfe.examples.acme.phases;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.core.Splitter;
-import com.qagen.osfe.core.delimited.DelimitedHeaderSplitter;
 import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.utils.BeanPopulator;
