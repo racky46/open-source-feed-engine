@@ -2,7 +2,7 @@
 
 = t_feed_file_state =
 
-The t_feed_file_state table defines the finite set of feed file states.  Contains the definitions that determine the different states of a given row in t_feed_file. 
+The t_feed_file_state table defines the finite set of feed file states and contains the definitions that determine the different states of a given row in t_feed_file. 
 
 || *Key* || *Name* || *Type* || *Null* || *Description* ||
 || PK || feed_file_state_id || varchar(10) || No || Uniquely defines the feed file state ||
