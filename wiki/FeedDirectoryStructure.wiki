@@ -1,7 +1,7 @@
 #summary Overview of feed directory structure
 
 = Feed Directory Structure = 
-OSFE uses a very specific directory structure for managing a feed file.  The directory structure provides a contract for the life time of a feed file from the where the file should be downloaded to where the file is permanently archived.
+OSFE uses a specific directory structure for managing a feed file.  The directory structure provides a contract for the life time of a feed file from where the file should be downloaded to where the file is permanently archived.
 
 = Inbound Feed Directory Structure =
 
@@ -12,7 +12,7 @@ The following table describes the OSFE inbound directory structure.
 || download || Where inbound feeds should be downloaded or created. ||
 || failed || Where feeds are moved to when a feed fails to complete processing. || 
 || incoming || Where inbound feeds should be moved to once ready for processing. ||
-|| original || Where the original version of a feed file should be moved to. ||
+|| original || Where the original version of a feed file should be moved. ||
 || preprocess || Where feeds are prepared for incoming (i.e. Unzipping a feed file). ||
 || rejected || Where feeds are moved to when they fail and are rejected. ||
 || temp || Where temporary files are built and destroyed during feed processing. ||
