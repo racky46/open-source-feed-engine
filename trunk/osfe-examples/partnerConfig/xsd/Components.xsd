@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:complexType name="components">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of service elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element name="feedId" type="feedId" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="sequenceNumber" type="sequenceNumber" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="lineCount" type="lineCount" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="timestamp" type="formatPart" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="delimiter" type="delimiter" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="literal" type="valuePart" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define components that
+      could be used to make up a file name, header or footer.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="valuePart">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a part of the feed file name.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="formatPart">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a part of the feed file name.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="format" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="feedId">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the feedId.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="value" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="sequenceNumber">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the sequence number.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="initialize" type="xs:boolean" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="lineCount">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the lineCount.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="format" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="delimiter">
+    <xs:annotation>
+      <xs:documentation>
+        Defines the lineCount.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+
+</xs:schema>

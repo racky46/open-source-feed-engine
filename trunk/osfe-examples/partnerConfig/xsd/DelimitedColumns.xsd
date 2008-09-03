@@ -4,31 +4,34 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
+  <xs:include schemaLocation="ObjectType.xsd"/>
+  
   <xs:annotation>
     <xs:documentation>
-      This file contain complex types that define loaders.
+      This file contain complex types that define properties.
     </xs:documentation>
   </xs:annotation>
 
-  <xs:complexType name="configLoaders">
+  <xs:complexType name="delimitedColumns">
     <xs:annotation>
       <xs:documentation>
-        Defines a set of configLoader elements.
+        Properties are a set of property elements.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="configLoader" type="configLoader" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="delimitedColumn" type="delimitedColumn" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="configLoader">
+  <xs:complexType name="delimitedColumn">
     <xs:annotation>
       <xs:documentation>
-        Defines a configuration loader class.
+        The property element represents a name/value attribute pair.
       </xs:documentation>
     </xs:annotation>
     <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="className" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="objectType" use="required"/>
+    <xs:attribute name="format" type="xs:string" use="optional"/>
   </xs:complexType>
 
 </xs:schema>

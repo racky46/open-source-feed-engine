@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="Components.xsd"/>
+  <xs:include schemaLocation="HeaderFooter.xsd"/>
+  <xs:include schemaLocation="EndOfLineType.xsd"/>
+  <xs:include schemaLocation="DelimitedColumns.xsd"/>
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define file name elements.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="delimitedFileDescription">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of file description elements.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="headers" type="headers" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="detail" type="detail" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="footers" type="footers" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="delimiterValue" type="xs:string" use="required"/>
+    <xs:attribute name="endOfLineValue" type="eolType" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="detail">
+    <xs:annotation>
+      <xs:documentation>
+        Defines properties for detail element.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="delimitedColumns" type="delimitedColumns" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

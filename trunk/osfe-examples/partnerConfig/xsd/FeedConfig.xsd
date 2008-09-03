@@ -4,15 +4,14 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
-  <xs:include schemaLocation="Properties.xsd"/>
-  <xs:include schemaLocation="ConfigLoader.xsd"/>
-  <xs:include schemaLocation="Services.xsd"/>
   <xs:include schemaLocation="Phases.xsd"/>
-  <xs:include schemaLocation="Splitters.xsd"/>
   <xs:include schemaLocation="EventPhases.xsd"/>
   <xs:include schemaLocation="SaxPhases.xsd"/>
   <xs:include schemaLocation="DelimitedRows.xsd"/>
   <xs:include schemaLocation="FixedRows.xsd"/>
+  <xs:include schemaLocation="FileNameFormat.xsd"/>
+  <xs:include schemaLocation="DelimitedFile.xsd"/>
+  <xs:include schemaLocation="Beans.xsd"/>
 
   <xs:annotation>
     <xs:documentation>
@@ -26,12 +25,9 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
         <xs:element name="fixedRows" type="fixedRows" minOccurs="1" maxOccurs="1"/>
         <xs:element name="eventPhases" type="eventPhases" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="splitters" type="splitters" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="services" type="services" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="configLoaders" type="configLoaders" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="beans" type="beans" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -42,12 +38,9 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
         <xs:element name="delimitedRows" type="delimitedRows" minOccurs="1" maxOccurs="1"/>
         <xs:element name="eventPhases" type="eventPhases" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="splitters" type="splitters" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="services" type="services" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="configLoaders" type="configLoaders" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="beans" type="beans" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -58,10 +51,22 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
         <xs:element name="saxPhases" type="saxPhases" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="services" type="services" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="configLoaders" type="configLoaders" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="beans" type="beans" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="delimitedOutboundConfig">
+    <xs:annotation>
+      <xs:documentation>Configuration for outbound Feed Files</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="fileNameFormat" type="fileNameFormat" maxOccurs="1" minOccurs="1"/>
+        <xs:element name="delimitedFileDescription" type="delimitedFileDescription" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="phases" type="phases" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="beans" type="beans" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

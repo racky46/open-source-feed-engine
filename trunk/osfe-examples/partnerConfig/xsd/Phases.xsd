@@ -32,9 +32,8 @@
     <xs:sequence>
       <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="ref" type="xs:string" use="required"/>
     <xs:attribute name="enable" type="xs:boolean" use="required"/>
-    <xs:attribute name="className" type="xs:string" use="required"/>
   </xs:complexType>
 
 </xs:schema>

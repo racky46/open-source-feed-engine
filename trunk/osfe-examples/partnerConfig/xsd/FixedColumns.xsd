@@ -12,25 +12,26 @@
     </xs:documentation>
   </xs:annotation>
 
-  <xs:complexType name="properties">
+  <xs:complexType name="fixedColumns">
     <xs:annotation>
       <xs:documentation>
         Properties are a set of property elements.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="property" type="property" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="fixedColumn" type="fixedColumn" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="property">
+  <xs:complexType name="fixedColumn">
     <xs:annotation>
       <xs:documentation>
-        The property element represents a name/value attribute pair.
+        Defines the attributes of a fixed column.
       </xs:documentation>
     </xs:annotation>
     <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="value" type="xs:string" use="required"/>
+    <xs:attribute name="start" type="xs:integer" use="required"/>
+    <xs:attribute name="length" type="xs:integer" use="required"/>
     <xs:attribute name="type" type="objectType" use="required"/>
     <xs:attribute name="format" type="xs:string" use="optional"/>
   </xs:complexType>

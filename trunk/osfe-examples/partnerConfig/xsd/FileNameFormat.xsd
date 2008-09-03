@@ -4,31 +4,23 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
+  <xs:include schemaLocation="Components.xsd"/>
+
   <xs:annotation>
     <xs:documentation>
-      This file contain complex types that define loaders.
+      This file contain complex types that define file name elements.
     </xs:documentation>
   </xs:annotation>
 
-  <xs:complexType name="services">
+  <xs:complexType name="fileNameFormat">
     <xs:annotation>
       <xs:documentation>
         Defines a set of service elements.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="service" type="service" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="components" type="components" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="service">
-    <xs:annotation>
-      <xs:documentation>
-        Defines a service loader class.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="className" type="xs:string" use="required"/>
   </xs:complexType>
 
 </xs:schema>

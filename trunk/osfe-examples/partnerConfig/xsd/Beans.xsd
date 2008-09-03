@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="Properties.xsd"/>
+  <xs:include schemaLocation="References.xsd"/>
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain complex types that define beans.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="beans">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of bean's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="loaders" type="beanSet" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="services" type="beanSet" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="phases" type="beanSet" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="main" type="beanSet" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="beanSet">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a set of bean's.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="bean" type="bean" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="bean">
+    <xs:annotation>
+      <xs:documentation>
+        Defines attribues of an individual bean.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="properties" type="properties" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="references" type="references" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="class" type="xs:string" use="required"/>
+  </xs:complexType>
+
+</xs:schema>
