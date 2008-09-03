@@ -4,6 +4,8 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
+  <xs:include schemaLocation="DelimitedColumns.xsd"/>
+
   <xs:annotation>
     <xs:documentation>
       This file contain complex types that define delimited row descriptions.
@@ -22,14 +24,12 @@
     </xs:sequence>
     <xs:attribute name="delimiterValue" type="xs:string" use="required"/>
     <xs:attribute name="minusRowCount" type="xs:integer" use="required"/>
-    <!--<xs:attribute name="skipHeaderCount" type="xs:string" use="required"/>-->
-    <!--<xs:attribute name="skipFooterCount" type="xs:string" use="required"/>-->
   </xs:complexType>
 
   <xs:complexType name="delimitedRow">
     <xs:annotation>
       <xs:documentation>
-        Defines the attributes of a delimitedRow.
+        Defines the attributes of a delimited row.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -39,17 +39,5 @@
     <xs:attribute name="rowCount" type="xs:integer" use="optional"/>
     <xs:attribute name="linesToSkip" type="xs:integer" use="optional"/>
   </xs:complexType>
-
-  <xs:complexType name="delimitedColumn">
-    <xs:annotation>
-      <xs:documentation>
-        Defines the attributes of a row.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="type" type="xs:string" use="required"/>
-    <xs:attribute name="description" type="xs:string" use="optional"/>
-    <xs:attribute name="format" type="xs:string" use="optional"/>
-  </xs:complexType>
-
+  
 </xs:schema>

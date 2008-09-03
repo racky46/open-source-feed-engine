@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.osfe.com/feedconfig"
+           xmlns="http://www.osfe.com/feedconfig"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+  <xs:annotation>
+    <xs:documentation>
+      This file contain a list of end of line types.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="eolType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unix"/>
+      <xs:enumeration value="Windows"/>
+      <xs:enumeration value="Mac"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

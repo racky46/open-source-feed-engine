@@ -4,35 +4,31 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            elementFormDefault="qualified">
 
-  <xs:include schemaLocation="ObjectType.xsd"/>
-  
   <xs:annotation>
     <xs:documentation>
-      This file contain complex types that define properties.
+      This file contain complex types that define references.
     </xs:documentation>
   </xs:annotation>
 
-  <xs:complexType name="properties">
+  <xs:complexType name="references">
     <xs:annotation>
       <xs:documentation>
-        Properties are a set of property elements.
+        references are a set of reference elements.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="property" type="property" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="reference" type="reference" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="property">
+  <xs:complexType name="reference">
     <xs:annotation>
       <xs:documentation>
-        The property element represents a name/value attribute pair.
+        The reference element represents a name/value attribute pair.
       </xs:documentation>
     </xs:annotation>
     <xs:attribute name="name" type="xs:string" use="required"/>
-    <xs:attribute name="value" type="xs:string" use="required"/>
-    <xs:attribute name="type" type="objectType" use="required"/>
-    <xs:attribute name="format" type="xs:string" use="optional"/>
+    <xs:attribute name="ref" type="xs:string" use="required"/>
   </xs:complexType>
 
 </xs:schema>
