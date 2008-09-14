@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<delimitedOutboundConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
+                         xmlns="http://www.osfe.com/feedconfig">
+
+  <fileNameFormat>
+    <components name="fileName">
+      <feedId/>
+      <literal value="_"/>
+      <timestamp format="yyyyMMdd"/>
+      <literal value="_"/>
+      <timestamp format="HHmmss"/>
+      <literal value="_"/>
+      <sequenceNumber initialize="true"/>
+      <literal value=".txt"/>
+    </components>
+  </fileNameFormat>
+
+  <delimitedFileDescription delimiterValue="|" endOfLineValue="Unix">
+    <headers>
+      <components name="confidentialHeader">
+          <literal value="QAGenConfidential"/>
+      </components>
+
+      <components name="header">
+        <literal value="1.0"/>
+        <delimiter/>
+        <literal value="QAGen_UpromiseProgram/MerchantAccount/Request"/>
+        <delimiter/>
+        <timestamp format="yyyyMMddHHmmss"/>
+        <delimiter/>
+        <sequenceNumber initialize="false"/>
+      </components>
+    </headers>
+
+    <detail>
+      <delimitedColumns>
+        <delimitedColumn name="memberId" type="Integer"/>
+        <delimitedColumn name="transactionAmount" type="Double" format="#,##0.00"/>
+        <delimitedColumn name="transactionDate" type="Timestamp" format="yyyyMMdd"/>
+      </delimitedColumns>
+    </detail>
+
+    <footers>
+      <components name="footer">
+        <literal value="1.0"/>
+        <delimiter/>
+        <literal value="QAGen_UpromiseProgram/MerchantAccount/Request"/>
+        <delimiter/>
+        <lineCount format="########"/>
+      </components>
+    </footers>
+  </delimitedFileDescription>
+
+  <phases>
+    <phase ref="creatOutBoundFeedFilePhase" enable="true"/>
+    <phase ref="headerPhase" enable="true"/>
+    <phase ref="detailPhase" enable="true"/>
+    <phase ref="footerPhase" enable="true"/>
+  </phases>
+
+  <beans>
+    <loaders>
+      <bean name="fileNameFormatLoader" class="com.qagen.osfe.core.loaders.FileNameFormatLoader"/>
+      <bean name="delimitedFileDescLoader" class="com.qagen.osfe.core.loaders.DelimitedFileDescLoader"/>
+      <bean name="phaseConfigLoader" class="com.qagen.osfe.core.loaders.PhasesLoader"/>
+    </loaders>
+
+    <services>
+      <bean name="exceptionService" class="com.qagen.osfe.core.services.DefaultExceptionService"/>
+    </services>
+
+    <phases>
+      <bean name="creatOutBoundFeedFilePhase" class="com.qagen.osfe.core.phases.outbound.delimited.CreateBufferedFeedFilePhase">
+        <references>
+          <reference name="fileNameFormatLoader" ref="fileNameFormatLoader"/>
+        </references>
+      </bean>
+
+      <bean name="headerPhase" class="com.qagen.osfe.core.phases.outbound.delimited.HeaderPhase">
+        <references>
+          <reference name="delimitedFileDescLoader" ref="delimitedFileDescLoader"/>
+        </references>
+      </bean>
+
+      <bean name="detailPhase" class="com.qagen.osfe.examples.acme.phases.DetailOutboundPhase">
+        <properties>
+          <property name="numberOfAccounts" value="100000" type="Integer"/>
+        </properties>
+
+        <references>
+          <reference name="delimitedFileDescLoader" ref="delimitedFileDescLoader"/>
+        </references>
+      </bean>
+
+      <bean name="footerPhase" class="com.qagen.osfe.core.phases.outbound.delimited.FooterPhase">
+        <references>
+          <reference name="delimitedFileDescLoader" ref="delimitedFileDescLoader"/>
+        </references>
+      </bean>
+    </phases>
+
+    <main>
+      <bean name="mainService" class="com.qagen.osfe.core.services.outbound.StandardPhaseLifeCycleService">
+        <references>
+          <reference name="phaseConfigLoader" ref="phaseConfigLoader"/>
+          <reference name="exceptionService" ref="exceptionService"/>
+        </references>
+      </bean>
+    </main>
+  </beans>
+</delimitedOutboundConfig>
