@@ -24,7 +24,7 @@ import java.util.List;
  * This interface defines the contract for all splitter classes.  A splitter
  * is responsible for accessing the rows of data from a specific block of
  * data within a given feed file.
- * <p>
+ * <p/>
  * For example, most feed files are broken up into three blocks:
  * <ul>
  * <li>header - access to the header rows of a feed file
@@ -37,13 +37,6 @@ import java.util.List;
  * of the original format of the given feed file.
  */
 public interface Splitter {
-
-  /**
-   * Called during second pass of splitter initialization. Should this splitter need
-   * access to another splitter, all other splitters will have been instantiated in
-   * the first pass.
-   */
-  public void initialize();
 
   /**
    * Retrieves a list or RowValue objects for the given feed file.

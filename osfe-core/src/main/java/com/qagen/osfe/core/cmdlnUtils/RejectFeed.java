@@ -21,7 +21,7 @@ import com.qagen.osfe.dataAccess.vo.FeedJob;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * RejectFeed performs the following tasks.
  * <ul>
  * <li> Locates the failed feed for the given feed file id.

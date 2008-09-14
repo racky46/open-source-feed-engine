@@ -14,40 +14,32 @@
  */
 package com.qagen.osfe.core.vo;
 
-import java.util.Map;
-
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * This class contains the necessary information for loading a Phase at runtime.
  */
 public class PhaseInfo {
-  private String name;
+  private String ref;
   private Boolean enable;
-  private String className;
-  private Map<String, String> propertyMap;
+
+  public String getRef() {
+    return ref;
+  }
 
   /**
    * Constructor
    *
-   * @param name         should uniquely identify a phase within a set of phases.
-   * @param enable       specifies whether the phases should be used or ignored.
-   * @param className    specifies the name of the Phase extended class to load at runtime.
-   * @param propertyMap  specifies a list of properties specific to the given phase.
+   * @param ref    should uniquely identify a phase within a set of phases.
+   * @param enable specifies whether the phases should be used or ignored.
    */
-  public PhaseInfo(String name, Boolean enable, String className, Map<String, String> propertyMap) {
-    this.name = name;
+  public PhaseInfo(String ref, Boolean enable) {
+    this.ref = ref;
     this.enable = enable;
-    this.className = className;
-    this.propertyMap = propertyMap;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
+  public void setRef(String ref) {
+    this.ref = ref;
   }
 
   public Boolean getEnable() {
@@ -58,19 +50,4 @@ public class PhaseInfo {
     this.enable = enable;
   }
 
-  public String getClassName() {
-    return className;
-  }
-
-  public void setClassName(String className) {
-    this.className = className;
-  }
-
-  public Map<String, String> getPropertyMap() {
-    return propertyMap;
-  }
-
-  public void setPropertyMap(Map<String, String> propertyMap) {
-    this.propertyMap = propertyMap;
-  }
 }

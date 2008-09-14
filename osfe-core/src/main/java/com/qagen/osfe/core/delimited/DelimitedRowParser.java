@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * The behavior of a row parser is to parse data for a specific row type and place
  * the raw values in to a list of RowValue objects. This particular class parses
  * delimited column data.
@@ -45,7 +45,7 @@ public class DelimitedRowParser implements RowParser {
    * Constructor
    *
    * @param rowDescription contains the column descriptions.
-   * @param delimiter defines the value used to delimited the columns.
+   * @param delimiter      defines the value used to delimited the columns.
    */
   public DelimitedRowParser(RowDescription rowDescription, String delimiter) {
     this.delimiter = checkDelimiterType(delimiter);
@@ -81,7 +81,7 @@ public class DelimitedRowParser implements RowParser {
    *
    * @param row the object that contains a row of data to be parsed in to a
    *            list of row values.
-   * @return    list of RowValue objects.
+   * @return list of RowValue objects.
    */
   public List<RowValue> parseRow(Object row) {
     final String string = (String) row;
@@ -91,7 +91,8 @@ public class DelimitedRowParser implements RowParser {
       limit = string.length();
     }
 
-    final String[] array = string.split(delimiter, limit);
+    final String escapedDelimiter = "\\" + delimiter;
+    final String[] array = string.split(escapedDelimiter, limit);
     final List<RowValue> rowValues = new ArrayList<RowValue>();
 
     if (array.length > columnDescriptions.size()) {

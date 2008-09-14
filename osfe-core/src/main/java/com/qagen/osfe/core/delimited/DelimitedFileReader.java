@@ -14,13 +14,13 @@
  */
 package com.qagen.osfe.core.delimited;
 
-import com.qagen.osfe.core.FeedFileReader;
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.core.FeedFileReader;
 
-import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -44,7 +44,7 @@ public class DelimitedFileReader extends FeedFileReader {
       final String fullFeedFileName = context.getFullFeedFileName();
       final FileReader fileReader = new FileReader(fullFeedFileName);
       bufferedReader = new BufferedReader(fileReader);
-
+      context.setFeedFileReader(this);
     } catch (FileNotFoundException e) {
       throw new FeedErrorException(e);
     }

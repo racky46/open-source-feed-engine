@@ -16,13 +16,12 @@ package com.qagen.osfe.core.phases;
 
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.core.Splitter;
-import com.qagen.osfe.core.EngineContext;
-import com.qagen.osfe.core.utils.BeanPopulator;
-import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.row.Row;
+import com.qagen.osfe.core.row.RowValue;
+import com.qagen.osfe.core.utils.BeanPopulator;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor
@@ -34,25 +33,25 @@ import java.util.ArrayList;
  * spltter only.
  */
 public abstract class RowBeanPopulatorPhase extends Phase {
-  private Splitter splitter;
+  private Splitter detailSplitter;
   private Integer batchSize;
   private List<Row> rows;
 
   /**
-   * Constructor
+   * Set the reference to the detail splitter.
+   * <p/>
+   * <ul><li>Injection - required</li></ul>
    *
-   * @param context reference to the engine context.
-   * @param name    uniquely identifies the given phase.
+   * @param detailSplitter reference to the detail splitter.
    */
-  public RowBeanPopulatorPhase(EngineContext context, String name) {
-    super(context, name);
+  public void setDetailSplitter(Splitter detailSplitter) {
+    this.detailSplitter = detailSplitter;
   }
 
   /**
    * Reference the detailSplitter and batchSize from the context.
    */
   public void initialize() {
-    splitter = context.getDetailSplitter();
     batchSize = context.getBatchSize();
     rows = new ArrayList<Row>();
   }
@@ -66,8 +65,8 @@ public abstract class RowBeanPopulatorPhase extends Phase {
     rows.clear();
 
     Integer batchCounter = 0;
-    while (splitter.hasNextRow() && (batchCounter++ < batchSize)) {
-      final List<RowValue> rowValues = splitter.getNextRow();
+    while (detailSplitter.hasNextRow() && (batchCounter++ < batchSize)) {
+      final List<RowValue> rowValues = detailSplitter.getNextRow();
       final Row detailRow = getNewRow();
 
       BeanPopulator.populateBean(rowValues, detailRow);

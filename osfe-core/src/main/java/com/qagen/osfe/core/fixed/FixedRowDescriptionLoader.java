@@ -70,12 +70,26 @@ public class FixedRowDescriptionLoader extends RowDescriptionLoader {
 
   /**
    * Constructor
+   */
+  public FixedRowDescriptionLoader() {
+  }
+
+  /**
+   * Constructor
    *
    * @param root the element from which contains the sub element
    *             that will be parsed and referenced as the parent element.
    */
   public FixedRowDescriptionLoader(Element root) {
     super(root, ELEMENT.fixedRows.name());
+  }
+
+  /**
+   * Because OSFE uses dependency injection, the initialize method should be
+   * used during a second pass of iniitializing objects.
+   */
+  public void initialize() {
+    load(root, ELEMENT.fixedRows.name());
   }
 
   /**
@@ -100,7 +114,7 @@ public class FixedRowDescriptionLoader extends RowDescriptionLoader {
    *
    * @param parent container of child element to parse.
    */
-  protected void load(Element parent) {
+  public void load(Element parent) {
     minusRowCount = DomReader.getRequiredIntValue(parent, ATTRIBUTE.minusRowCount.name());
     eolCharacter = DomReader.getValue(parent, ATTRIBUTE.eolCharacter.name());
     eolLength = getEOLLength(eolCharacter);
@@ -112,15 +126,14 @@ public class FixedRowDescriptionLoader extends RowDescriptionLoader {
    * Retrieve the end of line character and determine its' length.
    *
    * @param name defines the eol enumation type to lookup.
-   * Name may be one of the choices:
-   * <ul>
-   * <li>Windows</li>
-   * <li>Linux</li>
-   * <li>Mac</li>
-   * <li>None</li>
-   * </ul>
-   *
-   * @return  length of the number of characters for the given eol. 
+   *             Name may be one of the choices:
+   *             <ul>
+   *             <li>Windows</li>
+   *             <li>Linux</li>
+   *             <li>Mac</li>
+   *             <li>None</li>
+   *             </ul>
+   * @return length of the number of characters for the given eol.
    */
   private int getEOLLength(String name) {
     try {
@@ -162,7 +175,7 @@ public class FixedRowDescriptionLoader extends RowDescriptionLoader {
     final List<ColumnDescription> columnDescriptions = new ArrayList<ColumnDescription>();
 
     for (Element element : elements) {
-      columnDescriptions.add(new FixedColumn(element));
+      columnDescriptions.add(new FixedColumnDescription(element));
     }
 
     return columnDescriptions;

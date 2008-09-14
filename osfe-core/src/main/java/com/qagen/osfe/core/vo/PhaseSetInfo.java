@@ -14,9 +14,11 @@
  */
 package com.qagen.osfe.core.vo;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PhaseSetInfo {
+public class PhaseSetInfo implements Serializable {
   private List<PhaseInfo> preFeedFilePhases;
   private List<PhaseInfo> preEventPhaseList;
   private List<PhaseInfo> batchPhaseList;
@@ -66,5 +68,22 @@ public class PhaseSetInfo {
 
   public void setBatchSize(Integer batchSize) {
     this.batchSize = batchSize;
+  }
+
+  public List<PhaseInfo> getAllPhases() {
+    List<PhaseInfo> list = new ArrayList<PhaseInfo>();
+
+    addPhases(preFeedFilePhases, list);
+    addPhases(preEventPhaseList, list);
+    addPhases(batchPhaseList, list);
+    addPhases(postEventPhaseList, list);
+
+    return list;
+  }
+
+  private void addPhases(List<PhaseInfo> source, List<PhaseInfo> dest) {
+    for (PhaseInfo phaseInfo : source) {
+      dest.add(phaseInfo);
+    }
   }
 }

@@ -16,16 +16,23 @@ package com.qagen.osfe.core.vo;
 
 /**
  * Author: Hycel Taylor
- * <p>
- * 
+ * <p/>
  */
 public class Property {
   private String name;
   private String value;
+  private String type;
+  private String format;
 
-  public Property(String name, String value) {
+  public Property(String name, String value, String type, String format) {
     this.name = name;
     this.value = value;
+    this.type = type;
+    this.format = format;
+  }
+
+  public Property(String name, String value) {
+    this(name, value, null, null);
   }
 
   public String getName() {
@@ -42,5 +49,21 @@ public class Property {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getFormat() {
+    return format;
+  }
+
+  public void setFormat(String format) {
+    this.format = format;
   }
 }

@@ -16,10 +16,10 @@ package com.qagen.osfe.core.phases;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
+import com.qagen.osfe.core.utils.CheckpointHelper;
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
 import com.qagen.osfe.dataAccess.service.FeedCheckpointService;
 import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
-import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 /**
  * Author: Hycel Taylor
@@ -31,7 +31,7 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
  * definitions.  If necessary, a checkpoint phase can be inserted within a
  * list of phases definitions multiple times.  However, like all phases, each
  * checkpoint must be defined with a unique name.
- * <p>
+ * <p/>
  * It is important to understand that even though more than one checkpoint
  * phase can be defined within a set of phases, only one instance of the
  * checkpoint object will be stored in the engine context and thus shared
@@ -40,7 +40,7 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
  * It is necessary to give each checkpoint, within a list of phases, a unique
  * name, so that during an engine restart the engine will be able to determine
  * which checkpoint to start from.
- * <p>
+ * <p/>
  * Example: In the example below, the CheckPointPhase class is defined twice within
  * the batchEventPhase definition.
  * <hr><blockquote><pre>
@@ -57,18 +57,31 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
  * </pre></blockquote>
  */
 public class CheckpointPhase extends Phase {
-  public static final String NO_PHASE_ID = "NO_PHASE_ID";
   private FeedCheckpointService service;
+  private FeedCheckpoint checkpoint;
+
+  /**
+   * Constructor<p>
+   * <p/>
+   * This constructor in normally used for automatic dependency injection
+   * when the feed config file is loaded.<p>
+   * If this constructor is used then the following setters must be called:
+   * <ul>
+   * <li>setContext(Element)
+   * <li>setName(String)
+   * <ul>
+   */
+  public CheckpointPhase() {
+  }
 
   /**
    * Constructor
    *
    * @param context refereces the engine context
-   * @param name uniquely idetifies the phase
+   * @param name    uniquely idetifies the phase
    */
   public CheckpointPhase(EngineContext context, String name) {
     super(context, name);
-    service = (FeedCheckpointService) DataAccessContext.getBean(FeedCheckpointService.SERVICE_ID);
   }
 
   /**
@@ -76,32 +89,33 @@ public class CheckpointPhase extends Phase {
    * if one does not already exist.
    */
   public void initialize() {
-    FeedCheckpoint checkpoint = context.getCheckpoint();
+    service = (FeedCheckpointService) DataAccessContext.getBean(FeedCheckpointService.SERVICE_ID);
+  }
 
+  /**
+   * This method ensures that the database is hit only once to attrain a
+   * reference to the feed check point row.  It also ensures that is a
+   * check point row does not exist, one is created.
+   *
+   * @return always returns a check row.
+   */
+  protected FeedCheckpoint getCheckpoint() {
     if (checkpoint == null) {
-      final FeedFile feedFile = context.getFeedJob().getFeedFile();
-      final Integer feedFileId = context.getFeedJob().getFeedFile().getFeedFileId();
-
-      checkpoint = service.findByFeedFileId(feedFileId);
-
-      if (checkpoint == null) {
-        checkpoint = new FeedCheckpoint(NO_PHASE_ID, 0L, feedFile);
-        service.insert(checkpoint);
-      }
+      checkpoint = CheckpointHelper.getFeedCheckpoint(context);
     }
-    
-    context.setCheckpoint(checkpoint);
+
+    return checkpoint;
   }
 
   /**
    * Updates the checkpoint.
    */
   public void execute() {
-    final FeedCheckpoint checkpoint = context.getCheckpoint();
+    final FeedCheckpoint checkpoint = getCheckpoint();
 
     checkpoint.setPhaseId(context.getCurrentPhaseId());
     checkpoint.setCurrentFileIndex(context.getPreviousSplitterIndex());
-    
+
     service.update(checkpoint);
   }
 

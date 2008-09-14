@@ -14,8 +14,8 @@
  */
 package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.EngineContext;
+import com.qagen.osfe.core.row.RowValue;
 
 import java.util.List;
 
@@ -28,22 +28,15 @@ public class FixedHeaderSplitter extends FixedSplitter {
   private FixedFileReader fileReader;
   private Integer rowIndex;
 
-  /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public FixedHeaderSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
+  public void setContext(EngineContext context) {
+    fileReader = new FixedFileReader(context);
   }
 
   /**
    * Get the fileReader from the context.
    */
   public void initialize() {
-    fileReader = (FixedFileReader) context.getFeedFileReader();
+    super.initialize();
     rowIndex = 0;
   }
 
@@ -82,4 +75,22 @@ public class FixedHeaderSplitter extends FixedSplitter {
   public void prePhaseExecute() {
   }
 
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
+  }
 }

@@ -14,8 +14,9 @@
  */
 package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.core.EngineContext;
+import com.qagen.osfe.core.EngineService;
 import com.qagen.osfe.core.Splitter;
+import com.qagen.osfe.core.utils.CheckNullUtil;
 
 /**
  * Author: Hycel Taylor
@@ -23,40 +24,29 @@ import com.qagen.osfe.core.Splitter;
  * The FixedSplitter class is the base abstract class for splitters
  * that will parse data from fixed feed files.
  */
-public abstract class FixedSplitter implements Splitter {
-  protected final String rowDescriptionName;
-  protected final Integer rowCount;
-  protected final Integer rowLength;
-  protected final EngineContext context;
-  protected final FixedRowParser rowParser;
-  protected final FixedRowDescription rowDescription;
-  protected final FixedRowDescriptionLoader rowLoader;
+public abstract class FixedSplitter extends EngineService implements Splitter {
+  protected Integer rowCount;
+  protected Integer rowLength;
+  protected FixedRowParser rowParser;
+  protected FixedRowDescription rowDescription;
+  protected String rowDescriptionName;
 
-  /**
-   * Constructor
-   *
-   * @param context reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                configuration file.
-   */
-  public FixedSplitter(EngineContext context, String rowDescriptionName) {
-    this.context = context;
-    this.rowDescriptionName = rowDescriptionName;
+  protected FixedRowDescriptionLoader rowDescriptionLoader;
 
-    rowLoader = (FixedRowDescriptionLoader) context.getRowDescriptionLoader();
-    rowDescription = (FixedRowDescription) rowLoader.getRows().get(rowDescriptionName);
-    rowParser = new FixedRowParser(rowDescription);
-    rowCount = rowDescription.getRowCount();
-    rowLength = rowDescription.getRowLength() + rowLoader.getEolCharacter().length();
+  public void setRowDescriptionLoader(FixedRowDescriptionLoader rowDescriptionLoader) {
+    this.rowDescriptionLoader = rowDescriptionLoader;
   }
 
-  /**
-   * Retrieves the refence to the engine context.
-   *
-   * @return reference to the engine context.
-   */
-  public EngineContext getContext() {
-    return context;
+  public void setName(String name) {
+    this.rowDescriptionName = name;
+  }
+
+  public void initialize() {
+    rowDescription = (FixedRowDescription) rowDescriptionLoader.getRows().get(rowDescriptionName);
+    CheckNullUtil.checkNull(rowDescription, rowDescriptionName);
+    rowParser = new FixedRowParser(rowDescription);
+    rowCount = rowDescription.getRowCount();
+    rowLength = rowDescription.getRowLength() + rowDescriptionLoader.getEolCharacter().length();
   }
 
   /**
@@ -73,8 +63,8 @@ public abstract class FixedSplitter implements Splitter {
    *
    * @return reference to the FixedRowDescriptionLoader.
    */
-  public FixedRowDescriptionLoader getRowsLoader() {
-    return rowLoader;
+  public FixedRowDescriptionLoader getRowLoader() {
+    return rowDescriptionLoader;
   }
 
   /**
@@ -92,6 +82,12 @@ public abstract class FixedSplitter implements Splitter {
    * @return reference to the rowDescription object.
    */
   public FixedRowDescription getRowDescription() {
+    // It is necessary to check this because fixed splitters reference each during initialization.
+    if (rowDescription == null) {
+      rowDescription = (FixedRowDescription) rowDescriptionLoader.getRows().get(rowDescriptionName);
+      CheckNullUtil.checkNull(rowDescription, rowDescriptionName);
+    }
+
     return rowDescription;
   }
 
@@ -101,6 +97,11 @@ public abstract class FixedSplitter implements Splitter {
    * @return the total number of rows the splitter has access to.
    */
   public Integer getRowCount() {
+    // It is necessary to check this because fixed splitters reference each during initialization.
+    if (rowCount == null) {
+      rowCount = getRowDescription().getRowCount();
+    }
+
     return rowCount;
   }
 
@@ -110,6 +111,11 @@ public abstract class FixedSplitter implements Splitter {
    * @return the length of the fixed row.
    */
   public Integer getRowLength() {
+    // It is necessary to check this because fixed splitters reference each during initialization.
+    if (rowLength == null) {
+      rowLength = getRowDescription().getRowLength() + rowDescriptionLoader.getEolCharacter().length();
+    }
+
     return rowLength;
   }
 }

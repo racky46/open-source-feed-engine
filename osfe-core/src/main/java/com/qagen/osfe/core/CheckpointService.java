@@ -14,27 +14,44 @@
  */
 package com.qagen.osfe.core;
 
+import com.qagen.osfe.core.utils.CheckpointHelper;
+import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
+
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * The CheckpointService is absrtact and must be extended by
  * classes that need to perform some custom actions prior to
  * a checkpoint recovery and after a checkpoint recovery.
- * <p>
+ * <p/>
  * Classes like the FeedLifeCycleService will look for a
  * checkpoint service in the engine context and call its
  * beforeCheckpoint() and afterCheckpoint methods when
  * performing a checkpoint recovery.
  */
 public abstract class CheckpointService extends EngineService {
+  protected FeedCheckpoint checkpoint;
 
   /**
    * Constructor
-   *
-   * @param context references the engine context.
    */
-  protected CheckpointService(EngineContext context) {
-    super(context);
+  protected CheckpointService() {
+  }
+
+
+  /**
+   * This method ensures that the database is hit only once to attrain a
+   * reference to the feed check point row.  It also ensures that is a
+   * check point row does not exist, one is created.
+   *
+   * @return always returns a check row.
+   */
+  public FeedCheckpoint getCheckpoint() {
+    if (checkpoint == null) {
+      checkpoint = CheckpointHelper.getFeedCheckpoint(context);
+    }
+
+    return checkpoint;
   }
 
   /**

@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * ShowJobHistory retrieves the set of feed jobs for the given feed file
  * and echos the results to the system console.
  */

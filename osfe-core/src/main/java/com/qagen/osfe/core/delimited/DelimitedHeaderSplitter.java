@@ -16,7 +16,6 @@ package com.qagen.osfe.core.delimited;
 
 import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.SplitterFileOpener;
 import com.qagen.osfe.core.row.RowValue;
 
 import java.io.BufferedReader;
@@ -29,7 +28,7 @@ import java.util.List;
  * <p/>
  * This class operates on the header rows of a delimited feed file.
  */
-public class DelimitedHeaderSplitter extends DelimitedSplitter implements SplitterFileOpener {
+public class DelimitedHeaderSplitter extends DelimitedSplitter {
   private List<List<RowValue>> rows;
   private Integer rowIndex;
   private Integer rowCount;
@@ -37,32 +36,23 @@ public class DelimitedHeaderSplitter extends DelimitedSplitter implements Splitt
   private DelimitedFileReader fileReader;
 
   /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public DelimitedHeaderSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
-  }
-
-  /**
-   * Instantiates a FeedFileReader object and call any method on that object
-   * to open its file handler if the file handler.
+   * Sets reference to the engine context.
    * <p/>
-   * Once the FeedFileReader object has been successfully opened, it should be
-   * placed in the engine context using setFeedFeedFileReader().
+   * <ul><li>Injection - required</li></ul>
+   *
+   * @param context referce to the engine contex.
    */
-  public void openFeedFileReader() {
+  public void setContext(EngineContext context) {
+    super.setContext(context);
     fileReader = new DelimitedFileReader(context);
-    context.setFeedFileReader(fileReader);
   }
 
   /**
    * Parse and load all of the header rows into a list of RowValue objects.
    */
   public void initialize() {
+    super.initialize();
+
     final BufferedReader bufferedReader = fileReader.getBufferedReader();
     rowCount = rowDescription.getRowCount();
     rows = new ArrayList<List<RowValue>>();
@@ -110,5 +100,24 @@ public class DelimitedHeaderSplitter extends DelimitedSplitter implements Splitt
    */
   public void prePhaseExecute() {
     // Do nothing.
+  }
+
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
   }
 }

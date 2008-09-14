@@ -22,41 +22,11 @@ package com.qagen.osfe.core;
  * specific operations and is used as a plug and play service in one or more
  * feed file configuration documents.
  */
-public abstract class EngineService {
+public abstract class EngineService implements EngineServiceable {
   protected EngineContext context;
 
-  /**
-   * Constructor
-   *
-   * @param context references the engine context.
-   */
-  protected EngineService(EngineContext context) {
+  public void setContext(EngineContext context) {
     this.context = context;
   }
-
-  /**
-   * Stores the name of the given service as it is defined in the feed
-   * configuration document.
-   *
-   * @return the name of the service as it is defined in the feed configuration
-   *         document.
-   */
-  public abstract String name();
-
-  /**
-   * Use this method to reference engine context objects and other services
-   * instead of the constructor.  Services may have inner dependencies with
-   * each and are thus, initialized in two passes.  In the first pass, all
-   * service constructors are instantiated.  In the second pass, the
-   * initialization method on each service is called.
-   */
-  public abstract void initialize();
-
-  /**
-   * Depending on the behavior of the service, it's shutdown method may be
-   * called in order to perform house keeping tasks such as closing files
-   * and other depended services.
-   */
-  public abstract void shutdown();
 
 }

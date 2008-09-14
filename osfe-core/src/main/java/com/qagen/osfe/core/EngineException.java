@@ -16,8 +16,7 @@ package com.qagen.osfe.core;
 
 /**
  * Author: Hycel Taylor
- * <p>
- * 
+ * <p/>
  */
 public class EngineException extends RuntimeException {
   public EngineException() {

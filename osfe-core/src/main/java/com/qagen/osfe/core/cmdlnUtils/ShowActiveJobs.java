@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * ShowActiveJobs retrieves the set of feed jobs that are in an active state
  * and echos the results to the console.
  */

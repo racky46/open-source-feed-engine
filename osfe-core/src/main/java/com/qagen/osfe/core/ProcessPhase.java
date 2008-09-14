@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * ProcessPhase contains methods that handle common business logic around
  * processing rows while keeping track of the row index counter and processed
  * row counter. Header phases and batch phases will most often extend
@@ -15,10 +15,24 @@ import java.util.List;
 public abstract class ProcessPhase extends Phase {
 
   /**
+   * Constructor<p>
+   * <p/>
+   * This constructor in normally used for automatic dependency injection
+   * when the feed config file is loaded.<p>
+   * If this constructor is used then the following setters must be called:
+   * <ul>
+   * <li>setContext(Element)
+   * <li>setName(String)
+   * <ul>
+   */
+  protected ProcessPhase() {
+  }
+
+  /**
    * Constructor
    *
    * @param context reference to the engine context.
-   * @param name uniquely identifies the given phase.
+   * @param name    uniquely identifies the given phase.
    */
   protected ProcessPhase(EngineContext context, String name) {
     super(context, name);

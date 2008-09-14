@@ -14,17 +14,17 @@
  */
 package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.core.row.RowValue;
-import com.qagen.osfe.core.EngineContext;
-import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.CheckpointHandler;
-import com.qagen.osfe.common.utils.Log;
-import com.qagen.osfe.common.utils.HeapStats;
 import com.qagen.osfe.common.utils.ElapsedTime;
+import com.qagen.osfe.common.utils.HeapStats;
+import com.qagen.osfe.common.utils.Log;
+import com.qagen.osfe.core.Checkpointable;
+import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.core.Splitter;
+import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor
@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * RowValue objects. This splitter will continue to parse N rows of data until all
  * rows in the given feed file have been parsed.
  */
-public class FixedDetailSplitter extends FixedSplitter implements CheckpointHandler {
+public class FixedDetailSplitter extends FixedSplitter implements Checkpointable {
   private FixedFileReader fileReader;
   private List<List<RowValue>> rows;
   private Integer batchSize;
@@ -52,15 +52,16 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
 
   private static Log logger = Log.getInstance(FixedDetailSplitter.class);
 
-  /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public FixedDetailSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
+  private FixedHeaderSplitter headerSplitter;
+  private FixedFooterSplitter footerSplitter;
+
+
+  public void setHeaderSplitter(Splitter headerSplitter) {
+    this.headerSplitter = (FixedHeaderSplitter) headerSplitter;
+  }
+
+  public void setFooterSplitter(FixedFooterSplitter footerSplitter) {
+    this.footerSplitter = (FixedFooterSplitter) footerSplitter;
   }
 
   /**
@@ -69,17 +70,14 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
    * the first pass.
    */
   public void initialize() {
+    super.initialize();
+
     fileReader = (FixedFileReader) context.getFeedFileReader();
     fileReader.movePointer(0L);
 
-    final FixedHeaderSplitter headerSplitter = (FixedHeaderSplitter) context.getHeaderSplitter();
     headerBlockSize = headerSplitter.getRowCount() * headerSplitter.getRowLength();
-
-    final FixedFooterSplitter footerSplitter = (FixedFooterSplitter) context.getFooterSplitter();
     footerBlockSize = footerSplitter.getRowCount() * footerSplitter.getRowLength();
-
     totalFileSize = fileReader.size();
-
     batchSize = context.getBatchSize();
     linesToSkip = getRowDescription().getLinesToSkip();
     currentRowIndex = context.getCurrentSplitterIndex();
@@ -181,7 +179,7 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
    * @param checkpoint contains the information about the position in
    *                   the file to move to.
    */
-  public void moveToCheckPoint(FeedCheckpoint checkpoint) {
+  public void moveToCheckpoint(FeedCheckpoint checkpoint) {
     final long fileIndex = checkpoint.getCurrentFileIndex();
 
     currentRowIndex = fileIndex;
@@ -195,9 +193,6 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
    * @return the total number of rows the splitter has access to.
    */
   public Integer getRowCount() {
-    final FixedHeaderSplitter headerSplitter = (FixedHeaderSplitter) context.getHeaderSplitter();
-    final FixedFooterSplitter footerSplitter = (FixedFooterSplitter) context.getFooterSplitter();
-
     long headerSize = headerSplitter.getRowCount() * headerSplitter.getRowLength();
     long footerSize = footerSplitter.getRowCount() * footerSplitter.getRowLength();
     long detailSize = totalFileSize - headerSize - footerSize;
@@ -210,5 +205,24 @@ public class FixedDetailSplitter extends FixedSplitter implements CheckpointHand
 
     final Long result = detailSize / getRowLength();
     return result.intValue();
+  }
+
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
   }
 }

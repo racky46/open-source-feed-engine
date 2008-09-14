@@ -50,11 +50,25 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
 
   /**
    * Constructor
+   */
+  public DelimitedRowDescriptionLoader() {
+  }
+
+  /**
+   * Constructor
    *
    * @param root parent element
    */
   public DelimitedRowDescriptionLoader(Element root) {
     super(root, ELEMENT.delimitedRows.name());
+  }
+
+  /**
+   * Because OSFE uses dependency injection, the initialize method should be
+   * used during a second pass of iniitializing objects.
+   */
+  public void initialize() {
+    load(root, ELEMENT.delimitedRows.name());
   }
 
   /**
@@ -79,7 +93,7 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
    *
    * @param parent container of child element to parse.
    */
-  protected void load(Element parent) {
+  public void load(Element parent) {
     delimiter = DomReader.getRequiredValue(parent, ATTRIBUTE.delimiterValue.name());
     minusRowCount = DomReader.getRequiredIntValue(parent, ATTRIBUTE.minusRowCount.name());
     rows = parceRows(parent);
@@ -117,7 +131,7 @@ public class DelimitedRowDescriptionLoader extends RowDescriptionLoader {
     final List<ColumnDescription> columnDescriptions = new ArrayList<ColumnDescription>();
 
     for (Element element : elements) {
-      columnDescriptions.add(new DelimitedColumn(element));
+      columnDescriptions.add(new DelimitedColumnDescription(element));
     }
 
     return columnDescriptions;

@@ -52,7 +52,7 @@ public class RowDescription {
   private final Integer linesToSkip;
   // Contains the list of ColumnDescription objects.
   private final List<ColumnDescription> columnDescriptions;
-  
+
   /**
    * Constructor
    *
