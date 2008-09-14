@@ -14,8 +14,6 @@
  */
 package com.qagen.osfe.engine;
 
-import org.testng.annotations.Test;
-
 /**
  * Author: Hycel Taylor
  * <p/>
@@ -49,7 +47,7 @@ public class DelimitedFeedEngineTest extends FeedTestBase {
       };
 
     for (String feedFile : feedFiles) {
-      final Thread thread = new Thread(new FeedEngine(feedId, feedFile));
+      final Thread thread = new Thread(new InboundFeedEngine(feedId, feedFile));
       thread.start();
     }
   }

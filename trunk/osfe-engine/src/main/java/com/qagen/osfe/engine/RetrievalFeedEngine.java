@@ -14,9 +14,38 @@
  */
 package com.qagen.osfe.engine;
 
-public class FeedEngine extends AbstractFeedEngine implements Runnable {
-  public FeedEngine(String feedId, String feedFileName) {
-    super(feedId, feedFileName);
+import com.qagen.osfe.core.FeedJobManager;
+
+public class RetrievalFeedEngine extends AbstractFeedEngine implements Runnable {
+
+  /**
+   * Constructor
+   * <p/>
+   *
+   * @param feedId specifies the feedId for outbound feed processing.
+   */
+  public RetrievalFeedEngine(String feedId) {
+    try {
+      feedJobManager = new FeedJobManager();
+      initFeedProcess(feedId);
+    } catch (Exception e) {
+      handleError(feedId, feedFileName, e);
+    }
+  }
+
+  /**
+   * Perform the initialization sequence to prepare a feed for processing.
+   *
+   * @param feedId identifies the feedId associated with the exception.
+   *               the exception.
+   */
+  protected void initFeedProcess(String feedId) {
+    initContext(feedId, null);
+    initFeedRecord();
+    initConfigFile();
+    loadBeans();
+    initialize();
+    initFeedFileAndFeedJob();
   }
 
   protected void initialize() {
@@ -42,14 +71,13 @@ public class FeedEngine extends AbstractFeedEngine implements Runnable {
   }
 
   public static void main(String[] args) {
-    if (args.length < 2) {
-      System.err.println("Usage: FeedEngine feedId, feedFileName");
-      System.err.println("Usage: FeedEngine acme.qagen.testd.request acme_qagen_test_request_20080101.txt");
+    if (args.length != 1) {
+      System.err.println("Usage: RetrievalFeedEngine feedId");
+      System.err.println("Example: RetrievalFeedEngine acme.qagen.testd.request");
       System.exit(-1);
     }
 
-    final FeedEngine engine = new FeedEngine(args[0],args[1]);
-
+    final RetrievalFeedEngine engine = new RetrievalFeedEngine(args[0]);
     engine.execute();
   }
 }
