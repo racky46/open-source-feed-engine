@@ -17,25 +17,20 @@ package com.qagen.osfe.engine;
 import static com.qagen.osfe.common.FeedConstants.*;
 import com.qagen.osfe.common.utils.Log;
 import com.qagen.osfe.core.*;
-import com.qagen.osfe.core.loaders.ConfigLoaderFactory;
-import com.qagen.osfe.core.loaders.PhaseConfigLoader;
-import com.qagen.osfe.core.loaders.PropertiesConfigLoader;
-import com.qagen.osfe.core.loaders.ServiceConfigLoader;
+import com.qagen.osfe.core.loaders.BeanLoader;
 import com.qagen.osfe.core.utils.FeedFileHelper;
-import com.qagen.osfe.core.vo.Clazz;
-import com.qagen.osfe.core.vo.PhaseSetInfo;
-import com.qagen.osfe.core.vo.Property;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 import com.qagen.osfe.dataAccess.vo.FeedGroup;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import org.dom4j.Document;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Hycel Taylor
@@ -72,13 +67,7 @@ import java.util.*;
  * with the given feed file name.
  * <li>initConfigFile() - Load the feed configuration document defined in the
  * Feed record and place a reference to the document in the engine context.
- * <li>initConfigProperties() - Load any global properties defined within the
- * given feed file configuration document into the engine context.
- * <li>loadServices() - Uses the servicesConfigLoader and reads from the
- * &lt;services&gt; element to load and instantiate services defined within
- * the given configuration file.
- * <li>initPhases() - Uses the phaseConfigLoader and PhaseLoaderService to load
- * and instantiate phases defined in the given configuration file.
+ * <li>loadBeans() -
  * <li>initialize() - Allows a concrete implementation of the AbstractFeedEngine
  * to perform its own specific initialization operations.
  * <li>runPreFeedFilePhases() Execute the set of preEventPhases defined
@@ -89,37 +78,6 @@ import java.util.*;
  * </ol>
  */
 public abstract class AbstractFeedEngine {
-  private enum LOADERS {
-    propertyLoader("propertyLoader"),
-    phaseLoader("phaseLoader"),
-    serviceLoader("serviceLoader");
-
-    private String value;
-
-    LOADERS(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-  }
-
-  public enum SERVICES {
-    mainService("mainService"),
-    phaseService("phaseService");
-
-    private String value;
-
-    SERVICES(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-  }
-
   protected String feedId;
   protected String feedFileName;
   protected EngineContext context;
@@ -131,44 +89,64 @@ public abstract class AbstractFeedEngine {
 
   private static Log logger = Log.getInstance(AbstractFeedEngine.class);
 
-  /**
-   * Constructor
-   * <p/>
-   * Normally used to process a feed for that has not been processed before.
-   * This constructor can also be used to process a feed that has alread been
-   * processed; however, it's easier to use the constructor which only requires
-   * the feedFileId.
-   *
-   * @param feedId       the feedId is used to attian information about the feed for
-   *                     processing.
-   * @param feedFileName specifies the unique file to process.
-   */
-  public AbstractFeedEngine(String feedId, String feedFileName) {
-    try {
-      initializeEngine(feedId, feedFileName);
-    } catch (Exception e) {
-      handleError(feedId, feedFileName, e);
-    }
-  }
-
-  /**
-   * Constructor
-   * <p/>
-   * This constructor should be used to rerun a feedFile that is in a retry state.
-   *
-   * @param feedFileId identifies a file that have been previously processed.
-   */
-  public AbstractFeedEngine(Integer feedFileId) {
-    try {
-      final FeedFile feedFile = feedJobManager.getFeedFile(feedFileId);
-      final String feedId = feedFile.getFeed().getFeedId();
-      final String feedFileName = feedFile.getFeedFileName();
-
-      initializeEngine(feedId, feedFileName);
-    } catch (Exception e) {
-      handleError(feedId, feedFileName, e);
-    }
-  }
+//  /**
+//   * Constructor
+//   * <p/>
+//   * Normally used to process a feed for that has not been processed before.
+//   * This constructor can also be used to process a feed that has alread been
+//   * processed; however, it's easier to use the constructor which only requires
+//   * the feedFileId.
+//   *
+//   * @param feedId       the feedId is used to attian information about the feed for
+//   *                     processing.
+//   * @param feedFileName specifies the unique file to process.
+//   */
+//  public AbstractFeedEngine(String feedId, String feedFileName) {
+//    try {
+//      feedJobManager = new FeedJobManager();
+//      initFeedProcess(feedId, feedFileName);
+//    } catch (Exception e) {
+//      handleError(feedId, feedFileName, e);
+//    }
+//  }
+//
+//  /**
+//   * Constructor
+//   * <p/>
+//   * This constructor should be used to rerun a feedFile that is in a retry state.
+//   *
+//   * @param feedFileId identifies a file that have been previously processed.
+//   */
+//  public AbstractFeedEngine(Integer feedFileId) {
+//    try {
+//      feedJobManager = new FeedJobManager();
+//
+//      final FeedFile feedFile = feedJobManager.getFeedFile(feedFileId);
+//      final String feedId = feedFile.getFeed().getFeedId();
+//      final String feedFileName = feedFile.getFeedFileName();
+//
+//      context.setSequenceNumber(feedFile.getSequenceNumber());
+//
+//      initFeedProcess(feedId, feedFileName);
+//    } catch (Exception e) {
+//      handleError(feedId, feedFileName, e);
+//    }
+//  }
+//
+//  /**
+//   * Constructor
+//   * <p/>
+//   *
+//   * @param feedId specifies the feedId for outbound feed processing.
+//   */
+//  protected AbstractFeedEngine(String feedId) {
+//    try {
+//      feedJobManager = new FeedJobManager();
+//      initFeedProcess(feedId);
+//    } catch (Exception e) {
+//      handleError(feedId, feedFileName, e);
+//    }
+//  }
 
   /**
    * Common error handler for the logging errors for the FeedErrorException is
@@ -200,24 +178,66 @@ public abstract class AbstractFeedEngine {
   public abstract void execute();
 
   /**
-   * Perform the initialization sequence to prepare a feed for processing.
-   *
-   * @param feedId       identifies the feedId associated with the exception.
-   * @param feedFileName identifies the name of the feed file associated with
-   *                     the exception.
+   * Loads all beans defined in configuration file in to the context in the
+   * following sequence:
+   * <ul>
+   * <li>call BeanLoader to load beans
+   * <li>put beans in context
+   * <li>initialize loaders
+   * <li>initialize services
+   * <ul>
    */
-  protected void initializeEngine(String feedId, String feedFileName) {
-    initContext(feedId, feedFileName);
-    initFeedRecord();
-    initFullPathAndFeedFileName();
-    initConfigFile();
-    initConfigProperties();
-    final List<EngineService> list = loadServices();
-    initPhases();
-    initServices(list);
-    initialize();
-    runPreFeedFilePhases();
-    initFeedFileAndFeedJob();
+  protected void loadBeans() {
+    final BeanLoader loader = new BeanLoader(feedDocument.getRootElement(), context);
+    final List<Object> beanList = loader.getBeans();
+    final Map<String, Object> beanMap = loader.getBeanMap();
+
+    putBeansInContext(beanMap);
+    initLoaders(beanList);
+    initServices(beanList);
+    initPhases(beanList);
+    initMainLifeCycleService(beanList);
+  }
+
+  private void putBeansInContext(Map<String, Object> beanMap) {
+    for (Map.Entry<String, Object> entry : beanMap.entrySet()) {
+      context.putBean(entry.getKey(), entry.getValue());
+    }
+  }
+
+  private void initLoaders(List<Object> beans) {
+    for (Object bean : beans) {
+      if (bean instanceof Loader) {
+        ((Initializeable) bean).initialize();
+      }
+    }
+  }
+
+  private void initServices(List<Object> beans) {
+    for (Object bean : beans) {
+      if ((bean instanceof EngineService) && !(bean instanceof MainLifeCycleService)) {
+        ((Initializeable) bean).initialize();
+      }
+    }
+  }
+
+  private void initPhases(List<Object> beans) {
+    for (Object bean : beans) {
+      if (bean instanceof Phase) {
+        ((Initializeable) bean).initialize();
+      }
+    }
+  }
+
+  private void initMainLifeCycleService(List<Object> beans) {
+    for (Object bean : beans) {
+      if (bean instanceof MainLifeCycleService) {
+        ((Initializeable) bean).initialize();
+        return;
+      }
+    }
+
+    throw new FeedErrorException("No service class that extends MainLifeCycleService class was found.");
   }
 
   /**
@@ -229,13 +249,13 @@ public abstract class AbstractFeedEngine {
    * @param feedFileName specifies the unique file to process.
    */
   protected void initContext(String feedId, String feedFileName) {
+    this.context = new EngineContext();
     this.feedId = feedId;
-    this.feedFileName = feedFileName;
 
-    context = new EngineContext();
-    context.setFeedFileName(feedFileName);
-
-    feedJobManager = new FeedJobManager();
+    if (feedFileName != null) {
+      this.feedFileName = feedFileName;
+      this.context.setFeedFileName(feedFileName);
+    }
   }
 
   /**
@@ -351,19 +371,26 @@ public abstract class AbstractFeedEngine {
   }
 
   /**
+   * Determines if the feed is an inbound feed.
+   *
+   * @return true is feed direction is equal to 'inbound'.
+   */
+  protected Boolean isInboundFeed() {
+    return feed.getFeedDirection().getFeedDirectionId().equals(FEED_DIRECTION.inbound.getValue());
+  }
+
+  /**
    * Define the complete location of the feed file by concatenating the
    * directory path defined in the Feed record with the given feed file
-   * name.
+   * name. It will only do this fif the feed.feedDirection equals inbound.
    */
   protected void initFullPathAndFeedFileName() {
-    String directory = FEED_DIR.incoming.getValue();
+    if (isInboundFeed()) {
+      final String directory = FEED_DIR.incoming.getValue();
+      final String fullPath = FeedFileHelper.getFeedDirFullPath(context.getFeed()) + SLASH + directory + SLASH + feedFileName;
 
-    if (feed.getFeedDirection().getFeedDirectionId().equals(FEED_DIRECTION.outbound.getValue())) {
-      directory = FEED_DIR.preprocess.getValue();
+      context.setFullFeedFileName(fullPath);
     }
-
-    final String fullPath = FeedFileHelper.getFeedDirFullPath(context.getFeed()) + SLASH + directory + SLASH + feedFileName;
-    context.setFullFeedFileName(fullPath);
   }
 
   /**
@@ -372,24 +399,9 @@ public abstract class AbstractFeedEngine {
    */
   protected void initConfigFile() {
     final String configFileName = context.getFeed().getFeedDocument() + SLASH + CONFIG_FILE;
-    final ConfigLoaderFactory factory = new ConfigLoaderFactory(configFileName);
 
-    feedDocument = factory.getDocument();
+    feedDocument = FeedDocumentReader.parseDocument(configFileName);
     context.setFeedDocument(feedDocument);
-    context.setLoaderMap(factory.getLoaderMap());
-  }
-
-  /**
-   * Load any global properties defined within the given feed file
-   * configuration document into the engine context.
-   */
-  protected void initConfigProperties() {
-    final Loader loader = context.getLoaderMap().get(LOADERS.propertyLoader.getValue());
-    final List<Property> properties = ((PropertiesConfigLoader) loader).getPropertyList();
-
-    for (Property property : properties) {
-      context.put(property.getName(), property.getValue());
-    }
   }
 
   /**
@@ -399,10 +411,11 @@ public abstract class AbstractFeedEngine {
   protected void runPreFeedFilePhases() {
     final List<Phase> phases = context.getPreFeedFilePhases();
 
-    for (Phase phase : phases) {
-      context.setCurrentPhaseId(phase.getName());
-      phase.initialize();
-      phase.execute();
+    if (phases != null) {
+      for (Phase phase : phases) {
+        context.setCurrentPhaseId(phase.getName());
+        phase.execute();
+      }
     }
   }
 
@@ -416,92 +429,6 @@ public abstract class AbstractFeedEngine {
   }
 
   /**
-   * Uses the phaseConfigLoader and PhaseLoaderService to load and instantiate
-   * phases defined in the given configuration file.
-   */
-  protected void initPhases() {
-    final Loader loader = context.getLoaderMap().get(LOADERS.phaseLoader.getValue());
-    final PhaseSetInfo phaseSetInfo = ((PhaseConfigLoader) loader).getPhaseSetInfo();
-    final PhaseHandler phaseHandler = (PhaseHandler) context.getServiceMap(SERVICES.phaseService.getValue());
-
-    if (phaseHandler == null) {
-      final String configFile = feed.getFeedDocument();
-      final String message =
-        "The <phaseService> element has not been define within the <services> element in the configuration file: " + configFile + ".";
-      throw new FeedErrorException(message);
-    }
-
-    context.setBatchSize(phaseSetInfo.getBatchSize());
-
-    List<Phase> phaseList = phaseHandler.loadPhases(phaseSetInfo.getPreFeedFilePhases());
-    context.setPreFeedFilePhases(phaseList);
-
-    phaseList = phaseHandler.loadPhases((phaseSetInfo.getPreEventPhaseList()));
-    context.setPreEventPhases(phaseList);
-
-    phaseList = phaseHandler.loadPhases((phaseSetInfo.getBatchPhaseList()));
-    context.setBatchEventPhases(phaseList);
-
-    phaseList = phaseHandler.loadPhases((phaseSetInfo.getPostEventPhaseList()));
-    context.setPostEventPhases(phaseList);
-  }
-
-  /**
-   * Uses the servicesConfigLoader and reads from the &lt;services&gt; element
-   * to load services defined within the given configuration
-   * file.
-   *
-   * @return list of EngineService so the can be initialized after phases have
-   *         been loaded.
-   */
-  protected List<EngineService> loadServices() {
-    final Loader loader = context.getLoaderMap().get(LOADERS.serviceLoader.getValue());
-    final List<Clazz> serviceList = ((ServiceConfigLoader) loader).getList();
-    final Map<String, EngineService> map = new HashMap<String, EngineService>();
-    final List<EngineService> list = new ArrayList<EngineService>();
-
-    try {
-      // First pass instantiates all services.
-      for (Clazz clazzInfo : serviceList) {
-        final Class clazz = Class.forName(clazzInfo.getClassName());
-        final Class argTypes[] = new Class[]{EngineContext.class};
-        final Constructor constructor = clazz.getConstructor(argTypes);
-        final EngineService service = (EngineService) constructor.newInstance(context);
-
-        map.put(clazzInfo.getName(), service);
-        list.add(service);
-      }
-
-      // Add to service map in context so services can see each duringn second pass.
-      context.setServiceMap(map);
-      return list;
-
-    } catch (ClassNotFoundException e) {
-      throw new FeedErrorException(e);
-    } catch (NoSuchMethodException e) {
-      throw new FeedErrorException(e);
-    } catch (InstantiationException e) {
-      throw new FeedErrorException(e);
-    } catch (IllegalAccessException e) {
-      throw new FeedErrorException(e);
-    } catch (InvocationTargetException e) {
-      throw new FeedErrorException(e);
-    }
-  }
-
-  /**
-   * Calls the initialize() method on each service.
-   *
-   * @param engineServices list of EngineService objects to initialize.
-   */
-  protected void initServices(final List<EngineService> engineServices) {
-    // Second pass initializes all services.
-    for (EngineService service : engineServices) {
-      service.initialize();
-    }
-  }
-
-  /**
    * The main service is used to process a feed file through its defined phases.
    * The main service will also manage feed failures and shutdown the feed process.
    * The feed engine expects to find a main service defined within the feed file
@@ -510,11 +437,12 @@ public abstract class AbstractFeedEngine {
    * is the StandardFeedLifeCycleService.
    */
   public void runMainService() {
-    final ExecutionService service = (ExecutionService) context.getServiceMap(SERVICES.mainService.getValue());
+    final ExecutionService service = context.getFeedLifeCycleService();
 
     if (service == null) {
+      final String configFileName = feed.getFeedDocument();
       final String message =
-        "The service, \"mainService\", was not found in the services element of the configuration file.";
+        "A bean that extends FeedLifeCycleService is not defined in the configuration file, " + configFileName + ".";
       throw new FeedErrorException(message);
     }
 

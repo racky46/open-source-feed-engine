@@ -39,7 +39,7 @@ public class FailedFeedTest extends FeedTestBase {
 
   private void runFeedEngine(String feedId, String feedFileName) {
     try {
-      final FeedEngine engine = new FeedEngine(feedId, feedFileName);
+      final InboundFeedEngine engine = new InboundFeedEngine(feedId, feedFileName);
       engine.execute();
     } catch (Exception e) {
       // do nothing.

@@ -14,8 +14,6 @@
  */
 package com.qagen.osfe.engine;
 
-import org.testng.annotations.Test;
-
 /**
  * Author: Hycel Taylor
  * <p/>
@@ -29,14 +27,30 @@ public class FixedFeedEngineTest extends FeedTestBase {
 
   public void runTest() {
     final String feedId = "acme_qagen_testf_request";
-    final String feedFile = "acme_qagen_testf_request_20080617010641.txt";
 
     if (clearFirst) {
       setup(feedId);
     }
-    
-    final FeedEngine engine = new FeedEngine(feedId, feedFile);
-    engine.execute();
+
+    final String feedFiles[] =
+      {
+        "acme_qagen_testf_request_20080617010641.txt",
+        "acme_qagen_testf_request_20080727080747.txt",
+        "acme_qagen_testf_request_20080727080731.txt",
+        "acme_qagen_testf_request_20080727080719.txt",
+        "acme_qagen_testf_request_20080727080759.txt",
+        "acme_qagen_testf_request_20080727080717.txt",
+        "acme_qagen_testf_request_20080727080753.txt",
+        "acme_qagen_testf_request_20080727080729.txt",
+        "acme_qagen_testf_request_20080727080745.txt",
+        "acme_qagen_testf_request_20080727080705.txt",
+        "acme_qagen_testf_request_20080730070721.txt"
+      };
+
+    for (String feedFile : feedFiles) {
+      final Thread thread = new Thread(new InboundFeedEngine(feedId, feedFile));
+      thread.start();
+    }
   }
 
   public static void main(String[] args) {
