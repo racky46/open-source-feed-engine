@@ -44,6 +44,7 @@ public class FixedFileReader extends FeedFileReader {
       final File file = new File(context.getFullFeedFileName());
       raf = new RandomAccessFile(file, "r");
       size = file.length();
+      context.setFeedFileReader(this);
     } catch (IOException e) {
       throw new FeedErrorException(e);
     }
@@ -87,7 +88,6 @@ public class FixedFileReader extends FeedFileReader {
    * value contained in rowLength.
    *
    * @param rowLength the number of characters to return.
-   *
    * @return String of characters of rowLength size.
    */
   public String getRow(int rowLength) {

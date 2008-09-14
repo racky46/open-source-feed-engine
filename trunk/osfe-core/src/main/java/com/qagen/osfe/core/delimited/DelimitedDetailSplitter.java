@@ -17,8 +17,7 @@ package com.qagen.osfe.core.delimited;
 import com.qagen.osfe.common.utils.ElapsedTime;
 import com.qagen.osfe.common.utils.HeapStats;
 import com.qagen.osfe.common.utils.Log;
-import com.qagen.osfe.core.CheckpointHandler;
-import com.qagen.osfe.core.EngineContext;
+import com.qagen.osfe.core.Checkpointable;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
@@ -37,7 +36,7 @@ import java.util.List;
  * RowValue objects. This splitter will continue to parse N rows of data until all
  * rows in the given feed file have been parsed.
  */
-public class DelimitedDetailSplitter extends DelimitedSplitter implements CheckpointHandler {
+public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkpointable {
   private List<List<RowValue>> rows;
   private Integer batchSize;
   private Integer linesToSkip;
@@ -52,22 +51,13 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
   private static Log logger = Log.getInstance(DelimitedDetailSplitter.class);
 
   /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public DelimitedDetailSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
-  }
-
-  /**
    * Called during second pass of splitter initialization. Should this splitter need
    * access to another splitter, all other splitters will have been instantiated in
    * the first pass.
    */
   public void initialize() {
+    super.initialize();
+
     batchSize = context.getBatchSize();
     linesToSkip = getRowDescription().getLinesToSkip();
     currentRowIndex = context.getCurrentSplitterIndex();
@@ -171,7 +161,7 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
    * @param checkpoint contains the information about the position in
    *                   the file to move to.
    */
-  public void moveToCheckPoint(FeedCheckpoint checkpoint) {
+  public void moveToCheckpoint(FeedCheckpoint checkpoint) {
     final long fileIndex = checkpoint.getCurrentFileIndex();
     long currentIndex = context.getCurrentSplitterIndex();
 
@@ -181,5 +171,24 @@ public class DelimitedDetailSplitter extends DelimitedSplitter implements Checkp
       getNextBlockOfRows();
       currentIndex = context.getCurrentSplitterIndex();
     }
+  }
+
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
   }
 }

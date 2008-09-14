@@ -16,34 +16,29 @@ package com.qagen.osfe.core;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * The ExecutionService abstract class extends EngineService and defines an
  * additional execute() method to the contract.
  */
 public abstract class ExecutionService extends EngineService {
 
-  /**
-   * Constructor
-   *
-   * @param context references the engine context.
-   */
-  protected ExecutionService(EngineContext context) {
-    super(context);
+  public ExecutionService() {
   }
+
 
   /**
    * This method should contain the set of instructions necessary to perform the tasks of the given service.
-   * <p>
+   * <p/>
    * Example: The following example calls methods that operate on the standard even phases.
    * <hr><blockquote><pre>
    * public void execute() throws FeedErrorException {
    *     final FeedJob feedJob = context.getFeedJob();
-   *
+   * <p/>
    *     try {
    *       doPreEventPhases();
    *       doBatchEventPhases();
    *       doPostEventPhases();
-   *
+   * <p/>
    *       feedJobManager.moveToCompleted(feedJob, context);
    *     } catch (Exception e) {
    *       handleFailure(feedJob, e);
@@ -52,7 +47,7 @@ public abstract class ExecutionService extends EngineService {
    *     }
    *   }
    * </pre></blockquote><hr>
-   * 
+   *
    * @throws FeedErrorException
    */
   public abstract void execute() throws FeedErrorException;

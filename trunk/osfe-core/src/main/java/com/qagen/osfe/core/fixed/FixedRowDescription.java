@@ -14,9 +14,9 @@
  */
 package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.core.row.RowDescription;
-import com.qagen.osfe.core.column.ColumnDescription;
 import com.qagen.osfe.common.utils.DomReader;
+import com.qagen.osfe.core.column.ColumnDescription;
+import com.qagen.osfe.core.row.RowDescription;
 import org.dom4j.Element;
 
 import java.util.List;

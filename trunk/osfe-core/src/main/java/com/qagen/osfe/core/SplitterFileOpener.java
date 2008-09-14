@@ -32,9 +32,11 @@ public interface SplitterFileOpener {
   /**
    * Instantiates a FeedFileReader object and call any method on that object
    * to open its file handler if the file handler.
-   * <p>
+   * <p/>
    * Once the FeedFileReader object has been successfully opened, it should be
    * placed in the engine context using setFeedFeedFileReader().
    */
   public void openFeedFileReader();
+
+  public void force();
 }

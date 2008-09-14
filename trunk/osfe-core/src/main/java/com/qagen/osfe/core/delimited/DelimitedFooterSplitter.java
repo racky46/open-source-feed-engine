@@ -14,7 +14,6 @@
  */
 package com.qagen.osfe.core.delimited;
 
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FooterSplitter;
 import com.qagen.osfe.core.row.RowValue;
 
@@ -31,22 +30,13 @@ public class DelimitedFooterSplitter extends DelimitedSplitter implements Footer
   private Integer totalRowCount;
 
   /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public DelimitedFooterSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
-  }
-
-  /**
    * Called during second pass of splitter initialization. Should this splitter need
    * access to another splitter, all other splitters will have been instantiated in
    * the first pass.
    */
   public void initialize() {
+    super.initialize();
+
     final Integer numberOfFooterRows = rowDescription.getRowCount();
     delimitedFooterParser = new DelimitedFooterParser(context, numberOfFooterRows);
     totalRowCount = delimitedFooterParser.getRowCount();
@@ -97,7 +87,7 @@ public class DelimitedFooterSplitter extends DelimitedSplitter implements Footer
    *         the calculation of the total row count.
    */
   public Integer getMinusRowCount() {
-    return rowLoader.getMinusRowCount();
+    return rowDescriptionLoader.getMinusRowCount();
   }
 
   /**
@@ -106,5 +96,24 @@ public class DelimitedFooterSplitter extends DelimitedSplitter implements Footer
    */
   public void prePhaseExecute() {
     // Do noting.
+  }
+
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
   }
 }

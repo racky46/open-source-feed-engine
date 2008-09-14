@@ -20,8 +20,7 @@ import java.util.*;
 
 /**
  * Author: Gregg Bolinger
- * <p>
- *
+ * <p/>
  */
 public class ReflectionUtils {
 
@@ -48,7 +47,7 @@ public class ReflectionUtils {
   /**
    * Using reflection gets all the mehtods of a class including
    * all super classes
-   * 
+   *
    * @param clazz
    * @return
    */

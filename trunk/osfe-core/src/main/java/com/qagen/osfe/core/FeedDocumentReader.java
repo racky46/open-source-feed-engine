@@ -14,13 +14,12 @@
  */
 package com.qagen.osfe.core;
 
-import com.qagen.osfe.common.CommonException;
 import com.qagen.osfe.common.utils.DirectoryHelper;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
-public class FeedDocumentReader  {
+public class FeedDocumentReader {
 
   public static Document parseDocument(String fileName) {
     try {
@@ -28,7 +27,7 @@ public class FeedDocumentReader  {
       final SAXReader reader = new SAXReader();
       return reader.read(homeDir + fileName);
     } catch (DocumentException e) {
-      throw new CommonException(e);
+      throw new FeedErrorException(e);
     }
   }
 }

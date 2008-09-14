@@ -32,7 +32,7 @@ public class RowValue {
    * Constructor
    *
    * @param description describes the given column within a given RowDescription object.
-   * @param value the raw value being described.
+   * @param value       the raw value being described.
    */
   public RowValue(ColumnDescription description, String value) {
     this.description = description;

@@ -33,7 +33,7 @@ public interface RowParser {
    *
    * @param row the object that contains a row of data to be parsed in to a
    *            list of row values.
-   * @return    list of RowValue objects.
+   * @return list of RowValue objects.
    */
   public List<RowValue> parseRow(Object row);
 }

@@ -19,7 +19,7 @@ import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * RestartFeed performs the following tasks.
  * <ul>
  * <li> Locates the feed file from the given feed file id.

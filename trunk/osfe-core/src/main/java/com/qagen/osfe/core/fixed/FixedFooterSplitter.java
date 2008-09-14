@@ -14,10 +14,9 @@
  */
 package com.qagen.osfe.core.fixed;
 
-import com.qagen.osfe.core.EngineContext;
-import com.qagen.osfe.core.FooterSplitter;
 import com.qagen.osfe.core.FeedErrorException;
-import com.qagen.osfe.core.SplitterFileOpener;
+import com.qagen.osfe.core.FooterSplitter;
+import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.row.RowValue;
 
 import java.util.List;
@@ -27,34 +26,21 @@ import java.util.List;
  * <p/>
  * This class operates on the footer rows of a fixed feed file.
  */
-public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter, SplitterFileOpener {
+public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter {
   private FixedFileReader fileReader;
   private Integer rowIndex;
   private long fileSize;
 
-  /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public FixedFooterSplitter(EngineContext context, String rowDescriptionName) {
-    super(context, rowDescriptionName);
+  private FixedHeaderSplitter headerSplitter;
+  private FixedDetailSplitter detailSplitter;
 
-    openFeedFileReader();
+
+  public void setHeaderSplitter(Splitter headerSplitter) {
+    this.headerSplitter = (FixedHeaderSplitter) headerSplitter;
   }
 
-  /**
-   * Instantiates a FeedFileReader object and call any method on that object
-   * to open its file handler if the file handler.
-   * <p/>
-   * Once the FeedFileReader object has been successfully opened, it should be
-   * placed in the engine context using setFeedFeedFileReader().
-   */
-  public void openFeedFileReader() {
-    fileReader = new FixedFileReader(context);
-    context.setFeedFileReader(fileReader);
+  public void setDetailSplitter(Splitter detailSplitter) {
+    this.detailSplitter = (FixedDetailSplitter) detailSplitter;
   }
 
   /**
@@ -63,6 +49,9 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
    * the first pass.
    */
   public void initialize() {
+    super.initialize();
+
+    fileReader = (FixedFileReader) context.getFeedFileReader();
     fileSize = fileReader.size();
 
     checkFileSize();
@@ -71,16 +60,6 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
 
     fileReader.movePointer(filePosition);
     rowIndex = 0;
-  }
-
-  /**
-   * This method is used to calculate the total length of the given row
-   * determined by the length and eolCharacter defined in the row description.
-   *
-   * @return length + length of eolCharacter.
-   */
-  public Integer getRowLength() {
-    return rowLength;
   }
 
   public List<RowValue> getNextRow() {
@@ -99,9 +78,6 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
    *                            not match the file size.
    */
   public void checkFileSize() {
-    final FixedHeaderSplitter headerSplitter = (FixedHeaderSplitter) context.getHeaderSplitter();
-    final FixedDetailSplitter detailSplitter = (FixedDetailSplitter) context.getDetailSplitter();
-
     final long headerSize = headerSplitter.getRowCount() * headerSplitter.getRowLength();
     final long detailSize = detailSplitter.getRowCount() * detailSplitter.getRowLength();
     final long footerSize = getRowCount() * getRowLength();
@@ -135,8 +111,6 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
    * @return total header rows + total detail rows.
    */
   public Integer getTotalRowCount() {
-    final FixedHeaderSplitter headerSplitter = (FixedHeaderSplitter) context.getHeaderSplitter();
-    final FixedDetailSplitter detailSplitter = (FixedDetailSplitter) context.getDetailSplitter();
     return headerSplitter.getRowCount() + detailSplitter.getRowCount() + getRowCount();
   }
 
@@ -151,7 +125,7 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
    *         the calculation of the total row count.
    */
   public Integer getMinusRowCount() {
-    return rowLoader.getMinusRowCount();
+    return rowDescriptionLoader.getMinusRowCount();
   }
 
   /**
@@ -160,5 +134,24 @@ public class FixedFooterSplitter extends FixedSplitter implements FooterSplitter
    */
   public void prePhaseExecute() {
     // Do noting.
+  }
+
+  /**
+   * Stores the name of the given service as it is defined in the feed
+   * configuration document.
+   *
+   * @return the name of the service as it is defined in the feed configuration
+   *         document.
+   */
+  public String name() {
+    return this.getClass().getSimpleName();
+  }
+
+  /**
+   * Depending on the behavior of the service, it's shutdown method may be
+   * called in order to perform house keeping tasks such as closing files
+   * and other depended services.
+   */
+  public void shutdown() {
   }
 }

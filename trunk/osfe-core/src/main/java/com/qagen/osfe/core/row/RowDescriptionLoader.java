@@ -32,6 +32,12 @@ public abstract class RowDescriptionLoader extends Loader {
 
   /**
    * Constructor
+   */
+  public RowDescriptionLoader() {
+  }
+
+  /**
+   * Constructor
    *
    * @param root        the element from which contains the sub element
    *                    that will be parsed and referenced as the parent element.

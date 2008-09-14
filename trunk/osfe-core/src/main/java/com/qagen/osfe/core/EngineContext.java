@@ -14,13 +14,13 @@
  */
 package com.qagen.osfe.core;
 
-import com.qagen.osfe.core.row.RowDescriptionLoader;
-import com.qagen.osfe.dataAccess.vo.FeedCheckpoint;
 import com.qagen.osfe.dataAccess.vo.Feed;
 import com.qagen.osfe.dataAccess.vo.FeedJob;
 import com.qagen.osfe.dataAccess.vo.FeedPhaseStats;
 import org.dom4j.Document;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,14 +41,22 @@ import java.util.Map;
  * that are of no importance to phases following it.
  */
 public class EngineContext {
+  private Timestamp timestamp;
+
+  private Document feedDocument;
   private String feedFileName;
   private String fullFeedFileName;
   private String currentPhaseId;
-  private Integer feedRowCount;
+  private String delimiterValue;
+  private String endOfLineValue;
+
   private Long previousSplitterIndex = 0L;
   private Long currentSplitterIndex = 0L;
+
+  private Integer feedRowCount = 0;
   private Integer currentRowIndex = 0;
   private Integer batchSize;
+  private Integer sequenceNumber;
 
   private Integer processedRowCount = 0;
   private Integer rejectedRowCount = 0;
@@ -56,33 +64,55 @@ public class EngineContext {
   private String errorCode;
   private String errorMessage;
 
-  private Document feedDocument;
-  private RowDescriptionLoader rowDescriptionLoader;
   private FeedFileReader feedFileReader;
+  private FeedFileWriter feedFileWriter;
   private Feed feed;
   private FeedJob feedJob;
-  private FeedCheckpoint checkpoint;
 
-  private Splitter headerSplitter;
-  private Splitter footerSplitter;
-  private Splitter detailSplitter;
+  private List<Phase> preFeedFilePhases;
 
-  protected List<Phase> preFeedFilePhases;
-  protected List<Phase> preEventPhases;
-  protected List<Phase> batchEventPhases;
-  protected List<Phase> postEventPhases;
   protected List rows;
 
-  private Map<String, Object> map;
-  private Map<String, Loader> loaderMap;
-  private Map<String, EngineService> serviceMap;
+  private Map<String, Object> userMap;
   private Map<String, FeedPhaseStats> phaseStatsMap;
+  private Map<String, Object> beanMap;
 
   /**
    * Constructor
    */
   public EngineContext() {
-    map = new HashMap<String, Object>();
+    userMap = new HashMap<String, Object>();
+    timestamp = new Timestamp(System.currentTimeMillis());
+    beanMap = new HashMap<String, Object>();
+  }
+
+  /**
+   * A timestamp is created upon the instantiation of an EngineContext.
+   * This timestamp can be used by different components that need to
+   * represent the same time stamp.  For example, the file name may use
+   * the timestamp, but the file header and footer may also need to have
+   * the same timestamp to match the one in the file name.
+   *
+   * @return the fixed timestamp calculated only once.
+   */
+  public Timestamp getTimestamp() {
+    return timestamp;
+  }
+
+  public String getDelimiterValue() {
+    return delimiterValue;
+  }
+
+  public void setDelimiterValue(String delimiterValue) {
+    this.delimiterValue = delimiterValue;
+  }
+
+  public String getEndOfLineValue() {
+    return endOfLineValue;
+  }
+
+  public void setEndOfLineValue(String endOfLineValue) {
+    this.endOfLineValue = endOfLineValue;
   }
 
   /**
@@ -92,7 +122,7 @@ public class EngineContext {
    * @return null if object not found in map from the given name.
    */
   public Object get(String name) {
-    return map.get(name);
+    return userMap.get(name);
   }
 
   /**
@@ -102,26 +132,7 @@ public class EngineContext {
    * @param object the object to be referenced.
    */
   public void put(String name, Object object) {
-    map.put(name, object);
-  }
-
-  /**
-   * Retrives the map of Loader objects. A Loader object will parse and load data
-   * from a given type of XML element into Java objects
-   *
-   * @return map of Loader objects.
-   */
-  public Map<String, Loader> getLoaderMap() {
-    return loaderMap;
-  }
-
-  /**
-   * Stores the reference to a given Loader map in the context.
-   *
-   * @param loaderMap the map of Loader objects to reference.
-   */
-  public void setLoaderMap(Map<String, Loader> loaderMap) {
-    this.loaderMap = loaderMap;
+    userMap.put(name, object);
   }
 
   /**
@@ -142,6 +153,20 @@ public class EngineContext {
    */
   public void setBatchSize(Integer batchSize) {
     this.batchSize = batchSize;
+  }
+
+  /**
+   * Stores a sequence number.  The same sequence number should be used
+   * during the processing of a feed file lifecycle.
+   *
+   * @return
+   */
+  public Integer getSequenceNumber() {
+    return sequenceNumber;
+  }
+
+  public void setSequenceNumber(Integer sequenceNumber) {
+    this.sequenceNumber = sequenceNumber;
   }
 
   /**
@@ -202,7 +227,7 @@ public class EngineContext {
 
   /**
    * Retrieves the count of the numbers of rows contained within the feed file
-   * currently being operated on.
+   * currently being operated on. This should be used for inbound feeds.
    *
    * @return count of the numbers of rows contained within the feed file.
    */
@@ -212,7 +237,7 @@ public class EngineContext {
 
   /**
    * Sets the count of the numbers of rows contained within the feed file
-   * currently being operated on.
+   * currently being operated on. This should be used for inbound feeds.
    *
    * @param feedRowCount count of the numbers of rows contained within the feed
    *                     file.
@@ -280,28 +305,6 @@ public class EngineContext {
   }
 
   /**
-   * The row description is used by Splitter's to retrieve information that
-   * describes the elements of a row.  This method retrieves the reference
-   * to the RowDescriptionLoader object.
-   *
-   * @return reference to the RowDescriptionLoader object.
-   */
-  public RowDescriptionLoader getRowDescriptionLoader() {
-    return rowDescriptionLoader;
-  }
-
-  /**
-   * The row description is used by Splitter's to retrieve information that
-   * describes the elements of a row.  This method sets the reference
-   * to the RowDescriptionLoader object.
-   *
-   * @param rowDescriptionLoader reference to the RowDescriptionLoader object.
-   */
-  public void setRowDescriptionLoader(RowDescriptionLoader rowDescriptionLoader) {
-    this.rowDescriptionLoader = rowDescriptionLoader;
-  }
-
-  /**
    * Splitters will use this object and cast it to the appriate type for
    * accessing data from the physical file.  For example, deilmited splitters
    * will uses a BufferedReader to access data from the physiacl feed file.
@@ -322,6 +325,26 @@ public class EngineContext {
    */
   public void setFeedFileReader(FeedFileReader feedFileReader) {
     this.feedFileReader = feedFileReader;
+  }
+
+  /**
+   * This interface presents a common place to retrieve a filewriter in the
+   * context.
+   *
+   * @return reference to object used to write data to an output file.
+   */
+  public FeedFileWriter getFeedFileWriter() {
+    return feedFileWriter;
+  }
+
+  /**
+   * This interface presents a common place to store a filewriter in the
+   * context.
+   *
+   * @param feedFileWriter reference to object used to write data to an output file.
+   */
+  public void setFeedFileWriter(FeedFileWriter feedFileWriter) {
+    this.feedFileWriter = feedFileWriter;
   }
 
   /**
@@ -361,24 +384,6 @@ public class EngineContext {
   }
 
   /**
-   * Retrieves a reference to the current checkpoint object.
-   *
-   * @return null if checpoint is not being used.
-   */
-  public FeedCheckpoint getCheckpoint() {
-    return checkpoint;
-  }
-
-  /**
-   * Stores a reference to the current checkpoint object.
-   *
-   * @param checkpoint reference to the current checkpoint object.
-   */
-  public void setCheckpoint(FeedCheckpoint checkpoint) {
-    this.checkpoint = checkpoint;
-  }
-
-  /**
    * Retrieves a map of user defined objects. These are objects that are non
    * standard to OSFE and have no accessor or mutator methods.  Objects
    * stored here are usually accessed and manipulated by phases and services
@@ -387,7 +392,7 @@ public class EngineContext {
    * @return map user defined objects.
    */
   public Map<String, Object> getMap() {
-    return map;
+    return userMap;
   }
 
   /**
@@ -399,64 +404,7 @@ public class EngineContext {
    * @param map user defined objects.
    */
   public void setMap(Map<String, Object> map) {
-    this.map = map;
-  }
-
-  /**
-   * Retrieves the splitter that operates on the header rows of a feed file.
-   *
-   * @return header splitter.
-   */
-  public Splitter getHeaderSplitter() {
-    return headerSplitter;
-  }
-
-  /**
-   * Stores a reference to the splitter that operates on the header rows
-   * of a feed file.
-   *
-   * @param headerSplitter reference to the header splitter.
-   */
-  public void setHeaderSplitter(Splitter headerSplitter) {
-    this.headerSplitter = headerSplitter;
-  }
-
-  /**
-   * Retrieves the splitter that operates on the footer rows of a feed file.
-   *
-   * @return footer splitter.
-   */
-  public Splitter getFooterSplitter() {
-    return footerSplitter;
-  }
-
-  /**
-   * Stores a reference to the splitter that operates on the footer rows
-   * of a feed file.
-   *
-   * @param footerSplitter reference to the footer splitter.
-   */
-  public void setFooterSplitter(Splitter footerSplitter) {
-    this.footerSplitter = footerSplitter;
-  }
-
-  /**
-   * Retrieves the splitter that operates on the detail rows of a feed file.
-   *
-   * @return detail splitter.
-   */
-  public Splitter getDetailSplitter() {
-    return detailSplitter;
-  }
-
-  /**
-   * Stores a reference to the splitter that operates on the detail rows
-   * of a feed file.
-   *
-   * @param detailSplitter reference to the detail splitter.
-   */
-  public void setDetailSplitter(Splitter detailSplitter) {
-    this.detailSplitter = detailSplitter;
+    this.userMap = map;
   }
 
   /**
@@ -483,78 +431,6 @@ public class EngineContext {
     this.preFeedFilePhases = preFeedFilePhases;
   }
 
-
-  /**
-   * Retrieves a list of preEventPhases. PreEventPhases are a called once
-   * each before the batchEventPhases.  An example of preEventPhase is
-   * a footer phase the calculates the number of rows in the given feed.
-   *
-   * @return list of phases.
-   */
-  public List<Phase> getPreEventPhases() {
-    return preEventPhases;
-  }
-
-  /**
-   * Stores a list of preEventPhase in the context.  PreEventPhases are a
-   * called once each before the batchEventPhases.  An example of preEventPhase
-   * is a footer phase the calculates the number of rows in the given feed.
-   *
-   * @param preEventPhases list of phases.
-   */
-  public void setPreEventPhases(List<Phase> preEventPhases) {
-    this.preEventPhases = preEventPhases;
-  }
-
-  /**
-   * Retrieves a list of batchEventPhases. BatchEventPhases are a called once
-   * each during each batch iteration.  An example of batchEventPhase is
-   * a phase calculates a students test score and inserts the row into a
-   * database table.
-   *
-   * @return list of phases.
-   */
-  public List<Phase> getBatchEventPhases() {
-    return batchEventPhases;
-  }
-
-  /**
-   * Stores a list of batchEventPhases in the context. BatchEventPhases
-   * are a called once each during each batch iteration.  An example of
-   * batchEventPhase is a phase calculates a students test score and inserts
-   * the row into a database table.
-   *
-   * @param batchEventPhases list of phases.
-   */
-  public void setBatchEventPhases(List<Phase> batchEventPhases) {
-    this.batchEventPhases = batchEventPhases;
-  }
-
-  /**
-   * Retrieves a list of postEventPhases. PostEventPhases are a called once
-   * each after the batchEventPhases.  An example of postEventPhase is
-   * a phase that calls a stored procedure to perform reconcilation on data
-   * populated into the database from phases executed during the
-   * batchEventPhase.
-   *
-   * @return list of phases.
-   */
-  public List<Phase> getPostEventPhases() {
-    return postEventPhases;
-  }
-
-  /**
-   * Stores a list of postEventPhases in the context. PostEventPhases are a
-   * called once each after the batchEventPhases.  An example of postEventPhase
-   * is a phase that calls a stored procedure to perform reconcilation on data
-   * populated into the database from phases executed during the batchEventPhase.
-   *
-   * @param postEventPhases list of phases.
-   */
-  public void setPostEventPhases(List<Phase> postEventPhases) {
-    this.postEventPhases = postEventPhases;
-  }
-
   /**
    * Retrieves the reference to the current list of Row objects.
    *
@@ -571,27 +447,6 @@ public class EngineContext {
    */
   public void setRows(List rows) {
     this.rows = rows;
-  }
-
-  /**
-   * Retrives a given service.  Services are plugable java classes that
-   * allow OSFE to be flexiable and open to new functionality.
-   *
-   * @param name identifies the service to recieve.
-   * @return null if the service is not found.
-   */
-  public EngineService getServiceMap(String name) {
-    return serviceMap.get(name);
-  }
-
-  /**
-   * Stores a map of services in the context.  Services are plugable java
-   * classes that allow OSFE to be flexiable and open to new functionality.
-   *
-   * @param serviceMap map of service objects.
-   */
-  public void setServiceMap(Map<String, EngineService> serviceMap) {
-    this.serviceMap = serviceMap;
   }
 
   /**
@@ -781,5 +636,127 @@ public class EngineContext {
    */
   public void setPhaseStatsMap(Map<String, FeedPhaseStats> phaseStatsMap) {
     this.phaseStatsMap = phaseStatsMap;
+  }
+
+  /**
+   * Retrieve the reference to the Map of beans.
+   *
+   * @return reference to the Map of beans.
+   */
+  public Map<String, Object> getBeanMap() {
+    return beanMap;
+  }
+
+  /**
+   * Retrieve the reference to a specific bean.
+   *
+   * @param name identifies the bean to reference.
+   * @return null if bean was not found by the value in name.
+   */
+  public Object getBean(String name) {
+    return beanMap.get(name);
+  }
+
+  /**
+   * Retrieve the reference to a specific bean and throws an exception
+   * if no match was found.
+   *
+   * @param name identifies the bean to reference.
+   * @return reference to a specific bean.
+   * @thows FeedErrorException if by was not found by the value in name.
+   */
+  public Object getRequiredBean(String name) {
+    final Object bean = beanMap.get(name);
+
+    if (bean == null) {
+      throw new FeedErrorException("The bean, " + name + ", was not found.");
+    }
+
+    return bean;
+  }
+
+  /**
+   * Adds a bean to the bean map in the engine context.
+   *
+   * @param name will uniquely identify the bean.
+   * @param bean the bean to add to the map.
+   */
+  public void putBean(String name, Object bean) {
+    beanMap.put(name, bean);
+  }
+
+  /**
+   * Traverses the map of beans and returns only the beans that are and
+   * instance of Phase.
+   *
+   * @return list of Phases.
+   */
+  public List<Phase> getPhases() {
+    final List<Phase> list = new ArrayList<Phase>();
+
+    for (Object bean : beanMap.values()) {
+      if (bean instanceof Phase) {
+        list.add((Phase) bean);
+      }
+    }
+
+    return list;
+  }
+
+  /**
+   * Traverses the map of beans until it finds a bean that is an instance
+   * of CheckPointService.  Note: There should only be one check point service
+   * bean in the map.  If there is more than one, it will only return the
+   * first one it lands on.
+   *
+   * @return null if no bean matches instance of CheckpointService.
+   */
+  public CheckpointService getCheckPointService() {
+
+    for (Object bean : beanMap.values()) {
+      if (bean instanceof CheckpointService) {
+        return (CheckpointService) bean;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Traverses the map of beans until it finds a bean that is an instance
+   * of ExceptionService.  Note: There should only be one check point service
+   * bean in the map.  If there is more than one, it will only return the
+   * first one it lands on.
+   *
+   * @return null if no bean matches instance of ExceptionService.
+   */
+  public ExceptionService getExceptionService() {
+
+    for (Object bean : beanMap.values()) {
+      if (bean instanceof ExceptionService) {
+        return (ExceptionService) bean;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Traverses the map of beans until it finds a bean that is an instance
+   * of FeedFileLifeCycleService.  Note: There should only be one check point service
+   * bean in the map.  If there is more than one, it will only return the
+   * first one it lands on.
+   *
+   * @return null if no bean matches instance of FeedFileLifeCycleService.
+   */
+  public MainLifeCycleService getFeedLifeCycleService() {
+
+    for (Object bean : beanMap.values()) {
+      if (bean instanceof MainLifeCycleService) {
+        return (MainLifeCycleService) bean;
+      }
+    }
+
+    return null;
   }
 }

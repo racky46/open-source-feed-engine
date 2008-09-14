@@ -16,7 +16,7 @@ package com.qagen.osfe.core;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * The Phase abstract class defines the contract for all concrete Phase
  * implementations.  Concrete classes that extend phase most often perform
  * a specific set of operations on a given set of Row objects during each
@@ -26,27 +26,49 @@ package com.qagen.osfe.core;
  * implementations:
  * <ul>
  * <li>FileNameValidationPhase: checks that the file name is valid during the
- *     preFeedFilePhase phase lifecycle.
+ * preFeedFilePhase phase lifecycle.
  * <li>FooterPhase:  checks that the number of detail rows defined in the
- *     footer row is the same number of actual rows in the feed file.  Executed
- *     in the preEventPhase life cycle.
+ * footer row is the same number of actual rows in the feed file.  Executed
+ * in the preEventPhase life cycle.
  * <li>GradingPhase: grade test scores during the batchEventPhase phase life cycle.
  * <li>StatsPhase: calls set of stored procedures to perform statistical analysis
- *     at the end of the feed process during the postEventPhase life cycle.
+ * at the end of the feed process during the postEventPhase life cycle.
  * </ul>
  */
-public abstract class Phase {
-  protected final EngineContext context;
-  protected final String name;
+public abstract class Phase implements Contextable, Initializeable {
+  protected EngineContext context;
+  protected String name;
+
+  /**
+   * Constructor<p>
+   * <p/>
+   * This constructor in normally used for automatic dependency injection
+   * when the feed config file is loaded.<p>
+   * If this constructor is used then the following setters must be called:
+   * <ul>
+   * <li>setContext(Element)
+   * <li>setName(String)
+   * <ul>
+   */
+  protected Phase() {
+  }
 
   /**
    * Constructor
    *
    * @param context reference to the engine context.
-   * @param name uniquely identifies the given phase.
+   * @param name    uniquely identifies the given phase.
    */
   public Phase(EngineContext context, String name) {
     this.context = context;
+    this.name = name;
+  }
+
+  public void setContext(EngineContext context) {
+    this.context = context;
+  }
+
+  public void setName(String name) {
     this.name = name;
   }
 
@@ -60,35 +82,23 @@ public abstract class Phase {
   }
 
   /**
-   * Use this method to initialize references to other enging context objects and
-   * not it's constructor.  Since a given phase may depend on other objects which
-   * are loaded from the configuration document such as splitters, properties and
-   * services, OSFE initializes phases in two passes.  The first pass instantiates
-   * all phases by calling the phase constructor and passes it the engine context.
-   * The second pass calls the initialization method.  It is during the second
-   * pass that a phase will be able to reference any objects that have been loaded
-   * from the feed configuration document.
-   */
-  public abstract void initialize();
-
-  /**
    * During each iteration a given feed phase life cycle, as the set of phases
    * within the phase life cycle is traversed, the execute method of the
    * given phase is called.  The execute method call contains the necessary
    * instructions to perform the phases intended goal.
-   * <p>
+   * <p/>
    * Example: This is an example of a filter phase that disables a given row if
-   *          the student is not in good standing.
+   * the student is not in good standing.
    * <hr><blockquote><pre>
    * public void execute() {
    *   final List<DetailRow> rows = (List<DetailRow>) context.get(AcmeConstants.detailData.name());
-   *
+   * <p/>
    *   context.resentCurrentRowIndex();
    *   for (DetailRow row : rows) {
    *     context.incrementCurrentRowIndex();
    *     if (row.getEnable()) {
    *       final String studentId = row.getStudentId();
-   *
+   * <p/>
    *       if (!studentInGoodStanding(studentId)) {
    *         row.setEnable(false);
    *         context.incrementRejectedRowCount();

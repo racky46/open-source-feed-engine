@@ -16,11 +16,11 @@ package com.qagen.osfe.core.fixed;
 
 import com.qagen.osfe.core.RowParser;
 import com.qagen.osfe.core.column.ColumnDescription;
-import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.row.RowDescription;
+import com.qagen.osfe.core.row.RowValue;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor
@@ -54,9 +54,9 @@ public class FixedRowParser implements RowParser {
     final List<RowValue> rowValues = new ArrayList<RowValue>();
 
     for (ColumnDescription description : columnDescriptions) {
-      final FixedColumn fixedColumn = (FixedColumn) description;
-      final Integer start = fixedColumn.getStart() - 1;
-      final Integer length = fixedColumn.getLength();
+      final FixedColumnDescription fixedColumnDescription = (FixedColumnDescription) description;
+      final Integer start = fixedColumnDescription.getStart() - 1;
+      final Integer length = fixedColumnDescription.getLength();
       final String value = string.substring(start, start + length).trim();
       final RowValue rowValue = new RowValue(description, value);
 

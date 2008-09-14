@@ -14,46 +14,48 @@
  */
 package com.qagen.osfe.core.delimited;
 
-import com.qagen.osfe.core.EngineContext;
+import com.qagen.osfe.core.EngineService;
 import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.row.RowDescription;
+import com.qagen.osfe.core.utils.CheckNullUtil;
 
 /**
  * The DelimitedSplitter class is the base abstract class for splitters
  * that will parse data from delimited feed files.
  */
-public abstract class DelimitedSplitter implements Splitter {
-  protected final String rowDescriptionName;
-  protected final String delimiter;
-  protected final EngineContext context;
-  protected final DelimitedRowParser rowParser;
-  protected final RowDescription rowDescription;
-  protected final DelimitedRowDescriptionLoader rowLoader;
+public abstract class DelimitedSplitter extends EngineService implements Splitter {
+  protected String delimiter;
+  protected DelimitedRowParser rowParser;
+  protected RowDescription rowDescription;
+  protected String rowDescriptionName;
 
-  /**
-   * Constructor
-   *
-   * @param context            reference to the engine context
-   * @param rowDescriptionName uniquely identifies the row description in the
-   *                           configuration file.
-   */
-  public DelimitedSplitter(EngineContext context, String rowDescriptionName) {
-    this.context = context;
-    this.rowDescriptionName = rowDescriptionName;
+  protected DelimitedRowDescriptionLoader rowDescriptionLoader;
 
-    rowLoader = (DelimitedRowDescriptionLoader) context.getRowDescriptionLoader();
-    delimiter = rowLoader.getDelimiter();
-    rowDescription = rowLoader.getRows().get(rowDescriptionName);
-    rowParser = new DelimitedRowParser(rowDescription, delimiter);
+  public void setName(String name) {
+    rowDescriptionName = name;
   }
 
   /**
-   * Retrieves the refence to the engine context.
+   * Sets the reference to the delimited row description loader.
+   * <p/>
+   * <ul><li>Injection - required</li></ul>
    *
-   * @return reference to the engine context.
+   * @param rowDescriptionLoader reference to the delimited row description loader.
    */
-  public EngineContext getContext() {
-    return context;
+  public void setRowDescriptionLoader(DelimitedRowDescriptionLoader rowDescriptionLoader) {
+    this.rowDescriptionLoader = rowDescriptionLoader;
+  }
+
+  /**
+   * Called during second pass of splitter initialization. Should this splitter need
+   * access to another splitter, all other splitters will have been instantiated in
+   * the first pass.
+   */
+  public void initialize() {
+    delimiter = rowDescriptionLoader.getDelimiter();
+    rowDescription = rowDescriptionLoader.getRows().get(rowDescriptionName);
+    CheckNullUtil.checkNull(rowDescription, rowDescriptionName);
+    rowParser = new DelimitedRowParser(rowDescription, delimiter);
   }
 
   /**
@@ -70,8 +72,8 @@ public abstract class DelimitedSplitter implements Splitter {
    *
    * @return reference to the DelimitedRowDescriptionLoader.
    */
-  public DelimitedRowDescriptionLoader getRowsLoader() {
-    return rowLoader;
+  public DelimitedRowDescriptionLoader getRowLoader() {
+    return rowDescriptionLoader;
   }
 
   /**

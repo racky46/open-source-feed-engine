@@ -18,13 +18,13 @@ import java.io.IOException;
 
 /**
  * Author: Hycel Taylor
- * <p>
+ * <p/>
  * The FeedFileReader class is abstract and should be extended by classes
  * that are responsible for reading a feed file.  FeedFileReader classes
  * are most often used by splitters which are responsible for breaking a
  * feed file up into parts and breaking down the data in those parts in to
  * rows.
- * <p>
+ * <p/>
  * For example, a DelimitedFeedFileReader class may use a BufferedReader in order
  * to read data from a feed file while a FixedFeedFileReader class may use a
  * RandomAccessFile in order to read data in blocks and then break the blocks
@@ -32,6 +32,9 @@ import java.io.IOException;
  */
 public abstract class FeedFileReader {
   protected EngineContext context;
+
+  public FeedFileReader() {
+  }
 
   /**
    * Constructor
@@ -48,5 +51,5 @@ public abstract class FeedFileReader {
    * @throws IOException
    */
   public abstract void close() throws IOException;
-  
+
 }

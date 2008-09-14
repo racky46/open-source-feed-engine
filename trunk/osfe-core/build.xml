@@ -30,8 +30,8 @@
   <target name="compile" depends="init">
     <javac debug="true" debuglevel="lines,source,vars" verbose="false" srcdir="${java.src.dir}" destdir="classes"
            source="1.6" classpathref="library.path">
-      <classpath location="${dataAccess.module.dir}/classes" />
-      <classpath location="${common.module.dir}/classes" />
+      <classpath location="${dataAccess.module.dir}/classes"/>
+      <classpath location="${common.module.dir}/classes"/>
     </javac>
     <copy todir="classes">
       <fileset dir="${resource.src.dir}" includes="**/*"/>
@@ -39,7 +39,7 @@
   </target>
 
   <target name="jar" depends="compile">
-    <echo message="${common.module.dir}" />
+    <echo message="${common.module.dir}"/>
     <jar basedir="classes" destfile="dist/osfe-core-${osfe.version}.jar"/>
   </target>
 
