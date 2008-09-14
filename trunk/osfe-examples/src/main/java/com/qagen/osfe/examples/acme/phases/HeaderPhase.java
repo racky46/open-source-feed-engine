@@ -15,7 +15,6 @@
 package com.qagen.osfe.examples.acme.phases;
 
 
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.row.Row;
@@ -26,17 +25,24 @@ import com.qagen.osfe.examples.acme.row.HeaderRow;
 import java.util.List;
 
 public class HeaderPhase extends Phase {
-
-  public HeaderPhase(EngineContext context, String name) {
-    super(context, name);
-  }
+  private Splitter headerSplitter;
 
   public void initialize() {
   }
 
+  /**
+   * Set the reference to the header splitter.
+   *
+   * <ul><li>Injection - required</li></ul>
+   *
+   * @param headerSplitter reference to the header splitter.
+   */
+  public void setHeaderSplitter(Splitter headerSplitter) {
+    this.headerSplitter = headerSplitter;
+  }
+
   public void execute() {
-    final Splitter splitter = context.getHeaderSplitter();
-    final List<RowValue> rowValues = splitter.getNextRow();
+    final List<RowValue> rowValues = headerSplitter.getNextRow();
     final HeaderRow headerRow = new HeaderRow();
 
     BeanPopulator.populateBean(rowValues, headerRow);

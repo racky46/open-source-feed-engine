@@ -15,7 +15,6 @@
 package com.qagen.osfe.examples.acme.phases;
 
 import static com.qagen.osfe.common.FeedConstants.UNDER_SCORE;
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.dataAccess.vo.Feed;
@@ -27,10 +26,6 @@ import java.util.StringTokenizer;
 
 public class FileNameValidationPhase extends Phase {
   private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-  public FileNameValidationPhase(EngineContext context, String name) {
-    super(context, name);
-  }
 
   public void initialize() {
   }

@@ -14,10 +14,10 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.FooterSplitter;
 import com.qagen.osfe.core.Phase;
+import com.qagen.osfe.core.Splitter;
 import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.core.row.RowValue;
 import com.qagen.osfe.core.utils.BeanPopulator;
@@ -26,23 +26,30 @@ import com.qagen.osfe.examples.acme.row.FooterRow;
 import java.util.List;
 
 public class FooterPhase extends Phase {
-
-  public FooterPhase(EngineContext context, String name) {
-    super(context, name);
-  }
+  private FooterSplitter footerSplitter;
 
   public void initialize() {
   }
 
+  /**
+   * Set the reference to the footer splitter.
+   *
+   * <ul><li>Injection - required</li></ul>
+   *
+   * @param footerSplitter reference to the footer splitter.
+   */
+  public void setFooterSplitter(Splitter footerSplitter) {
+    this.footerSplitter = (FooterSplitter) footerSplitter;
+  }
+
   public void execute() {
-    final FooterSplitter splitter = (FooterSplitter) context.getFooterSplitter();
-    final List<RowValue> rowValues = splitter.getNextRow();
+    final List<RowValue> rowValues = footerSplitter.getNextRow();
     final FooterRow footerRow = new FooterRow();
 
     BeanPopulator.populateBean(rowValues, footerRow);
 
-    final Integer totalRowCount = splitter.getTotalRowCount();
-    final Integer minusRowCount = splitter.getMinusRowCount();
+    final Integer totalRowCount = footerSplitter.getTotalRowCount();
+    final Integer minusRowCount = footerSplitter.getMinusRowCount();
     final Integer footerRowCount = footerRow.getRowCount();
 
     rowCountCheck(totalRowCount, footerRowCount, minusRowCount);

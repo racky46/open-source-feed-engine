@@ -14,8 +14,6 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
-import com.qagen.osfe.common.utils.Log;
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.core.ProcessPhase;
 import com.qagen.osfe.core.row.Row;
@@ -31,30 +29,38 @@ import com.qagen.osfe.examples.acme.row.DetailRow;
  * invalidated if any score is not within the range of 0 - 100.
  */
 public class GradingPhase extends ProcessPhase {
-  private Boolean echoDetail;
+  private Boolean echoDetail = false;
+  private Integer delayInSeconds = 0;
+
   private GradingStatistics stats;
-  private Integer delayInSeconds;
 
-  private static Log logger = Log.getInstance(GradingPhase.class);
-
-  public GradingPhase(EngineContext context, String name) {
-    super(context, name);
-
-    stats = new GradingStatistics();
-    context.put(AcmeConstants.stats.name(), stats);
-
-    echoDetail = Boolean.parseBoolean((String) context.get(AcmeConstants.echoDetail.name()));
-    delayInSeconds = Integer.parseInt((String) context.get(AcmeConstants.delay.name()));
-  }
-
+  /**
+   * Determines if log information is echoed to the console.
+   *
+   * <ul><li>Injection - optional</li></ul>
+   *
+   * @param echoDetail default is false.
+   */
   public void setEchoDetail(Boolean echoDetail) {
     this.echoDetail = echoDetail;
   }
 
-  public void initialize() {
+  /**
+   * Delays the processing of each row by the given numbers of seconds.
+   *
+   * <ul><li>Injection - optional</li></ul>
+   *
+   * @param delayInSeconds default is 0
+   */
+  public void setDelayInSeconds(Integer delayInSeconds) {
+    this.delayInSeconds = delayInSeconds;
   }
 
-  @SuppressWarnings("unchecked")
+  public void initialize() {
+    stats = new GradingStatistics();
+    context.put(AcmeConstants.stats.name(), stats);
+  }
+
   public void execute() {
     singlePhaseLoop();
   }
