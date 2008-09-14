@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class FeedConstants extends CommonConstants {
+public interface FeedConstants extends CommonConstants {
   public final static String CONFIG_FILE = "config.xml";
 
   // Feed Directories
@@ -133,7 +133,8 @@ public class FeedConstants extends CommonConstants {
   // Feed Protocols
   public enum FEED_PROTOCOL {
     request("request"),
-    response("response");
+    response("response"),
+    retrieval("retrieval");
 
     private String value;
 
@@ -149,7 +150,7 @@ public class FeedConstants extends CommonConstants {
   // Feed Direction
   public enum FEED_DIRECTION {
     inbound("inbound"),
-    outbound("outboune");
+    outbound("outbound");
 
     private String value;
 

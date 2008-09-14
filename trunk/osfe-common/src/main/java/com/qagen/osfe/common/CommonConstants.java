@@ -18,9 +18,10 @@ package com.qagen.osfe.common;
  * Author: Hycel Taylor
  * <p>
  */
-public class CommonConstants {
+public interface CommonConstants {
   public static final String OSFE_WORK = "OSFE_WORK";
-  public static final String SLASH = "/"; //System.getProperty("file.separtor");
+  public static final String SLASH = "/";
+  public static final String FILE_SEPARATOR = System.getProperty("file.separator");
   public static final String UNDER_SCORE = "_";
   public static final String SINGLE_BAR = "|";
   public static final String DOT = ".";
