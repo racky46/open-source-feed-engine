@@ -15,7 +15,6 @@
 package com.qagen.osfe.examples.acme.phases;
 
 
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.phases.RowBeanPopulatorPhase;
 import com.qagen.osfe.core.row.Row;
 import com.qagen.osfe.examples.acme.row.DetailRow;
@@ -26,16 +25,6 @@ import com.qagen.osfe.examples.acme.row.DetailRow;
  * This BeanPopulatorPhase specifically populates the DetailRow object.
  */
 public class BeanPopulatorPhase extends RowBeanPopulatorPhase {
-
-  /**
-   * Constructor
-   *
-   * @param context reference to the engine context.
-   * @param name    uniquely identifies the given phase.
-   */
-  public BeanPopulatorPhase(EngineContext context, String name) {
-    super(context, name);
-  }
 
   /**
    * Instantiate the DetaiRow object that will loaded with values from the

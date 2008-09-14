@@ -14,7 +14,6 @@
  */
 package com.qagen.osfe.examples.acme.phases;
 
-import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.core.Phase;
 import com.qagen.osfe.examples.acme.AcmeConstants;
 import com.qagen.osfe.examples.acme.GradingStatistics;
@@ -25,10 +24,6 @@ import com.qagen.osfe.examples.acme.GradingStatistics;
  * Computes the class average and echos it to the console.
  */
 public class StatsPhase extends Phase {
-
-  public StatsPhase(EngineContext context, String name) {
-    super(context, name);
-  }
 
   public void initialize() {
   }

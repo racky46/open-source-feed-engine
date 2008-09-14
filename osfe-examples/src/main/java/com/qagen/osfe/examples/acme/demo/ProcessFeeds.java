@@ -14,20 +14,20 @@
  */
 package com.qagen.osfe.examples.acme.demo;
 
+import com.qagen.osfe.common.FeedConstants;
+import com.qagen.osfe.common.utils.DirectoryHelper;
 import com.qagen.osfe.dataAccess.context.DataAccessContext;
 import com.qagen.osfe.dataAccess.service.FeedService;
 import com.qagen.osfe.dataAccess.vo.Feed;
-import com.qagen.osfe.engine.FeedEngine;
-import com.qagen.osfe.common.FeedConstants;
-import com.qagen.osfe.common.utils.DirectoryHelper;
+import com.qagen.osfe.engine.InboundFeedEngine;
 
 import javax.sql.DataSource;
-import java.util.List;
-import java.util.ArrayList;
 import java.io.File;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Hycel Taylor
@@ -35,7 +35,7 @@ import java.sql.SQLException;
  * This class demostrates how OSFE can easily process and manange
  * multiple feeds simultaneously.
  */
-public class ProcessFeeds extends FeedConstants {
+public class ProcessFeeds implements FeedConstants {
   private static final String FIXED_FEED_ID = "acme_qagen_testf_request";
   private static final String DELIMITED_FEED_ID = "acme_qagen_testd_request";
 
@@ -143,7 +143,7 @@ public class ProcessFeeds extends FeedConstants {
     final List<String> feedFiles = getFileNames(directory);
 
     for (String feedFile : feedFiles) {
-      final Thread thread = new Thread(new FeedEngine(feedId, feedFile));
+      final Thread thread = new Thread(new InboundFeedEngine(feedId, feedFile));
       thread.start();
     }
   }
