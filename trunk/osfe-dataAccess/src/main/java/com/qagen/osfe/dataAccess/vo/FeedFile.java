@@ -36,6 +36,7 @@ public class FeedFile extends VO {
   private Integer recordsRejected;
   private String feedFileName;
   private String feedDocument;
+  private Integer sequenceNumber;
   private Feed feed;
   private FeedFileState FeedFileState;
   private List<FeedJob> feedJobs;
@@ -97,6 +98,14 @@ public class FeedFile extends VO {
 
   public void setFeedDocument(String feedDocument) {
     this.feedDocument = feedDocument;
+  }
+
+  public Integer getSequenceNumber() {
+    return sequenceNumber;
+  }
+
+  public void setSequenceNumber(Integer sequenceNumber) {
+    this.sequenceNumber = sequenceNumber;
   }
 
   public Feed getFeed() {

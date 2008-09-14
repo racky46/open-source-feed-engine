@@ -35,7 +35,7 @@ public class Feed extends VO {
   private boolean allowFailedStateRuns;
   private boolean restartAtCheckpoint;
   private boolean collectPhaseStats;
-  private Integer lastSequenceNumber;
+  private Integer nextSequenceNumber;
   private Integer maxConcurrentRuns;
   private String feedDirectory;
   private String feedDocument;
@@ -45,7 +45,6 @@ public class Feed extends VO {
   private FeedProtocol feedProtocol;
   private FeedDirection feedDirection;
   private FeedGroup feedGroup;
-  private FeedQueueType feedQueueType;
 
   public Feed() {
   }
@@ -106,12 +105,12 @@ public class Feed extends VO {
     this.collectPhaseStats = collectPhaseStats;
   }
 
-  public Integer getLastSequenceNumber() {
-    return lastSequenceNumber;
+  public Integer getNextSequenceNumber() {
+    return nextSequenceNumber;
   }
 
-  public void setLastSequenceNumber(Integer lastSequenceNumber) {
-    this.lastSequenceNumber = lastSequenceNumber;
+  public void setNextSequenceNumber(Integer nextSequenceNumber) {
+    this.nextSequenceNumber = nextSequenceNumber;
   }
 
   public Integer getMaxConcurrentRuns() {
@@ -184,14 +183,6 @@ public class Feed extends VO {
 
   public void setFeedGroup(FeedGroup feedGroup) {
     this.feedGroup = feedGroup;
-  }
-
-  public FeedQueueType getFeedQueueType() {
-    return feedQueueType;
-  }
-
-  public void setFeedQueueType(FeedQueueType feedQueueType) {
-    this.feedQueueType = feedQueueType;
   }
 
   @Override

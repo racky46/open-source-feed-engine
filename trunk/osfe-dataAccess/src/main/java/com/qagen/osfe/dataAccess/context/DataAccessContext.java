@@ -36,7 +36,7 @@ public class DataAccessContext {
    */
   public static ApplicationContext getContext() {
     if (context == null) {
-      context = new ClassPathXmlApplicationContext("applicationContext.xml");
+      context = new ClassPathXmlApplicationContext("OSFEContext.xml");
     }
     return context;
   }
