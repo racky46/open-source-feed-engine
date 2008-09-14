@@ -8,7 +8,7 @@ if [ ! -d $OSFE_WORK ]; then
 fi
 
 # Java class to run
-MAIN_CLASS=com.qagen.osfe.engine.FeedEngine
+MAIN_CLASS=com.qagen.osfe.engine.InboundFeedEngine
 
 # Extra Java VM arguments
 JAVA_OPTS="-Xms256m -Xmx512m"
