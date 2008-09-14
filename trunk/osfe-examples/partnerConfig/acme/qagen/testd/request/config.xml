@@ -2,18 +2,15 @@
 <delimitedConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
                  xmlns="http://www.osfe.com/feedconfig">
-  <properties>
-    <property name="delay" value="0"/>
-  </properties>
 
   <delimitedRows minusRowCount="2" delimiterValue=",">
-    <delimitedRow name="header" rowCount="1">
+    <delimitedRow name="headerSplitter" rowCount="1">
       <delimitedColumn name="examId" type="Long"/>
       <delimitedColumn name="courseId" type="Integer"/>
       <delimitedColumn name="timestamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
     </delimitedRow>
 
-    <delimitedRow name="detail" linesToSkip="0">
+    <delimitedRow name="detailSplitter" linesToSkip="0">
       <delimitedColumn name="studentId" type="Long"/>
       <delimitedColumn name="lastName" type="String"/>
       <delimitedColumn name="firstName" type="String"/>
@@ -21,7 +18,7 @@
       <delimitedColumn name="score" type="Integer"/>
     </delimitedRow>
 
-    <delimitedRow name="footer" rowCount="1">
+    <delimitedRow name="footerSplitter" rowCount="1">
       <delimitedColumn name="examId" type="Long"/>
       <delimitedColumn name="courseId" type="Integer"/>
       <delimitedColumn name="timestamp" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
@@ -31,48 +28,97 @@
 
   <eventPhases batchSize="10000">
     <preFeedFilePhases>
-      <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+      <phase ref="fileNameValidationPhase" enable="true"/>
     </preFeedFilePhases>
 
     <preEventPhases>
-      <phase name="footerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FooterPhase"/>
-      <phase name="headerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.HeaderPhase"/>
+      <phase ref="footerPhase" enable="true"/>
+      <phase ref="headerPhase" enable="true"/>
     </preEventPhases>
 
     <batchEventPhases>
-      <phase name="beanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase"/>
-      <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
-        <properties>
-          <property name="echoDetail" value="false"/>
-        </properties>
-      </phase>
-      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckpointPhase"/>
+      <phase ref="beanPopulatorPhase" enable="true"/>
+      <phase ref="gradingPhase" enable="true"/>
+      <phase ref="checkpoint" enable="true"/>
     </batchEventPhases>
 
     <postEventPhases>
-      <phase name="statsPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+      <phase ref="statsPhase" enable="true"/>
     </postEventPhases>
   </eventPhases>
 
-  <splitters>
-    <splitter name="header" className="com.qagen.osfe.core.delimited.DelimitedHeaderSplitter"/>
-    <splitter name="detail" className="com.qagen.osfe.core.delimited.DelimitedDetailSplitter"/>
-    <splitter name="footer" className="com.qagen.osfe.core.delimited.DelimitedFooterSplitter"/>
-  </splitters>
+  <beans>
 
-  <services>
-    <service name="mainService" className="com.qagen.osfe.core.services.StandardFeedLifeCycleService"/>
-    <service name="phaseService" className="com.qagen.osfe.core.services.PhaseLoaderService"/>
-    <service name="exceptionService" className="com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder"/>
-    <service name="checkpointService" className="com.qagen.osfe.core.services.CheckpointPlaceHolder"/>
-  </services>
+    <loaders>
+      <bean name="phaseConfigLoader" class="com.qagen.osfe.core.loaders.EventPhasesLoader"/>
+      <bean name="rowDescriptionLoader" class="com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader"/>
+    </loaders>
 
-  <configLoaders>
-    <configLoader name="propertyLoader" className="com.qagen.osfe.core.loaders.PropertiesConfigLoader"/>
-    <configLoader name="phaseLoader" className="com.qagen.osfe.core.loaders.PhaseConfigLoader"/>
-    <configLoader name="serviceLoader" className="com.qagen.osfe.core.loaders.ServiceConfigLoader"/>
-    <configLoader name="splitterLoader" className="com.qagen.osfe.core.loaders.SplitterConfigLoader"/>
-    <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.delimited.DelimitedRowDescriptionLoader"/>
-  </configLoaders>
+    <services>
+      <bean name="headerSplitter" class="com.qagen.osfe.core.delimited.DelimitedHeaderSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+        </references>
+      </bean>
+
+      <bean name="detailSplitter" class="com.qagen.osfe.core.delimited.DelimitedDetailSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+        </references>
+      </bean>
+
+      <bean name="footerSplitter" class="com.qagen.osfe.core.delimited.DelimitedFooterSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+        </references>
+      </bean>
+
+      <bean name="exceptionService" class="com.qagen.osfe.core.services.DefaultExceptionService"/>
+      <bean name="checkpointService" class="com.qagen.osfe.core.services.DefaultCheckpointService"/>
+    </services>
+
+    <phases>
+      <bean name="fileNameValidationPhase" class="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+
+      <bean name="footerPhase" class="com.qagen.osfe.examples.acme.phases.FooterPhase">
+        <references>
+          <reference name="footerSplitter" ref="footerSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="headerPhase" class="com.qagen.osfe.examples.acme.phases.HeaderPhase">
+        <references>
+          <reference name="headerSplitter" ref="headerSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="beanPopulatorPhase" class="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase">
+        <references>
+          <reference name="detailSplitter" ref="detailSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="gradingPhase" class="com.qagen.osfe.examples.acme.phases.GradingPhase">
+        <properties>
+          <property name="echoDetail" value="false" type="Boolean"/>
+          <property name="delayInSeconds" value="0" type="Integer"/>
+        </properties>
+      </bean>
+
+      <bean name="checkpoint" class="com.qagen.osfe.core.phases.CheckpointPhase"/>
+      <bean name="statsPhase" class="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+    </phases>
+
+    <main>
+      <bean name="lifeCycleService" class="com.qagen.osfe.core.services.inbound.EventPhaseLifeCycleService">
+        <references>
+          <reference name="phaseConfigLoader" ref="phaseConfigLoader"/>
+          <reference name="checkpointService" ref="checkpointService"/>
+          <reference name="exceptionService" ref="exceptionService"/>
+          <reference name="detailSplitter" ref="detailSplitter"/>
+        </references>
+      </bean>
+    </main>
+  </beans>
 
 </delimitedConfig>

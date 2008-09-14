@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fixedConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
-        xmlns="http://www.osfe.com/feedconfig">
-
-  <properties>
-    <property name="delay" value="0"/>
-  </properties>
+             xsi:schemaLocation="http://www.osfe.com/feedconfig ../../../../xsd/FeedConfig.xsd"
+             xmlns="http://www.osfe.com/feedconfig">
 
   <fixedRows minusRowCount="2" eolCharacter="Unix">
-    <fixedRow name="header" rowCount="1" length="31">
+    <fixedRow name="headerSplitter" rowCount="1" length="31">
       <fixedColumn name="examId" start="1" length="11" type="Long"/>
       <fixedColumn name="courseId" start="12" length="3" type="Integer"/>
       <fixedColumn name="timestamp" start="15" length="17" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
     </fixedRow>
 
-    <fixedRow name="detail" linesToSkip="0" length="42">
+    <fixedRow name="detailSplitter" linesToSkip="0" length="42">
       <fixedColumn name="studentId" start="1" length="8" type="Long"/>
       <fixedColumn name="lastName" start="9" length="15" type="String"/>
       <fixedColumn name="firstName" start="24" length="15" type="String"/>
@@ -22,7 +18,7 @@
       <fixedColumn name="score" start="40" length="3" type="Integer"/>
     </fixedRow>
 
-    <fixedRow name="footer" rowCount="1" length="39">
+    <fixedRow name="footerSplitter" rowCount="1" length="39">
       <fixedColumn name="examId" start="1" length="11" type="Long"/>
       <fixedColumn name="courseId" start="12" length="3" type="Integer"/>
       <fixedColumn name="timestamp" start="15" length="17" type="Timestamp" format="yyyyMMdd-HH:mm:ss"/>
@@ -32,48 +28,100 @@
 
   <eventPhases batchSize="10000">
     <preFeedFilePhases>
-      <phase name="fileNameValidationPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+      <phase ref="fileNameValidationPhase" enable="true"/>
     </preFeedFilePhases>
 
     <preEventPhases>
-      <phase name="footerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.FooterPhase"/>
-      <phase name="headerPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.HeaderPhase"/>
+      <phase ref="footerPhase" enable="true"/>
+      <phase ref="headerPhase" enable="true"/>
     </preEventPhases>
 
     <batchEventPhases>
-      <phase name="beanPopulatorPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase"/>
-      <phase name="gradingPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.GradingPhase">
-        <properties>
-          <property name="echoDetail" value="false"/>
-        </properties>
-      </phase>
-      <phase name="checkpoint" enable="true" className="com.qagen.osfe.core.phases.CheckpointPhase"/>
+      <phase ref="beanPopulatorPhase" enable="true"/>
+      <phase ref="gradingPhase" enable="true"/>
+      <phase ref="checkpoint" enable="true"/>
     </batchEventPhases>
 
     <postEventPhases>
-      <phase name="statsPhase" enable="true" className="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+      <phase ref="statsPhase" enable="true"/>
     </postEventPhases>
   </eventPhases>
 
-  <splitters>
-    <splitter name="header" className="com.qagen.osfe.core.fixed.FixedHeaderSplitter"/>
-    <splitter name="detail" className="com.qagen.osfe.core.fixed.FixedDetailSplitter"/>
-    <splitter name="footer" className="com.qagen.osfe.core.fixed.FixedFooterSplitter"/>
-  </splitters>
+  <beans>
 
-  <services>
-    <service name="mainService" className="com.qagen.osfe.core.services.StandardFeedLifeCycleService"/>
-    <service name="phaseService" className="com.qagen.osfe.core.services.PhaseLoaderService"/>
-    <service name="exceptionService" className="com.qagen.osfe.core.services.ExceptionHandlerPlaceHolder"/>
-    <service name="checkpointService" className="com.qagen.osfe.core.services.CheckpointPlaceHolder"/>
-  </services>
+    <loaders>
+      <bean name="phaseConfigLoader" class="com.qagen.osfe.core.loaders.EventPhasesLoader"/>
+      <bean name="rowDescriptionLoader" class="com.qagen.osfe.core.fixed.FixedRowDescriptionLoader"/>
+    </loaders>
 
-  <configLoaders>
-    <configLoader name="propertyLoader" className="com.qagen.osfe.core.loaders.PropertiesConfigLoader"/>
-    <configLoader name="phaseLoader" className="com.qagen.osfe.core.loaders.PhaseConfigLoader"/>
-    <configLoader name="serviceLoader" className="com.qagen.osfe.core.loaders.ServiceConfigLoader"/>
-    <configLoader name="splitterLoader" className="com.qagen.osfe.core.loaders.SplitterConfigLoader"/>
-    <configLoader name="rowDescriptionLoader" className="com.qagen.osfe.core.fixed.FixedRowDescriptionLoader"/>
-  </configLoaders>
+    <services>
+      <bean name="headerSplitter" class="com.qagen.osfe.core.fixed.FixedHeaderSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+        </references>
+      </bean>
 
+      <bean name="detailSplitter" class="com.qagen.osfe.core.fixed.FixedDetailSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+          <reference name="headerSplitter" ref="headerSplitter"/>
+          <reference name="footerSplitter" ref="footerSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="footerSplitter" class="com.qagen.osfe.core.fixed.FixedFooterSplitter">
+        <references>
+          <reference name="rowDescriptionLoader" ref="rowDescriptionLoader"/>
+          <reference name="headerSplitter" ref="headerSplitter"/>
+          <reference name="detailSplitter" ref="detailSplitter"/>
+        </references>
+      </bean>
+      
+      <bean name="exceptionService" class="com.qagen.osfe.core.services.DefaultExceptionService"/>
+      <bean name="checkpointService" class="com.qagen.osfe.core.services.DefaultCheckpointService"/>
+    </services>
+
+    <phases>
+      <bean name="fileNameValidationPhase" class="com.qagen.osfe.examples.acme.phases.FileNameValidationPhase"/>
+
+      <bean name="footerPhase" class="com.qagen.osfe.examples.acme.phases.FooterPhase">
+        <references>
+          <reference name="footerSplitter" ref="footerSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="headerPhase" class="com.qagen.osfe.examples.acme.phases.HeaderPhase">
+        <references>
+          <reference name="headerSplitter" ref="headerSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="beanPopulatorPhase" class="com.qagen.osfe.examples.acme.phases.BeanPopulatorPhase">
+        <references>
+          <reference name="detailSplitter" ref="detailSplitter"/>
+        </references>
+      </bean>
+
+      <bean name="gradingPhase" class="com.qagen.osfe.examples.acme.phases.GradingPhase">
+        <properties>
+          <property name="echoDetail" value="false" type="Boolean"/>
+          <property name="delayInSeconds" value="0" type="Integer"/>
+        </properties>
+      </bean>
+
+      <bean name="checkpoint" class="com.qagen.osfe.core.phases.CheckpointPhase"/>
+      <bean name="statsPhase" class="com.qagen.osfe.examples.acme.phases.StatsPhase"/>
+    </phases>
+
+    <main>
+      <bean name="lifeCycleService" class="com.qagen.osfe.core.services.inbound.EventPhaseLifeCycleService">
+        <references>
+          <reference name="phaseConfigLoader" ref="phaseConfigLoader"/>
+          <reference name="checkpointService" ref="checkpointService"/>
+          <reference name="exceptionService" ref="exceptionService"/>
+          <reference name="detailSplitter" ref="detailSplitter"/>
+        </references>
+      </bean>
+    </main>
+  </beans>
 </fixedConfig>
