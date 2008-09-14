@@ -13,14 +13,10 @@
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedFile.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedJob.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedDirection.xml"/>
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedQueue.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedGroup.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedCheckpoint.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedPhaseStats.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedRole.xml"/>
   <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedUser.xml"/>
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedQueueState.xml"/>
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedMonitor.xml"/>
-  <sqlMap resource="com/qagen/osfe/dataAccess/dao/ibatis/FeedQueueType.xml"/>
 
 </sqlMapConfig>

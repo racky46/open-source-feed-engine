@@ -53,4 +53,20 @@ public class FeedServiceImpl implements FeedService {
     return feedDAO.findAll();
   }
 
+  @Transactional
+  public synchronized Integer getNextSequenceNumber(String primaryId) {
+    final Feed feed = feedDAO.findByPrimaryId(primaryId);
+
+    if (feed == null) {
+      return null;
+    }
+
+    final Integer sequenceNumber = feed.getNextSequenceNumber();
+
+    feed.setNextSequenceNumber(sequenceNumber + 1);
+    feedDAO.update(feed);
+
+    return sequenceNumber;
+  }
+
 }

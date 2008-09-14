@@ -14,6 +14,7 @@
     <result property="recordsRejected" column="records_rejected"/>
     <result property="feedFileName" column="feed_file_name"/>
     <result property="feedDocument" column="feed_document"/>
+    <result property="sequenceNumber" column="sequence_number"/>
     <result property="feed" column="feed_id" select="Feed.findByPrimaryId"/>
     <result property="feedFileState" column="feed_file_state_id" select="FeedFileState.findByPrimaryId"/>
     <result property="feedJobs" column="feed_file_id" select="FeedJob.findByFeedFileId"/>
@@ -27,6 +28,7 @@
       feed_document,
       records_processed,
       records_rejected,
+      sequence_number,
       feed_id,
       feed_file_state_id
     ) values (
@@ -36,6 +38,7 @@
       #feedDocument#,
       #recordsProcessed#,
       #recordsRejected#,
+      #sequenceNumber#,
       #feed.feedId#,
       #feedFileState.feedFileStateId#
     )
@@ -53,6 +56,7 @@
       feed_document = #feedDocument#,
       records_processed = #recordsProcessed#,
       records_rejected = #recordsRejected#,
+      sequence_number = #sequenceNumber#,
       feed_id = #feed.feedId#,
       feed_file_state_id = #feedFileState.feedFileStateId#
     where feed_file_id = #feedFileId#
@@ -105,7 +109,5 @@
       </isEmpty>
     </dynamic>
   </select>
-
-
 
 </sqlMap>

@@ -25,4 +25,6 @@ public interface FeedService extends Service<Feed> {
   public List<Feed> findAll();
 
   public Feed findByPrimaryId(String primaryId);
+
+  public Integer getNextSequenceNumber(String primaryId);
 }

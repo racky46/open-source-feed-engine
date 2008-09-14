@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -54,7 +53,7 @@ public class ConfigFileLoader {
   }
 
   private static final String RESOURCE_PACKAGE = DirectoryHelper.getHomeDirectory() +  "programData";
-  private static final String APP_CONTEXT = "applicationContext.xml";
+  private static final String APP_CONTEXT = "OSFEContext.xml";
   private static final String COMMA = ",";
   private static final String SINGLE_QUOTE = "'";
 

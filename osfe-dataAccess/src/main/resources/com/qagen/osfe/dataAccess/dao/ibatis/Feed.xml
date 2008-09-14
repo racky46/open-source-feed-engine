@@ -14,7 +14,7 @@
     <result property="allowFailedStateRuns" column="allow_failed_state_runs"/>
     <result property="collectPhaseStats" column="collect_phase_stats"/>
     <result property="restartAtCheckpoint" column="restart_at_checkpoint"/>
-    <result property="lastSequenceNumber" column="last_sequence_number"/>
+    <result property="nextSequenceNumber" column="next_sequence_number"/>
     <result property="maxConcurrentRuns" column="max_concurrent_runs"/>
     <result property="feedDirectory" column="feed_directory"/>
     <result property="feedDocument" column="feed_document"/>
@@ -24,7 +24,6 @@
     <result property="feedProtocol" column="feed_protocol_id" select="FeedProtocol.findByPrimaryId"/>
     <result property="feedDirection" column="feed_direction_id" select="FeedDirection.findByPrimaryId"/>
     <result property="feedGroup" column="feed_group_id" select="FeedGroup.findByPrimaryId"/>
-    <result property="feedQueueType" column="feed_queue_type_id" select="FeedQueueType.findByPrimaryId"/>
   </resultMap>
 
   <insert id="insert" parameterClass="Feed">
@@ -36,7 +35,7 @@
       allow_failed_state_runs,
       collect_phase_stats,
       restart_at_checkpoint,
-      last_sequence_number,
+      next_sequence_number,
       max_concurrent_runs,
       feed_directory,
       feed_document,
@@ -45,8 +44,7 @@
       feed_type_id,
       feed_protocol_id,
       feed_direction_id,
-      feed_group_id,
-      feed_queue_type_id
+      feed_group_id
     ) values (
       #feedId#,
       #activationDate#,
@@ -55,7 +53,7 @@
       #allowFailedStateRuns#,
       #collectPhaseStats#,
       #restartAtCheckpoint#,
-      #lastSequenceNumber#,
+      #nextSequenceNumber#,
       #maxConcurrentRuns#,
       #feedDirectory#,
       #feedDocument#,
@@ -64,8 +62,7 @@
       #feedType.feedTypeId#,
       #feedProtocol.feedProtocolId#,
       #feedDirection.feedDirectionId#,
-      #feedGroup.feedGroupId#,
-      #feedQueueType.feedQueueTypeId#
+      #feedGroup.feedGroupId#
     )
   </insert>
 
@@ -77,7 +74,7 @@
       allow_failed_state_runs = #allowFailedStateRuns#,
       collect_phase_stats = #collectPhaseStats#,
       restart_at_checkpoint = #restartAtCheckpoint#,
-      last_sequence_number = #lastSequenceNumber#,
+      next_sequence_number = #nextSequenceNumber#,
       max_concurrent_runs = #maxConcurrentRuns#,
       feed_directory = #feedDirectory#,
       feed_document = #feedDocument#,
@@ -86,8 +83,7 @@
       feed_type_id = #feedType.feedTypeId#,
       feed_protocol_id = #feedProtocol.feedProtocolId#,
       feed_direction_id = #feedDirection.feedDirectionId#,
-      feed_group_id = #feedGroup.feedGroupId#,
-      feed_queue_type_id = #feedQueueType.feedQueueTypeId#
+      feed_group_id = #feedGroup.feedGroupId#
     where feed_id = #feedId#
   </update>
 
