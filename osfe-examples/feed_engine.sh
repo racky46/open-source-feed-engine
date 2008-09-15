@@ -26,5 +26,5 @@ done
 full_cmd="java $JAVA_OPTS -cp $classpath $java_cmd"
 
 # Run command
-$full_cmd $@ $@
+$full_cmd $@
 
