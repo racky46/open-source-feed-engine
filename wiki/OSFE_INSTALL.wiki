@@ -11,9 +11,9 @@
  
   Example: OSFE_WORK=~/osfe.
 
-3) Extract osfe-bin-1.0-with-dependencies.tar.gz to a directory of your choosing (e.g. temp).
+3) Extract osfe-bin-1.01-with-dependencies.tar.gz to a directory of your choosing (e.g. temp).
    
-  Example: tar zxf osfe-bin-1.0-with-dependencies.tar.gz
+  Example: tar zxf osfe-bin-1.01-with-dependencies.tar.gz
 
 4) Install MySQL
    
