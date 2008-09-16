@@ -53,14 +53,12 @@ public class ManageFeedsActionBean extends BaseActionBean {
   private FeedProtocolService feedProtocolService;
   private FeedDirectionService feedDirectionService;
   private FeedGroupService feedGroupService;
-  private FeedQueueTypeService feedQueueTypeService;
 
   private List<FeedDataSource> dataSources;
   private List<FeedType> feedTypes;
   private List<FeedProtocol> feedProtocols;
   private List<FeedDirection> feedDirections;
   private List<FeedGroup> feedGroups;
-  private List<FeedQueueType> feedQueueTypes;
 
   private Integer page = 1;
   private Integer rows = 10;
@@ -105,11 +103,6 @@ public class ManageFeedsActionBean extends BaseActionBean {
     this.feedGroupService = feedGroupService;
   }
 
-  @SpringBean(FeedQueueTypeService.SERVICE_ID)
-  public void setFeedQueueTypeService(FeedQueueTypeService feedQueueTypeService) {
-    this.feedQueueTypeService = feedQueueTypeService;
-  }
-
   public List<FeedDataSource> getDataSources() {
     return dataSources;
   }
@@ -148,14 +141,6 @@ public class ManageFeedsActionBean extends BaseActionBean {
 
   public void setFeedGroups(List<FeedGroup> feedGroups) {
     this.feedGroups = feedGroups;
-  }
-
-  public List<FeedQueueType> getFeedQueueTypes() {
-    return feedQueueTypes;
-  }
-
-  public void setFeedQueueTypes(List<FeedQueueType> feedQueueTypes) {
-    this.feedQueueTypes = feedQueueTypes;
   }
 
   public Integer getPage() {
@@ -259,7 +244,6 @@ public class ManageFeedsActionBean extends BaseActionBean {
       cells.add(feed.getFeedProtocol().getFeedProtocolId());
       cells.add(feed.getFeedDirection().getFeedDirectionId());
       cells.add(feed.getFeedGroup().getFeedGroupId());
-      cells.add(feed.getFeedQueueType().getFeedQueueTypeId());
       cells.add("action");
       row.setCell(cells);
       rows.add(row);
@@ -280,6 +264,5 @@ public class ManageFeedsActionBean extends BaseActionBean {
     feedProtocols = feedProtocolService.findAll();
     feedDirections = feedDirectionService.findAll();
     feedGroups = feedGroupService.findAll();
-    feedQueueTypes = feedQueueTypeService.findAll();
   }
 }
