@@ -22,6 +22,8 @@ import java.util.List;
 public interface FeedDirectionService extends Service<FeedDirection> {
   public static final String SERVICE_ID = "feedDirectionService";
 
+  public FeedDirection findByPrimaryId(String primaryId);
+
   public List<FeedDirection> findAll();
 
 }

@@ -20,6 +20,8 @@ import java.util.List;
 
 public interface FeedDirectionDAO extends DAO<FeedDirection> {
 
+  public FeedDirection findByPrimaryId(Object primaryId);
+
   public List<FeedDirection> findAll();
 
 }
