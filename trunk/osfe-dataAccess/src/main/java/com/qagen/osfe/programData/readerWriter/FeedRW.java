@@ -39,7 +39,6 @@ public class FeedRW extends ReaderWriter {
     allowFailedStateRuns,
     collectPhaseStats,
     restartAtCheckpoint,
-    nextSequenceNumber,
     maxConcurrentRuns,
     feedDirectory,
     feedDocument,
@@ -72,7 +71,6 @@ public class FeedRW extends ReaderWriter {
         feed.setAllowFailedStateRuns(getBoolean(element, ATTRIBUTE.allowFailedStateRuns.name()));
         feed.setCollectPhaseStats(getBoolean(element, ATTRIBUTE.collectPhaseStats.name()));
         feed.setRestartAtCheckpoint(getBoolean(element, ATTRIBUTE.restartAtCheckpoint.name()));
-        feed.setNextSequenceNumber(Integer.valueOf(element.element(ATTRIBUTE.nextSequenceNumber.name()).getText()));
         feed.setMaxConcurrentRuns(Integer.valueOf(element.element(ATTRIBUTE.maxConcurrentRuns.name()).getText()));
         feed.setFeedDirectory(element.element(ATTRIBUTE.feedDirectory.name()).getText());
         feed.setFeedDocument(element.element(ATTRIBUTE.feedDocument.name()).getText());
@@ -109,7 +107,6 @@ public class FeedRW extends ReaderWriter {
       row.addElement(ATTRIBUTE.allowFailedStateRuns.name()).setText(setBoolean(feed.getAllowFailedStateRuns()));
       row.addElement(ATTRIBUTE.collectPhaseStats.name()).setText(setBoolean(feed.getCollectPhaseStats()));
       row.addElement(ATTRIBUTE.restartAtCheckpoint.name()).setText(setBoolean(feed.getRestartAtCheckpoint()));
-      row.addElement(ATTRIBUTE.nextSequenceNumber.name()).setText(feed.getNextSequenceNumber().toString());
       row.addElement(ATTRIBUTE.maxConcurrentRuns.name()).setText(feed.getMaxConcurrentRuns().toString());
       row.addElement(ATTRIBUTE.feedDirectory.name()).setText(feed.getFeedDirectory());
       row.addElement(ATTRIBUTE.feedDocument.name()).setText(feed.getFeedDocument());
