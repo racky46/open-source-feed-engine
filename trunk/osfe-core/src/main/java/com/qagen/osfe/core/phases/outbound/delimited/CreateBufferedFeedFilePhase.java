@@ -16,6 +16,7 @@ package com.qagen.osfe.core.phases.outbound.delimited;
 
 import com.qagen.osfe.core.BufferedFeedFileWriter;
 import com.qagen.osfe.core.Phase;
+import com.qagen.osfe.core.FeedJobManager;
 import com.qagen.osfe.core.loaders.FileNameFormatLoader;
 
 import java.io.IOException;
@@ -40,7 +41,17 @@ public class CreateBufferedFeedFilePhase extends Phase {
    * @param fileNameFormatLoader contains the components that make up the file name.
    */
   public void setFileNameFormatLoader(FileNameFormatLoader fileNameFormatLoader) {
-    new BufferedFeedFileWriter(context, fileNameFormatLoader.getFileName());
+    final String feedFileName = context.getFeedFileName();
+
+    if (feedFileName != null) {
+      final FeedJobManager manager = new FeedJobManager();
+
+      if (manager.checkIfFeedFileExistsInRetryNoError(feedFileName)) {
+        new BufferedFeedFileWriter(context, feedFileName);
+      }
+    } else {
+      new BufferedFeedFileWriter(context, fileNameFormatLoader.getFileName());
+    }
   }
 
   /**
