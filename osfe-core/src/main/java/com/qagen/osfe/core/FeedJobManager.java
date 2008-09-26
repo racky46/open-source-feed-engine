@@ -347,7 +347,9 @@ public class FeedJobManager {
    */
   public boolean moveToRetry(FeedJob feedJob) {
     // This statement should succeed before changing the state of the feedFile and feedJob.
-    moveFeedFile(feedJob, FEED_DIR.failed.getValue(), FEED_DIR.incoming.getValue());
+    if (!isOutboundFeed(feedJob.getFeedFile().getFeed())) {
+      moveFeedFile(feedJob, FEED_DIR.failed.getValue(), FEED_DIR.incoming.getValue());
+    }
 
     if (feedJob.getFeedJobState().getFeedJobStateId().equals(FEED_JOB_STATE.failed.getValue())) {
       final FeedFile feedFile = feedJob.getFeedFile();
@@ -555,6 +557,16 @@ public class FeedJobManager {
   }
 
   /**
+   * Determines if the given feed is an outbound feed.
+   *
+   * @param feed reference to the feed definition.
+   * @return true if direction of the feed is an outbound feed; otherwise false.
+   */
+  public Boolean isOutboundFeed(Feed feed) {
+    return feed.getFeedDirection().getFeedDirectionId().equals(FEED_DIRECTION.outbound.getValue());
+  }
+
+  /**
    * Determines if the given feed is an inbound feed.
    *
    * @param feed reference to the feed definition.
@@ -571,7 +583,7 @@ public class FeedJobManager {
    * @return true if protocl of the feed is an 'retrieval'; otherwise false.
    */
   public Boolean isRetrievalFeed(Feed feed) {
-    return feed.getFeedProtocol().getFeedProtocolId().equals(FEED_PROTOCOL.request.getValue());
+    return feed.getFeedProtocol().getFeedProtocolId().equals(FEED_PROTOCOL.retrieval.getValue());
   }
 
   /**
@@ -589,6 +601,7 @@ public class FeedJobManager {
     final Feed feed = getFeed(feedId);
 
     Boolean createFeedFile = false;
+    
     FeedFile feedFile = checkIfFeedFileExistsInRetry(feedFileName);
     if (feedFile == null) {
       createFeedFile = true;
@@ -637,6 +650,26 @@ public class FeedJobManager {
     }
 
     return feedFile;
+  }
+
+  /**
+   * Checks if a given feed file exists.
+   *
+   * @param feedFileName the name of the feed file to check for.
+   * @return the feedFile object if the feedFile is found.
+   * @throws FeedErrorException if exists but is not in a retry state.
+   */
+  public Boolean checkIfFeedFileExistsInRetryNoError(String feedFileName) {
+    final FeedFile feedFile = feedFileService.findByFeedFileName(feedFileName);
+
+    if (feedFile != null) {
+      final String state = feedFile.getFeedFileState().getFeedFileStateId();
+      if (state.equals(FEED_FILE_STATE.retry.getValue())) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**

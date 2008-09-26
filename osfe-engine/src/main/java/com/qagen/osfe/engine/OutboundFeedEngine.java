@@ -15,6 +15,9 @@
 package com.qagen.osfe.engine;
 
 import com.qagen.osfe.core.FeedJobManager;
+import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.dataAccess.vo.FeedFile;
+import com.qagen.osfe.dataAccess.vo.Feed;
 
 public class OutboundFeedEngine extends AbstractFeedEngine implements Runnable {
 
@@ -27,7 +30,37 @@ public class OutboundFeedEngine extends AbstractFeedEngine implements Runnable {
   public OutboundFeedEngine(String feedId) {
     try {
       feedJobManager = new FeedJobManager();
-      initFeedProcess(feedId);
+      initFeedProcess(feedId, null);
+    } catch (Exception e) {
+      handleError(feedId, feedFileName, e);
+    }
+  }
+
+  /**
+   * Constructor
+   * <p/>
+   * This constructor should be used to rerun a feedFile that is in a retry state.
+   *
+   * @param feedFileId identifies a file that have been previously processed.
+   */
+  public OutboundFeedEngine(Integer feedFileId) {
+    try {
+      feedJobManager = new FeedJobManager();
+
+      final FeedFile feedFile = feedJobManager.getFeedFile(feedFileId);
+      final Feed feed = feedFile.getFeed();
+
+      if (!feedJobManager.isOutboundFeed(feed)) {
+        final String message = "FeedId, " + feedFileId + ", is not an outbound feed.";
+        throw new FeedErrorException(message);
+      }
+
+      final String feedId = feed.getFeedId();
+      final String feedFileName = feedFile.getFeedFileName();
+
+      initFeedProcess(feedId, feedFileName);
+
+      context.setSequenceNumber(feedFile.getSequenceNumber());
     } catch (Exception e) {
       handleError(feedId, feedFileName, e);
     }
@@ -39,8 +72,8 @@ public class OutboundFeedEngine extends AbstractFeedEngine implements Runnable {
    * @param feedId identifies the feedId associated with the exception.
    *               the exception.
    */
-  protected void initFeedProcess(String feedId) {
-    initContext(feedId, null);
+  protected void initFeedProcess(String feedId, String feedFileName) {
+    initContext(feedId, feedFileName);
     initFeedRecord();
     initConfigFile();
     loadBeans();
@@ -78,7 +111,15 @@ public class OutboundFeedEngine extends AbstractFeedEngine implements Runnable {
       System.exit(-1);
     }
 
-    final OutboundFeedEngine engine = new OutboundFeedEngine(args[0]);
-    engine.execute();
+    final String value = args[0];
+
+    if (isNumeric(value)) {
+      final OutboundFeedEngine engine = new OutboundFeedEngine(Integer.parseInt(value));
+      engine.execute();
+    } else {
+      final OutboundFeedEngine engine = new OutboundFeedEngine(value);
+      engine.execute();
+    }
+
   }
 }

@@ -89,64 +89,18 @@ public abstract class AbstractFeedEngine {
 
   private static Log logger = Log.getInstance(AbstractFeedEngine.class);
 
-//  /**
-//   * Constructor
-//   * <p/>
-//   * Normally used to process a feed for that has not been processed before.
-//   * This constructor can also be used to process a feed that has alread been
-//   * processed; however, it's easier to use the constructor which only requires
-//   * the feedFileId.
-//   *
-//   * @param feedId       the feedId is used to attian information about the feed for
-//   *                     processing.
-//   * @param feedFileName specifies the unique file to process.
-//   */
-//  public AbstractFeedEngine(String feedId, String feedFileName) {
-//    try {
-//      feedJobManager = new FeedJobManager();
-//      initFeedProcess(feedId, feedFileName);
-//    } catch (Exception e) {
-//      handleError(feedId, feedFileName, e);
-//    }
-//  }
-//
-//  /**
-//   * Constructor
-//   * <p/>
-//   * This constructor should be used to rerun a feedFile that is in a retry state.
-//   *
-//   * @param feedFileId identifies a file that have been previously processed.
-//   */
-//  public AbstractFeedEngine(Integer feedFileId) {
-//    try {
-//      feedJobManager = new FeedJobManager();
-//
-//      final FeedFile feedFile = feedJobManager.getFeedFile(feedFileId);
-//      final String feedId = feedFile.getFeed().getFeedId();
-//      final String feedFileName = feedFile.getFeedFileName();
-//
-//      context.setSequenceNumber(feedFile.getSequenceNumber());
-//
-//      initFeedProcess(feedId, feedFileName);
-//    } catch (Exception e) {
-//      handleError(feedId, feedFileName, e);
-//    }
-//  }
-//
-//  /**
-//   * Constructor
-//   * <p/>
-//   *
-//   * @param feedId specifies the feedId for outbound feed processing.
-//   */
-//  protected AbstractFeedEngine(String feedId) {
-//    try {
-//      feedJobManager = new FeedJobManager();
-//      initFeedProcess(feedId);
-//    } catch (Exception e) {
-//      handleError(feedId, feedFileName, e);
-//    }
-//  }
+  public static boolean isNumeric(String buffer) {
+    final String validChars = "0123456789";
+    boolean isNumber = true;
+
+    for (int i = 0; i < buffer.length() && isNumber; i++) {
+      final char token = buffer.charAt(i);
+
+      isNumber = validChars.indexOf(token) != -1;
+    }
+
+    return isNumber;
+  }
 
   /**
    * Common error handler for the logging errors for the FeedErrorException is

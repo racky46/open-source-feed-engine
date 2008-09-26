@@ -15,6 +15,7 @@
 package com.qagen.osfe.engine;
 
 import com.qagen.osfe.core.FeedJobManager;
+import com.qagen.osfe.core.FeedErrorException;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
@@ -54,6 +55,11 @@ public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
       final FeedFile feedFile = feedJobManager.getFeedFile(feedFileId);
       final String feedId = feedFile.getFeed().getFeedId();
       final String feedFileName = feedFile.getFeedFileName();
+
+      if (!feedJobManager.isOutboundFeed(feed)) {
+        final String message = "FeedId, " + feedFileId + ", is not an outbound feed.";
+        throw new FeedErrorException(message);
+      }
 
       context.setSequenceNumber(feedFile.getSequenceNumber());
 
