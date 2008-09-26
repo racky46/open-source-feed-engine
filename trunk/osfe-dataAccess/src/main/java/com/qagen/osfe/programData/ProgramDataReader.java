@@ -15,15 +15,19 @@ public class ProgramDataReader {
 
     readerWriter = new DataSourceRW();
     readerWriter.readData();
+    System.err.println("*** Reading of Datasources complete.");
 
     readerWriter = new FeedTypeRW();
     readerWriter.readData();
+    System.err.println("*** Reading of FeedTypes complete.");
 
     readerWriter = new FeedGroupRW();
     readerWriter.readData();
+    System.err.println("*** Reading of FeedGroups complete.");
 
     readerWriter = new FeedRW();
     readerWriter.readData();
+    System.err.println("*** Reading of Feeds complete.");
   }
 
   public static void main(String[] args) {
