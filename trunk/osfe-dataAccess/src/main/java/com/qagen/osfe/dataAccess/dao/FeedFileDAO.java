@@ -35,4 +35,6 @@ public interface FeedFileDAO extends DAO<FeedFile> {
 
   public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param);
 
+  public List<FeedFile> findByFeedFileIdAndSequenceNo(FeedFileFilterParam param);
+
 }

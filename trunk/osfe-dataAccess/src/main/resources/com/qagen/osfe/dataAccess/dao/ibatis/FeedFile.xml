@@ -98,6 +98,10 @@
     select * from t_feed_file where feed_file_state_id = #value#
   </select>
 
+  <select id="findByFeedFileIdAndSequenceNo" parameterClass="com.qagen.osfe.dataAccess.param.FeedFileFilterParam" resultMap="FeedFile.resultMap">
+    select * from t_feed_file where feed_id = #feedId# and sequence_number = #sequenceNumber#
+  </select>
+
   <select id="findByFeedFileStateAndDate" parameterClass="com.qagen.osfe.dataAccess.param.FeedFileFilterParam" resultMap="FeedFile.resultMap">
     select * from t_feed_file
     <dynamic prepend="WHERE">

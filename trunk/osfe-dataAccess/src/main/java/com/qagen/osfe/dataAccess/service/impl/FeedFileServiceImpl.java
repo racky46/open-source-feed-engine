@@ -83,4 +83,10 @@ public class FeedFileServiceImpl implements FeedFileService {
   public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param) {
     return feedFileDAO.findByFeedFileStateAndDate(param);
   }
+
+  @Transactional
+  public List<FeedFile> findByFeedFileIdAndSequenceNo(FeedFileFilterParam param) {
+    return feedFileDAO.findByFeedFileIdAndSequenceNo(param);
+  }
+  
 }

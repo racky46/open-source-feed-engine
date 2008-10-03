@@ -203,7 +203,10 @@ public abstract class AbstractFeedEngine {
    * @param feedFileName specifies the unique file to process.
    */
   protected void initContext(String feedId, String feedFileName) {
-    this.context = new EngineContext();
+    if (this.context == null) {
+      this.context = new EngineContext();
+    }
+
     this.feedId = feedId;
 
     if (feedFileName != null) {

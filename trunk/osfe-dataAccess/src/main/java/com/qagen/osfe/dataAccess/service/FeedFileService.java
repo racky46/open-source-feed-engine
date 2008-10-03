@@ -38,5 +38,7 @@ public interface FeedFileService extends Service<FeedFile> {
   public List<FeedFile> findByFeedFileState(String feedFileStateId);
 
   public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param);
+
+  public List<FeedFile> findByFeedFileIdAndSequenceNo(FeedFileFilterParam param);
   
 }
