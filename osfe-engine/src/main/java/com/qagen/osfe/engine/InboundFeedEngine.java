@@ -16,6 +16,7 @@ package com.qagen.osfe.engine;
 
 import com.qagen.osfe.core.FeedJobManager;
 import com.qagen.osfe.core.FeedErrorException;
+import com.qagen.osfe.core.EngineContext;
 import com.qagen.osfe.dataAccess.vo.FeedFile;
 
 public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
@@ -56,14 +57,18 @@ public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
       final String feedId = feedFile.getFeed().getFeedId();
       final String feedFileName = feedFile.getFeedFileName();
 
-      if (!feedJobManager.isOutboundFeed(feed)) {
-        final String message = "FeedId, " + feedFileId + ", is not an outbound feed.";
+      feed = feedFile.getFeed();
+
+      if (!feedJobManager.isInboundFeed(feed)) {
+        final String message = "FeedId, " + feedFileId + ", is not an inbound feed.";
         throw new FeedErrorException(message);
       }
 
+      context = new EngineContext();
       context.setSequenceNumber(feedFile.getSequenceNumber());
 
       initFeedProcess(feedId, feedFileName);
+
     } catch (Exception e) {
       handleError(feedId, feedFileName, e);
     }
@@ -109,19 +114,27 @@ public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
     execute();
   }
 
+  protected static void printUsage() {
+    System.err.println("Usage: InboundFeedEngine feedId, feedFileName");
+    System.err.println("Example: InboundFeedEngine acme_qagen_testd_request acme_qagen_test_request_20080101.txt\n");
+    System.err.println("Usage: InboundFeedEngine feedFileId");
+    System.err.println("Example: InboundFeedEngine 100001");
+    System.exit(-1);
+  }
+
   public static void main(String[] args) {
-    if (args.length < 2) {
-      System.err.println("Usage: InboundFeedEngine feedId, feedFileName");
-      System.err.println("Example: InboundFeedEngine acme.qagen.testd.request acme_qagen_test_request_20080101.txt\n");
-      System.err.println("Usage: InboundFeedEngine feedFileId");
-      System.err.println("Example: InboundFeedEngine 100001");
-      System.exit(-1);
+    if (args.length < 1) {
+      printUsage();
     }
 
     if (args.length == 2) {
       final InboundFeedEngine engine = new InboundFeedEngine(args[0], args[1]);
       engine.execute();
     } else {
+      if (!isNumeric(args[0])) {
+        System.err.println("Single parameter must be a number feed_file_id value");
+        printUsage();
+      }
       final InboundFeedEngine engine = new InboundFeedEngine(Integer.parseInt(args[0]));
       engine.execute();
     }

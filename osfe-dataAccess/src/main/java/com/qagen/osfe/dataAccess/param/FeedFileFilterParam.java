@@ -15,32 +15,39 @@
 package com.qagen.osfe.dataAccess.param;
 
 /**
- * Author: Gregg Bolinger
+ * Author: Gregg Bolinger & Hycel Taylor
  * <p/>
  */
 public class FeedFileFilterParam {
 
   private String feedFileStateId;
   private String feedFileDate;
+  private String feedId;
+  private Integer sequenceNumber;
 
   public FeedFileFilterParam(String feedFileStateId, String feedFileDate) {
     this.feedFileStateId = feedFileStateId;
     this.feedFileDate = feedFileDate;
   }
 
-  public String getFeedFileStateId() {
-    return feedFileStateId;
+  public FeedFileFilterParam(String feedId, Integer sequenceNumber) {
+    this.feedId = feedId;
+    this.sequenceNumber = sequenceNumber;
   }
 
-  public void setFeedFileStateId(String feedFileStateId) {
-    this.feedFileStateId = feedFileStateId;
+  public String getFeedFileStateId() {
+    return feedFileStateId;
   }
 
   public String getFeedFileDate() {
     return feedFileDate;
   }
 
-  public void setFeedFileDate(String feedFileDate) {
-    this.feedFileDate = feedFileDate;
+  public String getFeedId() {
+    return feedId;
+  }
+
+  public Integer getSequenceNumber() {
+    return sequenceNumber;
   }
 }

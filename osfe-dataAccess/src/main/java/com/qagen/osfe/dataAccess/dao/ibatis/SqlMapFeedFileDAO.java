@@ -72,4 +72,10 @@ public class SqlMapFeedFileDAO extends SqlMapClientDaoSupport implements FeedFil
   public List<FeedFile> findByFeedFileStateAndDate(FeedFileFilterParam param) {
     return getSqlMapClientTemplate().queryForList("FeedFile.findByFeedFileStateAndDate", param); 
   }
+
+  @SuppressWarnings("unchecked")
+  public List<FeedFile> findByFeedFileIdAndSequenceNo(FeedFileFilterParam param) {
+    return getSqlMapClientTemplate().queryForList("FeedFile.findByFeedFileIdAndSequenceNo", param);
+  }
+  
 }
