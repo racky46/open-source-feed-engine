@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<dataset>
-  <table name="t_feed_data_source">
-    <columns>
-      <column name="feed_data_source_id" isString="true"/>
-      <column name="description" isString="true"/>
-    </columns>
-    <rows>
-      <row>
-        <feed_data_source_id>acme</feed_data_source_id>
-        <description>Acme is a test data source</description>
-      </row>
-      <row>
-        <feed_data_source_id>qagen</feed_data_source_id>
-        <description>QAGen Testing Organization</description>
-      </row>
-    </rows>
-  </table>
-</dataset>
+<rows>
+  <row>
+    <feedDataSourceId>acme</feedDataSourceId>
+    <description>Acme is a test data source</description>
+  </row>
+  <row>
+    <feedDataSourceId>qagen</feedDataSourceId>
+    <description>QAGen Testing Organization</description>
+  </row>
+</rows>
