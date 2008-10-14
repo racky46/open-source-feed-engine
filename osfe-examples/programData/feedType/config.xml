@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<dataset>
-  <table name="t_feed_type">
-    <columns>
-      <column name="feed_type_id" isString="true"/>
-      <column name="description" isString="true"/>
-    </columns>
-    <rows>
-      <row>
-        <feed_type_id>testd</feed_type_id>
-        <description>Test Delimited Feed File</description>
-      </row>
-      <row>
-        <feed_type_id>testf</feed_type_id>
-        <description>Test Fixed Feed File</description>
-      </row>
-      <row>
-        <feed_type_id>testx</feed_type_id>
-        <description>Test Complex XML Feed File</description>
-      </row>
-      <row>
-        <feed_type_id>student</feed_type_id>
-        <description>Feeds that contain student demographic information</description>
-      </row>
-      <row>
-        <feed_type_id>product</feed_type_id>
-        <description>Merchant specific product feeds</description>
-      </row>
-    </rows>
-  </table>
-</dataset>
+<rows>
+  <row>
+    <feedTypeId>testd</feedTypeId>
+    <description>Test Delimited Feed File</description>
+  </row>
+  <row>
+    <feedTypeId>testf</feedTypeId>
+    <description>Test Fixed Feed File</description>
+  </row>
+  <row>
+    <feedTypeId>testx</feedTypeId>
+    <description>Test Complex XML Feed File</description>
+  </row>
+  <row>
+    <feedTypeId>accountd</feedTypeId>
+    <description>Test Complex XML Feed File</description>
+  </row>
+  <row>
+    <feedTypeId>student</feedTypeId>
+    <description>Feeds that contain student demographic information</description>
+  </row>
+</rows>

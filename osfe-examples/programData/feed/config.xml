@@ -1,109 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<dataset>
-  <table name="t_feed">
-    <columns>
-      <column name="feed_id" isString="true"/>
-      <column name="activation_date" isString="true"/>
-      <column name="termination_date" isString="true"/>
-      <column name="allow_concurrent_runs" isString="false"/>
-      <column name="allow_failed_state_runs" isString="false"/>
-      <column name="collect_phase_stats" isString="false"/>
-      <column name="restart_at_checkpoint" isString="false"/>
-      <column name="last_sequence_number" isString="true"/>
-      <column name="max_concurrent_runs" isString="false"/>
-      <column name="feed_directory" isString="true"/>
-      <column name="feed_document" isString="true"/>
-      <column name="from_data_source_id" isString="true"/>
-      <column name="to_data_source_id" isString="true"/>
-      <column name="feed_type_id" isString="true"/>
-      <column name="feed_protocol_id" isString="true"/>
-      <column name="feed_sequence_type_id" isString="true"/>
-      <column name="feed_direction_id" isString="true"/>
-      <column name="feed_group_id" isString="true"/>
-      <column name="feed_queue_type_id" isString="true"/>
-    </columns>
-    <rows>
-      <row>
-        <feed_id>acme_qagen_testd_request</feed_id>
-        <activation_date>2008-01-01 12:00:00</activation_date>
-        <termination_date>2009-01-01 12:00:00</termination_date>
-        <allow_concurrent_runs>1</allow_concurrent_runs>
-        <allow_failed_state_runs>0</allow_failed_state_runs>
-        <collect_phase_stats>1</collect_phase_stats>
-        <restart_at_checkpoint>1</restart_at_checkpoint>
-        <last_sequence_number>0</last_sequence_number>
-        <max_concurrent_runs>1</max_concurrent_runs>
-        <feed_directory>feed/acme/qagen/testd/request</feed_directory>
-        <feed_document>partnerConfig/acme/qagen/testd/request</feed_document>
-        <from_data_source_id>acme</from_data_source_id>
-        <to_data_source_id>qagen</to_data_source_id>
-        <feed_type_id>testd</feed_type_id>
-        <feed_protocol_id>request</feed_protocol_id>
-        <feed_direction_id>inbound</feed_direction_id>
-        <feed_group_id>test_group</feed_group_id>
-        <feed_queue_type_id>test_queue</feed_queue_type_id>
-      </row>
-      <row>
-        <feed_id>acme_qagen_testf_request</feed_id>
-        <activation_date>2008-01-01 12:00:00</activation_date>
-        <termination_date>2009-01-01 12:00:00</termination_date>
-        <allow_concurrent_runs>1</allow_concurrent_runs>
-        <allow_failed_state_runs>0</allow_failed_state_runs>
-        <collect_phase_stats>1</collect_phase_stats>
-        <restart_at_checkpoint>1</restart_at_checkpoint>
-        <last_sequence_number>0</last_sequence_number>
-        <max_concurrent_runs>1</max_concurrent_runs>
-        <feed_directory>feed/acme/qagen/testf/request</feed_directory>
-        <feed_document>partnerConfig/acme/qagen/testf/request</feed_document>
-        <from_data_source_id>acme</from_data_source_id>
-        <to_data_source_id>qagen</to_data_source_id>
-        <feed_type_id>testf</feed_type_id>
-        <feed_protocol_id>request</feed_protocol_id>
-        <feed_direction_id>inbound</feed_direction_id>
-        <feed_group_id>test_group</feed_group_id>
-        <feed_queue_type_id>test_queue</feed_queue_type_id>
-      </row>
-      <row>
-        <feed_id>acme_qagen_testx_request</feed_id>
-        <activation_date>2008-01-01 12:00:00</activation_date>
-        <termination_date>2009-01-01 12:00:00</termination_date>
-        <allow_concurrent_runs>1</allow_concurrent_runs>
-        <allow_failed_state_runs>0</allow_failed_state_runs>
-        <collect_phase_stats>1</collect_phase_stats>
-        <restart_at_checkpoint>1</restart_at_checkpoint>
-        <last_sequence_number>0</last_sequence_number>
-        <max_concurrent_runs>1</max_concurrent_runs>
-        <feed_directory>feed/acme/qagen/testx/request</feed_directory>
-        <feed_document>partnerConfig/acme/qagen/testx/request</feed_document>
-        <from_data_source_id>acme</from_data_source_id>
-        <to_data_source_id>qagen</to_data_source_id>
-        <feed_type_id>testx</feed_type_id>
-        <feed_protocol_id>request</feed_protocol_id>
-        <feed_direction_id>inbound</feed_direction_id>
-        <feed_group_id>test_group</feed_group_id>
-        <feed_queue_type_id>test_queue</feed_queue_type_id>
-      </row>
-      <row>
-        <feed_id>acme_qagen_student_request</feed_id>
-        <activation_date>2008-01-01 12:00:00</activation_date>
-        <termination_date>2009-01-01 12:00:00</termination_date>
-        <allow_concurrent_runs>1</allow_concurrent_runs>
-        <allow_failed_state_runs>0</allow_failed_state_runs>
-        <collect_phase_stats>1</collect_phase_stats>
-        <restart_at_checkpoint>1</restart_at_checkpoint>
-        <last_sequence_number>0</last_sequence_number>
-        <max_concurrent_runs>1</max_concurrent_runs>
-        <feed_directory>feed/acme/qagen/student/request</feed_directory>
-        <feed_document>partnerConfig/acme/qagen/student/request</feed_document>
-        <from_data_source_id>acme</from_data_source_id>
-        <to_data_source_id>qagen</to_data_source_id>
-        <feed_type_id>student</feed_type_id>
-        <feed_protocol_id>request</feed_protocol_id>
-        <feed_direction_id>inbound</feed_direction_id>
-        <feed_group_id>student_group</feed_group_id>
-        <feed_queue_type_id>test_queue</feed_queue_type_id>
-      </row>
-    </rows>
-  </table>
-</dataset>
+<rows>
+  <row>
+    <feedId>acme_qagen_testd_request</feedId>
+    <activationDate>2008-01-01 12:00:00</activationDate>
+    <terminationDate>2009-01-01 12:00:00</terminationDate>
+    <allowConcurrentRuns>1</allowConcurrentRuns>
+    <allowFailedStateRuns>0</allowFailedStateRuns>
+    <collectPhasStats>1</collectPhasStats>
+    <restartAtCheckpoint>1</restartAtCheckpoint>
+    <nextSequenceNumber>0</nextSequenceNumber>
+    <maxConcurrentRuns>1</maxConcurrentRuns>
+    <feedDirectory>feed/acme/qagen/testd/request</feedDirectory>
+    <feedDocument>partnerConfig/acme/qagen/testd/request</feedDocument>
+    <fromDataSourceId>acme</fromDataSourceId>
+    <toDataSourceId>qagen</toDataSourceId>
+    <feedTypeId>testd</feedTypeId>
+    <feedProtocolId>request</feedProtocolId>
+    <feedDirectionId>inbound</feedDirectionId>
+    <feedGroupId>test_group</feedGroupId>
+  </row>
+  <row>
+    <feedId>acme_qagen_testf_request</feedId>
+    <activationDate>2008-01-01 12:00:00</activationDate>
+    <terminationDate>2009-01-01 12:00:00</terminationDate>
+    <allowConcurrentRuns>1</allowConcurrentRuns>
+    <allowFailedStateRuns>0</allowFailedStateRuns>
+    <collectPhasStats>1</collectPhasStats>
+    <restartAtCheckpoint>1</restartAtCheckpoint>
+    <nextSequenceNumber>0</nextSequenceNumber>
+    <maxConcurrentRuns>1</maxConcurrentRuns>
+    <feedDirectory>feed/acme/qagen/testf/request</feedDirectory>
+    <feedDocument>partnerConfig/acme/qagen/testf/request</feedDocument>
+    <fromDataSourceId>acme</fromDataSourceId>
+    <toDataSourceId>qagen</toDataSourceId>
+    <feedTypeId>testf</feedTypeId>
+    <feedProtocolId>request</feedProtocolId>
+    <feedDirectionId>inbound</feedDirectionId>
+    <feedGroupId>test_group</feedGroupId>
+  </row>
+  <row>
+    <feedId>acme_qagen_testx_request</feedId>
+    <activationDate>2008-01-01 12:00:00</activationDate>
+    <terminationDate>2009-01-01 12:00:00</terminationDate>
+    <allowConcurrentRuns>1</allowConcurrentRuns>
+    <allowFailedStateRuns>0</allowFailedStateRuns>
+    <collectPhasStats>1</collectPhasStats>
+    <restartAtCheckpoint>1</restartAtCheckpoint>
+    <nextSequenceNumber>0</nextSequenceNumber>
+    <maxConcurrentRuns>1</maxConcurrentRuns>
+    <feedDirectory>feed/acme/qagen/testx/request</feedDirectory>
+    <feedDocument>partnerConfig/acme/qagen/testx/request</feedDocument>
+    <fromDataSourceId>acme</fromDataSourceId>
+    <toDataSourceId>qagen</toDataSourceId>
+    <feedTypeId>testx</feedTypeId>
+    <feedProtocolId>request</feedProtocolId>
+    <feedDirectionId>inbound</feedDirectionId>
+    <feedGroupId>test_group</feedGroupId>
+  </row>
+  <row>
+    <feedId>acme_qagen_accountd_request</feedId>
+    <activationDate>2008-01-01 12:00:00</activationDate>
+    <terminationDate>2009-01-01 12:00:00</terminationDate>
+    <allowConcurrentRuns>1</allowConcurrentRuns>
+    <allowFailedStateRuns>0</allowFailedStateRuns>
+    <collectPhasStats>1</collectPhasStats>
+    <restartAtCheckpoint>1</restartAtCheckpoint>
+    <nextSequenceNumber>1</nextSequenceNumber>
+    <maxConcurrentRuns>1</maxConcurrentRuns>
+    <feedDirectory>feed/acme/qagen/accontd/request</feedDirectory>
+    <feedDocument>partnerConfig/acme/qagen/accountd/request</feedDocument>
+    <fromDataSourceId>acme</fromDataSourceId>
+    <toDataSourceId>qagen</toDataSourceId>
+    <feedTypeId>accountd</feedTypeId>
+    <feedProtocolId>request</feedProtocolId>
+    <feedDirectionId>outbound</feedDirectionId>
+    <feedGroupId>test_group</feedGroupId>
+  </row>
+  <row>
+    <feedId>acme_qagen_student_request</feedId>
+    <activationDate>2008-01-01 12:00:00</activationDate>
+    <terminationDate>2009-01-01 12:00:00</terminationDate>
+    <allowConcurrentRuns>1</allowConcurrentRuns>
+    <allowFailedStateRuns>0</allowFailedStateRuns>
+    <collectPhasStats>1</collectPhasStats>
+    <restartAtCheckpoint>1</restartAtCheckpoint>
+    <nextSequenceNumber>0</nextSequenceNumber>
+    <maxConcurrentRuns>1</maxConcurrentRuns>
+    <feedDirectory>feed/acme/qagen/student/request</feedDirectory>
+    <feedDocument>partnerConfig/acme/qagen/student/request</feedDocument>
+    <fromDataSourceId>acme</fromDataSourceId>
+    <toDataSourceId>qagen</toDataSourceId>
+    <feedTypeId>student</feedTypeId>
+    <feedProtocolId>request</feedProtocolId>
+    <feedDirectionId>inbound</feedDirectionId>
+    <feedGroupId>student_group</feedGroupId>
+  </row>
+</rows>
