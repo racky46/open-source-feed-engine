@@ -125,6 +125,7 @@ public class InboundFeedEngine extends AbstractFeedEngine implements Runnable {
   public static void main(String[] args) {
     if (args.length < 1) {
       printUsage();
+      System.exit(-1);
     }
 
     if (args.length == 2) {

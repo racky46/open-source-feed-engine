@@ -19,15 +19,15 @@ import java.io.File;
  * Date: Oct 15, 2008
  * Time: 3:24:19 PM
  */
-public class BatchInboundEngine implements FeedConstants {
+public class BatchInboundFeedEngine implements FeedConstants {
   final String feedId;
   final FeedService feedService;
   final Feed feed;
   final String directory;
 
-  private static Log logger = Log.getInstance(BatchInboundEngine.class);
+  private static Log logger = Log.getInstance(BatchInboundFeedEngine.class);
 
-  public BatchInboundEngine(String feedId) {
+  public BatchInboundFeedEngine(String feedId) {
     this.feedId = feedId;
     feedService = (FeedService) DataAccessContext.getBean(FeedService.SERVICE_ID);
 
@@ -58,7 +58,14 @@ public class BatchInboundEngine implements FeedConstants {
     final String[] list = file.list();
     final List<String> fileNames = new ArrayList<String>();
 
-    fileNames.addAll(Arrays.asList(list));
+    if (list != null) {
+      Arrays.sort(list);
+
+      // make sure the list is created in sorted order.
+      for (String fileName : list) {
+        fileNames.add(fileName);
+      }
+    }
 
     return fileNames;
   }
@@ -70,7 +77,7 @@ public class BatchInboundEngine implements FeedConstants {
       System.exit(-1);
     }
 
-    final BatchInboundEngine engine = new BatchInboundEngine(args[0]);
+    final BatchInboundFeedEngine engine = new BatchInboundFeedEngine(args[0]);
     engine.processFeeds();
   }
 
