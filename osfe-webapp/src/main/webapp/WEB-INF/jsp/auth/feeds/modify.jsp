@@ -115,13 +115,6 @@
                 </td>
               </tr>
               <tr>
-                <td><s:label for="feed.feedQueueType"/> </td>
-                <td><s:select name="feed.feedQueueType.feedQueueTypeId" >
-                      <s:options-collection collection="${actionBean.feedQueueTypes}" value="feedQueueTypeId" label="feedQueueTypeId" />
-                    </s:select>
-                </td>
-              </tr>
-              <tr>
                 <td>&nbsp;</td>
                 <td align="right">
                   <s:submit name="cancel" value="Cancel" />
