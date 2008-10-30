@@ -38,12 +38,12 @@ import java.util.List;
 public class ManageFeedsActionBean extends BaseActionBean {
 
   @ValidateNestedProperties({
-      @Validate(field="feedId", required=true),
-      @Validate(field="activationDate", required=true),
-      @Validate(field="terminationDate", required=true),
-      @Validate(field="lastSequenceNumber", required=true),
-      @Validate(field="maxConcurrentRuns", required=true)
-      })
+  @Validate(field = "feedId", required = true),
+  @Validate(field = "activationDate", required = true),
+  @Validate(field = "terminationDate", required = true),
+  @Validate(field = "lastSequenceNumber", required = true),
+  @Validate(field = "maxConcurrentRuns", required = true)
+    })
 
   private Feed feed;
 
@@ -189,7 +189,7 @@ public class ManageFeedsActionBean extends BaseActionBean {
   public Resolution save() {
     if (!isEditMode()) {
       feedService.insert(feed);
-    }else{
+    } else {
       feedService.update(feed);
     }
     return new RedirectResolution(ManageFeedsActionBean.class);
@@ -223,7 +223,7 @@ public class ManageFeedsActionBean extends BaseActionBean {
     } else {
       totalPages = 1;
     }
-    
+
     final JqGridJsonModel json = new JqGridJsonModel();
 
     json.setPage(String.valueOf(page));
@@ -243,12 +243,16 @@ public class ManageFeedsActionBean extends BaseActionBean {
       cells.add(feed.getFeedType().getFeedTypeId());
       cells.add(feed.getFeedProtocol().getFeedProtocolId());
       cells.add(feed.getFeedDirection().getFeedDirectionId());
-      cells.add(feed.getFeedGroup().getFeedGroupId());
+      if (feed.getFeedGroup() == null) {
+        cells.add("n/a");
+      } else {
+        cells.add(feed.getFeedGroup().getFeedGroupId());
+      }
       cells.add("action");
       row.setCell(cells);
       rows.add(row);
     }
-    
+
     json.setRows(rows);
 
     final JSONSerializer serializer = new JSONSerializer();
@@ -257,7 +261,7 @@ public class ManageFeedsActionBean extends BaseActionBean {
     return new StreamingResolution("text/javascript", new StringReader(jsonResult));
   }
 
-  @After(on={"add", "save", "edit"}, stages = LifecycleStage.BindingAndValidation)
+  @After(on = {"add", "save", "edit"}, stages = LifecycleStage.BindingAndValidation)
   public void populateFormLists() {
     dataSources = feedDataSourceService.findAll();
     feedTypes = feedTypeService.findAll();
