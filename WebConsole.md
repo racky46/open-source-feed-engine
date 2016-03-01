@@ -1,0 +1,16 @@
+# Web Console Screen Shots #
+
+  * [Login Form](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Login.png)
+  * [Main Menu](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-MainMenu.png)
+    * [Administration Main Menu](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-AdminMainMenu.png)
+      * [View  Datasources](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-List.png)
+        * [Edit a Datasource](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-DataSource-Edit.png)
+      * [View Feed Groups](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-List.png)
+        * [Edit a Feed Group](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedGroup-Edit.png)
+      * [View Feed Types](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-List.png)
+        * [Edit a Feed Type](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedType-Edit.png)
+      * [View Feed Definitions](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-List.png)
+        * [Edit a Feed Definition](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Feed-Edit.png)
+    * [Query Main Menu](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-Query-MainMenu.png)
+      * [Query Feed Files](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-FeedFile-List.png)
+      * [View Phase Statistics](http://www.qagen.com/images/osfe/webconsole/Screenshot-OSFE-View-Stats.png)
